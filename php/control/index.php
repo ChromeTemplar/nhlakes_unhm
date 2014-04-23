@@ -11,7 +11,8 @@ require_once 'C:\\devel\\web\\php\\model\\loginModel.php';
 
 # Check if a cookie is set. If cookie is not set, redirect to login screen.
 if ((!isset($_COOKIE['cookie'])) || (session_status() !== PHP_SESSION_ACTIVE)) {
-	(new view)->loginView(null);
+	$login = new view;
+	$login->loginView(null);
 }
 
 if (isset($_POST['email'])) {
@@ -24,7 +25,7 @@ if (isset($_POST['email'])) {
 	$validLogin = $login->processLogin();
 	
 	if($validLogin == true){
-		(new LoggedInView)->loggedIn($login->email);
+		LoggedInView::loggedIn($login->email);
 	}
 }
 
