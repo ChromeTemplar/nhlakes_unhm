@@ -277,6 +277,9 @@ class surveyController {
 		
 		$result = $model->getSurvey($survey_id);
 		//$result is an array of the survey information obtained from the Model->getSurvey function.
+		var_dump($result);
+		
+		$role = "GroupLeader";
 
 		$time = $result['inputTime'];
 		$date = $result['inputDate'];
@@ -357,7 +360,7 @@ class surveyController {
 				break;
 		}
 		
-		if(strcmp($interaction,"Y")==0)
+		if($interaction == 1)
 			$interactionYesValue = "checked = 'true'";
 			//If the value from the database is yes then this button will be checked
 		else
@@ -371,21 +374,21 @@ class surveyController {
 			$lastTownValue = $lastTown;
 			$lastStateValue = $lastState;
 			
-			if(strcmp($drained,"Y")==0)
+			if($drained == 1)
 				$drainedYesValue = "checked = 'true'";
 				//If the value from the database is yes then this button will be checked
 			else
 				$drainedNoValue = "checked = 'true'";
 				//If the value from the database is no then this button will be checked
 			
-			if(strcmp($rinsed,"Y")==0)
+			if($rinsed == 1)
 				$rinsedYesValue = "checked = 'true'";
 				//If the value from the database is yes then this button will be checked
 			else
 				$rinsedNoValue = "checked = 'true'";
 				//If the value from the database is no then this button will be checked
 			
-			if(strcmp($dried,"Y")==0)
+			if($dried == 1)
 				$driedYesValue = "checked = 'true'";
 				//If the value from the database is yes then this button will be checked
 			else
@@ -408,12 +411,12 @@ class surveyController {
 		
 		
 		
-		if(strcmp($specimenFound,"Y")==0) {
+		if($specimenFound == 1) {
 			//If specimen is found then fill in the bown nubmer and sentToDES value.
 			$specimenFoundYesValue = "checked = 'true'";
 			$bowNumberValue = $bowNumber;
 			if($DES != "" & $DES != Null) {
-				if(strcmp($DES,"Y")==0)
+				if($DES == 1)
 					$sentYesValue = "checked = 'true'";
 				else
 					$sentNoValue = "checked = 'true'";
@@ -421,7 +424,30 @@ class surveyController {
 		} else {
 			$specimenFoundNoValue = "checked = 'true'";
 		}
-	
+		
+		$sentToDESRow = "";
+		$notesRow = "";
+		
+		if ($role=='GroupLeader') {
+			$sentToDESRow = <<<_END
+Sent to DES: <input type='radio' name='sentToDES' value='YES' $sentYesValue>YES	
+<input type='radio' name='sentToDES' value='NO' $sentNoValue>NO
+_END;
+			$notesRow = <<<_END
+<tr><td>Notes</td>
+			<td>
+				<textarea rows="3" cols="50"></textarea>
+			</td>
+		</tr>
+_END;
+			$activeRow = <<<_END
+<tr>
+            <td><input type='radio' name='active' value=1 > Verified</td> 
+            <td><input type='radio' name='active' value=0 > Not verified</td>
+			</tr>
+_END;
+		}
+			
 		$form=<<<_END
 <form name='myForm' method='post' action='formSubmission.php'>
         <table name='myTable'>
@@ -484,8 +510,11 @@ class surveyController {
             <td>
 				<input type='radio' name='specimenFound' value='Y' $specimenFoundYesValue>Yes <input type='radio' name='awareness' value='High' value='N' $specimenFoundNoValue>No <br/>
 				Full Bow Number: <input type='text' name='bowNumber' value=$bowNumberValue> <br/>
-				Sent to DES: <input type='radio' name='sentToDES' value='YES' $sentYesValue>YES	<input type='radio' name='sentToDES' value='NO' $sentNoValue>NO</td>
+				$sentToDESRow
+			</td>
           </tr>
+		  $notesRow
+		  $activeRow
           <tr>
             <td>
               <input type='submit' value='Submit' />
@@ -524,7 +553,7 @@ class surveyModel {
 		   exit();
 		}
 		
-		$stmt = $mysqli->prepare("select surveyID,inputTime,launchStatus,registrationState,boatType from boaterSurvey where lakeHostID=$user_id");
+		$stmt = $mysqli->prepare("select SurveyID,InspectionTime,LaunchStatus,RegistrationState,BoatType from Surveys where LakeHostID=$user_id");
 		 
 		 if (!$stmt) {
 			printf("prepare( ) failed: (%s) %s", $mysqli->errno, $mysqli->error);
@@ -563,7 +592,7 @@ class surveyModel {
 		   exit();
 		}
 		
-		 $stmt = $mysqli->prepare("select * from boaterSurvey where surveyID=$survey_id");
+		 $stmt = $mysqli->prepare("select * from Surveys where SurveyID=$survey_id");
 		 
 		 if (!$stmt) {
 			printf("prepare( ) failed: (%s) %s", $mysqli->errno, $mysqli->error);
@@ -574,15 +603,15 @@ class surveyModel {
 			
 			$surveyResult = array();
 			
-			$stmt->bind_result($surveyID, $lakeHostID, $inputDate, $inputTime, $launchStatus, $registrationState,
+			$stmt->bind_result($surveyID, $lakeHostID, $inputDate, $inputTime, $siteID, $launchStatus, $registrationState,
 			$boatType, $previousInteraction, $lastSiteVisited, $lastTownVisited, $lastStateVisited, $drained, $rinsed,
-			$dryForFiveDays, $boaterAwareness, $specimenFound, $sentToDES, $bowNumber);
+			$dryForFiveDays, $boaterAwareness, $specimenFound, $bowNumber, $sentToDES, $notes, $active);
 
 			$stmt->fetch();
-			$surveyResult = array('surveyID'=>"$surveyID",'lakeHostID'=>"$lakeHostID",'inputDate'=>"$inputDate",'inputTime'=>"$inputTime",'launchStatus'=>"$launchStatus",
+			$surveyResult = array('surveyID'=>"$surveyID",'lakeHostID'=>"$lakeHostID",'inputDate'=>"$inputDate",'inputTime'=>"$inputTime",'siteID'=>"$siteID",'launchStatus'=>"$launchStatus",
 			'registrationState'=>"$registrationState",'boatType'=>"$boatType",'previousInteraction'=>"$previousInteraction",'lastSiteVisited'=>"$lastSiteVisited",
 			'lastTownVisited'=>"$lastTownVisited",'lastStateVisited'=>"$lastStateVisited",'drained'=>"$drained",'rinsed'=>"$rinsed",'dryForFiveDays'=>"$dryForFiveDays",
-			'boaterAwareness'=>"$boaterAwareness",'specimenFound'=>"$specimenFound",'sentToDES'=>"$sentToDES",'bowNumber'=>"$bowNumber");
+			'boaterAwareness'=>"$boaterAwareness",'specimenFound'=>"$specimenFound",'bowNumber'=>"$bowNumber",'sentToDES'=>"$sentToDES",'notes'=>"$notes",'active'=>"$active");
 
 			 /* close statement */
 			$stmt->close( );

@@ -29,7 +29,7 @@ require("boaterSurvey.php");
       <?php
 	  
 		$view = new surveyView();
-		$view->viewSurveysList(3);
+		$view->viewSurveysList(1);
 		
 	  ?>
     </div>
