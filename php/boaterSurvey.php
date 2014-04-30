@@ -9,11 +9,13 @@ class surveyView {
 
 	public $controller;
 	public $model;
+	public $db;
 	
 	public function __construct() {
 		//constructor makes new instances of the controller and model
 		$this->controller = new surveyController;
 		$this->model = new surveyModel;
+		$this->db = new db;
 	}
 	
 	public function newSurvey() {
@@ -22,39 +24,98 @@ class surveyView {
 		//$survey now holds HTML that can be echoed to the browser
 		echo $survey;
 	}
+	
+	/*
+	This function is called to display surveys conducted in this particular site. The function takes $site_id as a parameter.
+	*/
+	public function viewSiteSurveys($site_id) {
+	$surveysList = array(); //Sites data will be stored in this array
+	
+	$surveysList = $this->db->getSiteSurveys($site_id); // The function getSiteSurveys($site_id) returns an array of surveys.
+	
+	if(empty($surveysList)) {
+			echo "No Surveys";
+			
+		} else {
+		
+			$numberOfSurveys = count($surveysList['surveyID']);
+			//Number of surveys conducted by the user is equal to the length of the array.
+		
+		
+			
+			echo "<form method='post' action='surveyEditingPage.php'>";
+			//This is the HTML form header.
+			
+			for($i=1;$i<=$numberOfSurveys;$i++) {
+				$surveyID = $surveysList['surveyID'][$i-1];
+				$date = $surveysList['inputDate'][$i-1];
+				$status = $surveysList['launchStatus'][$i-1];
+				$state = $surveysList['registrationState'][$i-1];
+				$boat = $surveysList['boatType'][$i-1];
+
+				echo<<<_END
+<input type='radio' name='surveyID' value=$surveyID>
+Date: $date , Lanuch Status: $status , Registration State: $state , Boat Type: $boat <br/>
+_END;
+			}
+			//The for loop is used to loop through the list of surveys. Each survey will be presented as a radio button. Surveys are labeled by time, status, state, and boat type.
+			
+			
+			echo "<input type='submit' name='submitButton' value='Edit/Flag' ></input>";
+			echo"</form>";
+			//The is the submit button and the closing tag for the form.	
+		}
+	
+	
+	
+	}
 	/**
 	This function will be called to display a list of surveys that the user can choose from.
 	*/
 	public function viewSurveysList($user_id) {
+		$surveysList = array();
 	
-		$surveysList = $this->model->getUserSurveys($user_id);
+		$role = $this->model->getUserRole($user_id);
+		
+		if (strcmp($role,"LakeHost")==0){
+		$surveysList = $this->model->getUserSurveys($user_id,$role);
 		// surveysList is an array of surveys conducted by the user. The function getUserSurveys() will be called from the Model and it will return an array.
+		} else if (strcmp($role,"GroupLeader")==0) {
+		$surveysList = $this->db->getGroupSurveys($user_id,$role);
+		}
 		
-		$numberOfSurveys = count($surveysList['surveyID']);
-		//Number of surveys conducted by the user is equal to the length of the array.
-	
-		echo "<form method='post' action='surveyEditingPage.php'>";
-		//This is the HTML form header.
+		if(empty($surveysList)) {
+			echo "No Surveys";
+			
+		} else {
 		
-		for($i=1;$i<=$numberOfSurveys;$i++) {
-			$surveyID = $surveysList['surveyID'][$i-1];
-			$time = $surveysList['inputTime'][$i-1];
-			$status = $surveysList['launchStatus'][$i-1];
-			$state = $surveysList['registrationState'][$i-1];
-			$boat = $surveysList['boatType'][$i-1];
+			$numberOfSurveys = count($surveysList['surveyID']);
+			//Number of surveys conducted by the user is equal to the length of the array.
+		
+		
+			
+			echo "<form method='post' action='surveyEditingPage.php'>";
+			//This is the HTML form header.
+			
+			for($i=1;$i<=$numberOfSurveys;$i++) {
+				$surveyID = $surveysList['surveyID'][$i-1];
+				$time = $surveysList['inputTime'][$i-1];
+				$status = $surveysList['launchStatus'][$i-1];
+				$state = $surveysList['registrationState'][$i-1];
+				$boat = $surveysList['boatType'][$i-1];
 
-			echo<<<_END
+				echo<<<_END
 <input type='radio' name='surveyID' value=$surveyID>
 Time: $time , Lanuch Status: $status , Registration State: $state , Boat Type: $boat <br/>
 _END;
+			}
+			//The for loop is used to loop through the list of surveys. Each survey will be presented as a radio button. Surveys are labeled by time, status, state, and boat type.
+			
+			
+			echo "<input type='submit' name='submitButton' value='Edit/Flag' ></input>";
+			echo"</form>";
+			//The is the submit button and the closing tag for the form.	
 		}
-		//The for loop is used to loop through the list of surveys. Each survey will be presented as a radio button. Surveys are labeled by time, status, state, and boat type.
-		
-		
-		echo "<input type='submit' name='submitButton' value='Edit/Flag' ></input>";
-		echo"</form>";
-		//The is the submit button and the closing tag for the form.
-		
 	
 	}
 	
@@ -78,15 +139,13 @@ _END;
 		}
 	}
 	
-	
-	
 	/*
 	This function calls editSurvey from the controller class. 
 	*/
-	public function editSurvey($survey_id) {
+	public function editSurvey($survey_id,$user_id) {
 	
-		
-		$survey = $this->controller->editSurvey($survey_id);
+		$role = $this->model->getUserRole($user_id);// Gets the role of the user {LakeHost, GroupLeader, or StaffMember}.
+		$survey = $this->controller->editSurvey($survey_id,$role); // The HTML form.
 
 		echo $survey;
 		//$survey is a string variable returned from controller->editSurvey. This variable contains the HTML form elements which will be printed when this function is called.
@@ -269,17 +328,20 @@ class surveyController {
 		return $form;
 	}
 	
-	public function editSurvey($survey_id)
+	public function editSurvey($survey_id,$role)
 	{
 		$model = new surveyModel;
+		$db = new db;
 		//Making an instance of the Model class.
 		
 		
 		$result = $model->getSurvey($survey_id);
 		//$result is an array of the survey information obtained from the Model->getSurvey function.
-		var_dump($result);
+		$siteID = $result['siteID'];
 		
-		$role = "GroupLeader";
+		$accessSiteName = $db->getSiteName($siteID);//Site name will be displayed only for group leaders.
+		
+		echo "<br/>";
 
 		$time = $result['inputTime'];
 		$date = $result['inputDate'];
@@ -425,8 +487,11 @@ class surveyController {
 			$specimenFoundNoValue = "checked = 'true'";
 		}
 		
-		$sentToDESRow = "";
-		$notesRow = "";
+		$sentToDESRow = "";//This row is displayed for GroupLeaders and StaffMembers only.
+		$notesRow = "";//This row is displayed for GroupLeaders and StaffMembers only.
+		$activeRow = "";//This row is displayed for GroupLeaders and StaffMembers only.
+		
+		if ($role=='GroupLeader') echo $accessSiteName; //If the user is a GroupLeader then disply the site name.
 		
 		if ($role=='GroupLeader') {
 			$sentToDESRow = <<<_END
@@ -525,6 +590,38 @@ _END;
 		
 		return $form;	
 	}	
+	
+	/*
+	This function will be called to view the access sites stored in the system.
+	*/
+	public function viewAccessSites() {
+		$db = new db();
+		$accessSites = $db->getAccessSites();
+		
+		$self = htmlspecialchars($_SERVER["PHP_SELF"]);//The information of the form will be sent back to self. This is done to change the content of the page when the submit button is clicked.
+		$numberOfSites = count($accessSites['SiteID']); //Number of sites found in the database is equal to number of site IDs.
+		
+		echo "<form method='post' action='$self'>";
+			//This is the HTML form header.
+			
+			for($i=1;$i<=$numberOfSites;$i++) {
+				echo $i;
+				$SiteName = $accessSites['SiteName'][$i-1];
+				$SiteID = $accessSites['SiteID'][$i-1];
+				
+				echo<<<_END
+<input type='radio' name='SiteID' value=$SiteID>
+$SiteName <br/>
+_END;
+			}
+			//The for loop is used to loop through the list of surveys. Each survey will be presented as a radio button. Surveys are labeled by time, status, state, and boat type.
+			
+			
+			echo "<input type='submit' name='submitButton' value='Edit/Flag' ></input>";
+			echo"</form>";
+			
+	
+	}
 }
 
 class surveyModel {
@@ -541,24 +638,70 @@ class surveyModel {
 		//return true or false	
 	}
 	
-	public function getUserSurveys($user_id) {
-	//This function checks the database for surveys conducted by this specific user.
 	
+	public function getUserRole($user_id) {
 	
-	$mysqli = new mysqli("localhost", "root", "", "nhvbsr");
-	$surveyResult = array('surveyID'=>array(),'inputTime'=>array(),'launchStatus'=>array(),'registrationState'=>array(),'boatType'=>array());
+		$mysqli = new mysqli("localhost", "root", "", "nhvbsr");
 		
 		if (mysqli_connect_errno()) {
 		   printf("Connection failed: %s<br />", mysqli_connect_error());
 		   exit();
 		}
 		
-		$stmt = $mysqli->prepare("select SurveyID,InspectionTime,LaunchStatus,RegistrationState,BoatType from Surveys where LakeHostID=$user_id");
+		 $stmt = $mysqli->prepare("select Role from Users where UserID = ?");
 		 
 		 if (!$stmt) {
 			printf("prepare( ) failed: (%s) %s", $mysqli->errno, $mysqli->error);
 		} else {
 			//$nickName = "UNH";
+			$stmt->bind_param("i", $user_id);
+			$stmt->execute( );
+			//$stmt->bind_param("UNH");
+			
+			$role = "";
+			
+			$stmt->bind_result($role);
+
+			$stmt->fetch();
+			
+			 /* close statement */
+			$stmt->close( );
+		}
+
+		return $role;
+	
+	}
+	
+	public function getUserSurveys($user_id) {
+	//This function checks the database for surveys conducted by this specific user.
+	
+	
+	$today = getdate();
+	$year = $today['year'];
+	$day = $today['mday'];
+	$month = $today['mon'];
+	$date = "$year"."-"."$month"."-"."$day";
+
+	$date = "2013-01-03";
+	
+	
+	$mysqli = new mysqli("localhost", "root", "", "nhvbsr");
+	$surveyResult = array('surveyID'=>array(),'inputTime'=>array(),'launchStatus'=>array(),'registrationState'=>array(),'boatType'=>array());
+	
+
+	
+		if (mysqli_connect_errno()) {
+		   printf("Connection failed: %s<br />", mysqli_connect_error());
+		   exit();
+		}
+		
+		$stmt = $mysqli->prepare("select SurveyID,InspectionTime,LaunchStatus,RegistrationState,BoatType from Surveys where LakeHostID=? and InputDate=?");
+		 
+		 if (!$stmt) {
+			printf("prepare( ) failed: (%s) %s", $mysqli->errno, $mysqli->error);
+		} else {
+			//$nickName = "UNH";
+			$stmt->bind_param("is", $user_id, $date);
 			$stmt->execute( );
 			//$stmt->bind_param("UNH");
 			
@@ -580,6 +723,8 @@ class surveyModel {
 		return $surveyResult;
 	
 	}
+	
+	
 	public function getSurvey($survey_id) {
 	
 		//connect to DB class to get survey
@@ -592,12 +737,13 @@ class surveyModel {
 		   exit();
 		}
 		
-		 $stmt = $mysqli->prepare("select * from Surveys where SurveyID=$survey_id");
+		 $stmt = $mysqli->prepare("select * from Surveys where SurveyID=?");
 		 
 		 if (!$stmt) {
 			printf("prepare( ) failed: (%s) %s", $mysqli->errno, $mysqli->error);
 		} else {
 			//$nickName = "UNH";
+			$stmt->bind_param("i", $survey_id);
 			$stmt->execute( );
 			//$stmt->bind_param("UNH");
 			

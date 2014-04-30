@@ -123,13 +123,9 @@ values (2,1);
 insert into LakeHostMembers
 values (8,1);
 insert into LakeHostMembers
-values (5,1);
-insert into LakeHostMembers
 values (3,2);
 insert into LakeHostMembers
 values (4,2);
-insert into LakeHostMembers
-values (2,2);
 insert into LakeHostMembers
 values (5,2);
 insert into LakeHostMembers
@@ -172,7 +168,7 @@ VALUES (default,2,'2013-01-02','11:20:00',1,'Launched','CT','inboard/outboard(I/
 INSERT INTO Surveys
 VALUES (default,2,'2013-01-03','11:25:00',1,'Launched','NY','other',1,null,null,null,null,null,null,'Medium',0,null,null,null,1);
 INSERT INTO Surveys
-VALUES (default,2,'2013-01-03','11:30:00',2,'Launched','NH','canoe/kayak',1,'SiteOne','Concord','NH',0,0,0,'High',1,'098NKS88',null,null,1);
+VALUES (default,2,'2013-01-03','11:30:00',1,'Launched','NH','canoe/kayak',1,'SiteOne','Concord','NH',0,0,0,'High',1,'098NKS88',null,null,1);
 
 INSERT INTO Surveys
 VALUES (default,3,'2013-01-02','10:35:00',2,'Retrieved','MA','PWC/jet ski/jet boat',0,'SiteTwo','Manchester','NH',0,0,1,'Medium',1,'098NOSK',null,null,1);
@@ -187,7 +183,7 @@ INSERT INTO Surveys
 VALUES (default,4,'2013-01-03','11:55:00',2,'Launched','NH','canoe/kayak',1,'SiteOne','Concord','NH',0,0,0,'High',1,'098NKS88',null,null,1);
 
 INSERT INTO Surveys
-VALUES (default,5,'2013-01-03','10:00:00',1,'Retrieved','MA','PWC/jet ski/jet boat',0,'SiteTwo','Manchester','NH',0,0,1,'Medium',1,'098NOSK',null,null,1);
+VALUES (default,5,'2013-01-03','10:00:00',3,'Retrieved','MA','PWC/jet ski/jet boat',0,'SiteTwo','Manchester','NH',0,0,1,'Medium',1,'098NOSK',null,null,1);
 INSERT INTO Surveys
 VALUES (default,5,'2013-01-02','12:00:00',3,'Retrieved','ME','sail',1,'SiteThree','Burlington','VT',0,1,1,'Low',1,'098NDLFP',null,null,1);
 INSERT INTO Surveys
@@ -204,9 +200,9 @@ INSERT INTO Surveys
 VALUES (default,7,'2013-01-03','12:20:00',3,'Retrieved','ME','sail',1,'SiteThree','Burlington','VT',0,1,1,'Low',1,'098NDLFP',null,null,1);
 
 INSERT INTO Surveys
-VALUES (default,8,'2013-01-03','12:25:00',3,'Launched','CT','inboard/outboard(I/O)',0,'SiteFour','Providence','RI',1,0,0,'High',1,'09ALJ',null,null,1);
+VALUES (default,8,'2013-01-03','12:25:00',1,'Launched','CT','inboard/outboard(I/O)',0,'SiteFour','Providence','RI',1,0,0,'High',1,'09ALJ',null,null,1);
 INSERT INTO Surveys
-VALUES (default,8,'2013-01-03','12:30:00',3,'Launched','NY','other',1,null,null,null,null,null,null,'Medium',0,null,null,null,1);
+VALUES (default,8,'2013-01-03','12:30:00',1,'Launched','NY','other',1,null,null,null,null,null,null,'Medium',0,null,null,null,1);
 
 
 select * from AccessSites;

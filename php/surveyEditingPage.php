@@ -27,11 +27,14 @@ require("boaterSurvey.php");
 	<h2>Boater Survey</h2>
 	<hr>
       <?php
-		$surveyID = $_POST['surveyID'];
-		echo $surveyID;
-		$view = new surveyView();
-		$view->editSurvey($surveyID);
-		//var_dump($_POST);
+		$user_id = 6;
+		if(isset($_POST['surveyID'])) {
+			$surveyID = $_POST['surveyID'];
+			$view = new surveyView();
+			$view->editSurvey($surveyID,$user_id);
+		} else {
+			echo "Please select a survey!";
+		}
 		
 	  ?>
     </div>

@@ -27,10 +27,17 @@ require("boaterSurvey.php");
 	<h2>Boater Survey</h2>
 	<hr>
       <?php
-	  
+		$user_id = 6;
+		$model = new surveyModel();
 		$view = new surveyView();
-		$view->viewSurveysList(1);
+		$role = $model->getUserRole($user_id);
 		
+		if($role == "StaffMember") {
+			echo "Your are a staff member";
+			header('Location: accessSitesPage.php');
+		} else {
+			$view->viewSurveysList($user_id);
+		}
 	  ?>
     </div>
   </body>
