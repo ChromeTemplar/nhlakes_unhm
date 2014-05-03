@@ -17,8 +17,8 @@ require("boaterSurvey.php");
 			<ul>
 			   <li><a href='index.php'><span>NHVBSR</span></a></li>
 			   <li><a href='survey.php'><span>Survey</span></a></li>
-			   <li><a href='#'><span>View</span></a></li>
-			   <li><a href='edit.php'><span>Edit</span></a></li>
+			   <li><a href='view.php'><span>View</span></a></li>
+			   <li><a href='edit.php'><span>View/Edit</span></a></li>
 			   <li><a href='#'><span>Logout</span></a></li>
 			</ul>
 	</div>
