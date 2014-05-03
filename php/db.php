@@ -17,7 +17,7 @@ class db {
 	
 		//return survey data 		
 		
-		 $stmt = $this->mysqli->prepare("select * from boaterSurvey where surveyID=?");
+		 $stmt = $this->mysqli->prepare("select * from surveys where surveyID=?");
 		 
 		 if (!$stmt) {
 			printf("prepare( ) failed: (%s) %s", $this->mysqli->errno, $this->mysqli->error);
@@ -61,7 +61,7 @@ class db {
 		   exit();
 		}
 		
-		$stmt = $mysqli->prepare("select GroupID from Users where UserID=?");
+		$stmt = $mysqli->prepare("select GroupID from users where UserID=?");
 		 
 		 if (!$stmt) {
 			printf("prepare( ) failed: (%s) %s", $mysqli->errno, $mysqli->error);
@@ -79,7 +79,7 @@ class db {
 		}
 		
 		
-		$stmt = $mysqli->prepare("select lakeHostID from LakeHostMembers where LakeHostGroupID=?");
+		$stmt = $mysqli->prepare("select lakeHostID from lakehostmembers where LakeHostGroupID=?");
 		 
 		 if (!$stmt) {
 			printf("prepare( ) failed: (%s) %s", $mysqli->errno, $mysqli->error);
@@ -110,7 +110,7 @@ class db {
 		
 		for ($i = 1; $i<$numberOfLakeHosts; $i++ ) {
 		$LakeHostID = $LakeHosts[$i-1];
-		$stmt = $mysqli->prepare("select SurveyID,InspectionTime,LaunchStatus,RegistrationState,BoatType from Surveys where LakeHostID=? and InputDate=?");
+		$stmt = $mysqli->prepare("select SurveyID,InspectionTime,LaunchStatus,RegistrationState,BoatType from surveys where LakeHostID=? and InputDate=?");
 		 
 		 if (!$stmt) {
 			printf("prepare( ) failed: (%s) %s", $mysqli->errno, $mysqli->error);
@@ -147,7 +147,7 @@ class db {
 		   exit();
 		}
 		
-		$stmt = $mysqli->prepare("select SiteName from AccessSites where SiteID=?");
+		$stmt = $mysqli->prepare("select SiteName from accesssites where SiteID=?");
 		 
 		 if (!$stmt) {
 			printf("prepare( ) failed: (%s) %s", $mysqli->errno, $mysqli->error);
@@ -175,7 +175,7 @@ class db {
 		   exit();
 		}
 		
-		$stmt = $mysqli->prepare("select * from AccessSites");
+		$stmt = $mysqli->prepare("select * from accesssites");
 		 
 		 if (!$stmt) {
 			printf("prepare( ) failed: (%s) %s", $mysqli->errno, $mysqli->error);
@@ -206,7 +206,7 @@ class db {
 		   exit();
 		}
 		
-		$stmt = $mysqli->prepare("select SurveyID,InputDate,LaunchStatus,RegistrationState,BoatType from Surveys where SiteID=? order by InputDate DESC");
+		$stmt = $mysqli->prepare("select SurveyID,InputDate,LaunchStatus,RegistrationState,BoatType from surveys where SiteID=? order by InputDate DESC");
 		 
 		 if (!$stmt) {
 			printf("prepare( ) failed: (%s) %s", $mysqli->errno, $mysqli->error);
@@ -232,7 +232,60 @@ class db {
 		}
 		return $surveyResult;
 	}
-	
+	public function getAggregateSurveys() {
+		$mysqli = new mysqli("localhost", "root", "", "nhvbsr");
+				
+		if (mysqli_connect_errno()) {
+		   printf("Connection failed: %s<br />", mysqli_connect_error());
+		   exit();
+		}
+		
+		$rows = array();
+		
+		$result = $mysqli->query("SELECT COUNT(*) FROM surveys");		
+		$rows[0] = $result->fetch_row();
+		
+		$result = $mysqli->query("select count(SentToDES) from surveys WHERE SentToDES = '1'");		
+		$rows[1] = $result->fetch_row();
+		
+		$result = $mysqli->query("select count(Drained) from surveys WHERE Drained = '1'");		
+		$rows[2] = $result->fetch_row();
+		
+		$result = $mysqli->query("select count(Rinsed) from surveys WHERE Rinsed = '1'");		
+		$rows[3] = $result->fetch_row();
+		
+		$result = $mysqli->query("select count(DryForFiveDays) from surveys WHERE DryForFiveDays = '1'");		
+		$rows[4] = $result->fetch_row();
+		
+		return $rows;
+	}
+	public function getSortedAggregateSurveys($sort) {
+		$mysqli = new mysqli("localhost", "root", "", "nhvbsr");
+				
+		if (mysqli_connect_errno()) {
+		   printf("Connection failed: %s<br />", mysqli_connect_error());
+		   exit();
+		}
+		
+		$rows = array();
+		
+		$result = $mysqli->query("SELECT COUNT(*) FROM surveys");		
+		$rows[0] = $result->fetch_row();
+		
+		$result = $mysqli->query("select count(SentToDES) from surveys");		
+		$rows[1] = $result->fetch_row();
+		
+		$result = $mysqli->query("select count(Drained) from surveys");		
+		$rows[2] = $result->fetch_row();
+		
+		$result = $mysqli->query("select count(Rinsed) from surveys");		
+		$rows[3] = $result->fetch_row();
+		
+		$result = $mysqli->query("select count(DryForFiveDays) from surveys");		
+		$rows[4] = $result->fetch_row();
+		
+		return $rows;
+	}
 	
 }
 
