@@ -72,6 +72,68 @@ _END;
 	/**
 	This function will be called to display a list of surveys that the user can choose from.
 	*/
+	public function viewAggregateData($sort) {	
+		
+		if($sort="") {
+			$data = $this->model->getAggregateData();
+		
+			$total = implode($data[0]);
+			$DES =  implode($data[1]);
+			$drained =  implode($data[2]);
+			$rinsed =  implode($data[3]);
+			$dried =  implode($data[4]);
+			
+			$show = "
+				<div >
+				<table class='data'>
+					<tr>
+						<th>Total Surveys</th>
+						<th>Drained</th>
+						<th>Rinsed</th>
+						<th>Dried</th>
+						<th>DES</th>
+					</tr>
+					<tr>
+						<td>$total</td>						
+						<td>$drained</td>
+						<td>$rinsed</td>
+						<td>$dried</td>
+						<td>$DES</td>
+					</tr>
+				</table></div>";
+			echo $show;
+		}
+		else {
+		
+			$data = $this->model->getSortedAggregateData($sort);
+
+			$total = implode($data[0]);
+			$DES =  implode($data[1]);
+			$drained =  implode($data[2]);
+			$rinsed =  implode($data[3]);
+			$dried =  implode($data[4]);
+			
+			$show = "
+				<table class='data'>
+					<tr>
+						<th>Total Surveys</th>
+						<th>Drained</th>
+						<th>Rinsed</th>
+						<th>Dried</th>
+						<th>DES</th>
+					</tr>
+					<tr>
+						<td>$total</td>						
+						<td>$drained</td>
+						<td>$rinsed</td>
+						<td>$dried</td>
+						<td>$DES</td>
+					</tr>
+				</table>";
+			echo $show;
+		
+		}
+	}
 	public function viewSurveysList($user_id) {
 		$surveysList = array();
 	
@@ -204,16 +266,16 @@ class surveyController {
           <tr>
             <td>Previous interaction with a Lake Host?</td>
             <td>
-            <input type='radio' name='interaction' value='YES' /> YES 
-            <input type='radio' name='interaction' value='NO' /> NO</td>
+            <input type='radio' name='interaction' value='1' /> YES 
+            <input type='radio' name='interaction' value='0' /> NO</td>
           </tr>
           <tr>
             <td>Last waterbody visited</td>
             <td>
 				Name: <input type='text' name='lastSiteVisited'/> Town: <input type='text' name='lastTownVisited'/> State: <input type='text' name='lastStateVisited'/>
-				<br/> Drained?  <input type='radio' name='drained' value='YES' /> YES <input type='radio' name='drained' value='NO' /> NO
-				<br/> Rinsed?  <input type='radio' name='rinsed' value='YES' /> YES <input type='radio' name='rinsed' value='NO' /> NO
-				<br/> Dry for at least 5 days?  <input type='radio' name='dryForFiveDays' value='YES' /> YES <input type='radio' name='dryForFiveDays' value='NO' /> NO
+				<br/> Drained?  <input type='radio' name='drained' value='1' /> YES <input type='radio' name='drained' value='0' /> NO
+				<br/> Rinsed?  <input type='radio' name='rinsed' value='1' /> YES <input type='radio' name='rinsed' value='0' /> NO
+				<br/> Dry for at least 5 days?  <input type='radio' name='dryForFiveDays' value='1' /> YES <input type='radio' name='dryForFiveDays' value='0' /> NO
 			</td>
           </tr>
           <tr id='awarenessRow'>
@@ -227,9 +289,9 @@ class surveyController {
           <tr>
             <td>Specimen found?</td>
             <td>
-				<input type='radio' name='specimenFound' value='Y'>Yes <input type='radio' name='awareness' value='High' value='N'>No <br/>
-				Full Bow Number: <input type='text' name='registrationState'/> <br/>
-				Sent to DES: <input type='radio' name='sentToDES' value='YES' />YES	<input type='radio' name='sentToDES' value='NO' />NO
+				<input type='radio' name='specimenFound' value='1'>Yes <input type='radio' name='specimenFound' value='0'>No <br/>
+				Full Bow Number: <input type='text' name='Bow'/> <br/>
+				Sent to DES: <input type='radio' name='sentToDES' value='1' />YES	<input type='radio' name='sentToDES' value='0' />NO
 			</td>
           </tr>
           <tr>
@@ -291,32 +353,32 @@ class surveyController {
           <tr>
             <td>Previous interaction with a Lake Host?</td>
             <td>
-            <input type='radio' name='interaction' value='YES' /> YES 
-            <input type='radio' name='interaction' value='NO' /> NO</td>
+            <input type='radio' name='interaction' value='1' /> YES 
+            <input type='radio' name='interaction' value='0' /> NO</td>
           </tr>
           <tr>
             <td>Last waterbody visited</td>
             <td>
 				Name: <input type='text' name='lastSiteVisited'/> Town: <input type='text' name='lastTownVisited'/> State: <input type='text' name='lastStateVisited'/>
-				<br/> Drained?  <input type='radio' name='drained' value='YES' /> YES <input type='radio' name='drained' value='NO' /> NO
-				<br/> Rinsed?  <input type='radio' name='rinsed' value='YES' /> YES <input type='radio' name='rinsed' value='NO' /> NO
-				<br/> Dry for at least 5 days?  <input type='radio' name='dryForFiveDays' value='YES' /> YES <input type='radio' name='dryForFiveDays' value='NO' /> NO
+				<br/> Drained?  <input type='radio' name='drained' value='1' /> YES <input type='radio' name='drained' value='0' /> NO
+				<br/> Rinsed?  <input type='radio' name='rinsed' value='1' /> YES <input type='radio' name='rinsed' value='0' /> NO
+				<br/> Dry for at least 5 days?  <input type='radio' name='dryForFiveDays' value='1' /> YES <input type='radio' name='dryForFiveDays' value='0' /> NO
 			</td>
           </tr>
           <tr id='awarenessRow'>
             <td>Boater&#39;s awareness of AIS plant &amp; animal problem?</td>
             <td>
-            <input type='radio' name='awareness' value='High' id='h' />High 
-            <input type='radio' name='awareness' value='Medium' />Medium 
-            <input type='radio' name='awareness' value='Low' />Low
+            <input type='radio' name='awareness' value='High' id='h'>High 
+            <input type='radio' name='awareness' value='Medium'>Medium 
+            <input type='radio' name='awareness' value='Low'>Low
             <br /></td>
           </tr>
           <tr>
             <td>Specimen found?</td>
             <td>
-				<input type='radio' name='specimenFound' value='Y'>Yes <input type='radio' name='awareness' value='High' value='N'>No <br/>
-				Full Bow Number: <input type='text' name='registrationState'/> <br/>
-				Sent to DES: <input type='radio' name='sentToDES' value='YES' />YES	<input type='radio' name='sentToDES' value='NO'' />NO</td>
+				<input type='radio' name='specimenFound' value='Y'>Yes <input type='radio' name='specimenFound' value='N'>No <br/>
+				Full Bow Number: <input type='text' name='Bow'/> <br/>
+				Sent to DES: <input type='radio' name='sentToDES' value='1' />YES	<input type='radio' name='sentToDES' value='0' />NO</td>
           </tr>
           <tr>
             <td>
@@ -495,8 +557,8 @@ class surveyController {
 		
 		if ($role=='GroupLeader') {
 			$sentToDESRow = <<<_END
-Sent to DES: <input type='radio' name='sentToDES' value='YES' $sentYesValue>YES	
-<input type='radio' name='sentToDES' value='NO' $sentNoValue>NO
+Sent to DES: <input type='radio' name='sentToDES' value='1' $sentYesValue>YES	
+<input type='radio' name='sentToDES' value='0' $sentNoValue>NO
 _END;
 			$notesRow = <<<_END
 <tr><td>Notes</td>
@@ -626,6 +688,10 @@ _END;
 
 class surveyModel {
 
+	public function __construct() {
+		//constructor makes new instances of the controller and model
+		$this->db = new db;
+	}
 	public function getPermissions($user_id) {
 	
 		//connect to DB class and get permissions
@@ -638,6 +704,14 @@ class surveyModel {
 		//return true or false	
 	}
 	
+	public function getAggregateData() {
+		$surveyData = $this->db->getAggregateSurveys();
+		return $surveyData;
+	}
+	public function getSortedAggregateData($sort) {
+		$surveyData = $this->db->getAggregateSurveys($sort);
+		return $surveyData;
+	}
 	
 	public function getUserRole($user_id) {
 	
@@ -648,7 +722,7 @@ class surveyModel {
 		   exit();
 		}
 		
-		 $stmt = $mysqli->prepare("select Role from Users where UserID = ?");
+		 $stmt = $mysqli->prepare("select Role from users where UserID = ?");
 		 
 		 if (!$stmt) {
 			printf("prepare( ) failed: (%s) %s", $mysqli->errno, $mysqli->error);
@@ -695,7 +769,7 @@ class surveyModel {
 		   exit();
 		}
 		
-		$stmt = $mysqli->prepare("select SurveyID,InspectionTime,LaunchStatus,RegistrationState,BoatType from Surveys where LakeHostID=? and InputDate=?");
+		$stmt = $mysqli->prepare("select SurveyID,InspectionTime,LaunchStatus,RegistrationState,BoatType from surveys where LakeHostID=? and InputDate=?");
 		 
 		 if (!$stmt) {
 			printf("prepare( ) failed: (%s) %s", $mysqli->errno, $mysqli->error);
@@ -737,7 +811,7 @@ class surveyModel {
 		   exit();
 		}
 		
-		 $stmt = $mysqli->prepare("select * from Surveys where SurveyID=?");
+		 $stmt = $mysqli->prepare("select * from surveys where SurveyID=?");
 		 
 		 if (!$stmt) {
 			printf("prepare( ) failed: (%s) %s", $mysqli->errno, $mysqli->error);
@@ -765,10 +839,6 @@ class surveyModel {
 
 		return $surveyResult;
 		
-		}
-
-	public function enterData(/*  $_POST data  */) {
-		// connect to DB class to enter the $_POST data
 	}
 }
 ?>
