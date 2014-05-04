@@ -48,7 +48,7 @@ array(
   FOREIGN KEY (`LakeHostID`) REFERENCES LakeHosts(`LakeHostID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1",
 "AccessSites" => "CREATE TABLE IF NOT EXISTS `AccessSites` (
-  `SiteName` varchar(25) NOT NULL,
+  `SiteName` varchar(75) NOT NULL,
   `Address` varchar(50) NOT NULL,
   `City` varchar(20) NOT NULL,
   `Zip` varchar(10) NOT NULL,
