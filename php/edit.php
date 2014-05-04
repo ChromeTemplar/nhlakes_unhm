@@ -33,7 +33,6 @@ require("boaterSurvey.php");
 		$role = $model->getUserRole($_SESSION['userid']);
 		
 		if($role == "StaffMember") {
-			echo "Your are a staff member";
 			header('Location: accessSitesPage.php');
 		} else {
 			$view->viewSurveysList($_SESSION['userid']);
