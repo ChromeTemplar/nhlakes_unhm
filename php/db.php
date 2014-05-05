@@ -1,5 +1,9 @@
 <?php
-
+/* THIS FILE IS DEPRECATED BECAUSE THE NAMING CAUSES CONFLICTS!!!!!!!
+* PLEASE USE THE NEW SCRIPT db1.php.
+*	You will need to resolve conflicts in boaterSurvey.php to reflect changes to run with db1.php.
+*
+*/
 class db {
 
 	private $mysqli;
