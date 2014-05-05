@@ -3,7 +3,7 @@
 This is file contains three classes. Model, View and Controller. 
 */
 
-require_once("db.php");
+require_once("db1.php");
 
 class surveyView {
 
@@ -690,7 +690,7 @@ class surveyModel {
 
 	public function __construct() {
 		//constructor makes new instances of the controller and model
-		$this->db = new db;
+		$this->db1 = new db1;
 	}
 	public function getPermissions($user_id) {
 	

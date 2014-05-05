@@ -41,42 +41,45 @@ class loginModel {
 	        
 		# If there are no errors
 		if (empty($errors)) {
-		# Retrieve the user_id and first_name for that email/password combination:
-		#TODO: encrypt password and decrypt with sha1...
-		$q = "SELECT UserId, firstname FROM user WHERE email='$em' AND password='$p'";          
-		$r = $mysqli->query($q); # Run the query.
+			# Retrieve the user_id and first_name for that email/password combination:
+			#TODO: encrypt password and decrypt with sha1...
+			$q = "SELECT UserID, username FROM users WHERE email='$em' AND Password='$p'";          
+			$r = $mysqli->query($q); # Run the query.
 
-		# Check the result:
-		if ($r->num_rows == 1) {
-			# Fetch the record:
-			$row = $r->fetch_array (MYSQLI_ASSOC);
-			# Set session cookie, lasts for an hour
-			// Get the private context
-			session_name('Private');
-			session_start();
-			$private_id = session_id();
-			
-			session_write_close();
-			echo $private_id;
-			echo "Private ID";
-			// Get the global context
-			session_name('Global');
-			session_id('TEST');
-			session_start();
-
-			session_write_close();
-			# setcookie ($row['firstname']);
-			# Return true and the record:
-			return true; 
-		}
-		# If there are errors
-		else {
-			echo 'in the else error';
-				$errors[] = 'The email address and password entered do not match those on file.';
+			# Check the result:
+			if ($r->num_rows == 1) {
+				# Fetch the record:
+				$row = $r->fetch_array (MYSQLI_ASSOC);
+				# Set session cookie, lasts for an hour
+				session_start();
+				$private_id = session_id();
+				$_SESSION['email'] = $em;
+				$_SESSION['role'] = self::getUserRole($em);
+				$_SESSION['UserID'] = $row['UserID'];
+				session_write_close();
+				// Get the global context
+				session_name('Global');
+				session_id('TEST');
+				session_start();
+				//session_write_close();
+				return true; 
 			}
+			# If there are errors
+			else {
+					$errors[] = 'The email address and password entered do not match those on file.';
+					view::loginView($errors);
+				}
         }
 		# Return false and the errors:
-		return view::loginView($errors);
+		//return view::loginView($errors);
+	}
+	
+	public function getUserRole($currentUser){
+		$mysqli = db::dbConn();
+		$query = "Select Role from users where Email='$currentUser'";
+		$result = $mysqli->query($query);
+		$row = $result->fetch_assoc();
+		//var_dump($row);
 	}
 }
 ?>

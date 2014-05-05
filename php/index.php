@@ -1,33 +1,20 @@
 <?php
-
-require("boaterSurvey.php");
-?>
-
-<html>
-  <head>
-    <title>Boater Survey</title>
-    <link rel="stylesheet" type="text/css" href="mainLayout.css" />
-	<script src="//code.jquery.com/jquery-1.9.1.js"></script>
-	<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-    <script src="form.js"></script>
-  </head>
-  <body>
-  
-  	<div id='cssmenu'>
-			<ul>
-			   <li><a href='index.php'><span>NHVBSR</span></a></li>
-			   <li><a href='survey.php'><span>Survey</span></a></li>
-			   <li><a href='view.php'><span>View</span></a></li>
-			   <li><a href='edit.php'><span>View/Edit</span></a></li>
-			   <li><a href='#'><span>Logout</span></a></li>
-			</ul>
-	</div>
-	<br><br><br>
-    <div id="info">
-	<h2>Boater Survey</h2>
-	<hr>
-	
-	
-    </div>
-  </body>
-</html>
+require_once 'C:\\devel\\web\\php\\control\\MainController.php';
+//require_once 'C:\\devel\\web\\php\\index.php';
+# Check if a cookie is set. If cookie is not set, redirect to login screen.
+//echo "session Dump=====>" . var_dump($_SESSION)."<br />";
+//echo "post Dump=====><br />" . var_dump($_POST);
+	if (!isset($_SESSION['email']) && !isset($_POST['email'])) {
+            //echo "<br /> session is not set <br />";
+            $login = new view;
+            $login->loginView();
+	}
+	if(isset($_POST['email'])){
+            //unset($login);
+            $checkLogin = new MainController();
+            $checkLogin->startLogin();
+	}
+        elseif(isset($_SESSION['email'])){
+            $signedIn = new surveyView();
+            $signedIn->newSurvey();
+        }

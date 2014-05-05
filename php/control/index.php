@@ -1,31 +1,22 @@
 <?php
-# Okay so right now this index.php is actually the controller I just kept it name index.php 
-# for easy access sake... We can edit apache later to resolve controller.php by default
-# but for now index will be the controller since that is what we hit by default.
-# So it really does behave like real mvc. This index page 'controls' the flow of 
-# the web app. So just think of it as a main function.
-
-require_once 'C:\\devel\\web\\php\\view\\view.php';
-require_once 'C:\\devel\\web\\php\\view\\LoggedInView.php';
-require_once 'C:\\devel\\web\\php\\model\\loginModel.php';
-
+require_once 'C:\\devel\\web\\php\\control\\MainController.php';
+//require_once 'C:\\devel\\web\\php\\index.php';
 # Check if a cookie is set. If cookie is not set, redirect to login screen.
-if ((!isset($_COOKIE['cookie'])) || (session_status() !== PHP_SESSION_ACTIVE)) {
-	$login = new view;
-	$login->loginView(null);
-}
-
-if (isset($_POST['email'])) {
-	$login = new loginModel();
-	$login->email = $_POST['email'];
-	$login->password = $_POST['password'];
-	
-	#this follows our system sequence diagram
-	# call processLogin which returns a bool val
-	$validLogin = $login->processLogin();
-	
-	if($validLogin == true){
-		LoggedInView::loggedIn($login->email);
+//echo "session Dump=====>" . var_dump($_SESSION)."<br />";
+//echo "post Dump=====><br />" . var_dump($_POST);
+	if (!isset($_SESSION['email']) && !isset($_POST['email'])) {
+            //echo "<br /> session is not set <br />";
+            $login = new view;
+            $login->loginView();
 	}
-}
-
+	if(isset($_POST['email'])){
+            //unset($login);
+            $checkLogin = new MainController();
+            $checkLogin->startLogin();
+	}
+        elseif(isset($_SESSION['email'])){
+            require 'C:\\devel\\web\\php\\index.php';
+            echo 'session isset!!';
+            $signedIn = new surveyView();
+            $signedIn->newSurvey();
+        }
