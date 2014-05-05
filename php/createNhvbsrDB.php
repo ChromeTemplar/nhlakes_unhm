@@ -152,7 +152,8 @@ array(
   PRIMARY KEY (`WinterContactID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1"
 );
-
+//TODO: Change this to update existing tables and just add foreign key constraints.
+// This is an ugly hack and it is memory consuming.........
 $sql2 = 
 array(
 "LakeHosts" => "CREATE TABLE IF NOT EXISTS `LakeHosts` (
@@ -327,7 +328,12 @@ function makeDb(){
 	}
 	//Call our function to get the assoc array....
 	$statements = setupSQL();
-	
+	//I added this crappy noob workaround because I'm lazy and don't have time
+        //to do it the right way...
+        // The script was failing because it was trying to add foreign keys
+        //before the reference table existed
+        // so now we make all the tables, then go back and make them again with
+        // all their relative foreign keys... Like I said its a terrible way.
 	foreach($statements as $queries){
 		//okay loop through... each value is a sql query so execute it...
 		foreach($queries as $key => $val){
