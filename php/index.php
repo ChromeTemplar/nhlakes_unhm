@@ -17,4 +17,5 @@ require_once 'C:\\devel\\web\\php\\control\\MainController.php';
         elseif(isset($_SESSION['email'])){
             $signedIn = new surveyView();
             $signedIn->newSurvey();
+
         }
