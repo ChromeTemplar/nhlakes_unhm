@@ -233,6 +233,55 @@ class db1 {
 		return $surveyResult;
 	}
 	
+	public function getSortedAggregatesurveys($sort) {
+		$mysqli = new mysqli("localhost", "root", "", "nhvbsr");
+				
+		if (mysqli_connect_errno()) {
+		   printf("Connection failed: %s<br />", mysqli_connect_error());
+		   exit();
+		}
+		
+		$rows = array();
+		
+		$result = $mysqli->query("SELECT COUNT(*) FROM surveys");		
+		$rows[0] = $result->fetch_row();
+		
+		$result = $mysqli->query("select count(SentToDES) from surveys WHERE SentToDES = '1'");		
+		$rows[1] = $result->fetch_row();
+		
+		$result = $mysqli->query("select count(Drained) from surveys WHERE Drained = '1'");		
+		$rows[2] = $result->fetch_row();
+		
+		$result = $mysqli->query("select count(Rinsed) from surveys WHERE Rinsed = '1'");		
+		$rows[3] = $result->fetch_row();
+		
+		$result = $mysqli->query("select count(DryForFiveDays) from surveys WHERE DryForFiveDays = '1'");		
+		$rows[4] = $result->fetch_row();
+		
+		$result = $mysqli->query("select count(*) from surveys WHERE RegistrationState = 'NH'");
+		$rows[5] = $result->fetch_row();
+		
+		$result = $mysqli->query("select count(*) from surveys WHERE RegistrationState = 'MA'");
+		$rows[6] = $result->fetch_row();
+		
+		$result = $mysqli->query("select count(*) from surveys WHERE RegistrationState = 'ME'");
+		$rows[7] = $result->fetch_row();
+		
+		$result = $mysqli->query("select count(*) from surveys WHERE RegistrationState = 'VT'");
+		$rows[8] = $result->fetch_row();
+		
+		$result = $mysqli->query("select count(*) from surveys WHERE RegistrationState = 'CT'");
+		$rows[9] = $result->fetch_row();
+		
+		$result = $mysqli->query("select count(*) from surveys WHERE RegistrationState = 'RI'");
+		$rows[10] = $result->fetch_row();
+		
+		$result = $mysqli->query("select count(*) from surveys WHERE RegistrationState = 'NY'");
+		$rows[11] = $result->fetch_row();
+		
+		return $rows;
+	}
+	
 	
 }
 

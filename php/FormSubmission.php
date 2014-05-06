@@ -7,8 +7,8 @@
 	
 	if($_POST)
 	{	
-		$hostID; //get from session
-		$siteID; // get from session
+		$hostID = 1; //get from session
+		$siteID = 1; // get from session
 		
 		$time = $_POST['time'];
 		$date = $_POST['date'];
@@ -29,7 +29,7 @@
 		
 		$prep = $sql->prepare("INSERT INTO surveys(LakeHostID, InputDate, InspectionTime,SiteID, LaunchStatus, RegistrationState, BoatType, previousInteraction, LastSiteVisited, LastTownVisited, LastStateVisited, Drained, Rinsed, DryForFiveDays, BoaterAwareness, SpecimenFound,  BowNumber,SentToDES) 
 		VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
-		$prep->bind_param('ississsisssiiisisi', $hostID,$date,$time,$siteID,$status,$sor,$type,$interaction,$lastSite,$lastTown,$lastState,$drained,$rinsed, $dried,$aware,$found,$bow,$DES);
+		$prep->bind_param('ississsisssiiisiii', $hostID,$date,$time,$siteID,$status,$sor,$type,$interaction,$lastSite,$lastTown,$lastState,$drained,$rinsed, $dried,$aware,$found,$bow,$DES);
 		$prep->execute();
 		
 		header("Location:survey.php");

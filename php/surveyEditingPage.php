@@ -32,7 +32,7 @@ require("boaterSurvey.php");
 		if(isset($_POST['surveyID'])) {
 			$surveyID = $_POST['surveyID'];
 			$view = new surveyView();
-			$view->editSurvey($surveyID,$_SESSION['userid']);
+			$view->editSurvey($surveyID,$_SESSION['UserID']);
 		} else {
 			echo "Please select a survey!";
 		}

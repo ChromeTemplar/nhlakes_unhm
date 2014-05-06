@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 
 require("boaterSurvey.php");
 ?>
@@ -30,13 +32,13 @@ require("boaterSurvey.php");
 		$user_id = 3;
 		$model = new surveyModel();
 		$view = new surveyView();
-		$role = $model->getUserRole($_SESSION['userid']);
+		$role = $model->getUserRole($_SESSION['UserID']);
 		
 		if($role == "StaffMember") {
 			echo "Your are a staff member";
 			header('Location: accessSitesPage.php');
 		} else {
-			$view->viewSurveysList($_SESSION['userid']);
+			$view->viewSurveysList($_SESSION['UserID']);
 		}
 	  ?>
     </div>

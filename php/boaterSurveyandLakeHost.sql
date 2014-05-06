@@ -19,13 +19,13 @@ create table AccessSites (
 
 create table LakeHosts (
 	LakeHostID int auto_increment,
-	Name varchar(20),
+	FirstName varchar(20),
 	constraint pk_LakeHosts primary key (LakeHostID)
 );
 
 create table LakeHostGroups (
 	LakeHostGroupID int auto_increment,
-	GroupName varchar(25),
+	LakeHostGroupName varchar(25),
 	constraint pk_LakeHostGroups primary key (LakeHostGroupID)
 );
 
@@ -45,6 +45,8 @@ create table Users (
 	GroupID int,
 	Role varchar(20),
 	UserName varchar(10),
+	Email varchar(50) NOT NULL,
+	Password varchar(20) NOT NULL,
 	constraint pk_Users primary key(UserID),
 	constraint fk_Users foreign key(LakeHostID)
 	references LakeHosts(LakeHostID),
@@ -87,33 +89,33 @@ desc LakeHostMembers;
 desc Users;
 desc Surveys;
 
-insert into AccessSites
-values (default,'Conway Lake');
-insert into AccessSites
-values (default,'Manchester Water Works ramp 1');
-insert into AccessSites
-values (default,'Manchester Water Works ramp 2');
+insert into AccessSites(SiteName)
+values ('Conway Lake');
+insert into AccessSites(SiteName)
+values ('Manchester Water Works ramp 1');
+insert into AccessSites(SiteName)
+values ('Manchester Water Works ramp 2');
 
-insert into LakeHosts
+insert into LakeHosts (LakeHostID, FirstName)
 values (default,'Mitchell');
-insert into LakeHosts
+insert into LakeHosts (LakeHostID, FirstName)
 values (default,'Nick');
-insert into LakeHosts
+insert into LakeHosts (LakeHostID, FirstName)
 values (default,'Vallery');
-insert into LakeHosts
+insert into LakeHosts (LakeHostID, FirstName)
 values (default,'Colby');
-insert into LakeHosts
+insert into LakeHosts (LakeHostID, FirstName)
 values (default,'Sam');
-insert into LakeHosts
+insert into LakeHosts (LakeHostID, FirstName)
 values (default,'Mohamed');
-insert into LakeHosts
+insert into LakeHosts (LakeHostID, FirstName)
 values (default,'Dakota');
-insert into LakeHosts
+insert into LakeHosts (LakeHostID, FirstName)
 values (default,'Stephen');
 
-insert into LakeHostGroups
+insert into LakeHostGroups (lakehostgroupID, LakeHostGroupName)
 values (default,'GroupA');
-insert into LakeHostGroups
+insert into LakeHostGroups (lakehostgroupID, LakeHostGroupName)
 values (default,'GroupB');
 
 insert into LakeHostMembers
@@ -133,28 +135,28 @@ values (6,2);
 insert into LakeHostMembers
 values (7,2);
 
-insert into Users
-values (default,null,1,'GroupLeader','Edward');
-insert into Users
-values (default,null,2,'GroupLeader','Melissa');
-insert into Users
-values (default,null,null,'StaffMember','Andrea');
-insert into Users
-values (default,1,null,'LakeHost','Mitchell');
-insert into Users
-values (default,2,null,'LakeHost','Nick');
-insert into Users
-values (default,3,null,'LakeHost','Vallery');
-insert into Users
-values (default,4,null,'LakeHost','Colby');
-insert into Users
-values (default,5,null,'LakeHost','Sam');
-insert into Users
-values (default,6,null,'LakeHost','Mohamed');
-insert into Users
-values (default,7,null,'LakeHost','Dakota');
-insert into Users
-values (default,8,null,'LakeHost','Stephen');
+insert into Users (userID, LakehostID, GroupID, Role, UserName, Email, Password)
+values (default,null,1,'GroupLeader','Edward', 'Edward', 'Edward');
+insert into Users (userID, LakehostID, GroupID, Role, UserName, Email, Password)
+values (default,null,2,'GroupLeader','Melissa', 'Melissa', 'Melissa');
+insert into Users (userID, LakehostID, GroupID, Role, UserName, Email, Password)
+values (default,null,null,'StaffMember','Andrea', 'Andrea', 'Andrea');
+insert into Users (userID, LakehostID,GroupID, Role, UserName, Email, Password)
+values (default,1,null,'LakeHost','Mitchell', 'Mitchell', 'Mitchell');
+insert into Users (userID, LakehostID, GroupID, Role, UserName, Email, Password)
+values (default,2,null,'LakeHost','Nick','Nick','Nick');
+insert into Users (userID, LakehostID, GroupID, Role, UserName, Email, Password)
+values (default,3,null,'LakeHost','Vallery','Vallery','Vallery');
+insert into Users (userID, LakehostID, GroupID, Role, UserName, Email, Password)
+values (default,4,null,'LakeHost','Colby','Colby','Colby');
+insert into Users (userID, LakehostID, GroupID, Role, UserName, Email, Password)
+values (default,5,null,'LakeHost','Sam','Sam','Sam');
+insert into Users (userID, LakehostID, GroupID, Role, UserName, Email, Password)
+values (default,6,null,'LakeHost','Mohamed','Mohamed','Mohamed');
+insert into Users (userID, LakehostID,  GroupID, Role, UserName, Email, Password)
+values (default,7,null,'LakeHost','Dakota','Dakota','Dakota');
+insert into Users (userID, LakehostID,  GroupID, Role, UserName, Email, Password)
+values (default,8,null,'LakeHost','Stephen','Stephen','Stephen');
 
 INSERT INTO Surveys
 VALUES (default,1,'2013-01-01','11:05:00',1,'Launched','NH','canoe/kayak',1,'SiteOne','Concord','NH',0,0,0,'High',1,'098NKS88',null,null,1);
