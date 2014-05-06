@@ -21,7 +21,8 @@ class MainController{
             $validLogin = $login->processLogin();
 
             if($validLogin == true){
-                self::showHomePage();
+                //self::showHomePage();
+				header('Location:survey.php');
             }
             else{
                 return;
@@ -36,4 +37,3 @@ class MainController{
             $newLayout->footer();
         }
 }
-
