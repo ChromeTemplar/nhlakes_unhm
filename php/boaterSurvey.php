@@ -15,7 +15,7 @@ class surveyView {
 		//constructor makes new instances of the controller and model
 		$this->controller = new surveyController;
 		$this->model = new surveyModel;
-		$this->db = new db;
+		$this->db = new db1;
 	}
 	
 	public function newSurvey() {
@@ -705,11 +705,11 @@ class surveyModel {
 	}
 	
 	public function getAggregateData() {
-		$surveyData = $this->db->getAggregateSurveys();
+		$surveyData = $this->db1->getAggregateSurveys();
 		return $surveyData;
 	}
 	public function getSortedAggregateData($sort) {
-		$surveyData = $this->db->getAggregateSurveys($sort);
+		$surveyData = $this->db1->getAggregateSurveys($sort);
 		return $surveyData;
 	}
 	
