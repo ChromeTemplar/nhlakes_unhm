@@ -34,8 +34,10 @@ class surveyView {
         $surveysList = array(); //Sites data will be stored in this array
        
         $surveysList = $this->db1->getSiteSurveys($site_id); // The function getSiteSurveys($site_id) returns an array of surveys.
+		
 
         if(empty($surveysList)) {
+						
                         echo "No Surveys";
                        
                 } else {

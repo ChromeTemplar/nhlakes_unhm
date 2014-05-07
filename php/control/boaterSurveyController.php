@@ -343,10 +343,10 @@ class surveyController {
                 }
 				
 				if($active==1){
-				
+					 $activeYesValue = "checked = 'true'";
 				
 				} else {
-				
+					 $activeNoValue = "checked = 'true'";
 				}
 				
                
@@ -370,8 +370,8 @@ _END;
 _END;
                         $activeRow = <<<_END
 <tr>
-            <td><input type='radio' name='active' value=1 > Verified</td>
-            <td><input type='radio' name='active' value=0 > Not verified</td>
+            <td><input type='radio' name='active' value=1 $activeYesValue> Verified</td>
+            <td><input type='radio' name='active' value=0 $activeNoValue> Not verified</td>
                         </tr>
 _END;
                 }

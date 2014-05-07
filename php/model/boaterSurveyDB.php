@@ -230,7 +230,7 @@ class db1 {
 			 /* close statement */
 			$stmt->close( );
 		}
-		
+		//var_dump($surveyResult);
 		return $surveyResult;
 	}
 	

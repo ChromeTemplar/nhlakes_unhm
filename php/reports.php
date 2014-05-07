@@ -22,7 +22,7 @@ require("boaterSurvey.php");
 			   <li><a href='view.php'><span>View</span></a></li>
 			   <li><a href='edit.php'><span>View/Edit</span></a></li>
 			   <li><a href='reports.php'><span>Reports</span></a></li>
-			   <li><a href='#'><span>Logout</span></a></li>
+			   <li><a href='index.php'><span>Logout</span></a></li>
 			</ul>
 </div>
 <br><br><br>
