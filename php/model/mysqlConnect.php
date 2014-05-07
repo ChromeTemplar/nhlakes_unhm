@@ -14,6 +14,7 @@ class db{
 # Check connection
 		if (mysqli_connect_errno()) {
 		    printf("Connect failed: %s\n", mysqli_connect_error());
+			error_log("Connect failed: %s\n", mysqli_connect_error());
 		    exit();
 		}
 		else {
