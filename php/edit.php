@@ -2,7 +2,7 @@
 session_start();
 
 
-require("boaterSurvey.php");
+require("control\boaterSurveyController.php");
 ?>
 
 <html>
@@ -29,14 +29,14 @@ require("boaterSurvey.php");
 	<h2>Boater Survey List</h2>
 	<hr>
       <?php
-		$user_id = 3;
+		//$user_id = 3;
 		$model = new surveyModel();
 		$view = new surveyView();
 		$role = $model->getUserRole($_SESSION['UserID']);
 		
 		if($role == "StaffMember") {
-			echo "Your are a staff member";
-			header('Location: accessSitesPage.php');
+
+			header('Location: view\accessSitesPage.php');
 		} else {
 			$view->viewSurveysList($_SESSION['UserID']);
 		}

@@ -1,6 +1,6 @@
 <?php
 
-require("boaterSurvey.php");
+require_once("control\boaterSurveyController.php");
 ?>
 
 <html>
@@ -27,10 +27,10 @@ require("boaterSurvey.php");
 	<h2>Boater Survey</h2>
 	<hr>
       <?php
-	  
+		
 		$view = new surveyView();
 		$view->newSurvey();
-	  
+
 	  ?>
     </div>
   </body>

@@ -9,7 +9,7 @@ require_once 'C:\\devel\\web\\php\\view\\view.php';
 require_once 'C:\\devel\\web\\php\\view\\pageTemplate.php';
 require_once 'C:\\devel\\web\\php\\view\\LoggedInView.php';
 require_once 'C:\\devel\\web\\php\\model\\loginModel.php';
-require_once 'C:\\devel\\web\\php\\boaterSurvey.php';
+require_once 'C:\\devel\\web\\php\\control\\boaterSurveyController.php';
 class MainController{
 	public function startLogin(){
             $login = new loginModel();

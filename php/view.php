@@ -1,6 +1,6 @@
 <?php
 
-require("boaterSurvey.php");
+require("control\boaterSurveyController.php");
 ?>
 
 <html>
