@@ -61,7 +61,7 @@ class loginModel {
 				session_name('Global');
 				session_id('TEST');
 				session_start();
-				//session_write_close();
+				error_log("Session" . $private_id . "started at " . date('Y-m-d') . "\n");
 				return true; 
 			}
 			# If there are errors
@@ -81,5 +81,26 @@ class loginModel {
 		$row = $result->fetch_assoc();
 		//var_dump($row);
 	}
+
+	function processLogout() {
+		$private_id = session_id();
+		# Destroy session variables
+		$_SESSION = array();
+		
+
+		# Delete cookie data
+		if (ini_get("session.use_cookies")) {
+    		$params = session_get_cookie_params();
+    		setcookie(session_name(), '', time() - 42000,
+    	    $params["path"], $params["domain"],
+    	    $params["secure"], $params["httponly"]
+    		);
+		}
+	
+		# Destroy the session
+		session_destroy();
+		error_log("Session" . $private_id . "ended at " . date('Y-m-d') . "\n");
+	}
 }
+
 ?>
