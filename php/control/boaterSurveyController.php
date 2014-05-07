@@ -30,7 +30,15 @@ class surveyController {
           </tr>
           <tr>
             <td>State of registration:</td>
-            <td><input type='text' id='sor' name='registrationState' onblur='validatesor()'/><div id='sorDiv'></div></td>
+            <td><select name='registrationState'>
+				<option value='NH'>NH</option>
+				<option value='MA'>MA</option>
+				<option value='ME'>ME</option>
+				<option value='VT'>VT</option>
+				<option value='CT'>CT</option>
+				<option value='RI'>RI</option>
+				<option value='NY'>NY</option>
+				<option value='other'>Other</option></select></td>
           </tr>
           <tr>
             <td>Type of boat:</td>
@@ -199,6 +207,11 @@ class surveyController {
                 $specimenFound = $result['specimenFound'];
                 $bowNumber = $result['bowNumber'];
                 $DES = $result['sentToDES'];
+				$notes = $result['notes'];
+				$active = $result['active'];
+				
+				
+				//echo "the value of des is ".$DES;
                 //All these variables are used to extract survey information from the $result array.
                
                
@@ -228,6 +241,8 @@ class surveyController {
                 $bowNumberValue = "";
                 $sentYesValue = "";
                 $sentNoValue = "";
+				$activeYesValue = "";
+				$activeNoValue = "";
                 /*These variables are used to set the values of the form elements to null. Later the elements values will be change based on the information obtained from
                 the database*/
                
@@ -320,12 +335,20 @@ class surveyController {
                         if($DES != "" & $DES != Null) {
                                 if($DES == 1)
                                         $sentYesValue = "checked = 'true'";
-                                else
+                                else if ($DES == 0)
                                         $sentNoValue = "checked = 'true'";
                         }
                 } else {
                         $specimenFoundNoValue = "checked = 'true'";
                 }
+				
+				if($active==1){
+				
+				
+				} else {
+				
+				}
+				
                
                 $sentToDESRow = "";//This row is displayed for GroupLeaders and StaffMembers only.
                 $notesRow = "";//This row is displayed for GroupLeaders and StaffMembers only.
@@ -335,13 +358,13 @@ class surveyController {
                
                 if ($role=='GroupLeader' || $role=='StaffMember') {
                         $sentToDESRow = <<<_END
-Sent to DES: <input type='radio' name='sentToDES' value='1' $sentYesValue>YES  
-<input type='radio' name='sentToDES' value='0' $sentNoValue>NO
+Sent to DES: <input type='radio' name='sentToDES' value=1 $sentYesValue>YES  
+<input type='radio' name='sentToDES' value=0 $sentNoValue>NO
 _END;
                         $notesRow = <<<_END
 <tr><td>Notes</td>
                         <td>
-                                <textarea name="notes"rows="3" cols="50"></textarea>
+                                <textarea name="notes"rows="3" cols="50">$notes</textarea>
                         </td>
                 </tr>
 _END;
@@ -371,8 +394,8 @@ _END;
             <td>Indicate if vessel is being launched or retrieved
             <br /></td>
             <td>
-            <input type='radio' name='status' value='launched' $launchedValue>Launched
-            <input type='radio' name='status' value='retrieved' $retrievedValue>Retrieved</td>
+            <input type='radio' name='status' value='Launched' $launchedValue>Launched
+            <input type='radio' name='status' value='Retrieved' $retrievedValue>Retrieved</td>
           </tr>
           <tr>
             <td>State of Registration:</td>
@@ -392,17 +415,17 @@ _END;
           <tr>
             <td>Previous interaction with a Lake Host?</td>
             <td>
-            <input type='radio' name='interaction' value='YES' $interactionYesValue> YES
-            <input type='radio' name='interaction' value='NO' $interactionNoValue> NO</td>
+            <input type='radio' name='interaction' value=1 $interactionYesValue> YES
+            <input type='radio' name='interaction' value=0 $interactionNoValue> NO</td>
           </tr>
           <tr>
             <td>Last waterbody visited</td>
             <td>
                                 Name: <input type='text' name='lastSiteVisited' value=$lastSiteValue> Town: <input type='text' name='lastTownVisited' value=$lastTownValue>
                                 State: <input type='text' name='lastStateVisited' value=$lastStateValue>
-                                <br/> Drained?  <input type='radio' name='drained' value='YES' $drainedYesValue> YES <input type='radio' name='drained' value='NO' $drainedNoValue> NO
-                                <br/> Rinsed?  <input type='radio' name='rinsed' value='YES' $rinsedYesValue> YES <input type='radio' name='rinsed' value='NO' $rinsedNoValue> NO
-                                <br/> Dry for at least 5 days?  <input type='radio' name='dryForFiveDays' value='YES' $driedYesValue> YES <input type='radio' name='dryForFiveDays' value='NO' $driedNoValue> NO
+                                <br/> Drained?  <input type='radio' name='drained' value=1 $drainedYesValue> YES <input type='radio' name='drained' value=0 $drainedNoValue> NO
+                                <br/> Rinsed?  <input type='radio' name='rinsed' value=1 $rinsedYesValue> YES <input type='radio' name='rinsed' value=0 $rinsedNoValue> NO
+                                <br/> Dry for at least 5 days?  <input type='radio' name='dryForFiveDays' value=1 $driedYesValue> YES <input type='radio' name='dryForFiveDays' value=0 $driedNoValue> NO
                         </td>
           </tr>
           <tr id='awarenessRow'>
@@ -416,7 +439,7 @@ _END;
           <tr>
             <td>Specimen found?</td>
             <td>
-                                <input type='radio' name='specimenFound' value='Y' $specimenFoundYesValue>Yes <input type='radio' name='specimenFound' value='High' value='N' $specimenFoundNoValue>No <br/>
+                                <input type='radio' name='specimenFound' value=1 $specimenFoundYesValue>Yes <input type='radio' name='specimenFound' value='High' value=0 $specimenFoundNoValue>No <br/>
                                 Full Bow Number: <input type='text' name='bowNumber' value=$bowNumberValue> <br/>
                                 $sentToDESRow
                         </td>

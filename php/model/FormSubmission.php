@@ -1,4 +1,7 @@
 <?php
+	session_start();
+	require_once ("boaterSurveyDB.php");
+
 	$sql = new mysqli("localhost", "root", "", "nhvbsr");
 	if ($sql->connect_errno) {
 		printf("Connect failed: %s\n", $sql->connect_error);
@@ -7,10 +10,11 @@
 	
 	if($_POST)
 	{	
-		$hostID = 1; //get from session
-		$siteID = 1; // get from session
+		$db1 = new db1;
+		$hostID = $_SESSION['UserID'];
+		$siteID = $db1->getSiteID($hostID); 
 		
-		if()
+		
 		$time = $_POST['time'];
 		$date = $_POST['date'];
 		$status = $_POST['status'];
@@ -26,11 +30,10 @@
 		$aware = $_POST['awareness'];
 		$found = $_POST['specimenFound'];
 		$bow = $_POST['Bow'];
-		$DES = $_POST['sentToDES'];
 		
-		$prep = $sql->prepare("INSERT INTO surveys(LakeHostID, InputDate, InspectionTime,SiteID, LaunchStatus, RegistrationState, BoatType, previousInteraction, LastSiteVisited, LastTownVisited, LastStateVisited, Drained, Rinsed, DryForFiveDays, BoaterAwareness, SpecimenFound,  BowNumber,SentToDES) 
-		VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
-		$prep->bind_param('ississsisssiiisiii', $hostID,$date,$time,$siteID,$status,$sor,$type,$interaction,$lastSite,$lastTown,$lastState,$drained,$rinsed, $dried,$aware,$found,$bow,$DES);
+		$prep = $sql->prepare("INSERT INTO surveys(LakeHostID, InputDate, InspectionTime,SiteID, LaunchStatus, RegistrationState, BoatType, previousInteraction, LastSiteVisited, LastTownVisited, LastStateVisited, Drained, Rinsed, DryForFiveDays, BoaterAwareness, SpecimenFound,  BowNumber) 
+		VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+		$prep->bind_param('ississsisssiiisii', $hostID,$date,$time,$siteID,$status,$sor,$type,$interaction,$lastSite,$lastTown,$lastState,$drained,$rinsed, $dried,$aware,$found,$bow);
 		$prep->execute();
 		
 		header("Location:..\survey.php");

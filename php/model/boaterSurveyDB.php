@@ -104,7 +104,7 @@ class db1 {
 		$month = $today['mon'];
 		$date = "$year"."-"."$month"."-"."$day";
 
-		$date = "2013-01-03";
+		//$date = "2013-01-03";
 		$numberOfLakeHosts = count($LakeHosts);
 		
 		
@@ -234,7 +234,7 @@ class db1 {
 		return $surveyResult;
 	}
 	
-	public function getSortedAggregatesurveys($sort) {
+public function getSortedAggregatesurveys($sort,$site) {
 		$mysqli = new mysqli("localhost", "root", "", "nhvbsr");
 				
 		if (mysqli_connect_errno()) {
@@ -242,47 +242,138 @@ class db1 {
 		   exit();
 		}
 		
+		
+		
+		if($sort=='day') {
+			$sort = " = CURDATE()";
+		}
+		else if($sort=='month') {
+			$sort = ">= DATE_SUB(CURDATE(), INTERVAL 1 MONTH)";
+		}
+		else if($sort=='year') {
+			$sort = ">= DATE_SUB(CURDATE(), INTERVAL 6 MONTH)";
+		}
+		
 		$rows = array();
 		
-		$result = $mysqli->query("SELECT COUNT(*) FROM surveys");		
+		$result = $mysqli->query("SELECT COUNT(*) FROM surveys  WHERE SiteID = $site AND InputDate ".$sort);	
 		$rows[0] = $result->fetch_row();
 		
-		$result = $mysqli->query("select count(SentToDES) from surveys WHERE SentToDES = '1'");		
+		$result = $mysqli->query("select count(SentToDES) from surveys WHERE SentToDES = '1' AND SiteID = $site AND InputDate ".$sort);		
 		$rows[1] = $result->fetch_row();
 		
-		$result = $mysqli->query("select count(Drained) from surveys WHERE Drained = '1'");		
-		$rows[2] = $result->fetch_row();
+		$result = $mysqli->query("select count(SentToDES) from surveys WHERE SentToDES = '0' AND SiteID = $site AND InputDate ".$sort);		
+		$rows[2] = $result->fetch_row();		
 		
-		$result = $mysqli->query("select count(Rinsed) from surveys WHERE Rinsed = '1'");		
+		$result = $mysqli->query("select count(*) from surveys WHERE RegistrationState = 'NH' AND SiteID = $site AND InputDate ".$sort);
 		$rows[3] = $result->fetch_row();
 		
-		$result = $mysqli->query("select count(DryForFiveDays) from surveys WHERE DryForFiveDays = '1'");		
+		$result = $mysqli->query("select count(*) from surveys WHERE RegistrationState = 'MA' AND SiteID = $site AND InputDate ".$sort);
 		$rows[4] = $result->fetch_row();
 		
-		$result = $mysqli->query("select count(*) from surveys WHERE RegistrationState = 'NH'");
+		$result = $mysqli->query("select count(*) from surveys WHERE RegistrationState = 'ME' AND SiteID = $site AND InputDate ".$sort);
 		$rows[5] = $result->fetch_row();
 		
-		$result = $mysqli->query("select count(*) from surveys WHERE RegistrationState = 'MA'");
+		$result = $mysqli->query("select count(*) from surveys WHERE RegistrationState = 'VT' AND SiteID = $site AND InputDate ".$sort);
 		$rows[6] = $result->fetch_row();
 		
-		$result = $mysqli->query("select count(*) from surveys WHERE RegistrationState = 'ME'");
+		$result = $mysqli->query("select count(*) from surveys WHERE RegistrationState = 'CT' AND SiteID = $site AND InputDate ".$sort);
 		$rows[7] = $result->fetch_row();
 		
-		$result = $mysqli->query("select count(*) from surveys WHERE RegistrationState = 'VT'");
+		$result = $mysqli->query("select count(*) from surveys WHERE RegistrationState = 'RI' AND SiteID = $site AND InputDate ".$sort);
 		$rows[8] = $result->fetch_row();
 		
-		$result = $mysqli->query("select count(*) from surveys WHERE RegistrationState = 'CT'");
+		$result = $mysqli->query("select count(*) from surveys WHERE RegistrationState = 'NY' AND SiteID = $site AND InputDate ".$sort);
 		$rows[9] = $result->fetch_row();
 		
-		$result = $mysqli->query("select count(*) from surveys WHERE RegistrationState = 'RI'");
+		$result = $mysqli->query("select count(*) from surveys WHERE RegistrationState = 'Other' AND SiteID = $site AND InputDate ".$sort);
 		$rows[10] = $result->fetch_row();
 		
-		$result = $mysqli->query("select count(*) from surveys WHERE RegistrationState = 'NY'");
+		$result = $mysqli->query("select count(*) from surveys WHERE PreviousInteraction = '1' AND SiteID = $site AND InputDate ".$sort);
 		$rows[11] = $result->fetch_row();
 		
+		$result = $mysqli->query("select count(*) from surveys WHERE PreviousInteraction = '0' AND SiteID = $site AND InputDate ".$sort);
+		$rows[12] = $result->fetch_row();
+		
+		$result = $mysqli->query("select count(*) from surveys WHERE BoatType = 'inboard/outboard(I/O)' AND SiteID = $site AND InputDate ".$sort);
+		$rows[13] = $result->fetch_row();
+		
+		$result = $mysqli->query("select count(*) from surveys WHERE BoatType = 'PWC/jet ski/jet boat' AND SiteID = $site AND InputDate ".$sort);
+		$rows[14] = $result->fetch_row();
+		
+		$result = $mysqli->query("select count(*) from surveys WHERE BoatType = 'canoe/kayak' AND SiteID = $site AND InputDate ".$sort);
+		$rows[15] = $result->fetch_row();
+		
+		$result = $mysqli->query("select count(*) from surveys WHERE BoatType = 'sail' AND SiteID = $site AND InputDate ".$sort);
+		$rows[16] = $result->fetch_row();
+		
+		$result = $mysqli->query("select count(*) from surveys WHERE BoatType = 'other' AND SiteID = $site AND InputDate ".$sort);
+		$rows[17] = $result->fetch_row();
+		
+		$result = $mysqli->query("select count(*) from surveys WHERE Drained = '1' AND SiteID = $site AND InputDate ".$sort);
+		$rows[18] = $result->fetch_row();
+		
+		$result = $mysqli->query("select count(*) from surveys WHERE Drained = '0' AND SiteID = $site AND InputDate ".$sort);
+		$rows[19] = $result->fetch_row();
+		
+		$result = $mysqli->query("select count(*) from surveys WHERE Rinsed = '1' AND SiteID = $site AND InputDate ".$sort);
+		$rows[20] = $result->fetch_row();
+		
+		$result = $mysqli->query("select count(*) from surveys WHERE Rinsed = '0' AND SiteID = $site AND InputDate ".$sort);
+		$rows[21] = $result->fetch_row();
+		
+		$result = $mysqli->query("select count(*) from surveys WHERE DryForFiveDays = '1' AND SiteID = $site AND InputDate ".$sort);
+		$rows[22] = $result->fetch_row();
+		
+		$result = $mysqli->query("select count(*) from surveys WHERE DryForFiveDays = '0' AND SiteID = $site AND InputDate ".$sort);
+		$rows[23] = $result->fetch_row();
+		
+		$result = $mysqli->query("select count(*) from surveys WHERE BoaterAwareness = 'High' AND SiteID = $site AND InputDate ".$sort);
+		$rows[24] = $result->fetch_row();
+		
+		$result = $mysqli->query("select count(*) from surveys WHERE BoaterAwareness = 'Medium' AND SiteID = $site AND InputDate ".$sort);
+		$rows[25] = $result->fetch_row();
+		
+		$result = $mysqli->query("select count(*) from surveys WHERE BoaterAwareness = 'Low' AND SiteID = $site AND InputDate ".$sort);
+		$rows[26] = $result->fetch_row();
+		
+		$result = $mysqli->query("select count(*) from surveys WHERE SpecimenFound = '1' AND SiteID = $site AND InputDate ".$sort);
+		$rows[27] = $result->fetch_row();
+		
+		$result = $mysqli->query("select count(*) from surveys WHERE SpecimenFound = '0' AND SiteID = $site AND InputDate ".$sort);
+		$rows[28] = $result->fetch_row();
+		;
 		return $rows;
 	}
 	
+	public function getSiteID($userID) {
+	
+		$mysqli = new mysqli("localhost", "root", "", "nhvbsr");
+		
+		if (mysqli_connect_errno()) {
+		   printf("Connection failed: %s<br />", mysqli_connect_error());
+		   exit();
+		}
+		
+		$stmt = $mysqli->prepare("select SiteID from Users where UserID=?");
+		 
+		 if (!$stmt) {
+			printf("prepare( ) failed: (%s) %s", $mysqli->errno, $mysqli->error);
+		} else {
+			//$nickName = "UNH";
+			$stmt->bind_param("i", $userID);
+			$stmt->execute( );
+			//$stmt->bind_param("UNH");
+			
+			$stmt->bind_result($SiteID);
+
+			$stmt->fetch();
+			 /* close statement */
+			$stmt->close();
+		}
+		return $SiteID;
+	
+	}
 	
 }
 

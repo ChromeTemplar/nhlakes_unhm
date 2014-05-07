@@ -18,8 +18,8 @@ class surveyModel {
                 //return true or false  
         }
        
-        public function getSortedAggregateData($sort) {
-                $surveyData = $this->db1->getSortedAggregateSurveys($sort);
+        public function getSortedAggregateData($sort,$site) {
+                $surveyData = $this->db1->getSortedAggregateSurveys($sort,$site);
                 return $surveyData;
         }
        
@@ -66,7 +66,7 @@ class surveyModel {
         $month = $today['mon'];
         $date = "$year"."-"."$month"."-"."$day";
 
-        $date = "2013-01-03";
+        //$date = "2013-01-03";
        
        
         $mysqli = new mysqli("localhost", "root", "", "nhvbsr");

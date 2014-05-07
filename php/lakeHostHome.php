@@ -15,11 +15,12 @@
   
   	<div id='cssmenu'>
 			<ul>
-			   <li><a href='#'><span>NHVBSR</span></a></li>
-			   <li><a href='#'><span>Survey</span></a></li>
+			   <li><a href='survey.php'><span>NHVBSR</span></a></li>
 			   <li><a href='lakeHostHome.php'><span>Manage Lake Hosts</span></a></li>
-			   <li><a href="view.php"><span>View</span></a></li>
-			   <li><a href='#'><span>Edit</span></a></li>
+			   <li><a href='survey.php'><span>Survey</span></a></li>
+			   <li><a href='view.php'><span>View</span></a></li>
+			   <li><a href='edit.php'><span>View/Edit</span></a></li>
+			   <li><a href='reports.php'><span>Reports</span></a></li>
 			   <li><a href='#'><span>Logout</span></a></li>
 			</ul>
 	</div>

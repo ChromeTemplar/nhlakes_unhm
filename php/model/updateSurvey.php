@@ -55,7 +55,7 @@
 		$prep->execute();
 		
 		//echo $_SESSION['UserID'];
-		//header('Location:..\edit.php');
+		header('Location:..\edit.php');
 		}
 	}
 ?>

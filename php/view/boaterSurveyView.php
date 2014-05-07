@@ -12,7 +12,7 @@ class surveyView {
         public $controller;
         public $model;
         public $db1;
-       
+	   
         public function __construct() {
                 //constructor makes new instances of the controller and model
                 $this->controller = new surveyController;
@@ -74,25 +74,54 @@ _END;
         /**
         This function will be called to display a list of surveys that the user can choose from.
         */
-        public function viewAggregateData($sort) {      
+        public function viewAggregateData($sort, $site) {      
 
-			$data = $this->model->getSortedAggregateData($sort);
+			$data = $this->model->getSortedAggregateData($sort, $site);
 
 			$total = implode($data[0]);
-			$DES =  implode($data[1]);
-			$drained =  implode($data[2]);
-			$rinsed =  implode($data[3]);
-			$dried =  implode($data[4]);
+			$YesDES =  implode($data[1]);
+			$NoDES = implode($data[2]);
+			$NH =  implode($data[3]);
+			$MA =  implode($data[4]);
+			$ME =  implode($data[5]);
+			$VT =  implode($data[6]);
+			$CT =  implode($data[7]);
+			$RI =  implode($data[8]);
+			$NY =  implode($data[9]);
+			$otherS =  implode($data[10]);
+			$interYes =  implode($data[11]);
+			$interNo =  implode($data[12]);
+			$IO = implode($data[13]);
+			$jet =  implode($data[14]);
+			$canoe = implode($data[15]);
+			$sail =  implode($data[16]);
+			$otherB =  implode($data[17]);
+			$drainYes =  implode($data[18]);
+			$drainNo = implode($data[19]);
+			$rinseYes =  implode($data[20]);
+			$rinseNo = implode($data[21]);
+			$dryYes =  implode($data[22]);
+			$dryNo =  implode($data[23]);
+			$awareH = implode($data[24]);
+			$awareM =  implode($data[25]);
+			$awareL =  implode($data[26]);
+			$foundYes =  implode($data[27]);
+			$foundNo =  implode($data[28]);
+			
 		   
 			$show = "
 				<table class='data'>
 					  <tr>
 								<th rowspan='2'>Total Surveys</th>
 								<th colspan='7'>Registration State</th>
-								<th rowspan='2'>Drained</th>
-								<th rowspan='2'>Rinsed</th>
-								<th rowspan='2'>Dried</th>
-								<th rowspan='2'>DES</th>
+								<th colspan='5'>BoatType</th>
+								<th colspan='2'>Prior Interaction With LH</th>
+								<th colspan='2'>Drained</th>
+								<th colspan='2'>Rinsed</th>
+								<th colspan='2'>Dried</th>
+								<th colspan='3'>Boater Awareness</th>
+								<th colspan='2'>Specimen Found</th>							
+								<th colspan='2'>Sent To DES</th>
 						</tr>
 						<tr>
 								<th>NH</th>
@@ -102,20 +131,73 @@ _END;
 								<th>VT</th>
 								<th>RI</th>
 								<th>Other</th>
+								
+								<th>I/O</th>
+								<th>PWC Jet</th>
+								<th>Canoe/Kayak</th>
+								<th>Sail</th>
+								<th>Other</th>
+								
+								<th>Y</th>
+								<th>N</th>
+								
+								<th>Y</th>
+								<th>N</th>
+								
+								<th>Y</th>
+								<th>N</th>
+								
+								<th>Y</th>
+								<th>N</th>
+								
+								<th>H</th>
+								<th>M</th>
+								<th>L</th>
+								
+								<th>Y</th>
+								<th>N</th>
+								
+								<th>Y</th>
+								<th>N</th>
 						</tr>
 						<tr>
 								<td>$total</td>    
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td>$drained</td>
-								<td>$rinsed</td>
-								<td>$dried</td>
-								<td>$DES</td>
+								<td>$NH</td>
+								<td>$MA</td>
+								<td>$ME</td>
+								<td>$CT</td>
+								<td>$VT</td>
+								<td>$RI</td>
+								<td>$otherS</td>
+								
+								<td>$IO</td>
+								<td>$jet</td>
+								<td>$canoe</td>
+								<td>$sail</td>
+								<td>$otherB</td>
+								
+								<td>$interYes</td>
+								<td>$interNo</td>
+								
+								<td>$drainYes</td>
+								<td>$drainNo</td>
+								
+								<td>$rinseYes</td>
+								<td>$rinseNo</td>
+								
+								<td>$dryYes</td>
+								<td>$dryNo</td>
+								
+								<td>$awareH</td>
+								<td>$awareM</td>
+								<td>$awareL</td>
+								
+								<td>$foundYes</td>
+								<td>$foundNo</td>
+								
+								<td>$YesDES</td>
+								<td>$NoDES</td>								
+							
 						</tr>
 				</table>";
 			echo $show;
