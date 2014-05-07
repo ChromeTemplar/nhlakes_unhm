@@ -49,7 +49,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 		$q = "INSERT INTO user (firstname, lastname, email, password, Company, registrationDate) VALUES
 		('$fn','$ln','$em','$co',SHA1('$p'), NOW())";
 		var_export($q);
-		$r = @mysqli_query ($dbc, $q); #Run the query.
+		$r = @mysqli_query($dbc, $q); #Run the query.
 		var_export($r);
 		if($r) { # If it runs...
 		
@@ -61,6 +61,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 			
 			# Debugger message:
 			echo '<p>' .mysqli_error($dbc).'<br /><br />Query:'.$q.'</p>';
+			error_log(mysqli_error($dbc));
 		}# End of if ($r) IF.
 	
 		mysqli_close($dbc); # Close the database connection....Just incase lol
@@ -71,9 +72,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 	else {
 		echo'<h1>Error!</h1>
 		<p class="error"> The following error(s) occurred: <br />';
-		
 		foreach ($errors as $msg) { # Print each error.
 			echo "-$msg<br /> \n";
+			error_log($msg);
 		}
 		echo '</p><p>Please try again.</p><p><br /></p>';
 		} #End of the main Submit Conditional Yay!
