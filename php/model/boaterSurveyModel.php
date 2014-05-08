@@ -62,10 +62,12 @@ class surveyModel {
        
         $today = getdate();
         $year = $today['year'];
-        $day = $today['mday'];
+        $day = $today['mday']-1;
         $month = $today['mon'];
         $date = "$year"."-"."$month"."-"."$day";
 
+		
+	
         //$date = "2013-01-03";
        
        
@@ -79,13 +81,13 @@ class surveyModel {
                    exit();
                 }
                
-                $stmt = $mysqli->prepare("select SurveyID,InspectionTime,LaunchStatus,RegistrationState,BoatType from surveys where LakeHostID=? and InputDate=?");
+                $stmt = $mysqli->prepare("select SurveyID,InspectionTime,LaunchStatus,RegistrationState,BoatType from surveys where LakeHostID=? and InputDate=CURDATE()");
                  
                  if (!$stmt) {
                         printf("prepare( ) failed: (%s) %s", $mysqli->errno, $mysqli->error);
                 } else {
                         //$nickName = "UNH";
-                        $stmt->bind_param("is", $user_id, $date);
+                        $stmt->bind_param("i", $user_id);
                         $stmt->execute( );
                         //$stmt->bind_param("UNH");
                        

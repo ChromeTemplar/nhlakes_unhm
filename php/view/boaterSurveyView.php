@@ -211,14 +211,17 @@ _END;
                 $role = $this->model->getUserRole($user_id);
                
                 if (strcmp($role,"LakeHost")==0){
+				//echo "You are a lakehost and user id is $user_id";
                 $surveysList = $this->model->getUserSurveys($user_id,$role);
                 // surveysList is an array of surveys conducted by the user. The function getUserSurveys() will be called from the Model and it will return an array.
+				//var_dump($surveysList);
                 } else if (strcmp($role,"GroupLeader")==0) {
                 $surveysList = $this->db1->getGroupSurveys($user_id,$role);
                 }
                
                 if(empty($surveysList['surveyID'])) {
-                        echo "No Surveys";
+
+						echo "No Surveys";
                        
                 } else {	
 						

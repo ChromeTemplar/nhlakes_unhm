@@ -103,20 +103,20 @@ class db1 {
 		$day = $today['mday'];
 		$month = $today['mon'];
 		$date = "$year"."-"."$month"."-"."$day";
-
+ 
 		//$date = "2013-01-03";
 		$numberOfLakeHosts = count($LakeHosts);
 		
 		
 		for ($i = 1; $i<$numberOfLakeHosts; $i++ ) {
 		$LakeHostID = $LakeHosts[$i-1];
-		$stmt = $mysqli->prepare("select SurveyID,InspectionTime,LaunchStatus,RegistrationState,BoatType from Surveys where LakeHostID=? and InputDate=?");
+		$stmt = $mysqli->prepare("select SurveyID,InspectionTime,LaunchStatus,RegistrationState,BoatType from Surveys where LakeHostID=? and InputDate=CURDATE()");
 		 
 		 if (!$stmt) {
 			printf("prepare( ) failed: (%s) %s", $mysqli->errno, $mysqli->error);
 		} else {
 			//$nickName = "UNH";
-			$stmt->bind_param("is", $LakeHostID, $date);
+			$stmt->bind_param("i", $LakeHostID);
 			$stmt->execute( );
 			//$stmt->bind_param("UNH");
 			
