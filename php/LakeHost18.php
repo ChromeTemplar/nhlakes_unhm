@@ -35,6 +35,7 @@
 
 function disable (temp) 
 {  
+	// Test for a change
     switch (temp) 
     { 
         case 1    : 
