@@ -36,6 +36,7 @@
 function disable (temp) 
 {  
 	// Test for a change
+	// add a comment
     switch (temp) 
     { 
         case 1    : 
