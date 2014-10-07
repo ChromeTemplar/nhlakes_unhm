@@ -3,6 +3,8 @@
 This is file contains three classes. Model, View and Controller.
 */
 
+
+// This is a comment
 require_once("db1.php");
 
 class surveyView {
