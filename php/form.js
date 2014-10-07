@@ -1,3 +1,5 @@
+#Comments go here
+
 function validateForm() {
 	x = document.getElementById('time').value;
 }
