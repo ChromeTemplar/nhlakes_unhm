@@ -44,5 +44,6 @@ require("control\boaterSurveyController.php");
 		}
 	  ?>
     </div>
+    <!-- comment -->
   </body>
 </html>
