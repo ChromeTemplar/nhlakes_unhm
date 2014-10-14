@@ -2,5 +2,5 @@
 
 <?php
 
-$this->buttonTo("invasiveSpecies","editInvasiveSpecies", "Edit");
-$this->buttonTo("invasiveSpecies","newInvasiveSpecies", "New");
+echo $this->buttonTo("invasiveSpecies","editInvasiveSpecies", "Edit");
+echo $this->buttonTo("invasiveSpecies","newInvasiveSpecies", "New");

@@ -1,9 +1,8 @@
 <h1><?php echo $welcome;?></h1>
 
 <?php
-$this->buttonTo("survey","editSurvey","Edit");
-$this->buttonTo("survey","newSurvey", "New");
+echo $this->buildTable($surveys);
 
-$this->buildTable($surveys);
+echo $this->buttonTo("survey","newSurvey", "New");
 ?>
 

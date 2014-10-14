@@ -2,6 +2,6 @@
 
 <?php
 
-$this->buttonTo("lakeHost","editLakeHost", "Edit");
-$this->buttonTo("lakeHost","newLakeHost", "New");
+echo $this->buttonTo("lakeHost","editLakeHost", "Edit");
+echo $this->buttonTo("lakeHost","newLakeHost", "New");
 

@@ -88,7 +88,7 @@ class template
         }
         $html .= "'>$display</a>";
 
-        echo $html;
+        return $html;
     }
 
     /**
@@ -110,7 +110,7 @@ class template
         
         $html .= "\"'>$display</button>";
 
-        echo $html;                
+        return $html;                
     }
 
     
@@ -126,10 +126,10 @@ class template
         
         //Iterate through the keys
         foreach($list[0] as $key => $val){
-            $html .= "<td>$key</td>";
+            $html .= "<th>$key</th>";
         }
         //Leaves room for the Edit button column
-        $html .= "<td>Edit</td>";
+        $html .= "<th>Edit</th>";
         
         //Iterate through all objects
         $html .= "</tr>";
@@ -140,7 +140,7 @@ class template
                 $html .= "<td>$val</td>";
             }
             //Add the Edit button column
-            $button = $this->linkTo("survey","editSurvey","Edit",$list[$i]->id);
+            $button = $this->buttonTo("survey","editSurvey","Edit",$list[$i]->id);
             $html .= "<td>".$button."</td>";
 
         $html .= "</tr>";
@@ -148,6 +148,6 @@ class template
         
         $html .= "</table>";
         
-        echo $html;
+        return $html;
     }
 }

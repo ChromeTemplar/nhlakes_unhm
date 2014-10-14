@@ -1,10 +1,18 @@
 body {
     font-family: arial;
     margin:0;
+    
 } 
 h1 {
-    border-bottom:1px solid #333;
+    border-bottom:1px solid #ccc;
     width:60%;
+    margin-top:0;
+}
+h1,h2,h3 {
+    font-weight:normal;
+}
+h2{
+    margin-bottom:5px;
 }
 #header {
     background-color:#CCC;
@@ -21,9 +29,9 @@ h1 {
     color:white;
 }
 #wrapper {
-    width:80%;
     height:90%;
     margin:0 auto;
+    overflow-x:auto;
 }
 #navigation, #content {
     display: inline-block;
@@ -36,11 +44,9 @@ h1 {
 }
 #content {
     border-left:1px solid #DDD;
-    height:100%;
     vertical-align: top;
     max-width:500px;
     width:60%;
-
 }
 #navigation-title {
     font-size: 1.5em;
@@ -58,12 +64,17 @@ ul {
 }
 #navigation a:hover {
     font-weight:bold;
+    color:#058;
 }
 
-table,tr,td{
-    border:1px solid black;
+table,tr,td,th{
     border-collapse:collapse;
+    text-align:center;
 }
-td {
-    width:100px;
+button:hover {
+    cursor: pointer;
+}
+table th{
+    padding:5px 10px 0 10px;
+    border-bottom: 1px solid #CCC;
 }
