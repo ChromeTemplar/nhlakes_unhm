@@ -10,8 +10,6 @@ class surveyModel extends Model
      */
     function __construct($id ="")
     {   
-        echo $id;
-        
         if (empty($this->table)) {  
             $this->table = strtolower(substr(get_class($this), 0, -5)); 
         }         
