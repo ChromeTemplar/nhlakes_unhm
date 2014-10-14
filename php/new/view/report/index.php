@@ -1,3 +1,4 @@
 <h1><?php echo $welcome ?></h1>
 
-<?php
+<br>
+Return <?php echo $this->linkTo("home","index","Home"); ?>

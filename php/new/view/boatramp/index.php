@@ -3,3 +3,6 @@
 <?php
 echo $this->buttonTo("boatRamp","editBoatRamp", "Edit");
 echo $this->buttonTo("boatRamp","newBoatRamp", "New");
+
+?><br>
+Return <?php echo $this->linkTo("home","index","Home"); ?>
