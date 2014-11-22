@@ -6,7 +6,7 @@ class db1 {
 	
 	function __construct(){
 	
-		$mysqli = new mysqli("localhost", "colby", "commoncolby", "nhvbsr");
+		$mysqli = new mysqli("localhost", "root", "", "");
 		
 		if (mysqli_connect_errno()) {
 		  printf("Connection failed: %s<br />", mysqli_connect_error());
@@ -53,7 +53,7 @@ class db1 {
 	$LakeHosts = array();
 	
 	
-	$mysqli = new mysqli("localhost", "colby", "commoncolby", "nhvbsr");
+	$mysqli = new mysqli("localhost", "root", "", "nhvbsr");
 	$surveyResult = array('surveyID'=>array(),'inputTime'=>array(),'launchStatus'=>array(),'registrationState'=>array(),'boatType'=>array());
 		
 		if (mysqli_connect_errno()) {
@@ -140,7 +140,7 @@ class db1 {
 	}
 	
 	public function getSiteName($site_id) {
-		$mysqli = new mysqli("localhost", "colby", "commoncolby", "nhvbsr");
+		$mysqli = new mysqli("localhost", "root", "", "nhvbsr");
 				
 		if (mysqli_connect_errno()) {
 		   printf("Connection failed: %s<br />", mysqli_connect_error());
@@ -168,7 +168,7 @@ class db1 {
 	
 	public function getAccessSites() {
 		$accessSites = array('SiteID'=>array(),'SiteName'=>array());
-		$mysqli = new mysqli("localhost", "colby", "commoncolby", "nhvbsr");
+		$mysqli = new mysqli("localhost", "root", "", "nhvbsr");
 				
 		if (mysqli_connect_errno()) {
 		   printf("Connection failed: %s<br />", mysqli_connect_error());
@@ -198,7 +198,7 @@ class db1 {
 	}
 	
 	public function getSiteSurveys($site_id) {
-		$mysqli = new mysqli("localhost", "colby", "commoncolby", "nhvbsr");
+		$mysqli = new mysqli("localhost", "root", "", "nhvbsr");
 		$surveyResult = array('surveyID'=>array(),'inputDate'=>array(),'launchStatus'=>array(),'registrationState'=>array(),'boatType'=>array());
 		
 		if (mysqli_connect_errno()) {
@@ -235,7 +235,7 @@ class db1 {
 	}
 	
 public function getSortedAggregatesurveys($sort,$site) {
-		$mysqli = new mysqli("localhost", "colby", "commoncolby", "nhvbsr");
+		$mysqli = new mysqli("localhost", "root", "", "nhvbsr");
 				
 		if (mysqli_connect_errno()) {
 		   printf("Connection failed: %s<br />", mysqli_connect_error());
@@ -348,7 +348,7 @@ public function getSortedAggregatesurveys($sort,$site) {
 	
 	public function getSiteID($userID) {
 	
-		$mysqli = new mysqli("localhost", "colby", "commoncolby", "nhvbsr");
+		$mysqli = new mysqli("localhost", "root", "", "nhvbsr");
 		
 		if (mysqli_connect_errno()) {
 		   printf("Connection failed: %s<br />", mysqli_connect_error());

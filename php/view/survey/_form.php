@@ -22,12 +22,13 @@
     </select><br/><br/>
 
     <label>Type of boat:</label><br/>
-    <input type='radio' id='1' name='boat' value='inboard/outboard(I/O)'/>inboard/outboard(I/O)<br/>
-    <input type='radio' id='2' name='boat' value='PWC/jet ski/jet boat'/>PWC/jet ski/jet boat<br/>
-    <input type='radio' id='3' name='boat' value='canoe/kayak'/>canoe/kayak<br/>
-    <input type='radio' id='4' name='boat' value='sail' />sail<br />
-    <input type='radio' id='5' name='boat' value='other' />other<br/><br/>
-
+    <div class="radio">
+        <input type='radio' id="radio1" name='boat' value='inboard/outboard(I/O)'/><label for="radio1" >Inboard/Outboard(I/O)</label>
+        <input type='radio' id="radio2" name='boat' value='PWC/jet ski/jet boat'/><label for="radio2" >PWC/jet ski/jet boat</label>
+        <input type='radio' id="radio3" name='boat' value='canoe/kayak'/><label for="radio3">Canoe/kayak</label>
+        <input type='radio' id="radio4" name='boat' value='sail' /><label for="radio4">Sail</label>
+        <input type='radio' id="radio5" name='boat' value='other' /><label for="radio5">Other</label>
+    <div>
     <label>Previous interaction with a Lake Host?</label><br/>
     <input type='radio' name='interaction' value='1' /> YES
     <input type='radio' name='interaction' value='0' /> NO<br/><br/>

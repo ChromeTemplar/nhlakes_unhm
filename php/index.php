@@ -1,21 +1,25 @@
-<?php
-require_once 'C:\\devel\\web\\php\\control\\MainController.php';
-//require_once 'C:\\devel\\web\\php\\index.php';
-# Check if a cookie is set. If cookie is not set, redirect to login screen.
-//echo "session Dump=====>" . var_dump($_SESSION)."<br />";
-//echo "post Dump=====><br />" . var_dump($_POST);
-	if (!isset($_SESSION['email']) && !isset($_POST['email'])) {
-            //echo "<br /> session is not set <br />";
-            $login = new view;
-            $login->loginView();
-	}
-	if(isset($_POST['email'])){
-            //unset($login);
-            $checkLogin = new MainController();
-            $checkLogin->startLogin();
-	}
-        elseif(isset($_SESSION['email'])){
-            $signedIn = new surveyView();
-            $signedIn->newSurvey();
+<?php  
+//$view = new View;
 
-        }
+
+/*** error reporting on ***/
+error_reporting(E_ALL);
+
+/*** define the site path constant ***/
+$site_path = realpath(dirname(__FILE__));
+define ('__SITE_PATH', $site_path);
+
+/*** include the init.php file ***/
+include 'includes/init.php';
+
+/*** load the router ***/
+$registry->router = new router($registry);
+
+/*** set the controller path ***/
+$registry->router->setPath (__SITE_PATH . '/controller');
+
+/*** load up the template ***/
+$registry->template = new template($registry);
+
+/*** load the controller ***/
+$registry->router->loader();
