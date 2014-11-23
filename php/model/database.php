@@ -33,8 +33,13 @@ class Database
         $pass = !empty($pass) ? $pass : $this->pass; 
         $db   = !empty($db)   ? $db   : $this->db; 
      
-        $this->conn = mysql_connect($host, $user, $pass) or $this->error('Could not connect to database. Make sure settings are correct.'); 
-         
+        $this->conn = mysqli_connect($host, $user, $pass, $db) or $this->error('Could not connect to database. Make sure settings are correct.'); 
+       
+        if (mysqli_connect_errno())
+        {
+            echo "Failed to connect to MySQL: " . mysqli_connect_error();
+        }
+        
         if (is_resource($this->conn)) { 
             mysql_select_db($db, $this->conn) or $this->error("Database '$db' could not be found."); 
             return $this->conn; 
@@ -59,7 +64,16 @@ class Database
      
         is_resource($this->conn) || $this->Database(); 
         $this->last_sql = $sql; 
-        return $this->last_query = mysql_query($sql, $this->conn) or $this->error(); 
+        
+        
+        $result = $this->last_query = mysqli_query($this->conn, $sql);
+        
+        if ( false===$result ) {
+            printf("error: %s\n", mysqli_error($this->conn));
+        }else {
+            return $result;
+        }
+               
      
     } 
      
@@ -76,7 +90,7 @@ class Database
         $orderby = !empty($orderby) ? "ORDER BY $orderby" : ''; 
         $where = !empty($where) ? "WHERE $where" : ''; 
         $limit = !empty($limit) ? "LIMIT $limit" : ''; 
-     
+        
         return $this->query("SELECT $cols FROM $table $where $orderby $limit"); 
      
     } 
@@ -169,10 +183,18 @@ class Database
      
         $type = $type == 'object' ? 'mysql_fetch_object' : 'mysql_fetch_array'; 
          
-        if (is_resource($this->last_query)) 
-            return $type($this->last_query); 
-             
-        else $this->error(); 
+        if (is_resource($this->last_query))
+        {
+            $result = $type($this->last_query); 
+            
+            if ( false===$result ) {
+                printf("error: %s\n", mysqli_error($this->conn));
+            }else {
+                return $result;
+        }
+        }
+        
+        
      
     } 
      

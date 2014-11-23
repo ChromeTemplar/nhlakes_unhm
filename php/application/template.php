@@ -68,7 +68,7 @@ class template
         
         include 'view/layout/applicationView.php';
         include $path;
-        include 'view/partial/_footer.php';
+        include 'view/partials/_footer.php';
    }
    
    /**
@@ -128,7 +128,7 @@ class template
         foreach($list[0] as $key => $val){
             $html .= "<th>$key</th>";
         }
-        //Leaves room for the Edit button column
+        //Add edit button column to the end
         $html .= "<th>Edit</th>";
         
         //Iterate through all objects
@@ -140,7 +140,7 @@ class template
                 $html .= "<td>$val</td>";
             }
             //Add the Edit button column
-            $button = $this->buttonTo("survey","editSurvey","Edit",$list[$i]->id);
+            $button = $this->buttonTo("survey","editSurvey","Edit",$list[$i]["id"]);
             $html .= "<td>".$button."</td>";
 
         $html .= "</tr>";

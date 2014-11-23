@@ -3,27 +3,37 @@
 class surveyModel extends Model
 {
     
-    /** 
-     * Import CSV file into database 
-     * 
-     * @param   array   Data from CSV file 
-     */
     function __construct($id ="")
     {   
         if (empty($this->table)) {  
             $this->table = strtolower(substr(get_class($this), 0, -5)); 
         }         
-        if (empty($this->fields)) { 
-            $this->query("SHOW COLUMNS FROM $this->table"); 
-            foreach ($this->get() as $col) {
-                $this->fields[] = $col->Field; 
-            }
-        } 
+         
         if (!empty($id)) { 
             $this->id = $id; 
         } 
     }
     
+    
+    function all()
+    {
+        $table = $this->table;
+        
+        $result = $this->select($table);
+        
+        while($row = $result->fetch_assoc()){
+            $results[] = $row; 
+        }
+        
+        return $results;
+    }
+    
+    
+    /** 
+     * Import CSV file into database 
+     * 
+     * @param   array   Data from CSV file 
+     */
     function import($data) 
     { 
      
@@ -41,6 +51,6 @@ class surveyModel extends Model
         unset($this->fields[0]); 
         $fields = implode(',', $this->fields); 
          
-        return $this->query("INSERT INTO agency ($fields) VALUES $new_data"); 
+        return $this->query("INSERT INTO survey ($fields) VALUES $new_data"); 
     }
 }

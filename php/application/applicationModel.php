@@ -27,9 +27,9 @@ class Model extends Database {
      * @param    string   Columns to select 
      * @return   result   Result of query 
      */ 
-    function select($orderby = 'id DESC', $where = '', $cols = '*', $limit = '') { 
+    function select($table, $orderby = 'id DESC', $where = '', $cols = '*', $limit = '') { 
         if (!empty($this->id) && empty($where)) $where .= "id = $this->id"; 
-        
+
         return parent::select($this->table, $orderby, $where, $cols, $limit); 
      
     } 
@@ -53,7 +53,7 @@ class Model extends Database {
         else { 
             foreach ($set as $key => $val) { 
                 if (empty($set[$key]) || $set[$key] == '') 
-                    unset($set[$key]); 
+                    unset($set[$key]);
             } 
             return $this->update($this->table, $set, "id = '$this->id'"); 
         } 
@@ -73,7 +73,7 @@ class Model extends Database {
         $cols = (!empty($cols)) ? $cols : '*'; 
         $limit = (!empty($limit)) ? $limit : ''; 
         
-        $this->select($orderby, $where, $cols, $limit); 
+        $this->select($this->table, $orderby, $where, $cols, $limit); 
         
         return $this->get(); 
      
@@ -87,14 +87,13 @@ class Model extends Database {
      * @param   string   Columns to select 
      */ 
     function find($orderby = 'id DESC', $where = '', $cols = '*', $limit = '') { 
-     
         $orderby = (!empty($orderby)) ? $orderby : 'id DESC'; 
         $where = (!empty($where)) ? $where : ''; 
         if (!empty($this->id) && empty($where)) $where .= "id = $this->id"; 
         $cols = (!empty($cols)) ? $cols : '*'; 
         $limit = (!empty($limit)) ? $limit : ''; 
      
-        $this->select($orderby, $where, $cols, $limit); 
+        $this->select($this->table, $orderby, $where, $cols, $limit); 
         return $this->get_first(); 
      
     } 

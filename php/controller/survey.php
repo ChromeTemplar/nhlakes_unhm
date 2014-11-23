@@ -17,8 +17,10 @@ class SurveyController extends Controller
         $this->registry->template->welcome = 'Surveys';
 
         $model = new surveyModel();        
-        $survey = $model->find_all();
-        $this->registry->template->surveys = $survey;
+        $surveys = $model->all();
+        
+        
+        $this->registry->template->surveys = $surveys;
         
         /*** load the index template ***/
         $this->registry->template->show($this->name, 'index');
@@ -49,8 +51,8 @@ class SurveyController extends Controller
         $this->registry->template->welcome = 'Edit Survey';
         
         $model = new surveyModel($id);
-        $survey = $model->find_all();
-        //print_r($id);
+        $survey = $model->find();
+        
         $this->registry->template->survey = $survey[0];
 
         /*** load the edit template ***/
