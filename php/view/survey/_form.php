@@ -1,9 +1,9 @@
 <form>
     <label>Time:</label><br/>
-    <input type='time' name='time' <?php echo "value='$survey->InspectionTime'"; ?>/><br/><br/>
+    <input type='time' name='time' <?php if (isset($survey)) echo "value='$survey->InspectionTime'"; ?>/><br/><br/>
 
     <label>Date:</label><br/>
-    <input type='date' id='date' name='date' <?php echo "value='$survey->InputDate'"; ?>/><br/><Br/>
+    <input type='date' id='date' name='date' <?php if (isset($survey)) echo "value='$survey->InputDate'"; ?>/><br/><Br/>
 
     <label>Launched or retrieved: </label><br/>
     <input type='radio' name='status' value='launched' />Launched

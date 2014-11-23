@@ -31,7 +31,7 @@ class LakeHostController extends Controller
     /*
     This function returns HTML table. This table contains the survey information obtained from the database.
     */
-    public function newLakeHost($survey_id)
+    public function newLakeHost()
     {
         /*** set a template variable ***/
         $this->registry->template->welcome = 'New Lake Host';

@@ -31,7 +31,7 @@ class BoatRampController extends Controller
     /*
     This function returns HTML table. This table contains the survey information obtained from the database.
     */
-    public function newBoatRamp($survey_id)
+    public function newBoatRamp()
     {
         /*** set a template variable ***/
         $this->registry->template->welcome = 'New Boat Ramp';

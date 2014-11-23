@@ -1,5 +1,5 @@
 <form method="post" action="index.php">
-<table border=10>
+<table >
 
 <tr>
 <td id="FName" <span class="req"></span>

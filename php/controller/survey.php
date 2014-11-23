@@ -28,7 +28,7 @@ class SurveyController extends Controller
     /*
     This function returns HTML table. This table contains the survey information obtained from the database.
     */
-    public function newSurvey($survey_id)
+    public function newSurvey()
     {
         /*** set a template variable ***/
         $this->registry->template->welcome = 'New Survey';

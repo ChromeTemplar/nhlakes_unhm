@@ -103,7 +103,7 @@ class Model extends Database {
      * 
      * @param   string   Where clause 
      */ 
-    function delete($where) { 
+    function delete($table, $where) { 
      
         if (!empty($this->id) && empty($where)) $where .= "id = $this->id"; 
      
