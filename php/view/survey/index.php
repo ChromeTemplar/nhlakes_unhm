@@ -6,6 +6,6 @@ echo $this->buildTable($surveys);
 echo $this->buttonTo("survey","newSurvey", "New");
 ?>
 
-?><br>
+<br>
 Return <?php echo $this->linkTo("home","index","Home"); ?>
 

@@ -9,23 +9,30 @@ Latitude (For future use)
 Longitude (For future use)
 -->
 
-<form>
+<form action="index.php?rt=boatRamp/create" method="post">
+    
+    <!-- Ramp Name -->
     <label for="rampName">Name</label><br/>
-    <input type="text" name="rampName" class="medium"><br/><br/>
+    <input type="text" name="ramp[Name]" class="medium"><br/><br/>
     
-    <label for="lake">Lake</label><br/>
-    <select name="lake" id="lake" class="medium" >
-        <option value="">-Select-</option>
-        <option>Lake1</option>
-        <option>Lake2</option>
-        <option>Lake3</option>
-    </select><br/><br/>
-    
-    <label for="town">Town</label><br/>
-    <input type="text" name="town" class="medium"><br/><br/>
-    
+    <!-- Ramp State -->
     <label for="state">State</label><br/>
-    <input type="text" name="state" class="medium"><br/><br/>
+    <?php echo $this->selectList($states, array("name" => "ramp[State]", "id" => "state", "class" => "medium selectmenu")); ?>
+    <br/><br/>
+    
+    <!-- Ramp Town -->
+    <label for="town">Town</label><br/>
+    <?php echo $this->selectList($towns, array("name" => "ramp[TownID]","id" => "town", "class" => "medium selectmenu")); ?>
+    <br/><br/>
+    
+    <!-- Ramp Waterbody -->
+    <label for="waterbody">Waterbody</label><br/>
+    <?php echo $this->selectList($waterbodies, array("name" => "ramp[WaterbodyID]", "id" => "waterbody", "class" => "medium selectmenu")); ?>
+    <br/><br/>
+    
+    <!-- Ramp Notes-->
+    <label for="notes">Notes</label><br/>
+    <textarea name="ramp[Notes]" rows="4" cols="50"></textarea><br/><br/>
     
     <input type="submit" value="Submit">
     <?php echo $this->buttonTo("home","index","Cancel"); ?>

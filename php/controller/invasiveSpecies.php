@@ -54,11 +54,5 @@ class InvasiveSpeciesController extends Controller
         /*** load the edit template ***/
         $this->registry->template->show($this->name, 'edit');
         
-        //$model = new SurveyModel($survey_id);
-
-        //$tmpSurvey = $model->find_all();
-        //$survey = $tmpSurvey[0];
-
-        //return $survey;
     }
 }

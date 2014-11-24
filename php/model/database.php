@@ -41,7 +41,7 @@ class Database
         }
         
         if (is_resource($this->conn)) { 
-            mysql_select_db($db, $this->conn) or $this->error("Database '$db' could not be found."); 
+            mysqli_select_db($db, $this->conn) or $this->error("Database '$db' could not be found."); 
             return $this->conn; 
         } 
          
@@ -69,12 +69,10 @@ class Database
         $result = $this->last_query = mysqli_query($this->conn, $sql);
         
         if ( false===$result ) {
-            printf("error: %s\n", mysqli_error($this->conn));
+            printf("SQL error: %s\n", mysqli_error($this->conn));
         }else {
             return $result;
         }
-               
-     
     } 
      
     /** 
@@ -107,14 +105,14 @@ class Database
         if (!is_array($data)) 
             return false; 
              
-        foreach ($data as $col => $value) 
-            $data[$col] = $this->escape($value); 
+        //foreach ($data as $col => $value) 
+            //$data[$col] = $this->escape($value); 
          
         $cols = array_keys($data); 
         $vals = array_values($data); 
          
-        $this->query("INSERT INTO $table (".implode(',', $cols).") VALUES (".implode(',', $vals).")"); 
-        return mysql_insert_id(); 
+        $this->query("INSERT INTO $table (".implode(",", $cols).") VALUES ('".implode("','", $vals)."')"); 
+        return mysqli_insert_id($this->conn); 
      
     } 
      
@@ -191,7 +189,7 @@ class Database
                 printf("error: %s\n", mysqli_error($this->conn));
             }else {
                 return $result;
-        }
+            }
         }
         
         
@@ -208,7 +206,7 @@ class Database
      
         switch(gettype($data)) { 
             case 'string': 
-                $data = "'".mysql_real_escape_string($data)."'"; 
+                $data = "'".mysqli_real_escape_string($this->conn, $data)."'"; 
                 break; 
             case 'boolean': 
                 $data = (int) $data; 

@@ -1,12 +1,12 @@
 <?php
 
-class surveyModel extends Model
+class survey extends Model
 {
     
     function __construct($id ="")
     {   
         if (empty($this->table)) {  
-            $this->table = strtolower(substr(get_class($this), 0, -5)); 
+            $this->table = strtolower(get_class($this)); 
         }         
          
         if (!empty($id)) { 

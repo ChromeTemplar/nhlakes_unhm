@@ -45,17 +45,17 @@ class Model extends Database {
             return false; 
      
         for ($i=0; $i<count($this->fields); $i++) { 
-            $set[$this->fields[$i]] = !empty($data[$this->fields[$i]]) ? $data[$this->fields[$i]] : ''; 
+            $data[$this->fields[$i]] = !empty($data[$this->fields[$i]]) ? $data[$this->fields[$i]] : ''; 
         } 
          
         if (empty($this->id)) 
-            return $this->insert($this->table, $set); 
+            return $this->insert($this->table, $data); 
         else { 
-            foreach ($set as $key => $val) { 
-                if (empty($set[$key]) || $set[$key] == '') 
-                    unset($set[$key]);
+            foreach ($data as $key => $val) { 
+                if (empty($data[$key]) || $data[$key] == '') 
+                    unset($data[$key]);
             } 
-            return $this->update($this->table, $set, "id = '$this->id'"); 
+            return $this->update($this->table, $data, "id = '$this->id'"); 
         } 
     } 
      

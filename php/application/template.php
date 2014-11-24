@@ -115,7 +115,8 @@ class template
 
     
     /**
-     * Takes in a list of objects returns an html table
+     * Takes in a list of objects returns an html table for the Index pages for our data
+     * Includes an Edit button
      * 
      * @param Array $surveys List of objects
      * @return string
@@ -150,4 +151,43 @@ class template
         
         return $html;
     }
+    
+    
+    /**
+     * This dynamically generates an HTML select list.
+     *
+     *
+     * 
+     * @param $list Array of items to create options list with.
+     * @param $properties Array of HTML attributes to apply
+     * 
+     * @return HTML Select list
+     */
+    public function selectList($list, $properties)
+    {
+        
+        $html = "<select ";
+        
+        foreach ($properties as $key => $val)
+        {
+            $html.= "$key='$val' ";
+        }
+        $html.=">";
+        
+        $html.= "<option value=''>-Select-</option>";
+        foreach($list as $key => $value)
+            if ($this->is_assoc($list))
+                $html.= "<option value='$key'>$value</option>";
+            else
+                $html.= "<option value='$value'>$value</option>";
+            
+        $html.= "</select>";
+        
+        return $html;
+    }
+    
+    private function is_assoc($array) {
+        return (bool)count(array_filter(array_keys($array), 'is_string'));
+    }
+    
 }

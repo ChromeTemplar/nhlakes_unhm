@@ -16,7 +16,7 @@ class SurveyController extends Controller
         /*** set a template variable ***/
         $this->registry->template->welcome = 'Surveys';
 
-        $model = new surveyModel();        
+        $model = new survey();        
         $surveys = $model->all();
         
         
@@ -50,7 +50,7 @@ class SurveyController extends Controller
         /*** set a template variable ***/
         $this->registry->template->welcome = 'Edit Survey';
         
-        $model = new surveyModel($id);
+        $model = new survey($id);
         $survey = $model->find();
         
         $this->registry->template->survey = $survey[0];

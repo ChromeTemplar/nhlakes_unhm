@@ -3,5 +3,5 @@ $(function(){
    
    //$(".radio").buttonset();
    
-   $("#lake").selectmenu();
+   $(".selectmenu").selectmenu();
 });
