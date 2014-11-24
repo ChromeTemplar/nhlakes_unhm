@@ -13,21 +13,6 @@ class boatRamp extends Model
         } 
     }
     
-    function all()
-    {
-        $table = $this->table;
-        
-        $result = $this->select($table);
-        
-        while($row = $result->fetch_assoc()){
-            $results[] = $row; 
-        }
-        
-        if (isset($results)){
-            return $results;
-        }else {
-            return "";
-        }
-    } 
+    
 }
 

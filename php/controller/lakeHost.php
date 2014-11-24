@@ -45,7 +45,7 @@ class LakeHostController extends Controller
      * @param Int $survey_id
      * @return Object containing all Survey columns
      */
-    public function editLakeHost($survey_id)
+    public function edit($survey_id)
     {
         
         /*** set a template variable ***/

@@ -1,10 +1,11 @@
-<!-- This form will New/Edit BoatRamp associated with a waterbody. 
+<!-- This form will handle New/Edit BoatRamp associated with a waterbody. 
 In order to do this, the waterbody must be created first.
 This Form will have the following inputs:
 Name
 Waterbody
 Town
 State
+Notes
 Latitude (For future use)
 Longitude (For future use)
 -->
@@ -27,7 +28,7 @@ Longitude (For future use)
     
     <!-- Ramp Waterbody -->
     <label for="waterbody">Waterbody</label><br/>
-    <?php echo $this->selectList($waterbodies, array("name" => "ramp[WaterbodyID]", "id" => "waterbody", "class" => "medium selectmenu")); ?>
+    <?php echo $this->selectListFromData($waterbodies, array("name" => "ramp[WaterbodyID]", "id" => "waterbody", "class" => "medium selectmenu")); ?>
     <br/><br/>
     
     <!-- Ramp Notes-->

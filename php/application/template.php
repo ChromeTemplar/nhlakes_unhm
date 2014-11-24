@@ -122,30 +122,66 @@ class template
      * @return string
      */
     public function buildTable($list) {
-    
         $html = '<table><tr>';
         
+        //check if more than one element in list
+        if (isset($list[0]))
+            $listHeaders = $list[0];
+        else
+            $listHeaders = $list;
+        
         //Iterate through the keys
-        foreach($list[0] as $key => $val){
+        foreach($listHeaders as $key => $val){
             $html .= "<th>$key</th>";
         }
         //Add edit button column to the end
         $html .= "<th>Edit</th>";
         
+        //Add edit button column to the end
+        $html .= "<th>Delete</th>";
+        
         //Iterate through all objects
         $html .= "</tr>";
-        for($i=0;$i<count($list);$i++){
+        
+        //Check if there is only one item
+        if (isset($list[0])){   
+            //If more than one loop through all 
+            for($i=0;$i<count($list);$i++){
+                $html .= "<tr>";
+
+                foreach($list[$i] as $val){
+                    $html .= "<td>$val</td>";
+                }
+                
+                
+                //Add the Edit button column
+                $editButton = $this->buttonTo($this->registry->router->controller,"edit","Edit",$list[$i]["id"]);
+                //Add the Delete Button Column
+                $deleteButton = $this->buttonTo($this->registry->router->controller,"delete","Delete",$list[$i]["id"]);
+                
+                $html .= "<td>".$editButton."</td>";
+                $html .= "<td>".$deleteButton."</td>";
+
+            $html .= "</tr>";
+            }
+        }else{
             $html .= "<tr>";
 
-            foreach($list[$i] as $val){
-                $html .= "<td>$val</td>";
-            }
-            //Add the Edit button column
-            $button = $this->buttonTo("survey","editSurvey","Edit",$list[$i]["id"]);
-            $html .= "<td>".$button."</td>";
+                foreach($list as $val){
+                    $html .= "<td>$val</td>";
+                }
+                
+                //Add the Edit button column
+                $editButton = $this->buttonTo($this->registry->router->controller,"edit","Edit",$list["id"]);
+                //Add the Delete Button Column
+                $deleteButton = $this->buttonTo($this->registry->router->controller,"delete","Delete",$list["id"]);
+                
+                $html .= "<td>".$editButton."</td>";
+                $html .= "<td>".$deleteButton."</td>";
 
-        $html .= "</tr>";
+            $html .= "</tr>";
         }
+            
         
         $html .= "</table>";
         
@@ -174,20 +210,40 @@ class template
         }
         $html.=">";
         
+        
         $html.= "<option value=''>-Select-</option>";
+        
         foreach($list as $key => $value)
-            if ($this->is_assoc($list))
-                $html.= "<option value='$key'>$value</option>";
-            else
-                $html.= "<option value='$value'>$value</option>";
+            $html.= "<option value='$key'>$value</option>";
             
         $html.= "</select>";
         
         return $html;
     }
     
-    private function is_assoc($array) {
-        return (bool)count(array_filter(array_keys($array), 'is_string'));
+    public function selectListFromData($list, $properties)
+    {
+        
+        $html = "<select ";
+        
+        foreach ($properties as $key => $val)
+        {
+            $html.= "$key='$val' ";
+        }
+        $html.=">";
+        
+        
+        $html.= "<option value=''>-Select-</option>";
+        if (is_array($list[0])) {
+            foreach($list as $key => $value)
+                $html.= "<option value='$key'>$value</option>";
+        }else
+            $html.= "<option value='".$list[0]."'>$list[1]</option>";
+        
+            
+        $html.= "</select>";
+        
+        return $html;
     }
     
 }

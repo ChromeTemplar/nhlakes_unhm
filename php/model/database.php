@@ -89,8 +89,21 @@ class Database
         $where = !empty($where) ? "WHERE $where" : ''; 
         $limit = !empty($limit) ? "LIMIT $limit" : ''; 
         
-        return $this->query("SELECT $cols FROM $table $where $orderby $limit"); 
-     
+        $result = $this->query("SELECT $cols FROM $table $where $orderby $limit"); 
+        
+        if ($result->num_rows > 1){
+            while($row = $result->fetch_assoc()){
+                $results[] = $row; 
+            }
+        }else
+            $results = $result->fetch_assoc();
+      
+        
+        if (isset($results))
+            return $results;
+        else
+            return "";
+
     } 
      
     /** 
@@ -141,12 +154,14 @@ class Database
      * Delete a single row 
      * 
      * @param    string   Table name to query 
-     * @param    string   The column to match against 
      * @param    string   Value to match against column 
      * @return   result   Result of query 
      */ 
-    function delete($table, $where) { 
-     
+    function delete($table = '', $where = '') { 
+        if (!isset($table)) $table = $this->table;
+        if (!empty($this->id) && empty($where)) 
+            $where .= "id = $this->id";
+        
         return $this->query("DELETE FROM $table WHERE $where"); 
      
     } 

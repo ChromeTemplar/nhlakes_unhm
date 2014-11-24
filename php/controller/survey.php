@@ -17,7 +17,7 @@ class SurveyController extends Controller
         $this->registry->template->welcome = 'Surveys';
 
         $model = new survey();        
-        $surveys = $model->all();
+        $surveys = $model->select();
         
         
         $this->registry->template->surveys = $surveys;
@@ -42,7 +42,7 @@ class SurveyController extends Controller
      * @param Int $survey_id
      * @return Object containing all Survey columns
      */
-    public function editSurvey()
+    public function edit()
     {
         if (isset($_GET["id"])){
             $id = $_GET["id"];

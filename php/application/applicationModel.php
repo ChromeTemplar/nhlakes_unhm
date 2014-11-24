@@ -27,8 +27,12 @@ class Model extends Database {
      * @param    string   Columns to select 
      * @return   result   Result of query 
      */ 
-    function select($table, $orderby = 'id DESC', $where = '', $cols = '*', $limit = '') { 
-        if (!empty($this->id) && empty($where)) $where .= "id = $this->id"; 
+    function select($table='', $orderby = 'id DESC', $where = '', $cols = '*', $limit = '') { 
+        if (!empty($table))
+            $this->table =$table;
+        
+        if (!empty($this->id) && empty($where)) 
+            $where .= "id = $this->id"; 
 
         return parent::select($this->table, $orderby, $where, $cols, $limit); 
      
@@ -66,8 +70,9 @@ class Model extends Database {
      * @param   string   Where clause 
      * @param   string   Columns to select 
      */ 
-    function find_all($orderby = 'id DESC', $where = '', $cols = '*', $limit = '') { 
+    function find_all($table = '', $orderby = 'id DESC', $where = '', $cols = '*', $limit = '') { 
         
+        $table = (!empty($table)) ? $table : '';
         $orderby = (!empty($orderby)) ? $orderby : 'id DESC'; 
         $where = (!empty($where)) ? $where : ''; 
         $cols = (!empty($cols)) ? $cols : '*'; 
@@ -103,9 +108,10 @@ class Model extends Database {
      * 
      * @param   string   Where clause 
      */ 
-    function delete($table, $where) { 
-     
-        if (!empty($this->id) && empty($where)) $where .= "id = $this->id"; 
+    function delete($table = '', $where = '') { 
+
+        if (!empty($this->id) && empty($where)) 
+            $where .= "id = $this->id"; 
      
         return parent::delete($this->table, $where); 
      

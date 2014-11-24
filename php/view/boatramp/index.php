@@ -1,10 +1,10 @@
 <h1><?php echo $welcome; ?></h1>
 
 <?php
-if (($ramps != ""))
+if ($ramps != "")
     echo $this->buildTable($ramps);
 else
-    echo "<h2>No Boat Ramps Found</h1>";
+    echo "<h2>No Boat Ramps Found</h2>";
 
 
 echo $this->buttonTo("boatRamp","newBoatRamp", "New");

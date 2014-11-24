@@ -21,7 +21,7 @@ class BoatRampController extends Controller
     public function index()
     { 
         $model = new boatRamp();        
-        $ramps = $model->all();
+        $ramps = $model->select();
         
         /*** set template variables ***/
         $this->registry->template->welcome = 'Boat Ramps';
@@ -29,10 +29,6 @@ class BoatRampController extends Controller
         
         /*** load the index template ***/
         $this->registry->template->show($this->name, 'index');
-        
-     
-        
-
     }
     /*
     This function returns HTML table. This table contains the survey information obtained from the database.
@@ -43,13 +39,17 @@ class BoatRampController extends Controller
         
         $states = array("NH","ME");
         $towns = array("Town1","Town2","Town3");
-        $waterbodies = array("Lake1","Lake2","Lake3");
+        $waterbodies = $model->select('waterbody', 'id DESC', '', 'id,Name');
+
+        foreach($waterbodies as $wb){
+            $formWaterbodies[] = $wb;
+        }
         
         /*** set a template variable ***/
         $this->registry->template->welcome = 'New Boat Ramp';
         $this->registry->template->states = $states;
         $this->registry->template->towns = $towns;
-        $this->registry->template->waterbodies = $waterbodies;
+        $this->registry->template->waterbodies = $formWaterbodies;
         
         /*** load the index template ***/
         $this->registry->template->show($this->name, 'new');
@@ -57,32 +57,45 @@ class BoatRampController extends Controller
 
     /**
      * 
-     * @param Int $survey_id
+     * 
      * @return Object containing all Survey columns
      */
-    public function editBoatRamp()
+    public function edit()
     {
+        $model = new boatRamp();
+        
+        $states = array("NH","ME");
+        $towns = array("Town1","Town2","Town3");
+        $waterbodies = $model->select('waterbody', 'id DESC', '', 'id,Name');
+
+        foreach($waterbodies as $wb){
+            $formWaterbodies[] = $wb;
+        }
         
         /*** set a template variable ***/
-        $this->registry->template->welcome = 'Edit Boat Ramp';
+        $this->registry->template->welcome = 'New Boat Ramp';
+        $this->registry->template->states = $states;
+        $this->registry->template->towns = $towns;
+        $this->registry->template->waterbodies = $formWaterbodies;
         
         /*** load the edit template ***/
         $this->registry->template->show($this->name, 'edit');
         
-        //$model = new SurveyModel($survey_id);
-
-        //$tmpSurvey = $model->find_all();
-        //$survey = $tmpSurvey[0];
-
-        //return $survey;
     }
     
     public function create() {
         
-        print_r($_POST["ramp"]);
-        
         $model = new boatRamp();
         $model->save($_POST["ramp"]);
+        
+        header("location: index.php?rt=boatRamp/index");
+    }
+    
+    public function delete() {
+        
+        $model = new boatRamp($_GET['id']);
+        
+        $model->delete();
         
         header("location: index.php?rt=boatRamp/index");
     }
