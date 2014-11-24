@@ -4,4 +4,9 @@ $(function(){
    //$(".radio").buttonset();
    
    $(".selectmenu").selectmenu();
+   
+   $("#towns")
+        .selectmenu()
+        .selectmenu( "menuWidget" )
+            .addClass("overflow");
 });

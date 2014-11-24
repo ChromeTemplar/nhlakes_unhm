@@ -235,8 +235,8 @@ class template
         
         $html.= "<option value=''>-Select-</option>";
         if (is_array($list[0])) {
-            foreach($list as $key => $value)
-                $html.= "<option value='$key'>$value</option>";
+            foreach($list as $item)
+                $html.= "<option value='$item[0]]'>$item[1]</option>";
         }else
             $html.= "<option value='".$list[0]."'>$list[1]</option>";
         
