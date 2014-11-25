@@ -31,7 +31,7 @@ class InvasiveSpeciesController extends Controller
     /*
     This function returns HTML table. This table contains the survey information obtained from the database.
     */
-    public function newInvasiveSpecies($survey_id)
+    public function newInvasiveSpecies()
     {
         /*** set a template variable ***/
         $this->registry->template->welcome = 'New Invasive Species';

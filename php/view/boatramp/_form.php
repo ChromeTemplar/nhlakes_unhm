@@ -28,7 +28,7 @@ Longitude (For future use)
     
     <!-- Ramp Waterbody -->
     <label for="waterbody">Waterbody</label><br/>
-    <?php echo $this->selectListFromData($waterbodies, array("name" => "ramp[WaterbodyID]", "id" => "waterbody", "class" => "medium selectmenu")); ?>
+    <?php echo $this->selectList($waterbodies, array("name" => "ramp[WaterbodyID]", "id" => "waterbody", "class" => "medium selectmenu"),'', true); ?>
     <br/><br/>
     
     <!-- Ramp Notes-->

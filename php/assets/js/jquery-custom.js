@@ -1,7 +1,7 @@
 $(function(){
    $("input[type=button],input[type=submit], button").button();
    
-   //$(".radio").buttonset();
+   $(".radio").buttonset();
    
    $(".selectmenu").selectmenu();
    

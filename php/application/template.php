@@ -188,20 +188,8 @@ class template
         return $html;
     }
     
-    
-    /**
-     * This dynamically generates an HTML select list.
-     *
-     *
-     * 
-     * @param $list Array of items to create options list with.
-     * @param $properties Array of HTML attributes to apply
-     * 
-     * @return HTML Select list
-     */
-    public function selectList($list, $properties)
+    public function selectList($list, $properties, $selected ='', $ids = false)
     {
-        
         $html = "<select ";
         
         foreach ($properties as $key => $val)
@@ -210,40 +198,79 @@ class template
         }
         $html.=">";
         
+        $html.= $this->selectListOptions($list, $selected, $ids);
         
-        $html.= "<option value=''>-Select-</option>";
-        
-        foreach($list as $key => $value)
-            $html.= "<option value='$key'>$value</option>";
-            
         $html.= "</select>";
         
         return $html;
     }
     
-    public function selectListFromData($list, $properties)
+    
+    public function selectListOptions($list, $selected, $ids)
     {
-        
-        $html = "<select ";
-        
-        foreach ($properties as $key => $val)
-        {
-            $html.= "$key='$val' ";
+        if (!is_array($list)) {
+            echo "Options for select list are not an array";
+            return;
         }
-        $html.=">";
         
+        $html = "<option>-Select-</option>";
         
-        $html.= "<option value=''>-Select-</option>";
-        if (is_array($list[0])) {
-            foreach($list as $item)
-                $html.= "<option value='$item[0]]'>$item[1]</option>";
-        }else
-            $html.= "<option value='".$list[0]."'>$list[1]</option>";
+        if ($this->hasTwoDimensions($list))
+        {
+            for ($i=0;$i<count($list);$i++) {
+                if ($ids) 
+                    $html.=$this->buildOptionsWithIds($list[$i]);
+                else
+                    $html.=$this->buildOptions($list[$i]);
+            }
+        }  else {
+
+            if ($ids)
+                $html.=$this->buildOptionsWithIds($list);
+            else
+                $html.=$this->buildOptions($list);
+        }
         
-            
-        $html.= "</select>";
         
         return $html;
     }
     
+    
+    public function buildOptionsWithIds($array){
+        $html="";
+        
+            $html.= "<option value='";
+            
+            $html.="$array[0]'";
+
+            if ((isset($selected)) && ($selected == $array[0] || $selected == $array[1]))
+                $html.= "selected ";
+
+            $html.= ">$array[1]</option>";
+        
+        return $html;
+    }
+    
+    public function buildOptions($array){
+        $html="";
+        
+        foreach($array as $key => $value) {
+            $html.= "<option value='";
+            
+            //User Passed an indexed array                
+            $html.="$value' ";
+
+            if ((isset($selected)) && ($selected == $value))
+                $html.= "selected ";
+
+            $html.=">$value</option>";
+        }
+        
+        return $html;
+    }
+    
+    public function hasTwoDimensions($array) {
+        if (isset($array[0]))
+            return is_array($array[0]);
+    }
 }
