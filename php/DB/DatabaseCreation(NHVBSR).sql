@@ -97,6 +97,7 @@ FOREIGN KEY (UserID) REFERENCES User(UserID)
 
 CREATE TABLE Summary (
 SummaryID int(11) NOT NULL AUTO_INCREMENT,
+TotalSurveys int(4) NOT NULL,
 BoatState char(2),
 BoatType varchar(25),
 Previous int(4),
