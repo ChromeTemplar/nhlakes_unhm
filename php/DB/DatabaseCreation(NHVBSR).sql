@@ -46,7 +46,7 @@ CREATE TABLE User (
 
 
 CREATE TABLE BoatRamp(
-BoatRampID int NOT NULL AUTO_INCREMENT,
+BoatRampID int(11) NOT NULL AUTO_INCREMENT,
 LakeHostGroupID int (11) NOT NULL,
 Name varchar (50) NOT NULL,
 WaterbodyID int NOT NULL,
@@ -70,7 +70,7 @@ FOREIGN KEY (LakeHostGroupID) REFERENCES LakeHostGroup(LakeHostGroupID)
 
 CREATE TABLE InvasiveSurvey (
 UserID int(11) NOT NULL,
-BoatRampID int NOT NULL,
+BoatRampID int(11) NOT NULL,
 SurveyID int(11) NOT NULL AUTO_INCREMENT,
 SurveyDate date NOT NULL,
 SurveyTime time NOT NULL,
@@ -94,3 +94,25 @@ PRIMARY KEY (SurveyID),
 FOREIGN KEY (BoatRampID) REFERENCES BoatRamp(BoatrampID),
 FOREIGN KEY (UserID) REFERENCES User(UserID)
 );
+
+CREATE TABLE Summary (
+SummaryID int(11) NOT NULL AUTO_INCREMENT,
+BoatState char(2),
+BoatType varchar(25),
+Previous int(4),
+Drained  int(4),
+Rinsed int(4),
+Dry5 int(4),
+Awareness varchar(4),
+SpeciesFound char(3),
+BoatRampID int(11) NOT NULL,
+UserID int(11) NOT NULL,
+FOREIGN KEY (BoatRampID) REFERENCES BoatRamp(BoatrampID),
+FOREIGN KEY (UserID) REFERENCES User(UserID),
+PRIMARY KEY (SummaryID)
+);
+
+
+
+
+
