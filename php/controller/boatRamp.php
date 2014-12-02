@@ -59,17 +59,20 @@ class BoatRampController extends Controller
      */
     public function edit()
     {
-        $model = new boatRamp();
+        $this->model = new boatRamp($_GET['id']);
+        
+        $ramp = $this->model->select();
         
         $states = array("NH","ME");
         $towns = $this->getTowns();
         $waterbodies = $this->getWaterbodies();
-        print_r($waterbodies);
+        
         /*** set a template variable ***/
-        $this->registry->template->welcome = 'New Boat Ramp';
+        $this->registry->template->welcome = 'Edit Boat Ramp';
         $this->registry->template->states = $states;
         $this->registry->template->towns = $towns;
         $this->registry->template->waterbodies = $waterbodies;
+        $this->registry->template->ramp = $ramp;
         
         /*** load the edit template ***/
         $this->registry->template->show($this->name, 'edit');
@@ -78,7 +81,14 @@ class BoatRampController extends Controller
     
     public function create() {
         
-        $this->model = new boatRamp();
+        $model = new boatRamp();
+        $model->save($_POST["ramp"]);
+        
+        header("location: index.php?rt=boatRamp/index");
+    }
+    
+    public function update() {
+        $model = new boatRamp($_GET['id']);
         $model->save($_POST["ramp"]);
         
         header("location: index.php?rt=boatRamp/index");
@@ -98,8 +108,11 @@ class BoatRampController extends Controller
     }
     
     public function getWaterbodies() {
-        $items = $this->model->select('waterbody', 'id DESC', '', 'id,Name,Type');
-
+        $waterbody = new waterbody();
+        $items = $waterbody->find_all('waterbody', 'id DESC', '', 'id,Name,Type');
+        
+        
+        
         if (isset($items[0])) {
             for($i=0;$i<count($items);$i++){
                 $formWaterbodies[$i] = array($items[$i]['id'],$items[$i]['Name'].$items[$i]['Type']);
