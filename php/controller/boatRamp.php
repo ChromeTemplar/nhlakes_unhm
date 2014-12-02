@@ -115,7 +115,7 @@ class BoatRampController extends Controller
         
         if (isset($items[0])) {
             for($i=0;$i<count($items);$i++){
-                $formWaterbodies[$i] = array($items[$i]['id'],$items[$i]['Name'].$items[$i]['Type']);
+                $formWaterbodies[$i] = array($items[$i]['id'],$items[$i]['Name']." ".$items[$i]['Type']);
             }
         }else {
                 $formWaterbodies = array($items['id'],$items['Name'].$items['Type']);

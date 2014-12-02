@@ -61,11 +61,12 @@ ul {
 }
 #navigation a {
     text-decoration:none;
-    color:black;
+    //color:black;
 }
 #navigation a:hover {
-    font-weight:bold;
-    color:#058;
+    
+    //font-weight:bold;
+    //color:#058;
 }
 
 table,tr,td,th{
@@ -80,7 +81,7 @@ a {
     text-decoration-color: black;
 }
 a:hover,a:visited:hover {
-    color:#058;
+    //color:#058;
 }
 a:visited {
     color:black;

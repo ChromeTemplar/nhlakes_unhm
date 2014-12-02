@@ -49,7 +49,7 @@ method="post">
     
     <!-- Ramp Notes-->
     <label for="notes">Notes</label><br/>
-    <textarea name="ramp[Notes]" rows="4" cols="50"><?php if(isset($ramp)) echo $ramp['Notes'] ?></textarea><br/><br/>
+    <textarea name="ramp[Notes]" rows="4" cols="25"><?php if(isset($ramp)) echo $ramp['Notes'] ?></textarea><br/><br/>
     
     <input type="submit" value="Submit">
     <?php echo $this->buttonTo("home","index","Cancel"); ?>
