@@ -219,16 +219,16 @@ class template
         {
             for ($i=0;$i<count($list);$i++) {
                 if ($ids) 
-                    $html.=$this->buildOptionsWithIds($list[$i]);
+                    $html.=$this->buildOptionsWithIds($list[$i], $selected);
                 else
-                    $html.=$this->buildOptions($list[$i]);
+                    $html.=$this->buildOptions($list[$i], $selected);
             }
         }  else {
 
             if ($ids)
-                $html.=$this->buildOptionsWithIds($list);
+                $html.=$this->buildOptionsWithIds($list, $selected);
             else
-                $html.=$this->buildOptions($list);
+                $html.=$this->buildOptions($list, $selected);
         }
         
         
@@ -236,7 +236,7 @@ class template
     }
     
     
-    public function buildOptionsWithIds($array){
+    public function buildOptionsWithIds($array, $selected){
         $html="";
         
             $html.= "<option value='";
@@ -251,7 +251,7 @@ class template
         return $html;
     }
     
-    public function buildOptions($array){
+    public function buildOptions($array, $selected){
         $html="";
         
         foreach($array as $key => $value) {

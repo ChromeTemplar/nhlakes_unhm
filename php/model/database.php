@@ -138,12 +138,12 @@ class Database
      * @return   result   Result of query 
      */ 
     function update($table, $data, $where) { 
-     
+        
         if (!is_array($data)) 
             return false; 
              
         foreach ($data as $col => $value) { 
-            $vals[] = $col.' = '.$this->escape($value); 
+            $vals[] = $col."='". $value."'";   //$this->escape($value); 
         } 
          
         return $this->query("UPDATE $table SET ".implode(',', $vals)." WHERE $where"); 
