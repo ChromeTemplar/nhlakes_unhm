@@ -23,6 +23,8 @@ textarea {
     color:black;
     border-bottom:3px solid #058;
     text-align:center;
+    position: fixed;
+    width: 100%;
 }
 #header-title {
     padding:10px;
@@ -44,11 +46,17 @@ textarea {
     border-left:1px solid #DDD;
     vertical-align: top;
     width:60%;
-    overflow-y:auto;
+}
+#content table {
+    overflow-x: auto;
 }
 #navigation-title {
     font-size: 1.5em;
     border-bottom: 1px solid #DDD;
+}
+#wrapper {
+    position: relative;
+    top: 60px;
 }
 ul {
     padding-left:0;
