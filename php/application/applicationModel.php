@@ -27,12 +27,12 @@ class Model extends Database {
      * @param    string   Columns to select 
      * @return   result   Result of query 
      */ 
-    function select($table='', $orderby = 'id DESC', $where = '', $cols = '*', $limit = '') { 
+    function select($table='', $orderby = 'ID DESC', $where = '', $cols = '*', $limit = '') { 
         if (empty($table))
             $table = $this->table;
         
         if (!empty($this->id) && empty($where)) 
-            $where .= "id = $this->id"; 
+            $where .= $this->table."ID = $this->id"; 
 
         return parent::select($table, $orderby, $where, $cols, $limit); 
     } 
@@ -58,7 +58,7 @@ class Model extends Database {
                 if (empty($data[$key]) || $data[$key] == '') 
                     unset($data[$key]);
             } 
-            return $this->update($this->table, $data, "id = '$this->id'"); 
+            return $this->update($this->table, $data, $this->table."ID = '$this->id'"); 
         } 
     } 
      
@@ -69,10 +69,10 @@ class Model extends Database {
      * @param   string   Where clause 
      * @param   string   Columns to select 
      */ 
-    function find_all($table = '', $orderby = 'id DESC', $where = '', $cols = '*', $limit = '') { 
+    function find_all($table = '', $orderby = 'ID DESC', $where = '', $cols = '*', $limit = '') { 
         
         $table = (!empty($table)) ? $table : '';
-        $orderby = (!empty($orderby)) ? $orderby : 'id DESC'; 
+        $orderby = (!empty($orderby)) ? $orderby : $this->table.'ID DESC'; 
         $where = (!empty($where)) ? $where : ''; 
         $cols = (!empty($cols)) ? $cols : '*'; 
         $limit = (!empty($limit)) ? $limit : '';
@@ -90,10 +90,10 @@ class Model extends Database {
      * @param   string   Where clause 
      * @param   string   Columns to select 
      */ 
-    function find($orderby = 'id DESC', $where = '', $cols = '*', $limit = '') { 
-        $orderby = (!empty($orderby)) ? $orderby : 'id DESC'; 
+    function find($orderby = 'ID DESC', $where = '', $cols = '*', $limit = '') { 
+        $orderby = (!empty($orderby)) ? $orderby : $this->table.'ID DESC'; 
         $where = (!empty($where)) ? $where : ''; 
-        if (!empty($this->id) && empty($where)) $where .= "id = $this->id"; 
+        if (!empty($this->id) && empty($where)) $where .= $this->table."ID = $this->id"; 
         $cols = (!empty($cols)) ? $cols : '*'; 
         $limit = (!empty($limit)) ? $limit : ''; 
      
@@ -110,7 +110,7 @@ class Model extends Database {
     function delete($table = '', $where = '') { 
 
         if (!empty($this->id) && empty($where)) 
-            $where .= "id = $this->id"; 
+            $where .= $this->table."ID = $this->id"; 
      
         return parent::delete($this->table, $where); 
      

@@ -84,7 +84,7 @@ class BoatRampController extends Controller
         $model = new boatRamp();
         $model->save($_POST["ramp"]);
         
-        header("location: index.php?rt=boatRamp/index");
+        //header("location: index.php?rt=boatRamp/index");
     }
     
     public function update() {
@@ -109,16 +109,14 @@ class BoatRampController extends Controller
     
     public function getWaterbodies() {
         $waterbody = new waterbody();
-        $items = $waterbody->find_all('waterbody', 'id DESC', '', 'id,Name,Type');
-        
-        
+        $items = $waterbody->find_all('', '', '', 'waterbodyID,Name,Watertype');
         
         if (isset($items[0])) {
             for($i=0;$i<count($items);$i++){
-                $formWaterbodies[$i] = array($items[$i]['id'],$items[$i]['Name']." ".$items[$i]['Type']);
+                $formWaterbodies[$i] = array($items[$i]['waterbodyID'],$items[$i]['Name']." ".$items[$i]['Watertype']);
             }
         }else {
-                $formWaterbodies = array($items['id'],$items['Name'].$items['Type']);
+                $formWaterbodies = array($items['waterbodyID'],$items['Name'].$items['Watertype']);
         }
         
         return $formWaterbodies;

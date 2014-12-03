@@ -1,11 +1,11 @@
 <?php
 
-class boatRamp extends Model
+class BoatRamp extends Model
 {
     function __construct($id ="")
     {   
         if (empty($this->table)) {  
-            $this->table = strtolower(get_class($this)); 
+            $this->table = get_class($this); 
         }         
          
         if (!empty($id)) { 

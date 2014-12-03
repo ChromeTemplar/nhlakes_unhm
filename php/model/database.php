@@ -8,7 +8,7 @@ class Database
     var $host = 'localhost'; 
     var $user = 'root'; 
     var $pass = ''; 
-    var $db   = 'nhvbsr'; 
+    var $db   = 'NHVBSR'; 
      
     var $conn;                    // Database connection 
     var $last_query;            // Results of last query 
@@ -27,7 +27,7 @@ class Database
      * @return   link     Connection link 
      */ 
     function database($host = '', $user = '', $pass = '', $db = '') { 
-     
+        
         $host = !empty($host) ? $host : $this->host; 
         $user = !empty($user) ? $user : $this->user; 
         $pass = !empty($pass) ? $pass : $this->pass; 
@@ -65,6 +65,8 @@ class Database
         is_resource($this->conn) || $this->Database(); 
         $this->last_sql = $sql; 
         
+        echo $sql;
+        
         $result = $this->last_query = mysqli_query($this->conn, $sql);
         
         if ( false===$result ) {
@@ -83,8 +85,8 @@ class Database
      * @param    string   Columns to select 
      * @return   result   Result of query 
      */ 
-    function select($table, $orderby = 'id DESC', $where = '', $cols = '*', $limit = '') { 
-        $orderby = !empty($orderby) ? "ORDER BY $orderby" : ''; 
+    function select($table, $orderby = 'ID DESC', $where = '', $cols = '*', $limit = '') { 
+        $orderby = !empty($orderby) ? "ORDER BY ".$this->table.$orderby : ''; 
         $where = !empty($where) ? "WHERE $where" : ''; 
         $limit = !empty($limit) ? "LIMIT $limit" : ''; 
         
@@ -157,7 +159,7 @@ class Database
     function delete($table = '', $where = '') { 
         if (!isset($table)) $table = $this->table;
         if (!empty($this->id) && empty($where)) 
-            $where .= "id = $this->id";
+            $where .= $this->table."ID = $this->id";
         
         return $this->query("DELETE FROM $table WHERE $where"); 
      
