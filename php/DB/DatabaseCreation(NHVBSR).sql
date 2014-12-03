@@ -6,19 +6,16 @@ USE NHVBSR;
 
 CREATE TABLE Waterbody(
 waterbodyID int NOT NULL AUTO_INCREMENT,
-State varchar(20) NOT NULL,
 Name varchar (50)NOT NULL,
 Watertype varchar (50)NOT NULL,
 PRIMARY KEY (waterbodyID)
 );
-
 
 CREATE TABLE Town (
 townID int NOT NULL AUTO_INCREMENT,
 Name varchar (50) NOT NULL,
 PRIMARY KEY (townID)
 );
-
 
 CREATE TABLE  LakeHostGroup (
 lakehostgroupID int(11) NOT NULL AUTO_INCREMENT,
@@ -27,39 +24,31 @@ Notes varchar(100) NOT NULL,
 PRIMARY KEY (lakehostgroupID)
 );
 
-
 CREATE TABLE Roles (
   RoleDescription varchar(15),
   roleID int NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (roleID)
   );
- 
-
-
-
-
-
-
 
 CREATE TABLE User (
   userID int NOT NULL AUTO_INCREMENT,
   lakehostgroupID int(11),
   roleID int NOT NULL,
-  Username varchar(40) NOT NULL,
-  Email varchar(50) NOT NULL,
-  Password varchar(20) NOT NULL,
-  Over18 boolean NOT NULL,
+  firstName varbinary(50) NOT NULL,
+  lastName varbinary(50) NOT NULL,
+  phoneNumber varbinary(50),
+  Username varbinary(50) NOT NULL,
+  Email varbinary(50) NOT NULL,
+  Password varbinary(40) NOT NULL,
+  Over18 tinyint NOT NULL,
+  Varified tinyint NOT NULL,
   PRIMARY KEY (userID),
   FOREIGN KEY (roleID) REFERENCES Roles(roleID)
 );
 
-
-
-
-
-
 CREATE TABLE BoatRamp(
 boatrampID int(11) NOT NULL AUTO_INCREMENT,
+State varchar(20) NOT NULL,
 lakehostgroupID int (11) NOT NULL,
 Name varchar (50) NOT NULL,
 waterbodyID int NOT NULL,
@@ -73,7 +62,6 @@ FOREIGN KEY (waterbodyID) REFERENCES Waterbody(waterbodyID),
 FOREIGN KEY (lakehostgroupID) REFERENCES LakeHostGroup(lakehostgroupID)
 );
 
-
 CREATE TABLE LakeHostMember (
 userID int(11) NOT NULL,
 lakehostgroupID int(11) NOT NULL,
@@ -81,8 +69,6 @@ PRIMARY KEY (userID, lakehostgroupID),
 FOREIGN KEY (userID) REFERENCES User(userID),
 FOREIGN KEY (lakehostgroupID) REFERENCES LakeHostGroup(lakehostgroupID)
 );
-
-
 
 CREATE TABLE Summary (
 summaryID int(11) NOT NULL AUTO_INCREMENT,
@@ -119,14 +105,6 @@ FOREIGN KEY (userID) REFERENCES User(userID),
 PRIMARY KEY (summaryID)
 );
 
-
-
-
-
-
-
-
-
 CREATE TABLE InvasiveSurvey (
 surveyID int(11) NOT NULL,
 userID int(11) NOT NULL,
@@ -145,11 +123,16 @@ Rinsed tinyint(1) NOT NULL,
 DryForFiveDays tinyint(1) NOT NULL,
 BoaterAwareness varchar(10) NOT NULL,
 SpecimenFound tinyint(1) NOT NULL,
-BowNumber varchar(15),
-LicensePlateNumber varchar(15),
+BowNumber varbinary(50),
+LicensePlateNumber varbinary(50),
 SentToDES tinyint(1) NOT NULL,
 Notes varchar(1000) NOT NULL,
 Active tinyint(1) NOT NULL,
+DESResult varchar(50),
+DESNotes varchar(1000),
+BoaterPhone varbinary(50),
+BoaterName varbinary(75),
+DESSave tinyint,
 PRIMARY KEY (surveyID),
 FOREIGN KEY (boatrampID) REFERENCES boatramp(boatrampID),
 FOREIGN KEY (userID) REFERENCES User(userID),
