@@ -2,7 +2,7 @@
 <table >
 
 <tr>
-<td id="FName" <span class="req"></span>
+<td> id="FName" <span class="req"></span>
 First Name: 
 </td>
 <td colspan=5>
@@ -10,21 +10,21 @@ First Name:
 </td>
 </tr>
 <tr>
-<td id="LName" <span class="req"></span>
+<td> id="LName" <span class="req"></span>
 Last Name: 
 </td>
 <td>
 <input type ="text" name="LName"/>
 </td>
 </tr>
-<td id="ID" <span class="req"></span>
+<td> id="ID" <span class="req"></span>
 Volunteer ID: 
 </td>
 <td colspan=3>
 <input type ="text" name="ID"/> <br />
 </td>
 <tr>
-<td id="LakeHost" <span class="req"></span>
+<td> id="LakeHost" <span class="req"></span>
 Lake Host Group Name: 
 </td>
 <td>
