@@ -134,7 +134,7 @@ BoaterPhone varbinary(50),
 BoaterName varbinary(75),
 DESSave tinyint,
 PRIMARY KEY (surveyID),
-FOREIGN KEY (boatrampID) REFERENCES boatramp(boatrampID),
+FOREIGN KEY (boatrampID) REFERENCES BoatRamp(boatrampID),
 FOREIGN KEY (userID) REFERENCES User(userID),
 FOREIGN KEY (summaryID) REFERENCES Summary(summaryID)
 );
