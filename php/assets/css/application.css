@@ -18,6 +18,11 @@ h2{
 textarea {
     resize: none;
 }
+#waterbody-table {
+    height:500px;
+    overflow-y:auto;
+}
+
 #header {
     background-color:#CCC;
     color:black;

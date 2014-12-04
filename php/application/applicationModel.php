@@ -27,9 +27,10 @@ class Model extends Database {
      * @param    string   Columns to select 
      * @return   result   Result of query 
      */ 
-    function select($table='', $orderby = 'ID DESC', $where = '', $cols = '*', $limit = '') { 
+    function select($table='', $orderby = '', $where = '', $cols = '*', $limit = '') { 
         if (empty($table))
             $table = $this->table;
+        $orderby = (!empty($orderby)) ? "$orderby" : $this->table.'ID DESC';
         
         if (!empty($this->id) && empty($where)) 
             $where .= $this->table."ID = $this->id"; 

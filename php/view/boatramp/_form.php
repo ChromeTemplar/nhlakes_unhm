@@ -39,7 +39,7 @@ method="post">
     
     <!-- Ramp Town -->
     <label for="town">Town</label><br/>
-    <?php echo $this->selectList($towns, array("name" => "ramp[TownID]","id" => "town", "class" => "medium selectmenu", "id" => "towns"),$town); ?>
+    <?php echo $this->selectList($towns, array("name" => "ramp[TownID]","id" => "town", "class" => "medium selectmenu", "id" => "towns"),$town, true); ?>
     <br/><br/>
     
     <!-- Ramp Waterbody -->

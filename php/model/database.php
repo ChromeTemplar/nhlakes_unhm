@@ -65,7 +65,7 @@ class Database
         is_resource($this->conn) || $this->Database(); 
         $this->last_sql = $sql; 
         
-        echo $sql;
+        //echo $sql;
         
         $result = $this->last_query = mysqli_query($this->conn, $sql);
         
@@ -85,10 +85,10 @@ class Database
      * @param    string   Columns to select 
      * @return   result   Result of query 
      */ 
-    function select($table, $orderby = 'ID DESC', $where = '', $cols = '*', $limit = '') { 
-        $orderby = !empty($orderby) ? "ORDER BY ".$this->table.$orderby : ''; 
+    function select($table, $orderby = '', $where = '', $cols = '*', $limit = '') { 
+        $orderby = !empty($orderby) ? "ORDER BY $orderby" : 'ORDER BY '.$this->table.'ID DESC'; 
         $where = !empty($where) ? "WHERE $where" : ''; 
-        $limit = !empty($limit) ? "LIMIT $limit" : ''; 
+        $limit = !empty($limit) ? "LIMIT $limit" : '';       
         
         $result = $this->query("SELECT $cols FROM $table $where $orderby $limit"); 
         

@@ -2,7 +2,8 @@
 
 <?php
 if ($ramps != "")
-    echo $this->buildTable($ramps);
+    
+    echo "<div id='boatramp-table' >".$this->buildTable($ramps). "</div>";
 else
     echo "<h2>No Boat Ramps Found</h2>";
 

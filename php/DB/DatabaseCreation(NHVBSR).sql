@@ -67,7 +67,7 @@ userID int(11) NOT NULL,
 lakehostgroupID int(11) NOT NULL,
 PRIMARY KEY (userID, lakehostgroupID),
 FOREIGN KEY (userID) REFERENCES User(userID),
-FOREIGN KEY (lakehostgroupID) REFERENCES LakeHostGroup(lakehostgroupID)
+--FOREIGN KEY (lakehostgroupID) REFERENCES LakeHostGroup(lakehostgroupID)
 );
 
 CREATE TABLE Summary (
