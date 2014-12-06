@@ -51,7 +51,7 @@ class Database
     
     public function getInstance() 
     {
-        $return->conn;
+        return $this->conn;
     }
      
     /** 
@@ -65,7 +65,7 @@ class Database
         is_resource($this->conn) || $this->Database(); 
         $this->last_sql = $sql; 
         
-        //echo $sql;
+        echo $sql;
         
         $result = $this->last_query = mysqli_query($this->conn, $sql);
         
@@ -126,7 +126,6 @@ class Database
          
         $this->query("INSERT INTO $table (".implode(",", $cols).") VALUES ('".implode("','", $vals)."')"); 
         return mysqli_insert_id($this->conn); 
-     
     } 
      
     /** 

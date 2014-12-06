@@ -4,10 +4,17 @@
 * 
 */
 
-class Model extends Database {
+class Model {
     var $table; 
     var $fields; 
     var $id; 
+    var $conn;
+
+    var $host = 'localhost'; 
+    var $user = 'root'; 
+    var $pass = ''; 
+    var $db   = 'NHVBSR';
+
      
     /** 
      * Constructor function, gets table name, sets the ID of a current row 
@@ -15,8 +22,21 @@ class Model extends Database {
      * 
      * @param   integer   ID of row to update or delete 
      */ 
-    function Model() {
+    function __construct($host = '', $user = '', $pass = '', $db = '') { 
         
+        $host = !empty($host) ? $host : $this->host; 
+        $user = !empty($user) ? $user : $this->user; 
+        $pass = !empty($pass) ? $pass : $this->pass; 
+        $db   = !empty($db)   ? $db   : $this->db; 
+     
+        $this->conn = mysqli_connect($host, $user, $pass, $db) or $this->error('Could not connect to database. Make sure settings are correct.'); 
+       
+        if (mysqli_connect_errno())
+            echo "Failed to connect to MySQL: " . mysqli_connect_error();
+        
+        if (is_resource($this->conn)) { 
+            mysqli_select_db($db, $this->conn) or $this->error("Database '$db' could not be found."); 
+        } 
     } 
      
     /** 
@@ -116,4 +136,75 @@ class Model extends Database {
         return parent::delete($this->table, $where); 
      
     } 
+
+
+
+
+
+
+
+
+
+    /**
+    *
+    * Simple Select All statemeent for the given table
+    */
+    function all($table = '') {
+        $mysqli = $this->conn;
+
+        if (empty($table)) 
+            $table = $this->table;
+
+        /* Prepared statement, stage 1: prepare */
+        if (!($stmt = $mysqli->prepare("Select * FROM $table"))) {
+            echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+        }
+        
+        return $this->process($stmt);
+    }
+
+
+    /**
+    *
+    * Exectutes a statement and calls the get_result method.
+    *
+    * @param $stmt : Object  MySQLI query to be exectuted
+    **/
+
+    function process($stmt) {
+        if (!$stmt->execute()) {
+            echo "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
+        }
+        
+        return $this->get_result($stmt);
+    }
+
+    /**
+    *
+    * This will retrieve the results and place them into a nice array to use.
+    *
+    * @param $stmt : Object  Results of prior query
+    **/
+    function get_result($stmt) {
+
+        $meta = $stmt->result_metadata();
+
+        while ($field = $meta->fetch_field()) {
+            $parameters[] = &$row[$field->name];
+        }
+
+        call_user_func_array(array($stmt, 'bind_result'), $parameters);
+
+        while ($stmt->fetch()) {
+            foreach($row as $key => $val) {
+                $x[$key] = $val;
+            }
+            $results[] = $x;
+        }
+
+        return $results;
+    } 
+
+
+
 }

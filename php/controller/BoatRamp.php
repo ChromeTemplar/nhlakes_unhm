@@ -21,8 +21,9 @@ class BoatRampController extends Controller
     
     public function index()
     { 
-        $model = new boatRamp();        
-        $ramps = $model->select();
+        $model = new boatramp();        
+        //$ramps = $model->select();
+        $ramps = $model->all();
         
         /*** set template variables ***/
         $this->registry->template->welcome = 'Boat Ramps';
@@ -36,7 +37,7 @@ class BoatRampController extends Controller
     */
     public function newBoatRamp()
     {   
-        $this->model = new boatRamp();
+        $this->model = new boatramp();
         
         $states = array("NH","ME");
         $towns = $this->getTowns();
@@ -59,9 +60,11 @@ class BoatRampController extends Controller
      */
     public function edit()
     {
-        $this->model = new boatRamp($_GET['id']);
+        $this->model = new boatramp($_GET['id']);
         
-        $ramp = $this->model->select();
+        $ramp = $this->model->at_id();
+
+        print_r($ramp);
         
         $states = array("NH","ME");
         $towns = $this->getTowns();
@@ -72,7 +75,7 @@ class BoatRampController extends Controller
         $this->registry->template->states = $states;
         $this->registry->template->towns = $towns;
         $this->registry->template->waterbodies = $waterbodies;
-        $this->registry->template->ramp = $ramp;
+        $this->registry->template->ramp = $ramp[0];
         
         /*** load the edit template ***/
         $this->registry->template->show($this->name, 'edit');
@@ -80,31 +83,31 @@ class BoatRampController extends Controller
     }
     
     public function create() {
-        $model = new boatRamp();
-        $model->save($_POST["ramp"]);
+        $model = new boatramp();
+        $model->addBoatRamp($_POST["ramp"]);
         
-        header("location: index.php?rt=boatRamp/index");
+        header("location: index.php?rt=boatramp/index");
     }
     
     public function update() {
-        $model = new boatRamp($_GET['id']);
-        $model->save($_POST["ramp"]);
+        $model = new boatramp($_GET['id']);
+        $model->updateBoatRamp($_POST["ramp"]);
         
-        header("location: index.php?rt=boatRamp/index");
+        header("location: index.php?rt=boatramp/index");
     }
     
     public function delete() {
+        $model = new boatramp($_GET['id']);
+        $model->deleteBoatRamp();
         
-        $model = new boatRamp($_GET['id']);
-        $model->delete();
-        
-        header("location: index.php?rt=boatRamp/index");
+        header("location: index.php?rt=boatramp/index");
     }
+
+
+
     
     public function getTowns() {
-        $items = $this->model->select('Town','townID DESC');
-        
-        //print_r($towns);
+        $items = $this->model->all('Town');
         
         if (isset($items[0])) {
             for($i=0;$i<count($items);$i++){
@@ -117,8 +120,7 @@ class BoatRampController extends Controller
         return $list;    }
     
     public function getWaterbodies() {
-        $waterbody = new waterbody();
-        $items = $waterbody->find_all('', 'WaterbodyID DESC', '', 'waterbodyID,Name,Watertype');
+        $items = $this->model->all('Waterbody');
         
         if (isset($items[0])) {
             for($i=0;$i<count($items);$i++){

@@ -8,7 +8,7 @@ else
     echo "<h2>No Boat Ramps Found</h2>";
 
 
-echo $this->buttonTo("boatRamp","newBoatRamp", "New");
+echo $this->buttonTo("boatramp","newBoatRamp", "New");
 
 ?>
 <br/>

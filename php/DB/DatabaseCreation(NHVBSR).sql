@@ -47,7 +47,7 @@ CREATE TABLE User (
 );
 
 CREATE TABLE BoatRamp(
-boatrampID int(11) NOT NULL AUTO_INCREMENT,
+BoatRampID int(11) NOT NULL AUTO_INCREMENT,
 State varchar(20) NOT NULL,
 lakehostgroupID int (11) NOT NULL,
 Name varchar (50) NOT NULL,

@@ -12,8 +12,8 @@ Longitude (For future use)
 <?php
 if (isset($ramp)) {
     $state = $ramp['State'];
-    $town = $ramp['TownID'];
-    $waterbody = $ramp['WaterbodyID'];
+    $town = $ramp['townID'];
+    $waterbody = $ramp['waterbodyID'];
 } else {
     $state = '';
     $town = '';
@@ -23,9 +23,9 @@ if (isset($ramp)) {
 
 <form id="boatRampForm" <?php 
     if (!isset($ramp))
-        echo "action='index.php?rt=boatRamp/create' ";
+        echo "action='index.php?rt=boatramp/create' ";
     else 
-        echo "action='index.php?rt=boatRamp/update&id=".$ramp['boatrampID']. "'"; ?>
+        echo "action='index.php?rt=boatramp/update&id=".$ramp['boatrampID']. "'"; ?>
 method="post">
     
     <!-- Ramp Name -->
@@ -39,13 +39,13 @@ method="post">
     
     <!-- Ramp Town -->
     <label for="town">Town</label><br/>
-    <?php echo $this->selectList($towns, array("name" => "rampTown","id" => "town", "class" => "medium selectmenu", "id" => "towns"),$town, true); ?>
+    <?php echo $this->selectList($towns, array("name" => "ramp[townID]","id" => "town", "class" => "medium selectmenu", "id" => "towns"),$town, true); ?>
     <br/><br/>
     
     <!-- Ramp Waterbody -->
     <label for="waterbody">Waterbody</label><br/>
-    <?php echo $this->selectList($waterbodies, array("name" => "rampWaterbody", "id" => "waterbody", "class" => "medium selectmenu"),$waterbody, true); ?>
-    <br/><br/> 
+    <?php echo $this->selectList($waterbodies, array("name" => "ramp[waterbodyID]", "id" => "waterbody", "class" => "medium selectmenu"),$waterbody, true); ?>
+    <br/><br/>
     
     <!-- Ramp Notes-->
     <label for="notes">Notes</label><br/>
