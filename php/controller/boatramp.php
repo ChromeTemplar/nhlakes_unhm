@@ -63,8 +63,6 @@ class BoatRampController extends Controller
         $this->model = new boatramp($_GET['id']);
         
         $ramp = $this->model->at_id();
-
-        print_r($ramp);
         
         $states = array("NH","ME");
         $towns = $this->getTowns();
@@ -105,31 +103,27 @@ class BoatRampController extends Controller
 
 
 
-    
+    /**
+    *
+    * Get and return all towns as an array 
+    */
     public function getTowns() {
         $items = $this->model->all('Town');
-        
-        if (isset($items[0])) {
-            for($i=0;$i<count($items);$i++){
-                $list[$i] = array($items[$i]['townID'],$items[$i]['Name']);
-            }
-        }else {
-                $list = array($items['townID'],$items['Name']);
+
+        for($i=0;$i<count($items);$i++){
+            $list[$i] = array($items[$i]['townID'],$items[$i]['Name']);
         }
         
-        return $list;    }
+        return $list;    
+    }
     
     public function getWaterbodies() {
         $items = $this->model->all('Waterbody');
         
-        if (isset($items[0])) {
-            for($i=0;$i<count($items);$i++){
-                $list[$i] = array($items[$i]['waterbodyID'],$items[$i]['Name']." ".$items[$i]['Watertype']);
-            }
-        }else {
-                $list = array($items['waterbodyID'],$items['Name']." ".$items['Watertype']);
+        for($i=0;$i<count($items);$i++){
+            $list[$i] = array($items[$i]['waterbodyID'],$items[$i]['Name']." ".$items[$i]['Watertype']);
         }
-        
+
         return $list;
     }
 }

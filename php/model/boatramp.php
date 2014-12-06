@@ -23,7 +23,6 @@ class BoatRamp extends Model
     }
 
     function addBoatRamp($data) {
-
         $mysqli = $this->conn;
 
         if (empty($table)) 
@@ -35,7 +34,7 @@ class BoatRamp extends Model
         }
 
         /* Prepared statement, stage 2: bind and execute */
-        if (!($stmt->bind_param("ssiis", $data['State'], $data['Name'], $data['WaterbodyID'], $data['TownID'], $data['Notes']))) {
+        if (!($stmt->bind_param("ssiis", $data['State'], $data['Name'], $data['waterbodyID'], $data['townID'], $data['Notes']))) {
             echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
         }
 

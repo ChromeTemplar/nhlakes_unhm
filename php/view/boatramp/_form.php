@@ -30,11 +30,11 @@ method="post">
     
     <!-- Ramp Name -->
     <label for="rampName">Name</label><br/>
-    <input type="text" name="rampName" class="medium" <?php if(isset($ramp)) echo "value='".$ramp['Name']."'"; ?> ><br/><br/>
+    <input type="text" name="ramp[Name]" class="medium" <?php if(isset($ramp)) echo "value='".$ramp['Name']."'"; ?> ><br/><br/>
     
     <!-- Ramp State -->
     <label for="state">State</label><br/>
-    <?php echo $this->selectList($states, array("name" => "rampState", "id" => "state", "class" => "medium selectmenu"),$state); ?>
+    <?php echo $this->selectList($states, array("name" => "ramp[State]", "id" => "state", "class" => "medium selectmenu"),$state); ?>
     <br/><br/>
     
     <!-- Ramp Town -->

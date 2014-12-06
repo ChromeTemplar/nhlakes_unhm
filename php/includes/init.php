@@ -24,10 +24,7 @@ function __autoload($class_name) {
     
     if (file_exists($file))
     {
-        include_once $file;
-        
-    }else{
-        throw new Exception("Unable to load $file.");
+        include_once $file;  
     }
 }
 
@@ -35,4 +32,4 @@ function __autoload($class_name) {
  $registry = new registry;
 
  /*** create the database registry object ***/
- $registry->db = new database;
+ //$registry->db = new database;

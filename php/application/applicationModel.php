@@ -149,14 +149,14 @@ class Model {
     *
     * Simple Select All statemeent for the given table
     */
-    function all($table = '') {
+    function all($table = '', $cols= '*') {
         $mysqli = $this->conn;
 
         if (empty($table)) 
             $table = $this->table;
 
         /* Prepared statement, stage 1: prepare */
-        if (!($stmt = $mysqli->prepare("Select * FROM $table"))) {
+        if (!($stmt = $mysqli->prepare("Select $cols FROM $table"))) {
             echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
         }
         
