@@ -69,7 +69,6 @@ class Model {
         if (!$stmt->execute()) {
             echo "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
         }
-        print_r($stmt);
 
         return $this->get_result($stmt);
     }
@@ -80,7 +79,6 @@ class Model {
     * @param Object $stmt :  Results of prior query
     **/
     function get_result($stmt) {
-
         $meta = $stmt->result_metadata();
 
         while ($field = $meta->fetch_field()) {
