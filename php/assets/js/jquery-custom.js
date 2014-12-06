@@ -1,14 +1,15 @@
-$(function(){
-   $("input[type=button],input[type=submit], button").button();
-   
-   $(".radio").buttonset();
-   
-   $(".selectmenu").selectmenu();
-   
-   $("#towns")
-        .selectmenu()
-        .selectmenu( "menuWidget" )
-            .addClass("overflow");
+$(document).ready(function () {
+
+       $("input[type=button],input[type=submit], button").button();
+
+       $(".radio").buttonset();
+
+       $(".selectmenu").selectmenu();
+
+       $("#towns")
+            .selectmenu()
+            .selectmenu( "menuWidget" )
+                .addClass("overflow"); 
     
     $("#navigation").find("li").hover(
         function() {
@@ -30,5 +31,15 @@ $(function(){
         }         
     );
     
-    
+    $("#boatRampForm").validate({
+       rules: {
+           rampName : {
+               required: true
+            }
+       },
+       messages : {
+                rampName: "Ramp Name is required!"
+            }
+    });
+  
 });
