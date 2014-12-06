@@ -124,11 +124,7 @@ class template
     public function buildTable($list) {
         $html = '<table><tr>';
         
-        //check if more than one element in list
-        if (isset($list[0]))
-            $listHeaders = $list[0];
-        else
-            $listHeaders = $list;
+        $listHeaders = $list[0];
         
         //Iterate through the keys
         foreach($listHeaders as $key => $val){
@@ -142,44 +138,25 @@ class template
         
         //Iterate through all objects
         $html .= "</tr>";
-        
-        //Check if there is only one item
-        if (isset($list[0])){   
-            //If more than one loop through all 
-            for($i=0;$i<count($list);$i++){
-                $html .= "<tr>";
 
-                foreach($list[$i] as $val){
-                    $html .= "<td>$val</td>";
-                }
-                
-                
-                //Add the Edit button column
-                $editButton = $this->buttonTo($this->registry->router->controller,"edit","Edit",$list[$i][$this->registry->router->controller."ID"]);
-                //Add the Delete Button Column
-                $deleteButton = $this->buttonTo($this->registry->router->controller,"delete","Delete",$list[$i][$this->registry->router->controller."ID"]);
-                
-                $html .= "<td>".$editButton."</td>";
-                $html .= "<td>".$deleteButton."</td>";
-
-            $html .= "</tr>";
-            }
-        }else{
+        //loop through all 
+        for($i=0;$i<count($list);$i++){
             $html .= "<tr>";
 
-                foreach($list as $val){
-                    $html .= "<td>$val</td>";
-                }
-                
-                //Add the Edit button column
-                $editButton = $this->buttonTo($this->registry->router->controller,"edit","Edit",$list[$this->registry->router->controller."ID"]);
-                //Add the Delete Button Column
-                $deleteButton = $this->buttonTo($this->registry->router->controller,"delete","Delete",$list[$this->registry->router->controller."ID"]);
-                
-                $html .= "<td>".$editButton."</td>";
-                $html .= "<td>".$deleteButton."</td>";
+            foreach($list[$i] as $val){
+                $html .= "<td>$val</td>";
+            }
+            
+            
+            //Add the Edit button column
+            $editButton = $this->buttonTo($this->registry->router->controller,"edit","Edit",$list[$i][$this->registry->router->controller."ID"]);
+            //Add the Delete Button Column
+            $deleteButton = $this->buttonTo($this->registry->router->controller,"delete","Delete",$list[$i][$this->registry->router->controller."ID"]);
+            
+            $html .= "<td>".$editButton."</td>";
+            $html .= "<td>".$deleteButton."</td>";
 
-            $html .= "</tr>";
+        $html .= "</tr>";
         }
             
         
@@ -193,9 +170,8 @@ class template
         $html = "<select ";
         
         foreach ($properties as $key => $val)
-        {
             $html.= "$key='$val' ";
-        }
+        
         $html.=">";
         
         $html.= $this->selectListOptions($list, $selected, $ids);
@@ -215,20 +191,11 @@ class template
         
         $html = "<option>-Select-</option>";
         
-        if ($this->hasTwoDimensions($list))
-        {
-            for ($i=0;$i<count($list);$i++) {
-                if ($ids) 
-                    $html.=$this->buildOptionsWithIds($list[$i], $selected);
-                else
-                    $html.=$this->buildOptions($list[$i], $selected);
-            }
-        }  else {
-
-            if ($ids)
-                $html.=$this->buildOptionsWithIds($list, $selected);
+        for ($i=0;$i<count($list);$i++) {
+            if ($ids) 
+                $html.=$this->buildOptionsWithIds($list[$i], $selected);
             else
-                $html.=$this->buildOptions($list, $selected);
+                $html.=$this->buildOptions($list[$i], $selected);
         }
         
         
@@ -251,26 +218,20 @@ class template
         return $html;
     }
     
-    public function buildOptions($array, $selected){
+    public function buildOptions($value, $selected){
         $html="";
         
-        foreach($array as $key => $value) {
-            $html.= "<option value='";
-            
-            //User Passed an indexed array                
-            $html.="$value' ";
-
-            if ((isset($selected)) && ($selected == $value))
-                $html.= "selected ";
-
-            $html.=">$value</option>";
-        }
+        $html.= "<option value='";
         
+        //User Passed an indexed array                
+        $html.="$value' ";
+
+        if ((isset($selected)) && ($selected == $value))
+            $html.= "selected ";
+
+        $html.=">$value</option>";
+
         return $html;
     }
     
-    public function hasTwoDimensions($array) {
-        if (isset($array[0]))
-            return is_array($array[0]);
-    }
 }

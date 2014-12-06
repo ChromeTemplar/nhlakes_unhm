@@ -38,7 +38,7 @@ $(document).ready(function () {
             }
        },
        messages : {
-                rampName: "Ramp Name is required!"
+                "ramp\[Name\]": "Ramp Name is required!"
             }
     });
   

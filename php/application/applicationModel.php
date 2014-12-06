@@ -38,7 +38,88 @@ class Model {
             mysqli_select_db($db, $this->conn) or $this->error("Database '$db' could not be found."); 
         } 
     } 
+
+    /**
+    * Simple Select All statemeent for the given table
+    * 
+    * @param String $table : table name to select from, by default it grabs the name of the model
+    * @param String $cols : Column names to select 
+    **/
+    function all($table = '', $cols= '*') {
+        $mysqli = $this->conn;
+
+        if (empty($table)) 
+            $table = $this->table;
+
+        /* Prepared statement, stage 1: prepare */
+        if (!($stmt = $mysqli->prepare("Select $cols FROM $table"))) {
+            echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+        }
+        
+        return $this->process($stmt);
+    }
+
+
+    /**
+    * Exectutes a statement and calls the get_result method.
+    *
+    * @param Object $stmt : MySQLI query to be exectuted
+    **/
+    function process($stmt) {
+        if (!$stmt->execute()) {
+            echo "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
+        }
+        print_r($stmt);
+
+        return $this->get_result($stmt);
+    }
+
+    /**
+    * This will retrieve the results and place them into a nice array to use.
+    *
+    * @param Object $stmt :  Results of prior query
+    **/
+    function get_result($stmt) {
+
+        $meta = $stmt->result_metadata();
+
+        while ($field = $meta->fetch_field()) {
+            $parameters[] = &$row[$field->name];
+        }
+
+        call_user_func_array(array($stmt, 'bind_result'), $parameters);
+
+        while ($stmt->fetch()) {
+            foreach($row as $key => $val) {
+                $x[$key] = $val;
+            }
+            $results[] = $x;
+        }
+
+        return $results;
+    } 
+
+
      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////// DEPRICATED /////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////
+
     /** 
      * Very simple select 
      * 
@@ -136,75 +217,4 @@ class Model {
         return parent::delete($this->table, $where); 
      
     } 
-
-
-
-
-
-
-
-
-
-    /**
-    *
-    * Simple Select All statemeent for the given table
-    */
-    function all($table = '', $cols= '*') {
-        $mysqli = $this->conn;
-
-        if (empty($table)) 
-            $table = $this->table;
-
-        /* Prepared statement, stage 1: prepare */
-        if (!($stmt = $mysqli->prepare("Select $cols FROM $table"))) {
-            echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
-        }
-        
-        return $this->process($stmt);
-    }
-
-
-    /**
-    *
-    * Exectutes a statement and calls the get_result method.
-    *
-    * @param $stmt : Object  MySQLI query to be exectuted
-    **/
-
-    function process($stmt) {
-        if (!$stmt->execute()) {
-            echo "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
-        }
-        
-        return $this->get_result($stmt);
-    }
-
-    /**
-    *
-    * This will retrieve the results and place them into a nice array to use.
-    *
-    * @param $stmt : Object  Results of prior query
-    **/
-    function get_result($stmt) {
-
-        $meta = $stmt->result_metadata();
-
-        while ($field = $meta->fetch_field()) {
-            $parameters[] = &$row[$field->name];
-        }
-
-        call_user_func_array(array($stmt, 'bind_result'), $parameters);
-
-        while ($stmt->fetch()) {
-            foreach($row as $key => $val) {
-                $x[$key] = $val;
-            }
-            $results[] = $x;
-        }
-
-        return $results;
-    } 
-
-
-
 }
