@@ -118,3 +118,12 @@ label {
 .overflow {
     height: 200px;
 }
+
+/* Error classes for client validation */
+form label.error {
+color:red;
+font-size: 14;
+}
+form input.error {
+border:1px solid red;
+}
