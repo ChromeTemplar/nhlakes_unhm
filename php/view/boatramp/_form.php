@@ -21,7 +21,7 @@ if (isset($ramp)) {
 }
 ?>
 
-<form <?php 
+<form id="boatRampForm" <?php 
     if (!isset($ramp))
         echo "action='index.php?rt=boatRamp/create' ";
     else 
@@ -30,22 +30,22 @@ method="post">
     
     <!-- Ramp Name -->
     <label for="rampName">Name</label><br/>
-    <input type="text" name="ramp[Name]" class="medium" <?php if(isset($ramp)) echo "value='".$ramp['Name']."'"; ?> ><br/><br/>
+    <input type="text" name="rampName" class="medium" <?php if(isset($ramp)) echo "value='".$ramp['Name']."'"; ?> ><br/><br/>
     
     <!-- Ramp State -->
     <label for="state">State</label><br/>
-    <?php echo $this->selectList($states, array("name" => "ramp[State]", "id" => "state", "class" => "medium selectmenu"),$state); ?>
+    <?php echo $this->selectList($states, array("name" => "rampState", "id" => "state", "class" => "medium selectmenu"),$state); ?>
     <br/><br/>
     
     <!-- Ramp Town -->
     <label for="town">Town</label><br/>
-    <?php echo $this->selectList($towns, array("name" => "ramp[TownID]","id" => "town", "class" => "medium selectmenu", "id" => "towns"),$town, true); ?>
+    <?php echo $this->selectList($towns, array("name" => "rampTown","id" => "town", "class" => "medium selectmenu", "id" => "towns"),$town, true); ?>
     <br/><br/>
     
     <!-- Ramp Waterbody -->
     <label for="waterbody">Waterbody</label><br/>
-    <?php echo $this->selectList($waterbodies, array("name" => "ramp[WaterbodyID]", "id" => "waterbody", "class" => "medium selectmenu"),$waterbody, true); ?>
-    <br/><br/>
+    <?php echo $this->selectList($waterbodies, array("name" => "rampWaterbody", "id" => "waterbody", "class" => "medium selectmenu"),$waterbody, true); ?>
+    <br/><br/> 
     
     <!-- Ramp Notes-->
     <label for="notes">Notes</label><br/>
