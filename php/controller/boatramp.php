@@ -160,7 +160,7 @@ class BoatRampController extends Controller
         /*** Formats an array to work with a select list ***/
         /***        Format: Array(Value, Display)             ***/
         for($i=0;$i<count($items);$i++){
-            $list[$i] = array($items[$i]['waterbodyID'],$items[$i]['Name']." ".$items[$i]['Watertype']);
+            $list[$i] = array($items[$i]['waterbodyID'],$items[$i]['Name']);
         }
 
         return $list;

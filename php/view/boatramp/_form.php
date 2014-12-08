@@ -44,7 +44,7 @@ method="post">
     
     <!-- Ramp Waterbody -->
     <label for="waterbody">Waterbody</label><br/>
-    <?php echo $this->selectList($waterbodies, array("name" => "ramp[waterbodyID]", "id" => "waterbody", "class" => "medium selectmenu"),$waterbody, true); ?>
+    <?php echo $this->selectList($waterbodies, array("name" => "ramp[waterbodyID]", "id" => "waterbodies", "class" => "medium selectmenu"),$waterbody, true); ?>
     <br/><br/>
     
     <!-- Ramp Notes-->

@@ -6,9 +6,9 @@ $(document).ready(function () {
 
        $(".selectmenu").selectmenu();
 
-       $("#towns")
+       $("#towns, #waterbodies")
             .selectmenu()
-            .selectmenu( "menuWidget" )
+            .selectmenu("menuWidget")
                 .addClass("overflow"); 
     
     $("#navigation").find("li").hover(

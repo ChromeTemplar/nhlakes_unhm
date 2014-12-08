@@ -93,8 +93,8 @@ class Model {
             }
             $results[] = $x;
         }
-
-        return $results;
+        if (isset($results))
+            return $results;
     } 
 
 
