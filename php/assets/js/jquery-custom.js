@@ -35,7 +35,7 @@ $(document).ready(function () {
         $("#data-table").tablesorter(); 
     });
     
-    
+    // Validation rules for the boat ramp form
     $("#boatRampForm").validate({
        rules: {
            "ramp\[Name\]" : {
@@ -44,6 +44,18 @@ $(document).ready(function () {
        },
        messages : {
                 "ramp\[Name\]": "Ramp Name is required!"
+            }
+    });
+    
+    // Validation rules for the water body form
+    $("#waterbody-form").validate({
+       rules: {
+           "waterbody\[Name\]" : {
+               required: true
+            }
+       },
+       messages : {
+                "waterbody\[Name\]": "Waterbody name is required!"
             }
     });
   
