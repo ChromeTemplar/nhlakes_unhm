@@ -50,6 +50,7 @@ textarea {
 #content {
     border-left:1px solid #DDD;
     vertical-align: top;
+    width:80%;
 }
 #content table {
     overflow-x: auto;
