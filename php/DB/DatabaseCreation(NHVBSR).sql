@@ -11,33 +11,44 @@ Watertype varchar (50)NOT NULL,
 PRIMARY KEY (waterbodyID)
 );
 
+
 CREATE TABLE Town (
 townID int NOT NULL AUTO_INCREMENT,
 Name varchar (50) NOT NULL,
 PRIMARY KEY (townID)
 );
 
+
 CREATE TABLE  LakeHostGroup (
 lakehostgroupID int(11) NOT NULL AUTO_INCREMENT,
 LakeHostGroupName varchar(25) NOT NULL,
-Notes varchar(100) NOT NULL,
+Notes varchar(100),
 PRIMARY KEY (lakehostgroupID)
 );
+
 
 CREATE TABLE Roles (
   RoleDescription varchar(15),
   roleID int NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (roleID)
   );
+ 
+
+
+
+
+
+
+
 
 CREATE TABLE User (
   userID int NOT NULL AUTO_INCREMENT,
   lakehostgroupID int(11),
   roleID int NOT NULL,
-  firstName varbinary(50) NOT NULL,
-  lastName varbinary(50) NOT NULL,
+  firstName varchar(50) NOT NULL,
+  lastName varchar(50) NOT NULL,
   phoneNumber varbinary(50),
-  Username varbinary(50) NOT NULL,
+  Username varchar(50) NOT NULL,
   Email varbinary(50) NOT NULL,
   Password varbinary(40) NOT NULL,
   Over18 tinyint NOT NULL,
@@ -47,7 +58,7 @@ CREATE TABLE User (
 );
 
 CREATE TABLE BoatRamp(
-BoatRampID int(11) NOT NULL AUTO_INCREMENT,
+boatrampID int(11) NOT NULL AUTO_INCREMENT,
 State varchar(20) NOT NULL,
 lakehostgroupID int (11) NOT NULL,
 Name varchar (50) NOT NULL,
@@ -62,13 +73,18 @@ FOREIGN KEY (waterbodyID) REFERENCES Waterbody(waterbodyID),
 FOREIGN KEY (lakehostgroupID) REFERENCES LakeHostGroup(lakehostgroupID)
 );
 
+
 CREATE TABLE LakeHostMember (
 userID int(11) NOT NULL,
 lakehostgroupID int(11) NOT NULL,
 PRIMARY KEY (userID, lakehostgroupID),
 FOREIGN KEY (userID) REFERENCES User(userID),
---FOREIGN KEY (lakehostgroupID) REFERENCES LakeHostGroup(lakehostgroupID)
+FOREIGN KEY (lakehostgroupID) REFERENCES LakeHostGroup(lakehostgroupID)
 );
+
+
+
+
 
 CREATE TABLE Summary (
 summaryID int(11) NOT NULL AUTO_INCREMENT,
@@ -105,11 +121,19 @@ FOREIGN KEY (userID) REFERENCES User(userID),
 PRIMARY KEY (summaryID)
 );
 
+
+
+
+
+
+
+
+
 CREATE TABLE InvasiveSurvey (
-surveyID int(11) NOT NULL,
+surveyID int(11) NOT NULL AUTO_INCREMENT,
 userID int(11) NOT NULL,
 boatrampID int(11) NOT NULL,
-summaryID int(11) NOT NULL AUTO_INCREMENT,
+summaryID int(11) NOT NULL,
 SurveyDate date NOT NULL,
 LaunchStatus BOOLEAN NOT NULL,
 RegistrationState char(2) NOT NULL,
@@ -134,7 +158,7 @@ BoaterPhone varbinary(50),
 BoaterName varbinary(75),
 DESSave tinyint,
 PRIMARY KEY (surveyID),
-FOREIGN KEY (boatrampID) REFERENCES BoatRamp(boatrampID),
+FOREIGN KEY (boatrampID) REFERENCES boatramp(boatrampID),
 FOREIGN KEY (userID) REFERENCES User(userID),
 FOREIGN KEY (summaryID) REFERENCES Summary(summaryID)
 );
