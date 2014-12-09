@@ -22,7 +22,6 @@ textarea {
     height:500px;
     overflow-y:auto;
 }
-
 #header {
     background-color:#CCC;
     color:black;
@@ -51,7 +50,6 @@ textarea {
 #content {
     border-left:1px solid #DDD;
     vertical-align: top;
-    width:60%;
 }
 #content table {
     overflow-x: auto;
@@ -63,6 +61,9 @@ textarea {
 #wrapper {
     position: relative;
     top: 60px;
+    min-width: 1250px;
+    overflow-x: auto;
+    overflow-y: hidden;
 }
 ul {
     padding-left:0;
@@ -87,6 +88,9 @@ table,tr,td,th{
 table th{
     padding:5px 10px 0 10px;
     border-bottom: 1px solid #CCC;
+}
+th { 
+    min-width: 125px;
 }
 a {
     text-decoration-color: black;
@@ -120,10 +124,27 @@ label {
     height: 200px;
 }
 
+/* Table Sorting Stuff */
+table.tablesorter thead tr .header {
+	background-image: url(../images/bg.gif);
+	background-repeat: no-repeat;
+	background-position: center right;
+	cursor: pointer;
+}
+table.tablesorter thead tr .headerSortUp {
+	background-image: url(../images/asc.gif);
+        background-color: #EEE;
+}
+table.tablesorter thead tr .headerSortDown {
+	background-image: url(../images/desc.gif);
+        background-color: #EEE;
+}
+
+
 /* Error classes for client validation */
 form label.error {
 color:red;
-font-size: 14;
+font-size: 14px;
 }
 form input.error {
 border:1px solid red;

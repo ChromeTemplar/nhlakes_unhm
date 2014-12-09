@@ -3,9 +3,15 @@
         <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/smoothness/jquery-ui.css" />
         <link rel="stylesheet" href="assets/css/application.css" />
         <link rel="stylesheet" href="assets/css/jquery-ui.theme.css" />
+        <link rel="stylesheet" href="assets/css/jquery.tablesorter.pager.css" />
+
         <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
         <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
         <script src="assets/js/jquery-custom.js"></script>
+        <script src="assets/js/jquery.tablesorter.js"></script>
+        <script src="assets/js/jquery.validate.js"></script>
+        <script src="assets/js/jquery.tablesorter.pager.js"></script>
+        
     </head>
     
     <body>

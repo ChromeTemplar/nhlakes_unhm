@@ -31,6 +31,11 @@ $(document).ready(function () {
         }         
     );
     
+    $(document).ready(function() { 
+        $("#data-table").tablesorter(); 
+    });
+    
+    
     $("#boatRampForm").validate({
        rules: {
            "ramp\[Name\]" : {
