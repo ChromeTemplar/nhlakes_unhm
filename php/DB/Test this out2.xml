@@ -1,0 +1,136 @@
+<STAWList>
+  <Ships>
+    <Ship>
+      <Name>Romulan Starship</Name>
+      <Class>Reman Warbird</Class>
+      <Source>Scimitar Expansion Pack</Source>
+      <AttackDice>6</AttackDice>
+      <DefenseDice>2</DefenseDice>
+      <Hull>7</Hull>
+      <Shields>3</Shields>
+      <CardText/>
+      <Actions>Evade,Target Lock,Cloak,Sensor Echo</Actions>
+      <Upgrades>Tech,Weapon,Weapon,Crew</Upgrades>
+      <PointCost>36</PointCost>
+      <Faction>Romulan</Faction>
+      <FiringArc>ForeAft90</FiringArc>
+      <Unique>No</Unique>
+      <ID>1417877532811</ID>
+      <Captain>
+        <Name>Shinzon</Name>
+        <Faction>Romulan</Faction>
+        <Source>Scimitar Expansion Pack</Source>
+        <Skill>9</Skill>
+        <CardText>During the Gather Forces step of Setup, instead of purchasing an [Elite Talent] Upgrade as normal for Shinzon, you may spend 4 SP to place up to 4 Romulan [Elite Talent] Upgrades face down beside this card.  These cards remain face down until you decide to use one of them.  When you do so, select the one you want to use and turn it face up for the rest of the game.  Then discard the other 3.</CardText>
+        <PointCost>6</PointCost>
+        <EliteTalents>1</EliteTalents>
+        <Unique>Yes</Unique>
+        <EliteTalent>
+          <Name>Attack Pattern Shinzon Theta</Name>
+          <Faction>Romulan</Faction>
+          <Source>Scimitar Expansion Pack</Source>
+          <CardText>During the Deal Damage step of the Combat Phase, if you hit your opponent’s ship, you may dicard this card to add 1 additional damage to that ship’s Shields (if possible) for every uncancelled [Crit] result.</CardText>
+          <PointCost>5</PointCost>
+          <Unique>Yes</Unique>
+        </EliteTalent>
+      </Captain>
+      <Weapons>
+        <Weapon>
+          <Name>Thalaron Weapon</Name>
+          <Faction>Romulan</Faction>
+          <Source>Scimitar Expansion Pack</Source>
+          <AttackDice>10</AttackDice>
+          <Range>2-3</Range>
+          <CardText>ATTACK: Discard this card to perform this attack.  Instead of inflicting normal damage, for each uncancelled [Hit] or [Crit] result, discard the Captain Card or 1 [Crew] Upgrade (opponent’s choice) on the target ship.  If the Captain and all of the [Crew] Upgrades on the target ship are destroyed, any additional uncancelled [Hit] or [Crit] results damage the ship as normal (max 5 damage).  This Upgrade may only be purchased for a Reman Warbird.</CardText>
+          <PointCost>10</PointCost>
+          <Unique>Yes</Unique>
+        </Weapon>
+        <Weapon>
+          <Name>Photon Torpedoes</Name>
+          <Faction>Romulan</Faction>
+          <Source>Scimitar Expansion Pack</Source>
+          <AttackDice>5</AttackDice>
+          <Range>2-3</Range>
+          <CardText>ATTACK: (Target Lock) Spend your target lock and disable this card to perform this attack.  If fired from a Reman Warbird, gain +2 attack dice.  You may fire this weapon from your forward or rear firing arcs.</CardText>
+          <PointCost>6</PointCost>
+          <Unique>No</Unique>
+        </Weapon>
+      </Weapons>
+      <Technology>
+        <Tech>
+          <Name>Secondary Shields</Name>
+          <Faction>Romulan</Faction>
+          <Source>Scimitar Expansion Pack</Source>
+          <CardText>At the start of the game, place 3 Shield Tokens on this card.  During each End Phase, if you have fewer total Shields (Active and/or Disabled) than your starting Shield Value, remove 1 Shield from this card and add it to your ship.  If your ship is Cloaked, you may choose to add the extra Shield as a Disabled Shield.  This Upgrade may only be purchased for a Reman Warbird.</CardText>
+          <PointCost>6</PointCost>
+          <Unique>No</Unique>
+        </Tech>
+      </Technology>
+    </Ship>
+    <Ship>
+      <Name>Romulan Starship</Name>
+      <Class>Romulan Bird of Prey</Class>
+      <AttackDice>2</AttackDice>
+      <DefenseDice>2</DefenseDice>
+      <Hull>3</Hull>
+      <Shields>0</Shields>
+      <CardText/>
+      <Actions>Evade,Target Lock</Actions>
+      <Upgrades>Tech,Weapon</Upgrades>
+      <PointCost>14</PointCost>
+      <Faction>Romulan</Faction>
+      <FiringArc>Fore90</FiringArc>
+      <Unique>No</Unique>
+      <ID>1418103636219</ID>
+      <Captain>
+        <Name>Letant</Name>
+        <Faction>Romulan</Faction>
+        <Source>OP3 Aj'rmr Prize</Source>
+        <Skill>6</Skill>
+        <CardText>Each round, when defending, you may force one opponent to re-roll one of their [CRIT] results.</CardText>
+        <PointCost>4</PointCost>
+        <EliteTalents>1</EliteTalents>
+        <Unique>Yes</Unique>
+      </Captain>
+      <Weapons>
+        <Weapon>
+          <Name>Photon Torpedoes</Name>
+          <Faction>Romulan</Faction>
+          <Source>IRW Valdore</Source>
+          <AttackDice>5</AttackDice>
+          <Range>2-3</Range>
+          <CardText>Attack: (Target Lock) Spend your target lock and disable this card to perform this attack. You may convert 1 [BATTLESTATIONS] result into 1 [CRITICAL] result. You may fire this weapon from your forward or rear firing arcs.</CardText>
+          <PointCost>5</PointCost>
+          <Unique>No</Unique>
+        </Weapon>
+      </Weapons>
+      <Technology>
+        <Tech>
+          <Name>Interphase Generator</Name>
+          <Faction>Romulan</Faction>
+          <Source>RIS Apnex Expansion</Source>
+          <CardText>When defending while you are Cloaked, you may discard this card after all the dice have been rolled to reduce the damage from a single attack to exactly 1 [DAMAGE].</CardText>
+          <PointCost>3</PointCost>
+          <Unique>No</Unique>
+        </Tech>
+      </Technology>
+    </Ship>
+  </Ships>
+  <ListName>Test this out</ListName>
+  <Resource>
+    <Name>Flagship Romulan</Name>
+    <Faction>Romulan</Faction>
+    <Flagship>True</Flagship>
+    <Source>OP4 Participation Prize</Source>
+    <CardText>+1 attack, agility, shields, Talent, Weapon
+When attacking, all other friendly Romulan ships within Range 1-2 of your Flagship may choose any number of their attack dice and re-roll them once.</CardText>
+    <Actions>Sensor Echo</Actions>
+    <Upgrades>Weapon</Upgrades>
+    <EliteTalents>1</EliteTalents>
+    <AttackDice>1</AttackDice>
+    <DefenseDice>1</DefenseDice>
+    <Hull>0</Hull>
+    <Shields>1</Shields>
+    <PointCost>10</PointCost>
+  </Resource>
+</STAWList>
