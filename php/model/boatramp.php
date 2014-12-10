@@ -42,12 +42,12 @@ class BoatRamp extends Model
             $table = $this->table;
 
         /* Prepared statement, stage 1: prepare */
-        if (!($stmt = $mysqli->prepare("INSERT INTO BoatRamp (State, Name, waterbodyID, townID, Notes) VALUES (?,?,?,?,?)"))) {
+        if (!($stmt = $mysqli->prepare("INSERT INTO BoatRamp (state, name, waterbodyID, townID, notes) VALUES (?,?,?,?,?)"))) {
             echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
         }
 
         /* Prepared statement, stage 2: bind and execute */
-        if (!($stmt->bind_param("ssiis", $data['State'], $data['Name'], $data['waterbodyID'], $data['townID'], $data['Notes']))) {
+        if (!($stmt->bind_param("ssiis", $data['state'], $data['name'], $data['waterbodyID'], $data['townID'], $data['notes']))) {
             echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
         }
         if (!$stmt->execute()) {
@@ -64,7 +64,7 @@ class BoatRamp extends Model
         $mysqli = $this->conn;
 
         /* Prepared statement, stage 1: prepare */
-        if (!($stmt = $mysqli->prepare("SELECT * FROM BoatRamp WHERE BoatRampID = ?"))) {
+        if (!($stmt = $mysqli->prepare("SELECT * FROM BoatRamp WHERE ID = ?"))) {
             echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
         }
 
@@ -87,12 +87,12 @@ class BoatRamp extends Model
         $mysqli = $this->conn;
 
         /* Prepared statement, stage 1: prepare */
-        if (!($stmt = $mysqli->prepare("UPDATE BoatRamp SET State = ?, Name = ?, waterbodyID = ?, townID = ?, Notes = ? WHERE boatrampID = ?"))) {
+        if (!($stmt = $mysqli->prepare("UPDATE BoatRamp SET state = ?, name = ?, waterbodyID = ?, townID = ?, notes = ? WHERE ID = ?"))) {
             echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
         }
 
         /* Prepared statement, stage 2: bind and execute */
-        if (!($stmt->bind_param("ssiisi", $data['State'], $data['Name'], $data['waterbodyID'], $data['townID'], $data['Notes'], $this->id))) {
+        if (!($stmt->bind_param("ssiisi", $data['state'], $data['name'], $data['waterbodyID'], $data['townID'], $data['notes'], $this->id))) {
             echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
         }
 
@@ -109,7 +109,7 @@ class BoatRamp extends Model
         $mysqli = $this->conn;
         
         /* Prepared statement, stage 1: prepare */
-        if (!($stmt = $mysqli->prepare("DELETE FROM BoatRamp WHERE boatrampID = ?"))) {
+        if (!($stmt = $mysqli->prepare("DELETE FROM BoatRamp WHERE ID = ?"))) {
             echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
         }
 

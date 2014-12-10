@@ -35,16 +35,13 @@ $(document).ready(function () {
     $("#data-table").tablesorter(); 
     
     $("#boatRampForm").on("submit",function(e) {
-        e.preventDefault();
+        //e.preventDefault();
     
         if ($("#state").val() == '') {
             alert("test");
         }else {
-            $("this").submit();
+            //e.submit();
         }
-        
-        
-    
     });
     
     // Validation rules for the boat ramp form

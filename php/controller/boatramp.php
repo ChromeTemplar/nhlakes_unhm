@@ -107,7 +107,7 @@ class BoatRampController extends Controller
         $model->addBoatRamp($_POST["ramp"]);
         
         /*** Redirect User to BoatRamp/Index ***/
-        header("location: index.php?rt=boatramp/index");
+        //header("location: index.php?rt=boatramp/index");
     }
     
     /**
@@ -118,7 +118,7 @@ class BoatRampController extends Controller
         $model->updateBoatRamp($_POST["ramp"]);
         
         /*** Redirect User to BoatRamp/Index ***/
-        header("location: index.php?rt=boatramp/index");
+        //header("location: index.php?rt=boatramp/index");
     }
     
     /**
@@ -129,7 +129,7 @@ class BoatRampController extends Controller
         $model->deleteBoatRamp();
         
         /*** Redirect User to BoatRamp/Index ***/
-        header("location: index.php?rt=boatramp/index");
+        //header("location: index.php?rt=boatramp/index");
     }
 
 
@@ -143,7 +143,7 @@ class BoatRampController extends Controller
         /*** Formats an array to work with a select list ***/
         /***        Format: Array(Value, Display)             ***/
         for($i=0;$i<count($items);$i++){
-            $list[$i] = array($items[$i]['townID'],$items[$i]['Name']);
+            $list[$i] = array($items[$i]['ID'],$items[$i]['name']);
         }
         
         return $list;    
@@ -160,7 +160,7 @@ class BoatRampController extends Controller
         /*** Formats an array to work with a select list ***/
         /***        Format: Array(Value, Display)             ***/
         for($i=0;$i<count($items);$i++){
-            $list[$i] = array($items[$i]['waterbodyID'],$items[$i]['Name']);
+            $list[$i] = array($items[$i]['ID'],$items[$i]['name']);
         }
 
         return $list;

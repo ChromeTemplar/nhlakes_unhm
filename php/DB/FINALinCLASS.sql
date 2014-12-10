@@ -611,7 +611,7 @@ CREATE TABLE User (
 CREATE TABLE BoatRamp(
 ID int(11) NOT NULL AUTO_INCREMENT,
 state varchar(20) NOT NULL,
-lakeHostGroupID int (11) NOT NULL,
+lakeHostGroupID int (11) ,
 name varchar (50) NOT NULL,
 waterbodyID int NOT NULL,
 townID int NOT NULL,
