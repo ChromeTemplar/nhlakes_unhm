@@ -34,16 +34,10 @@ $(document).ready(function () {
 
     $("#data-table").tablesorter(); 
     
-    
-    if ($("#state").val() == null) {
-        
-        alert("test");
-    }
-    
     $("#boatRampForm").on("submit",function(e) {
         e.preventDefault();
     
-        if ($("#state").val() == null) {
+        if ($("#state").val() == '') {
             alert("test");
         }else {
             $("this").submit();
@@ -58,14 +52,10 @@ $(document).ready(function () {
        rules: {
            "ramp\[Name\]" : {
                required: true
-            },
-            "ramp\[State\]" : {
-                required: true
             }
        },
        messages : {
-                "ramp\[Name\]": "Ramp Name is required!",
-                "ramp\[State\]": "Ramp Name is required!"
+                "ramp\[Name\]": "Ramp Name is required!"
             }
     });
     
