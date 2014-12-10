@@ -25,7 +25,7 @@ if (isset($ramp)) {
     if (!isset($ramp))
         echo "action='index.php?rt=boatramp/create' ";
     else 
-        echo "action='index.php?rt=boatramp/update&id=".$ramp['boatrampID']. "'"; ?>
+        echo "action='index.php?rt=boatramp/update&id=".$ramp['ID']. "'"; ?>
 method="post">
     
     <!-- Ramp Name -->

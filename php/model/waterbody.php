@@ -38,12 +38,12 @@ class Waterbody extends Model
             $table = $this->table;
 
         /* Prepared statement, stage 1: prepare */
-        if (!($stmt = $mysqli->prepare("INSERT INTO $table (Name, Watertype) VALUES (?,?)"))) {
+        if (!($stmt = $mysqli->prepare("INSERT INTO $table (name, waterType) VALUES (?,?)"))) {
             echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
         }
 
         /* Prepared statement, stage 2: bind and execute */
-        if (!($stmt->bind_param("ss", $data['Name'], $data['Watertype']))) {
+        if (!($stmt->bind_param("ss", $data['name'], $data['waterType']))) {
             echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
         }
 
@@ -61,7 +61,7 @@ class Waterbody extends Model
         $mysqli = $this->conn;
 
         /* Prepared statement, stage 1: prepare */
-        if (!($stmt = $mysqli->prepare("SELECT * FROM Waterbody WHERE waterbodyID = ?"))) {
+        if (!($stmt = $mysqli->prepare("SELECT * FROM Waterbody WHERE ID = ?"))) {
             echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
         }
 
@@ -84,12 +84,12 @@ class Waterbody extends Model
         $mysqli = $this->conn;
 
         /* Prepared statement, stage 1: prepare */
-        if (!($stmt = $mysqli->prepare("UPDATE Waterbody SET Name = ?, Watertype = ? WHERE waterbodyID = ?"))) {
+        if (!($stmt = $mysqli->prepare("UPDATE Waterbody SET name = ?, waterType = ? WHERE ID = ?"))) {
             echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
         }
 
         /* Prepared statement, stage 2: bind and execute */
-        if (!($stmt->bind_param("ssi", $data['Name'], $data['Watertype'], $this->id))) {
+        if (!($stmt->bind_param("ssi", $data['name'], $data['waterType'], $this->id))) {
             echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
         }
 
@@ -107,7 +107,7 @@ class Waterbody extends Model
         $mysqli = $this->conn;
         
         /* Prepared statement, stage 1: prepare */
-        if (!($stmt = $mysqli->prepare("DELETE FROM Waterbody WHERE waterbodyID = ?"))) {
+        if (!($stmt = $mysqli->prepare("DELETE FROM Waterbody WHERE ID = ?"))) {
             echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
         }
 

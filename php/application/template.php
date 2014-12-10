@@ -150,9 +150,9 @@ class template
             
             
             //Add the Edit button column
-            $editButton = $this->buttonTo($this->registry->router->controller,"edit","Edit",$list[$i][$this->registry->router->controller."ID"]);
+            $editButton = $this->buttonTo($this->registry->router->controller,"edit","Edit",$list[$i]["ID"]);
             //Add the Delete Button Column
-            $deleteButton = $this->buttonTo($this->registry->router->controller,"delete","Delete",$list[$i][$this->registry->router->controller."ID"]);
+            $deleteButton = $this->buttonTo($this->registry->router->controller,"delete","Delete",$list[$i]["ID"]);
             
             $html .= "<td>".$editButton."</td>";
             $html .= "<td>".$deleteButton."</td>";

@@ -107,7 +107,7 @@ class BoatRampController extends Controller
         $model->addBoatRamp($_POST["ramp"]);
         
         /*** Redirect User to BoatRamp/Index ***/
-        //header("location: index.php?rt=boatramp/index");
+        header("location: index.php?rt=boatramp/index");
     }
     
     /**
