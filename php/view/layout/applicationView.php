@@ -1,3 +1,4 @@
+<!DOCTYPE>
 <html>
     <head>
         <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/smoothness/jquery-ui.css" />

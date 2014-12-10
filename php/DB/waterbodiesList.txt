@@ -1,0 +1,310 @@
+Akers	Pond
+Arlington Mill	Reservoir
+Ashuelot	Pond
+Ayers Island	Reservoir
+Baboosic 	Lake
+Back 	Lake
+Balch/Stump	Pond
+Baxter 	Lake
+Bellamy	Reservoir
+Bow 	Lake
+Broad Bay	Bay
+Canaan Street 	Lake
+Canobie 	Lake
+Cedar	Pond
+Chocorua 	Lake
+Christine 	Lake
+Cobbetts	Pond
+Comerford	Reservoir
+Contoocook 	Lake
+Conway 	Lake
+Country	Pond
+Crystal (Enfield)	Lake
+Crystal (Gilmanton)	Lake
+Crystal (Manchester)	Lake
+Dan Hole	Pond
+Deering	Reservoir
+Dublin	Pond
+Eastman	Pond
+Echo (Franconia Notch)	Lake
+Echo (North Conway)	Lake
+First Connecticut 	Lake
+Fourth Connecticut 	Lake
+Francis (Murphy Dam)	Lake
+Franklin Pierce 	Lake
+Goose	Pond
+Grafton	Pond
+Great East 	Lake
+Great	Pond
+Greenough	Pond
+Halfmoon 	Lake
+Harrisville	Pond
+Highland 	Lake
+Hopkins (Adder)	Pond
+Horn	Pond
+Island (Cheshire County)	Pond
+Island (Rockingham County)	Pond
+Ivanhoe 	Lake
+Jenness	Pond
+Kanasatka 	Lake
+Lakes of the Clouds	Lake
+Little Squam 	Lake
+Little Sunapee 	Lake
+Locke 	Lake
+Lonesome 	Lake
+Lovell 	Lake
+Mascoma 	Lake
+Massabesic 	Lake
+Massasecum 	Lake
+McIndoes	Reservoir
+Mendums	Pond
+Merrymeeting 	Lake
+Milton	Pond
+Mirror 	Lake
+Monomonac 	Lake
+Moore	Reservoir
+Newfound 	Lake
+Northeast	Pond
+Northwood 	Lake
+Nubanusit 	Lake
+Opechee Bay	Bay
+Ossipee 	Lake
+Paugus Bay	Bay
+Pawtuckaway 	Lake
+Pearly 	Lake
+Pemigewasset 	Lake
+Penacook 	Lake
+Pine 	Pond
+Pleasant (Deerfield)	Lake
+Pleasant (New London)	Lake
+Pontook	Reservoir
+Potanipo	Pond
+Powder Mill	Pond
+Powwow	Pond
+Profile 	Lake
+Province 	Lake
+Sebbins	Pond
+Second Connecticut 	Lake
+Silver (Harrisville)	Lake
+Silver (Hollis)	Lake
+Silver (Madison)	Lake
+Skatutakee 	Lake
+Solitude 	Lake
+Spofford 	Lake
+Squam 	Lake
+Stinson 	Lake
+Success	Pond
+Sunapee 	Lake
+Suncook 	Lake
+Sunrise 	Lake
+Sunset ( Region)	Lake
+Surry Mountain 	Lake
+Swains 	Lake
+Tarleton 	Lake
+Third Connecticut 	Lake
+Thorndike	Pond
+Turkeys	Pond
+Tuxbury	Pond
+Umbagog 	Lake
+Waukewan 	Lake
+Weare	Reservoir
+Webster 	Lake
+Wentworth 	Lake
+White Oak	Pond
+Wickwas 	Lake
+Willard	Pond
+Winnipesaukee 	Lake
+Winnisquam 	Lake
+Ammonoosuc 	River
+Ashuelot 	River
+Baboosic	Brook
+Back (Powwow)	River
+Baker (New Hampshire)	River
+Bean 	River
+Bear (Suncook)	Brook
+Bearcamp 	River
+Beards	Brook
+Beaver (Merrimack)	Brook
+Beebe 	River
+Beech (New Hampshire)	River
+Bellamy 	River
+Berrys 	River
+Big (New Hampshire)	River
+Black (Merrimack)	Brook
+Blackwater (Contoocook)	River
+Blackwater (Massachusetts – New Hampshire)	River
+Blow-me-down	Brook
+Branch (New Hampshire)	River
+Browns (New Hampshire)	River
+Chickwolnepy	Stream
+Chocorua 	River
+Clear	Stream
+Cochecho 	River
+Cockermouth 	River
+Cohas	Brook
+Cold (Bearcamp)	River
+Cold (Connecticut)	River
+Cold (Maine – New Hampshire)	River
+Connecticut 	River
+Contoocook 	River
+Cutler (New Hampshire)	River
+Dan Hole 	River
+Dead Diamond 	River
+Dead (New Hampshire)	River
+Deer (New Hampshire)	River
+Drakes 	River
+Dry (New Hampshire)	River
+East Branch Baker 	River
+East Branch Dead Diamond 	River
+East Branch Mohawk (New Hampshire)	River
+East Branch Pemigewasset 	River
+East Branch Saco 	River
+East Branch Whiteface 	River
+East Fork East Branch Saco 	River
+Ela 	River
+Ellis (New Hampshire)	River
+Exeter 	River
+Fowler 	River
+Frazier	Brook
+Fresh (New Hampshire)	River
+Gale 	River
+Great (Cold)	Brook
+Gridley 	River
+Gunstock 	River
+Halls	Stream
+Ham Branch	Branch
+Hampton Falls 	River
+Hampton (New Hampshire)	River
+Indian (New Hampshire)	River
+Indian	Stream
+Isinglass 	River
+Israel 	River
+Johns (New Hampshire)	River
+Jones	Brook
+Knox 	River
+Lamprey 	River
+Lane 	River
+List of of New Hampshire	River
+Little Cold 	River
+Little Dead Diamond 	River
+Little Magalloway 	River
+Little Massabesic-Sucker	Brook
+Little (Ammonoosuc)	River
+Little (Big)	River
+Little (Brentwood New Hampshire)	River
+Little (Exeter New Hampshire)	River
+Little (Lamprey)	River
+Little (Merrimack)	River
+Little (New Hampshire Atlantic coast)	River
+Little Sugar (New Hampshire)	River
+Little Suncook 	River
+Lost (New Hampshire)	River
+Lovell 	River
+Mad (Cocheco)	River
+Mad (Cold)	River
+Mad (Pemigewasset)	River
+Magalloway 	River
+Mascoma 	River
+Melvin 	River
+Merrimack 	River
+Merrymeeting 	River
+Middle Branch Dead Diamond 	River
+Middle Branch Little Magalloway 	River
+Middle Branch Mad 	River
+Middle Branch Piscataquog 	River
+Mill (Swift)	Brook
+Mink	Brook
+Mirey	Brook
+Mohawk (New Hampshire)	River
+Mollidgewock	Brook
+Moose (New Hampshire)	Brook
+Moose (New Hampshire)	River
+Nash	Stream
+Nashua 	River
+New (New Hampshire)	River
+Newfound (New Hampshire)	River
+Nissitissit 	River
+North Branch Contoocook 	River
+North Branch Gale 	River
+North Branch Millers 	River
+North Branch 	River
+North Branch Sugar 	River
+North Branch Upper Ammonoosuc 	River
+North Fork East Branch Pemigewasset 	River
+North (New Hampshire)	River
+Nubanusit	Brook
+Old (New Hampshire)	River
+Oliverian	Brook
+Ossipee 	River
+Otter (Ashuelot)	Brook
+Oyster (New Hampshire)	River
+Partridge	Brook
+Pawtuckaway 	River
+Peabody 	River
+Pemigewasset 	River
+Pennichuck	Brook
+Pequawket	Brook
+Perry	Stream
+Phillips	Brook
+Pine (New Hampshire)	River
+Piscassic 	River
+Piscataqua 	River
+Piscataquog 	River
+Powwow 	River
+Purgatory	Brook
+Rattle 	River
+Rattlesnake 	River
+Red Hill 	River
+Rocky Branch (New Hampshire)	Branch
+Salmon (Merrimack)	Brook
+Sawyer 	River
+Shedd	Brook
+Shepards 	River
+Simms	Stream
+Smith (Pemigewasset)	River
+Soucook 	River
+Souhegan 	River
+South Branch Ashuelot 	River
+South Branch Baker 	River
+South Branch Gale 	River
+South Branch Israel 	River
+South Branch Little Dead Diamond 	River
+South Branch Mad 	River
+South Branch Piscataquog 	River
+South Branch Souhegan 	River
+South Branch Sugar 	River
+South (Ossipee)	River
+Spicket 	River
+Squam 	River
+Squamscott 	River
+Stocker	Brook
+Stony (Souhegan)	Brook
+Sugar (New Hampshire)	River
+Suncook 	River
+Swift Diamond 	River
+Swift (Bearcamp)	River
+Tarbell	Brook
+Taylor (New Hampshire)	River
+The Branch	Branch
+Tioga (New Hampshire)	River
+Turkey (New Hampshire)	River
+Upper Ammonoosuc 	River
+Warner 	River
+West Branch (New Hampshire)	Branch
+West Branch Dead Diamond 	River
+West Branch Little Dead Diamond 	River
+West Branch Little Magalloway 	River
+West Branch Mad 	River
+West Branch Magalloway 	River
+West Branch Mohawk (New Hampshire)	River
+West Branch Peabody 	River
+West Branch Souhegan 	River
+West Branch Upper Ammonoosuc 	River
+West Branch Warner 	River
+Whiteface (New Hampshire)	River
+Wild Ammonoosuc 	River
+Wild (Androscoggin)	River
+Winnicut 	River
+Winnipesaukee 	River
+Wonalancet 	River
+Zealand 	River

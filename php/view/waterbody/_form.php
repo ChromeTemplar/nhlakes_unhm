@@ -26,7 +26,7 @@ else
 
         <!-- Waterbody Type -->
         <label for="waterbodyType">Type</label><br/>
-        <?php echo $this->selectList($types, array("name" => "waterbody[Watertype]", "id" => "waterbody", "class" => "medium selectmenu"),$type); ?><br/><br/>
+        <?php echo $this->selectList($types, array("required" => "true", "name" => "waterbody[Watertype]", "id" => "waterbody", "class" => "medium selectmenu"),$type); ?><br/><br/>
 
         <input type="submit" value="Submit">
         <?php echo $this->buttonTo("home","index","Cancel"); ?>
