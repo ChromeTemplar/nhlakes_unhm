@@ -5,7 +5,7 @@ class surveySummary extends Model
 	{
 		if (empty($this->table))
 		{
-			$this->table = 'summary';//strtolower(get_class($this)); //FIXME maybe make this a constant
+			$this->table = 'summary';//FIXME maybe make this a constant or use class name and convert to string...
 		}
 		 
 		if (!empty($id))
@@ -18,18 +18,15 @@ class surveySummary extends Model
 		
 	}
 	
-// 	function all()
-// 	{
-// 		$table = $this->table;
+	function allToday()
+	{
+		//FIXME should make a function that
+		//returns only todays summaries
+		//but for now just return all of them
+ 		$results = $this->all();
 
-// 		$result = $this->select($table);
-
-// 		while($row = $result->fetch_assoc()){
-// 			$results[] = $row;
-// 		}
-
-// 		return $results;
-// 	}
+		return $results;
+	}
 	
 	/**
 	 * Adds a new summary to the DB with the given $data
@@ -47,25 +44,25 @@ class surveySummary extends Model
 		}
 	
 		/* Prepared statement, stage 1: prepare */
-		if (!($stmt = $mysqli->prepare("INSERT INTO Summary (NH, ME, MA, VT, NY, CT, RI, Other, 
-				InboardOutboard, PWC, CanoeKayak, Previous, Sail, OtherBoatType, Drained, Rinsed,
-				Dry5, AwarenessHigh, AwarenessLow, AwarenessMedium, SpeciesFoundYes, SpeciesFoundNo,
-				SentDesYes, SentDesNo, SummaryDate, boatrampID, userID, TotalInspections)
-				 VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)")))
+		if (!($stmt = $mysqli->prepare("INSERT INTO Summary (NH, ME, MA, VT, NY, CT, RI, other, 
+				inboardOutboard, pwc, canoeKayak, previous, notPrevious, sail, otherBoatType, drained, notDrained, rinsed,
+				notRinsed, Dry5, notDry5, awarenessHigh, awarenessLow, awarenessMedium, speciesFoundYes, speciesFoundNo,
+				sentDesYes, sentDesNo, summaryDate, boatRampID, userID, totalInspections, startShiftTime, endShiftTime)
+				 VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)")))
 		{
 			echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
 		}
 	
 		/* Prepared statement, stage 2: bind and execute */
-		if (!($stmt->bind_param("iiiiiiiiiiiiiiiiiiiiiiiiiiii", 
+		if (!($stmt->bind_param("iiiiiiiiiiiiiiiiiiiiiiiiiiiisiiiss", 
 				$data['NH'], $data['ME'], $data['MA'], $data['VT'], $data['NY'], $data['CT'], 
-				$data['RI'], $data['Other'], $data['InboardOutboard'], $data['PWC'], $data['CanoeKayak'], 
-				$data['Previous'], $data['Sail'], $data['OtherBoatType'], $data['Drained'], $data['Rinsed'],
-				$data['Dry5'], $data['AwarenessHigh'], $data['AwarenessLow'], $data['AwarenessMedium'],
-				$data['SpeciesFoundYes'], $data['SpeciesFoundNo'], $data['SentDesYes'], $data['SentDesNo'], 
-				$data['SummaryDate'], $data['boatrampID'], $data['userID'], $data['TotalInspections'])))
-				//FIXME also made date accept NULL in DB for now
-				//FIXME made these two fields allow NULL in the data base for now.
+				$data['RI'], $data['other'], $data['inboardOutboard'], $data['pwc'], $data['canoeKayak'], 
+				$data['previous'], $data['notPrevious'], $data['sail'], $data['otherBoatType'], $data['drained'], 
+				$data['notDrained'], $data['rinsed'], $data['notRinsed'], $data['dry5'], $data['notDry5'],
+				$data['awarenessHigh'], $data['awarenessLow'], $data['awarenessMedium'],
+				$data['speciesFoundYes'], $data['speciesFoundNo'], $data['sentDesYes'], $data['sentDesNo'], 
+				$data['summaryDate'], $data['boatRampID'], $data['userID'], $data['totalInspections'],
+				$data['startShiftTime'], $data['endShiftTime'])))
 		{
 			echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
 		}
