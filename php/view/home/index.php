@@ -19,6 +19,12 @@ echo $this->buttonTo("lakeHost", "index", "All Lake Hosts");
 echo $this->buttonTo("lakeHost","newLakeHost", "New Lake Host");
 ?>
 
+<h2>Survey Summary</h2>
+<?php
+echo $this->buttonTo("surveySummary", "index", "View Summaries");
+echo $this->buttonTo("surveySummary","newSurveySummary", "Add New Summary");
+?>
+
 <h2>Survey</h2>
 <?php
 echo $this->buttonTo("survey", "index", "All Surveys");
