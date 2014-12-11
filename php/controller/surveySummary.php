@@ -14,14 +14,14 @@ class SurveySummaryController extends Controller
     
     public function index()
     { 
-        /*** set a template variable ***/
-        $this->registry->template->welcome = 'Survey Summary';
+        
 
         $model = new surveySummary();
-        $surveySummary = $model->select(); 
+        $surveySummarys = $model->allToday(); 
         
         //FIXME where is template->surveys defined???
-        $this->registry->template->surveys = $surveySummary;
+        $this->registry->template->summary = $surveySummarys;
+        $this->registry->template->welcome = 'Survey Summary';
         
         /*** load the index template ***/
         $this->registry->template->show($this->name, 'index');
@@ -49,6 +49,7 @@ class SurveySummaryController extends Controller
     	$waterbodies = array("Echo Lake", "Ammonoosuc River", "Turee Pond", "Pemigewasset River");//$this->getWaterbodies();//FIXME get the waterbodies associated with the group(s) for the lake host
     	$towns = array("Franconia", "Twin Mountain", "Bristol", "Greenland");//$this->getTowns();//FIXME need to get the towns from the waterbody from the group from the userID
     	$ramps = array("Dirt Ramp", "Beer Bottle Ramp", "Big Rock Ramp");
+    	$lakeHostNames = array("Picard", "Riker", "Jabba", "Lando", "Data", "Kira");
     	
     	//set template variables, these are what are being used in the _form.php
     	$this->registry->template->welcome = 'New Survey Summary';
@@ -56,6 +57,7 @@ class SurveySummaryController extends Controller
      	$this->registry->template->towns = $towns;
      	$this->registry->template->waterbodies = $waterbodies;
      	$this->registry->template->ramps = $ramps;
+     	$this->registry->template->lakeHostNames = $lakeHostNames;
         
         /*** load the index template ***/
         $this->registry->template->show($this->name, 'new');
