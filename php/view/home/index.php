@@ -1,23 +1,27 @@
 <h1><?php echo $welcome; ?></h1>
 
+<!-- The below validation is to expose the below links only for people with role of admin or Coordinators -->
+<?php if (isset($_SESSION['roleID']) && ($_SESSION['roleID'] == '1' || ($_SESSION['roleID'] == '2'))) { ?>	
 <h2>Boat Ramp</h2>
-
 <?php
 echo $this->buttonTo("boatRamp","index","All Boat Ramps");
 echo $this->buttonTo("boatRamp","newBoatRamp", "New Boat Ramp");
 ?>
+<?php  } ?>
 
 <h2>Invasive Species</h2>
 <?php
 echo $this->buttonTo("invasiveSpecies", "index", "All Invasive Species");
 echo $this->buttonTo("invasiveSpecies","newInvasiveSpecies", "New Invasive Species");
 ?>
-
+<!-- The below validation is to expose the below links only for people with role of admin or Coordinators -->
+<?php if (isset($_SESSION['roleID']) && ($_SESSION['roleID'] == '1' || ($_SESSION['roleID'] == '2'))) { ?>
 <h2>Lake Host</h2>
 <?php
 echo $this->buttonTo("lakeHost", "index", "All Lake Hosts");
 echo $this->buttonTo("lakeHost","newLakeHost", "New Lake Host");
 ?>
+<?php  } ?>
 
 <h2>Survey Summary</h2>
 <?php
