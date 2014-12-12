@@ -44,6 +44,20 @@ class template
     {
         $this->vars[$index] = $value;
     }
+    
+    /**
+     *  Displays the logon screen with default userId and password
+     */
+    public function showLogon($dir, $name) {
+    	$path = __SITE_PATH . '/view/'. $dir . '/' . $name . '.php';
+    	
+    	if (file_exists($path) == false ) {
+    		throw new Exception ('Template not found in ' . $path);
+    		return false;
+    	}
+    	
+    	include $path;
+    }
 
     /**
      * Includes the necessary view file
