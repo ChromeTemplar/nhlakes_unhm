@@ -1,0 +1,63 @@
+@CHARSET "ISO-8859-1";
+
+
+
+* {
+	font-family:cursive;
+	font-size:12px;
+}
+
+#form {
+	float:center;
+}
+
+#wholeBody {
+}
+
+
+.background_style{
+	
+	 background: url(images/NHLakesPicture.jpg);
+	 background-attachment: fixed;
+	 background-repeat: no-repeat;
+	 background-size : height 100% width 100%;
+}
+.userId {
+	font-size:30px;
+	text-align:left;
+ 	margin-right:20em;
+ 	position:relative;
+}
+
+.password {
+	font-size:30px;
+	text-align:left;
+	margin-right:40em;
+	position:relative;
+}
+
+input[type=submit] {padding:5px 15px; background:#6595ED; border:0 none;
+cursor:pointer;
+-webkit-border-radius:10px;
+border-radius:5px; 
+height:50px; 
+width:120px;
+font-size:20px}
+
+.err_msg {
+	font-family:cursive;
+	font-size:40px;
+	color:red;
+	position:relative;
+	top=30px;
+	right=30px
+}
+
+.info_msg {
+	font-family:cursive;
+	font-size:40px;
+	color:blue;
+	position:relative;
+	top=30px;
+	right=40px;
+}
