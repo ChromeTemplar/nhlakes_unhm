@@ -1,10 +1,14 @@
 <!DOCTYPE>
 <html>
     <head>
+        <!-- jPList Core -->
+        <link rel="stylesheet" href="assets/css/jplist-core.min.css" />
         <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/smoothness/jquery-ui.css" />
         <link rel="stylesheet" href="assets/css/application.css" />
         <link rel="stylesheet" href="assets/css/jquery-ui.theme.css" />
         <link rel="stylesheet" href="assets/css/jquery.tablesorter.pager.css" />
+        <link rel="stylesheet" href="assets/css/jplist-textbox-control.min.css" />
+        <link rel="stylesheet" href="assets/css/jplist-pagination-bundle.min.css" />
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
         <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
@@ -12,6 +16,10 @@
         <script src="assets/js/jquery.tablesorter.js"></script>
         <script src="assets/js/jquery.validate.js"></script>
         <script src="assets/js/jquery.tablesorter.pager.js"></script>
+        <script src="assets/js/jplist-core.min.js"></script>
+        <script src="assets/js/jplist.textbox-control.min.js"></script>
+        <script src="assets/js/jplist.pagination-bundle.min.js"></script>
+
         
     </head>
     

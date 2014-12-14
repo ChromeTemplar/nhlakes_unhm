@@ -34,10 +34,13 @@ class Model {
         if (mysqli_connect_errno())
             echo "Failed to connect to MySQL: " . mysqli_connect_error();
         
-        if (is_resource($this->conn)) { 
+        if (is_resource($this->conn)) {
             mysqli_select_db($db, $this->conn) or $this->error("Database '$db' could not be found."); 
-        } 
-    } 
+            return $this->conn;
+        }
+
+        return false; 
+    }
 
     /**
     * Simple Select All statemeent for the given table

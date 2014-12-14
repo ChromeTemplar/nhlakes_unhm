@@ -34,14 +34,11 @@ $(document).ready(function () {
 
     $("#data-table").tablesorter(); 
     
-    $("#boatRampForm").on("submit",function(e) {
-        //e.preventDefault();
-    
-        if ($("#state").val() == '') {
-            alert("test");
-        }else {
-            //e.submit();
-        }
+     //check all jPList javascript options
+    $('#data').jplist({				
+       itemsBox: '.list' 
+       ,itemPath: '.list-item' 
+       ,panelPath: '.jplist-panel'	
     });
     
     // Validation rules for the boat ramp form

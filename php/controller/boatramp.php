@@ -118,7 +118,7 @@ class BoatRampController extends Controller
         $model->updateBoatRamp($_POST["ramp"]);
         
         /*** Redirect User to BoatRamp/Index ***/
-        //header("location: index.php?rt=boatramp/index");
+        header("location: index.php?rt=boatramp/index");
     }
     
     /**
@@ -129,7 +129,7 @@ class BoatRampController extends Controller
         $model->deleteBoatRamp();
         
         /*** Redirect User to BoatRamp/Index ***/
-        //header("location: index.php?rt=boatramp/index");
+        header("location: index.php?rt=boatramp/index");
     }
 
 

@@ -32,4 +32,4 @@ function __autoload($class_name) {
  $registry = new registry;
 
  /*** create the database registry object ***/
- //$registry->db = new database;
+ $registry->db = new Model;

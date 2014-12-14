@@ -136,7 +136,7 @@ class template
      * @return string
      */
     public function buildTable($list) {
-        $html = '<table id="data-table" class="tablesorter">';
+        $html = '<table id="data-table" class="list tablesorter">';
         
         $listHeaders = $list[0];
         
@@ -156,10 +156,13 @@ class template
 
         //loop through all 
         for($i=0;$i<count($list);$i++){
-            $html .= "<tr>";
+            $html .= "<tr class='list-item'>";
 
-            foreach($list[$i] as $val){
-                $html .= "<td>$val</td>";
+            foreach($list[$i] as $key => $val){
+                if ($key == "name")
+                    $html .= "<td class='title' >$val</td>";   
+                else 
+                    $html .= "<td>$val</td>";   
             }
             
             
