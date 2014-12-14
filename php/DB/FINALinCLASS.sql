@@ -627,14 +627,6 @@ FOREIGN KEY (lakeHostGroupID) REFERENCES LakeHostGroup(ID)
 
 
 
-
-
-
-
-
-
-
-
 CREATE TABLE LakeHostMember (
 userID int(11) NOT NULL,
 lakeHostGroupID int(11) NOT NULL,
@@ -642,58 +634,6 @@ PRIMARY KEY (userID, lakeHostGroupID),
 FOREIGN KEY (userID) REFERENCES User(ID),
 FOREIGN KEY (lakeHostGroupID) REFERENCES LakeHostGroup(ID)
 );
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -734,10 +674,6 @@ userID int(11) NOT NULL,
 totalInspections int (4),
 startShiftTime datetime,
 endShiftTime datetime,
-
-
-
-
 FOREIGN KEY (boatRampID) REFERENCES BoatRamp(ID),
 FOREIGN KEY (userID) REFERENCES User(ID),
 PRIMARY KEY (ID)
