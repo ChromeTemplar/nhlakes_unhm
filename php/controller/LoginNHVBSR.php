@@ -43,9 +43,8 @@ class LoginNHVBSRController extends Controller
 		//validates the userId and password entered by the user
 		if (isset($personResult[0]) && $personResult != NULL) {
 			
-			//$row = $personResult->fetch_array(MYSQLI_ASSOC);
-                        $row = $personResult;
-                        
+            $row = $personResult[0];
+			
 			$firstName = isset($row['firstName']) ? ($row['firstName']) : '';
 			$lastName = isset($row['lastName']) ? ($row['lastName']) : '';
 			$roleId   = isset($row['roleID']) ? ($row['roleID']) : '';
@@ -87,7 +86,7 @@ class LoginNHVBSRController extends Controller
 		$loginNHVBSRdb = new loginNHVBSRmodel();
 		$sessionResult = $loginNHVBSRdb->checkSessionDetails($sessionKey, 'A');
 		
-		if (isset($personResult[0]) && $personResult != NULL) {
+		if (isset($sessionResult[0]) && $sessionResult != NULL) {
 			return true;
 		} else {
 			
