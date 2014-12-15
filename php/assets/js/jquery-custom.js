@@ -42,25 +42,21 @@ $(document).ready(function () {
     // Validation rules for the boat ramp form
     $("#boatRampForm").validate({
        rules: {
-           "ramp\[Name\]" : {
-               required: true
-            }
+           "ramp\[name\]" : "required"
        },
        messages : {
-                "ramp\[Name\]": "Ramp Name is required!"
-            }
+            "ramp\[name\]": "Ramp Name is required!"
+        }
     });
     
     // Validation rules for the water body form
     $("#waterbody-form").validate({
        rules: {
-           "waterbody\[Name\]" : {
-               required: true
-            }
+           "waterbody\[name\]" : "required"
        },
        messages : {
-                "waterbody\[Name\]": "Waterbody name is required!"
-            }
+            "waterbody\[name\]": "Waterbody name is required!"
+        }
     });
   
 });
