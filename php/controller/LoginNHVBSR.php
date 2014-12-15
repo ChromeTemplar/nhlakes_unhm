@@ -25,7 +25,7 @@ class LoginNHVBSRController extends Controller
 		$this->registry->template->welcome = 'Home';
 
 		/*** load the index template ***/
-		$this->registry->template->showLogon('session', 'LogonNHVBSR');
+		$this->registry->template->showLogon('session', 'LoginNHVBSR');
 
 	}
 	
@@ -56,7 +56,7 @@ class LoginNHVBSRController extends Controller
 			$myCurrentDate = new DateTime("now", new DateTimeZone("America/New_York"));
 			$timeStampKey = $myCurrentDate->format("Y-m-d-H-i-s");
 			$sessionKey = $userId.$timeStampKey;	
-			$loginNHVBSRdb->setSessinoDetail(session_id(), $sessionKey, "A");			
+			$loginNHVBSRdb->setSessionDetail(session_id(), $sessionKey, "A");			
 			$_SESSION ['IDKey'] = $sessionKey;
 			$_SESSION['firstName'] = $firstName;
 			$_SESSION['lastName'] = $lastName;
@@ -71,7 +71,7 @@ class LoginNHVBSRController extends Controller
 			//the logic to redirect to the login page with appropriate error message
 			$_SESSION['Login.Error'] = "Invalid credentials ";
 			session_destroy();
-			$this->registry->template->showLogon('session', 'LogonNHVBSR');	
+			$this->registry->template->showLogon('session', 'LoginNHVBSR');	
 		}
 		
 	}
@@ -92,7 +92,7 @@ class LoginNHVBSRController extends Controller
 			
 			$_SESSION['Login.Error'] = "Please Login with valid Credentails first";
 			session_destroy();
-			$this->registry->template->showlogon('session', 'LogonNHVBSR'); 
+			$this->registry->template->showlogon('session', 'LoginNHVBSR'); 
 		}
 	} 
 }

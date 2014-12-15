@@ -46,7 +46,7 @@ class loginNHVBSRmodel extends Model {
  	/***
  	 * Inserts a record with session details in the  
  	 */
- 	public function setSessinoDetail($sessionId, $sessionKeyVal, $sessionStatus) {
+ 	public function setSessionDetail($sessionId, $sessionKeyVal, $sessionStatus) {
  		
  		$insertIntoSession = "INSERT INTO sessionDetail VALUES (?, ?, ?)";
  		
