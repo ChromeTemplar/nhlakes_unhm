@@ -10,7 +10,7 @@
 	<div id="wholeBody">
 		<br /> <br /> <br /> <br /> <br />
 		<div id="form">
-			<form action="index.php?rt=logonNHVBSR" method="post">
+			<form action="index.php?rt=home/index" method="post">
 				<input type="text" name="userId" value="User ID" class="userId" onblur="onBlur(this)" onfocus="onFocus(this)"/> <br />
 				<br /> <input type="password" name="password" value="Password" onblur="onBlur(this)" onfocus="onFocus(this)"
 					class="password" /> <br /> <br /> <input type="submit"
