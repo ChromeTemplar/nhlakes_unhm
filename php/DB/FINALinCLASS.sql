@@ -1,8 +1,10 @@
-﻿DROP DATABASE IF EXISTS NHVBSR;
+/*
+Last Edited 12/14/14
+*/
 
+DROP DATABASE IF EXISTS NHVBSR;
 
 CREATE DATABASE NHVBSR;
-
 
 USE NHVBSR;
 
@@ -13,6 +15,10 @@ name varchar (50)NOT NULL,
 waterType varchar (50)NOT NULL,
 PRIMARY KEY (ID)
 );
+
+/*
+Insert Statements for WaterBody Table
+*/
 
 INSERT INTO `Waterbody` (`ID`, `name`, `watertype`) VALUES
 (1852, 'Akers Pond', 'Lake'),
@@ -331,6 +337,10 @@ ID int NOT NULL AUTO_INCREMENT,
 name varchar (50) NOT NULL,
 PRIMARY KEY (ID)
 );
+
+/*
+Insert Statements for Town Table
+*/
 
 INSERT INTO `Town` (`ID`, `name`) VALUES
 (1, 'Acworth\r'),
@@ -720,3 +730,16 @@ CREATE table sessionDetail (
 sessionId VARCHAR(30) NOT NULL,
 sessionKeyVal VARCHAR(30) NOT NULL,
 sessionStatus CHAR(1) NOT NULL);
+
+
+/*
+This is a how you create a stored procedure
+
+DELIMITER //
+DROP PROCEDURE IF EXISTS allranps; //
+CREATE PROCEDURE allramps()
+BEGIN
+SELECT * from boatramp;
+END; //
+
+*/
