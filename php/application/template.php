@@ -136,7 +136,7 @@ class template
      * @return string
      */
     public function buildTable($list) {
-        $html = '<table id="data-table" class="list tablesorter">';
+        $html = '<table class="list">';
         
         $listHeaders = $list[0];
         
@@ -144,7 +144,7 @@ class template
         
         //Iterate through the keys
         foreach($listHeaders as $key => $val){
-            $html .= "<th>$key</th>";
+            $html .= "<th class=''>$key</th>";
         }
         //Add edit button column to the end
         $html .= "<th>Edit</th>";

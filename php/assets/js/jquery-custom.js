@@ -30,9 +30,7 @@ $(document).ready(function () {
             $(this).stop(true,true).animate({color: "#000"}, 150); 
         }         
     );
-    
-
-    $("#data-table").tablesorter(); 
+     
     
      //check all jPList javascript options
     $('#data').jplist({				

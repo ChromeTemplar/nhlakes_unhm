@@ -1,10 +1,8 @@
-/*
-Last Edited 12/14/14
-*/
-
 DROP DATABASE IF EXISTS NHVBSR;
 
+
 CREATE DATABASE NHVBSR;
+
 
 USE NHVBSR;
 
@@ -15,10 +13,6 @@ name varchar (50)NOT NULL,
 waterType varchar (50)NOT NULL,
 PRIMARY KEY (ID)
 );
-
-/*
-Insert Statements for WaterBody Table
-*/
 
 INSERT INTO `Waterbody` (`ID`, `name`, `watertype`) VALUES
 (1852, 'Akers Pond', 'Lake'),
@@ -338,10 +332,6 @@ name varchar (50) NOT NULL,
 PRIMARY KEY (ID)
 );
 
-/*
-Insert Statements for Town Table
-*/
-
 INSERT INTO `Town` (`ID`, `name`) VALUES
 (1, 'Acworth\r'),
 (2, 'Albany\r'),
@@ -592,13 +582,11 @@ CREATE TABLE Role (
   ID int NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (ID)
   );
+
+INSERT INTO `Role` (roleDescription) values ('Admin');
+INSERT INTO `Role` (roleDescription) values ('Coordinators');
+INSERT INTO `Role` (roleDescription) values ('Others');
  
-
-
-
-
-
-
 
 
 CREATE TABLE User (
@@ -616,6 +604,38 @@ CREATE TABLE User (
   PRIMARY KEY (ID),
   FOREIGN KEY (roleID) REFERENCES Role(ID)
 );
+
+
+INSERT INTO `User` 
+(ID, roleID, firstName, lastName, phoneNumber, username, email, password, over18, verified)
+values 
+(0001, 0001, 'John', 'Smith', '603-111-2222', 'jsmith', 'jsmith@hotmail.com', SHA1('password'), 1, 1);
+
+INSERT INTO `User` 
+(ID, roleID, firstName, lastName, phoneNumber, username, email, password, over18, verified)
+values 
+(0002, 0001, 'Maria', 'Miller', '603-111-3333', 'mmiller', 'mmiller@hotmail.com', SHA1('password'), 1, 1);
+
+INSERT INTO `User` 
+(ID, roleID, firstName, lastName, phoneNumber, username, email, password, over18, verified)
+values 
+(0003, 0002, 'Charles', 'Babbage', '603-111-3333', 'cBabbage', 'cBaggage@hotmail.com', SHA1('password'), 1, 1);
+
+INSERT INTO `User` 
+(ID, roleID, firstName, lastName, phoneNumber, username, email, password, over18, verified)
+values 
+(0004, 0002, 'John', 'Nash', '603-111-3333', 'jnash', 'jnash@hotmail.com', SHA1('password'), 1, 1);
+
+INSERT INTO `User` 
+(ID, roleID, firstName, lastName, phoneNumber, username, email, password, over18, verified)
+values 
+(0005, 0003, 'Mary', 'Curie', '603-111-3333', 'mCurie', 'mCurie@hotmail.com', SHA1('password'), 1, 1);
+
+INSERT INTO `User` 
+(ID, roleID, firstName, lastName, phoneNumber, username, email, password, over18, verified)
+values 
+(0006, 0003, 'Jonas', 'Salk', '603-111-3333', 'jSalk', 'jsalk@hotmail.com', SHA1('password'), 1, 1);
+
 
 
 CREATE TABLE BoatRamp(
@@ -730,7 +750,6 @@ CREATE table sessionDetail (
 sessionId VARCHAR(30) NOT NULL,
 sessionKeyVal VARCHAR(30) NOT NULL,
 sessionStatus CHAR(1) NOT NULL);
-
 
 /*
 This is a how you create a stored procedure

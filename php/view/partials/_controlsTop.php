@@ -23,7 +23,7 @@
     <!-- filter by title -->
     <div class="text-filter-box">
 
-      <i class="fa fa-pencil jplist-icon"></i>
+      <i class="fa fa-search jplist-icon"></i>
 
       <!--[if lt IE 10]>
       <div class="jplist-label">Filter by Title:</div>
