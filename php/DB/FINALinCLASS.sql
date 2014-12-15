@@ -1,3 +1,7 @@
+/*
+Last Edited 12/14/14
+*/
+
 DROP DATABASE IF EXISTS NHVBSR;
 
 
@@ -13,6 +17,10 @@ name varchar (50)NOT NULL,
 waterType varchar (50)NOT NULL,
 PRIMARY KEY (ID)
 );
+
+/*
+Insert Statements for WaterBody Table
+*/
 
 INSERT INTO `Waterbody` (`ID`, `name`, `watertype`) VALUES
 (1852, 'Akers Pond', 'Lake'),
@@ -331,6 +339,10 @@ ID int NOT NULL AUTO_INCREMENT,
 name varchar (50) NOT NULL,
 PRIMARY KEY (ID)
 );
+
+/*
+Insert Statements for Town Table
+*/
 
 INSERT INTO `Town` (`ID`, `name`) VALUES
 (1, 'Acworth\r'),
