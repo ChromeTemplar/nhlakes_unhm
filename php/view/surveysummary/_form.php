@@ -2,22 +2,19 @@
 <?php
 if (isset($summary)) 
 {
-	//FIXME somewhere need to get the local group(s) from the userID
-    $localGroup = '';//$summary['userID'];//FIXME need to get the local group from the userID in the DB?
-    $waterbody = '';//$summary['townID'];//FIXME need to get lake name (waterbody) from local group, from the userID in the DB
-    $town = '';//$summary['userID'];//FIXME need to get town from waterbody from local group from userID
-    $ramp = '';//$summary["boatRampID']
-    $lakeHostName = ''; //$summary[userID]
-    $localGroup = ''; //this needs to be populated using these fields $summary[userID] $summary[boatRampID]
+    $waterbody = $summary['waterbody'];
+    $town = $summary['town'];
+    $rampName = $summary['boatRampName'];
+    $lakeHostName = $summary['lakeHostName'];
+    $localGroup = $summary['localGroup'];
 } 
 else 
 {
     $localGroup = '';
     $waterbody = '';
     $town = '';
-    $ramp = '';
+    $rampName = '';
     $lakeHostName = '';
-    $localGroup = '';
 }
 ?>
 
@@ -41,34 +38,35 @@ else
 	<div style="white-space: nowrap;"><h5>
 	Date:<input type='date' name='summary[summaryDate]' 
 		<?php if (isset($summary)) echo "value='".$summary['summaryDate']."'"; ?>>
-	<!-- FIXME the lake host will be a fixed read only field if a lake host is logged in, if a group leader is logged in, then
+	<!-- FIXME the lake host should be a fixed read only field if a lake host is logged in, if a group leader is logged in, then
 	they can select the users in their group, if admin is logged in they can select any lake host. 
 	so need to implement the fixed if(permission == lakehost) and if (permission == admin) etc... -->
 	Lake Host Name:<?php echo $this->selectList($lakeHostNames, 
-			array("name" => "lakeHostName", "id" => "lakeHostName", "class" => "medium selectmenu"),$lakeHostName); ?>
+			array("name" => "summary[lakeHostName]", "id" => "lakeHostName", "class" => "medium selectmenu"),$lakeHostName); ?>
 	</h5></div>
 	
 	<div style="white-space: nowrap;"><h5>
-	1<sup>st</sup>Shift Start Time:<input type='datetime' name='summary[startShiftTime]'>
-		<?php if (isset($summary)) echo "value='".$summary[startShiftTime]."'"; ?>
+	1<sup>st</sup>Shift Start Time:<input type='datetime' name='summary[startShiftTime]'
+		<?php if (isset($summary)) echo "value='".$summary['startShiftTime']."'"; ?>>
 	Last Shift End Time:<input type='datetime' name='summary[endShiftTime]'
-		<?php if (isset($summary)) echo "value='".$summary[endShiftTime]."'"; ?>>
+		<?php if (isset($summary)) echo "value='".$summary['endShiftTime']."'"; ?>>
 	</h5></div>
 	
 	<div style="white-space: nowrap;"><h5>
 	Local Group Name: <?php echo $this->selectList($localGroups, 
-			array("name" => "localGroup", "id" => "localGroup", "class" => "medium selectmenu"),$localGroup); ?>
+			array("name" => "summary[localGroup]", "id" => "localGroup", "class" => "medium selectmenu"),$localGroup); ?>
+	<!-- waterbody is not stored in the summary database table, it is intended to help filter the boat ramp selection -->
 	Waterbody: <?php echo $this->selectList($waterbodies,
-			array("name" => "waterbody", "id" => "waterbody", "class" => "medium selectmenu"),$waterbody); ?>
+			array("name" => "summary[waterbody]", "id" => "waterbody", "class" => "medium selectmenu"),$waterbody); ?>
 	</h5></div>
 	
 	<div style="white-space: nowrap;"><h5>
+	<!-- town is not stored in the database summary table, it is intended to help filter the boat ramp selection -->
 	Town: <?php echo $this->selectList($towns, 
-			array("name" => "town", "id" => "town", "class" => "medium selectmenu"),$town); ?>
-	Ramp Name: <?php echo $this->selectList($ramps, array("name" => "summary[boatRampID]", //FIXME may have to convert ramp name to boatrampID
-					 "id" => "ramp", "class" => "medium selectmenu"),$ramp); ?>
+			array("name" => "summary[town]", "id" => "town", "class" => "medium selectmenu"),$town); ?>
+	Ramp Name: <?php echo $this->selectList($rampNames, array("name" => "summary[boatRampName]",
+					 "id" => "ramp", "class" => "medium selectmenu"),$rampName); ?>
 	</h5></div>
-	
 
 <!-- THIS IS THE START OF THE TABLE CONTAINING THE SURVEY SUMMARY TOTALS DATA-->
 <table class=MsoTableGrid border=1 cellspacing=0 cellpadding=0 width=996
@@ -387,7 +385,7 @@ else
   style='font-size:10.0pt'><o:p>&nbsp;</o:p>
   
   <input type='number' name='summary[totalInspections]' height="50" size="1" 
-  <?php if (isset($summary)) echo "value='".$summary[totalInspections]."'"; ?>>
+  <?php if (isset($summary)) echo "value='".$summary['totalInspections']."'"; ?>>
   
   </span></p>
   </td>
@@ -399,7 +397,7 @@ else
   style='font-size:10.0pt'><o:p>&nbsp;</o:p>
   
   <input type='number' name='summary[NH]' height="50" size="1" 
-  <?php if (isset($summary)) echo "value='".$summary[NH]."'"; ?>>
+  <?php if (isset($summary)) echo "value='".$summary['NH']."'"; ?>>
   
   </span></p>
   </td>
@@ -411,7 +409,7 @@ else
   style='font-size:10.0pt'><o:p>&nbsp;</o:p>
   
   <input type='number' name='summary[MA]' height="50" size="1" 
-  <?php if (isset($summary)) echo "value='".$summary[MA]."'"; ?>>
+  <?php if (isset($summary)) echo "value='".$summary['MA']."'"; ?>>
   
   </span></p>
   </td>
@@ -423,7 +421,7 @@ else
   style='font-size:10.0pt'><o:p>&nbsp;</o:p>
   
   <input type='number' name='summary[ME]' height="50" size="1" 
-  <?php if (isset($summary)) echo "value='".$summary[ME]."'"; ?>>
+  <?php if (isset($summary)) echo "value='".$summary['ME']."'"; ?>>
   
   </span></p>
   </td>
@@ -435,7 +433,7 @@ else
   style='font-size:10.0pt'><o:p>&nbsp;</o:p>
   
   <input type='number' name='summary[VT]' height="50" size="1" 
-  <?php if (isset($summary)) echo "value='".$summary[VT]."'"; ?>>
+  <?php if (isset($summary)) echo "value='".$summary['VT']."'"; ?>>
   
   </span></p>
   </td>
@@ -447,7 +445,7 @@ else
   style='font-size:10.0pt'><o:p>&nbsp;</o:p>
   
   <input type='number' name='summary[CT]' height="50" size="1" 
-  <?php if (isset($summary)) echo "value='".$summary[CT]."'"; ?>>
+  <?php if (isset($summary)) echo "value='".$summary['CT']."'"; ?>>
   
   </span></p>
   </td>
@@ -459,7 +457,7 @@ else
   style='font-size:10.0pt'><o:p>&nbsp;</o:p>
   
   <input type='number' name='summary[RI]' height="50" size="1" 
-  <?php if (isset($summary)) echo "value='".$summary[RI]."'"; ?>>
+  <?php if (isset($summary)) echo "value='".$summary['RI']."'"; ?>>
   
   </span></p>
   </td>
@@ -471,7 +469,7 @@ else
   style='font-size:10.0pt'><o:p>&nbsp;</o:p>
   
   <input type='number' name='summary[NY]' height="50" size="1" 
-  <?php if (isset($summary)) echo "value='".$summary[NY]."'"; ?>>
+  <?php if (isset($summary)) echo "value='".$summary['NY']."'"; ?>>
   
   </span></p>
   </td>
@@ -483,7 +481,7 @@ else
   style='font-size:10.0pt'><o:p>&nbsp;</o:p>
   
   <input type='number' name='summary[other]' height="50" size="1" 
-  <?php if (isset($summary)) echo "value='".$summary[other]."'"; ?>>
+  <?php if (isset($summary)) echo "value='".$summary['other']."'"; ?>>
   
   </span></p>
   </td>
@@ -495,7 +493,7 @@ else
   style='font-size:10.0pt'><o:p>&nbsp;</o:p>
   
   <input type='number' name='summary[inboardOutboard]' height="50" size="1" 
-  <?php if (isset($summary)) echo "value='".$summary[inboardOutboard]."'"; ?>>
+  <?php if (isset($summary)) echo "value='".$summary['inboardOutboard']."'"; ?>>
   
   </span></p>
   </td>
@@ -507,7 +505,7 @@ else
   style='font-size:10.0pt'><o:p>&nbsp;</o:p>
   
   <input type='number' name='summary[pwc]' height="50" size="1" 
-  <?php if (isset($summary)) echo "value='".$summary[pwc]."'"; ?>>
+  <?php if (isset($summary)) echo "value='".$summary['pwc']."'"; ?>>
   
   </span></p>
   </td>
@@ -519,7 +517,7 @@ else
   style='font-size:10.0pt'><o:p>&nbsp;</o:p>
   
   <input type='number' name='summary[canoeKayak]' height="50" size="1" 
-  <?php if (isset($summary)) echo "value='".$summary[canoeKayak]."'"; ?>>
+  <?php if (isset($summary)) echo "value='".$summary['canoeKayak']."'"; ?>>
   
   </span></p>
   </td>
@@ -531,7 +529,7 @@ else
   style='font-size:10.0pt'><o:p>&nbsp;</o:p>
   
   <input type='number' name='summary[sail]' height="50" size="1" 
-  <?php if (isset($summary)) echo "value='".$summary[sail]."'"; ?>>
+  <?php if (isset($summary)) echo "value='".$summary['sail']."'"; ?>>
   
   </span></p>
   </td>
@@ -543,7 +541,7 @@ else
   style='font-size:10.0pt'><o:p>&nbsp;</o:p>
   
   <input type='number' name='summary[otherBoatType]' height="50" size="1" 
-  <?php if (isset($summary)) echo "value='".$summary[otherBoatType]."'"; ?>>
+  <?php if (isset($summary)) echo "value='".$summary['otherBoatType']."'"; ?>>
   
   </span></p>
   </td>
@@ -555,7 +553,7 @@ else
   style='font-size:10.0pt'><o:p>&nbsp;</o:p>
   
   <input type='number' name='summary[previous]' height="50" size="1" 
-  <?php if (isset($summary)) echo "value='".$summary[previous]."'"; ?>>
+  <?php if (isset($summary)) echo "value='".$summary['previous']."'"; ?>>
   
   </span></p>
   </td>
@@ -567,7 +565,7 @@ else
   style='font-size:10.0pt'><o:p>&nbsp;</o:p>
   
   <input type='number' name= 'summary[notPrevious]' height="50" size="1"   
-  <?php if (isset($summary)) echo "value='".$summary[notPrevious]."'"; ?>>
+  <?php if (isset($summary)) echo "value='".$summary['notPrevious']."'"; ?>>
   
   </span></p>
   </td>
@@ -578,8 +576,8 @@ else
   <p class=MsoNormal style='tab-stops:85.5pt 1.25in 94.5pt 117.0pt 157.5pt 265.5pt 4.5in 5.25in 387.0pt 391.5pt 6.25in'><span
   style='font-size:10.0pt'><o:p>&nbsp;</o:p>
   
-  <input type='number' name='summary[dained]' height="50" size="1" 
-  <?php if (isset($summary)) echo "value='".$summary[drained]."'"; ?>>
+  <input type='number' name='summary[drained]' height="50" size="1" 
+  <?php if (isset($summary)) echo "value='".$summary['drained']."'"; ?>>
   
   </span></p>
   </td>
@@ -590,8 +588,8 @@ else
   <p class=MsoNormal style='tab-stops:85.5pt 1.25in 94.5pt 117.0pt 157.5pt 265.5pt 4.5in 5.25in 387.0pt 391.5pt 6.25in'><span
   style='font-size:10.0pt'><o:p>&nbsp;</o:p>
   
-  <input type='number' name='notDrained' height="50" size="1" 
-  <?php if (isset($summary)) echo "value='".$summary[notDrained]."'"; ?>>
+  <input type='number' name='summary[notDrained]' height="50" size="1" 
+  <?php if (isset($summary)) echo "value='".$summary['notDrained']."'"; ?>>
   
   </span></p>
   </td>
@@ -603,7 +601,7 @@ else
   style='font-size:10.0pt'><o:p>&nbsp;</o:p>
   
   <input type='number' name='summary[rinsed]' height="50" size="1" 
-  <?php if (isset($summary)) echo "value='".$summary[Rinsed]."'"; ?>>
+  <?php if (isset($summary)) echo "value='".$summary['rinsed']."'"; ?>>
   
   </span></p>
   </td>
@@ -614,8 +612,8 @@ else
   <p class=MsoNormal style='tab-stops:85.5pt 1.25in 94.5pt 117.0pt 157.5pt 265.5pt 4.5in 5.25in 387.0pt 391.5pt 6.25in'><span
   style='font-size:10.0pt'><o:p>&nbsp;</o:p>
   
-  <input type=number name='notRinsed' height="50" size="1" 
-  <?php if (isset($summary)) echo "value='".$summary[notRinsed]."'"; ?>>
+  <input type=number name='summary[notRinsed]' height="50" size="1" 
+  <?php if (isset($summary)) echo "value='".$summary['notRinsed']."'"; ?>>
   
   </span></p>
   </td>
@@ -629,7 +627,7 @@ else
   style='font-size:10.0pt'><o:p>&nbsp;</o:p>
   
   <input type='number' name='summary[dry5]' height="50" size="1" 
-  <?php if (isset($summary)) echo "value='".$summary[dry5]."'"; ?>>
+  <?php if (isset($summary)) echo "value='".$summary['dry5']."'"; ?>>
   
   </span></p>
   </td>
@@ -641,7 +639,7 @@ else
   style='font-size:10.0pt'><o:p>&nbsp;</o:p>
   
   <input type='number' name='summary[notDry5]' height="50" size="1" 
-  <?php if (isset($summary)) echo "value='".$summary[notDry5]."'"; ?>>
+  <?php if (isset($summary)) echo "value='".$summary['notDry5']."'"; ?>>
   
   </span></p>
   </td>
@@ -653,7 +651,7 @@ else
   style='font-size:10.0pt'><o:p>&nbsp;</o:p>
   
   <input type='number' name='summary[awarenessHigh]' height="50" size="1" 
-  <?php if (isset($summary)) echo "value='".$summary[awarenessHigh]."'"; ?>>
+  <?php if (isset($summary)) echo "value='".$summary['awarenessHigh']."'"; ?>>
   
   </span></p>
   </td>
@@ -665,7 +663,7 @@ else
   style='font-size:10.0pt'><o:p>&nbsp;</o:p>
   
   <input type='number' name='summary[awarenessMedium]' height="50" size="1" 
-  <?php if (isset($summary)) echo "value='".$summary[AwarenessMedium]."'"; ?>>
+  <?php if (isset($summary)) echo "value='".$summary['awarenessMedium']."'"; ?>>
   
   </span></p>
   </td>
@@ -677,7 +675,7 @@ else
   style='font-size:10.0pt'><o:p>&nbsp;</o:p>
   
   <input type='number' name='summary[awarenessLow]' height="50" size="1" 
-  <?php if (isset($summary)) echo "value='".$summary[awarenessLow]."'"; ?>>
+  <?php if (isset($summary)) echo "value='".$summary['awarenessLow']."'"; ?>>
   
   </span></p>
   </td>
@@ -689,7 +687,7 @@ else
   style='font-size:10.0pt'><o:p>&nbsp;</o:p>
   
   <input type='number' name='summary[speciesFoundYes]' height="50" size="1" 
-  <?php if (isset($summary)) echo "value='".$summary[speciesFoundYes]."'"; ?>>
+  <?php if (isset($summary)) echo "value='".$summary['speciesFoundYes']."'"; ?>>
   
   </span></p>
   </td>
@@ -701,7 +699,7 @@ else
   style='font-size:10.0pt'><o:p>&nbsp;</o:p>
   
   <input type='number' name='summary[speciesFoundNo]' height="50" size="1" 
-  <?php if (isset($summary)) echo "value='".$summary[speciesFoundNo]."'"; ?>>
+  <?php if (isset($summary)) echo "value='".$summary['speciesFoundNo']."'"; ?>>
   
   </span></p>
   </td>
@@ -714,7 +712,7 @@ else
   style='font-size:10.0pt'><o:p>&nbsp;</o:p>
   
   <input type='number' name='summary[sentDesYes]' height="50" size="1" 
-  <?php if (isset($summary)) echo "value='".$summary[sentDesYes]."'"; ?>>
+  <?php if (isset($summary)) echo "value='".$summary['sentDesYes']."'"; ?>>
   
   </span></p>
   
@@ -726,7 +724,7 @@ else
   style='font-size:10.0pt'><o:p>&nbsp;</o:p>
   
   <input type='number' name='summary[sentDesNo]' height="50" size="1" 
-  <?php if (isset($summary)) echo "value='".$summary[sentDesNo]."'"; ?>>
+  <?php if (isset($summary)) echo "value='".$summary['sentDesNo']."'"; ?>>
   
   </span></p>
   </td>

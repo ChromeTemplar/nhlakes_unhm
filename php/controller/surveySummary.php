@@ -1,5 +1,5 @@
 <?php
-//FIXME this is code from survey, need to update for summary
+
 class SurveySummaryController extends Controller
 {     
     var $name;
@@ -14,13 +14,10 @@ class SurveySummaryController extends Controller
     
     public function index()
     { 
-        
-
         $model = new surveySummary();
-        $surveySummarys = $model->allToday(); 
-        
-        //FIXME where is template->surveys defined???
-        $this->registry->template->summary = $surveySummarys;
+        $surveySummaries = $model->allToday(); 
+
+        $this->registry->template->summary = $surveySummaries;
         $this->registry->template->welcome = 'Survey Summary';
         
         /*** load the index template ***/
@@ -33,34 +30,125 @@ class SurveySummaryController extends Controller
     */
     public function newSurveySummary()
     {
-    	//FIXME this is where we need to determine, privelages of the user
-    	//to determine if lakehost is fixed or selectable, and get that data
-    	//ready fot the UI
+    	$this->model = new surveySummary();
     	
-    	//FIXME also need to figure out how to update the boat ramp field
-    	//based on group, town, and lake when user selects them from
-    	//a dropdown menu.
+    	//towns are used to filter the boat ramp selection and 
+    	//are not downloaded to the summary DB table
+    	//FIXME need to make this filter the boat ramps.
+    	$townNames = $this->getTownNames();
     	
-    	$this->model = new surveysummary();
+    	//waterbodies are used to filter the boat ramp selection
+    	//and are not downloaded to the summary DB table
+    	//FIXME need to make this filter the boat ramps.
+    	$waterbodyNames = $this->getWaterbodyNames();
     	
-    	//now set get all the data here that is to be used in the _form.php
-    	//FIXME will need to get the groups associated with the user here.
-    	$localGroups = array("Merrimack","Rockingham", "Coos", "Hillsborough");
-    	$waterbodies = array("Echo Lake", "Ammonoosuc River", "Turee Pond", "Pemigewasset River");//$this->getWaterbodies();//FIXME get the waterbodies associated with the group(s) for the lake host
-    	$towns = array("Franconia", "Twin Mountain", "Bristol", "Greenland");//$this->getTowns();//FIXME need to get the towns from the waterbody from the group from the userID
-    	$ramps = array("Dirt Ramp", "Beer Bottle Ramp", "Big Rock Ramp");
-    	$lakeHostNames = array("Picard", "Riker", "Jabba", "Lando", "Data", "Kira");
+    	$rampNames = $this->getRampNames();
     	
+    	//if you're a user you CAN be a lake host.
+    	//use this to populate lake hosts field
+    	$userNames = $this->getUsers();
+    	
+    	$localGroups = $this->getLocalGroups();
+    	   	
     	//set template variables, these are what are being used in the _form.php
     	$this->registry->template->welcome = 'New Survey Summary';
      	$this->registry->template->localGroups = $localGroups;
-     	$this->registry->template->towns = $towns;
-     	$this->registry->template->waterbodies = $waterbodies;
-     	$this->registry->template->ramps = $ramps;
-     	$this->registry->template->lakeHostNames = $lakeHostNames;
+     	$this->registry->template->towns = $townNames;
+     	$this->registry->template->waterbodies = $waterbodyNames;
+     	$this->registry->template->rampNames = $rampNames;
+     	$this->registry->template->lakeHostNames = $userNames;
         
         /*** load the index template ***/
         $this->registry->template->show($this->name, 'new');
+    }
+    
+    private function getLocalGroups()
+    {
+    	$this->model->lakeHostGroups = $this->model->all('lakehostgroup');
+    	$localGroups = array();
+    	for($i = 0; $i < count($this->model->lakeHostGroups); ++$i)
+    	{
+    		$group = $this->model->lakeHostGroups[$i];
+    		$localGroups[$i] = ($group['lakeHostGroupName'] . ' ' . '(' . $group['ID'] . ')');
+    	}
+    	
+    	return $localGroups;
+    }
+    
+    private function getUsers()
+    {
+    	$this->model->users = $this->model->all('user');
+    	$userNames = array();
+    	for($i = 0; $i < count($this->model->users); ++$i)
+    	{
+    		$user = $this->model->users[$i];
+    		$userNames[$i] = ($user['firstName'] . ' ' . $user['lastName'] . ' ' . '(' . $user['ID'] . ')');
+    	}
+    	
+    	return $userNames;
+    }
+    
+    private function getRampNames()
+    {
+    	$this->model->boatRamps = $this->model->all('boatramp');
+    	$rampNames = array();
+    	for($i = 0; $i < count($this->model->boatRamps); ++$i)
+    	{
+    		$ramp = $this->model->boatRamps[$i];
+    		$rampNames[$i] = ($ramp['name'] . ' ' . '(' . $ramp['ID'] . ')');
+    	}
+    	
+    	return $rampNames;
+    }
+    
+    private function getWaterbodyNames()
+    {
+    	$this->model->waterbodies = $this->model->all('waterbody');
+    	$waterbodyNames = array();
+    	for($i = 0; $i < count($this->model->waterbodies); ++$i)
+    	{
+    		$waterbody = $this->model->waterbodies[$i];
+    		$waterbodyNames[$i] = ($waterbody['name'] . ' ' . '(' . $waterbody['ID'] . ')');
+    	}
+    	
+    	return $waterbodyNames;
+    }
+    
+    private function getTownNames()
+    {
+    	$this->model->towns = $this->model->all('town');
+    	$townNames = array();
+    	for($i = 0; $i < count($this->model->towns); ++$i)
+    	{
+    		$town = $this->model->towns[$i];
+    		$townNames[$i] = ($town['name'] . ' ' . '(' . $town['ID'] . ')');
+    	}
+    	
+    	return $townNames;
+    }
+    
+    /**
+     * Gets called when a survey summary is deleted
+     **/
+    public function delete()
+    {
+    	$model = new surveysummary($_GET['id']);
+    	$model->deleteSummary();
+    
+    	/*** Redirect User to survey summary/Index ***/
+    	header("location: index.php?rt=surveysummary/index");
+    }
+    
+    /**
+     * Gets called when an Edit survey form is submitted
+     **/
+    public function update()
+    {
+    	$model = new surveysummary($_GET['id']);
+    	$model->updateSummary($_POST["summary"]);
+    
+    	/*** Redirect User to BoatRamp/Index ***/
+    	header("location: index.php?rt=surveysummary/index");
     }
 
     /**
@@ -70,30 +158,55 @@ class SurveySummaryController extends Controller
      */
     public function edit()
     {
-        if (isset($_GET["id"]))
-        {
-            $id = $_GET["id"];
-        }
-        /*** set a template variable ***/
+       	/*** Instatiate a new boatramp model with the ID of the one we are editing ***/
+		$this->model = new surveysummary($_GET['id']);
+
+        /*** Get the Boat Ramp where ID = model->id ***/
+        $summary = $this->model->at_id();
+
+        //set the selection boxes selected parameters of the summary header
+        $summary['waterbody'] = $this->model->getWaterbodyFromRampID($summary['boatRampID']);
+        $summary['town'] = $this->model->getTownFromRampID($summary['boatRampID']);
+        $summary['boatRampName'] = $this->model->getRampNameFromID($summary['boatRampID']);
+        $summary['lakeHostName'] = $this->model->getLakeHostNameFromUserID($summary['userID']);
+        $localGroup = $summary['localGroup'] = $this->model->getLocalGroupFromUserID($summary['userID']);
+        
+        $rampNames = $this->getRampNames();
+        $userNames = $this->getUsers();
+        $localGroups = $this->getLocalGroups();
+        $townNames = $this->getTownNames();
+        $waterbodyNames = $this->getWaterbodyNames();
+        
+        /*** set the selection boxes and summary data ***/
         $this->registry->template->welcome = 'Edit Survey Summary';
-        
-        $model = new surveySummary($id);
-        $surveySummary = $model->find();
-        
-        $this->registry->template->survey = $surveySummary[0];
+        $this->registry->template->localGroups = $localGroups;
+        $this->registry->template->towns = $townNames;
+        $this->registry->template->waterbodies = $waterbodyNames;
+        $this->registry->template->rampNames = $rampNames;
+        $this->registry->template->lakeHostNames = $userNames;
+        $this->registry->template->summary = $summary;
 
         /*** load the edit template ***/
         $this->registry->template->show($this->name, 'edit');
     }
     
+   
+    
     /**
+     * 
      * Gets called when a New Survey Summary form is submitted
+     * 
+     * Im not sure why we create another model for submitting to the database
+     * apparently the one for displaying the summary gets destroyed by the MVC framwork.
+     * So apparently I have to use a global to save info which is stupid.
+     * Why use OOP if you're going to use globals!
+     * 
      **/
     public function create()
     {
-    	$model = new surveysummary();//FIXME need the data to pass to both these functions
-//    	print_r($_POST["summary"]); //FIXME this line is debug code, remove later
+    	$model = new surveysummary();
     	$model->addSummary($_POST["summary"]);
+    	
     
     	/*** Redirect User to survey summary/Index ***/
     	header("location: index.php?rt=surveysummary/index");
