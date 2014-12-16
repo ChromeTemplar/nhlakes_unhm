@@ -7,7 +7,7 @@ if ($invasivespecies !="")
 else
     echo "<h2>No Invasive Species Found </h2>";
     
-echo $this->buttonTo("invasiveSpecies","newInvasiveSurvey", "New");
+echo $this->buttonTo("invasivespecies","newInvasiveSurvey", "New");
 
 
 

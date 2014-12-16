@@ -119,7 +119,7 @@ class invasiveSpecies extends Model
                 ,$data['launchStatus'] 
                 ,$data['registrationState'] 
                 ,$data['boatType']
-                ,$data['previousInteration'] 
+                ,$data['previousInteraction'] 
                 ,$data['lastSiteVisited'] 
                 ,$data['lastTownVisited'] 
                 ,$data['lastStateVisited'] 
@@ -144,17 +144,38 @@ class invasiveSpecies extends Model
         }
     }
     
+     /**
+    * Selects a single item if ID is set 
+    **/
+    function at_id() 
+    {
+        $mysqli = $this->conn;
+
+        /* Prepared statement, stage 1: prepare */
+        if (!($stmt = $mysqli->prepare("SELECT * FROM InvasiveSurvey WHERE ID = ?"))) {
+            echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+        }
+
+        /* Prepared statement, stage 2: bind and execute */
+        if (!($stmt->bind_param("i", $this->id))) {
+            echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
+        }
+
+        return $this->process($stmt);
+    }
+
+    
         function updateInvasiveSpecies($data) 
     {
         $mysqli = $this->conn;
 
         /* Prepared statement, stage 1: prepare */
-        if (!($stmt = $mysqli->prepare("UPDATE InvasiveSurvey SET userID = ?, "
-                . "boatRampID = ?,"
-                . " summaryID = ?,"
+        if (!($stmt = $mysqli->prepare("UPDATE InvasiveSurvey SET "
+                //. "userID = ?, "
+                //. " boatRampID = ?,"
+                //. " summaryID = ?,"
                 . " name = ?,"
                 . " surveyDate = ? ,"
-                . " dateCreated = ?,"
                 . " launchStatus = ?,"
                 . " registrationState = ?,"
                 . " boatType = ?,"
@@ -173,23 +194,23 @@ class invasiveSpecies extends Model
                 . " active = ?,"
                 . " desResult = ?,"
                 . " desNotes = ?,"
-                . " desSave = ?,"
-                
+                . " desSave = ?"
                 
                 . " WHERE ID = ?"))) {
             echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
         }
 
         /* Prepared statement, stage 2: bind and execute */
-        if (!($stmt->bind_param("iissiiisssiiisssisiisi" 
-                ,$data['userId'] 
-                ,$data['boatRampID'] 
-                ,$data['summaryID'] 
+        if (!($stmt->bind_param("ssississsiiisssiisisi" 
+                //,$data['userID'] 
+                //,$data['boatRampID'] 
+                //,$data['summaryID'] 
                 ,$data['name'] 
                 ,$data['surveyDate'] 
                 ,$data['launchStatus'] 
-                ,$data['registratuionState'] 
-                ,$data['previousInteration'] 
+                ,$data['registrationState']
+                ,$data['boatType']
+                ,$data['previousInteraction'] 
                 ,$data['lastSiteVisited'] 
                 ,$data['lastTownVisited'] 
                 ,$data['lastStateVisited'] 
@@ -199,8 +220,9 @@ class invasiveSpecies extends Model
                 ,$data['boaterAwareness'] 
                 ,$data['bowNumber'] 
                 ,$data['licensePlateNumber'] 
-                ,$data['active'] 
+                ,$data['sentToDES']
                 ,$data['notes']
+                ,$data['active'] 
                 ,$data['desResult'] 
                 ,$data['desNotes'] 
                 ,$data['desSave'], $this->id))) {

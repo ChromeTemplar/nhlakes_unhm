@@ -26,7 +26,7 @@ class InvasiveSpeciesController extends Controller
 
 
         /*** Get all Invasive Species ***/
-        $invasivespecies = $model->all("invasivesurvey");
+        $invasivespecies = $model->all("InvasiveSurvey");
         
    
         
@@ -65,11 +65,19 @@ class InvasiveSpeciesController extends Controller
      * @param Int $survey_id
      * @return Object containing all Survey columns
      */
-    public function edit($ID)
+    public function edit()
     {
+                /*** Instatiate a new boatramp model with the ID of the one we are editing ***/
+        $this->model = new invasiveSpecies($_GET['id']);
+
+
+        /*** Get the Boat Ramp where ID = model->id ***/
+        $invasiveSpecies = $this->model->at_id();
         
+        print_r($invasiveSpecies);
         /*** set a template variable ***/
         $this->registry->template->welcome = 'Edit Invasive Survey';
+        $this->registry->template->invasiveSpecies = $invasiveSpecies[0];
         
         /*** load the edit template ***/
         $this->registry->template->show($this->name, 'edit');
@@ -88,7 +96,7 @@ class InvasiveSpeciesController extends Controller
         
         
         /*** Redirect User to InvasiveSpecies/Index ***/
-       header("location: index.php?rt=InvasiveSpecies/index");
+       header("location: index.php?rt=invasivespecies/index");
     }
     
     
@@ -100,7 +108,7 @@ class InvasiveSpeciesController extends Controller
         $model->updateInvasiveSpecies($_POST["ramp"]);
         
         /*** Redirect User to BoatRamp/Index ***/
-        header("location: index.php?rt=InvasiveSpecies/index");
+        header("location: index.php?rt=invasivespecies/index");
     }
     
     /**
@@ -111,7 +119,7 @@ class InvasiveSpeciesController extends Controller
         $model->deleteInvasiveSpecies();
         
         /*** Redirect User to BoatRamp/Index ***/
-        header("location: index.php?rt=InvasiveSpecies/index");
+        header("location: index.php?rt=invasivespecies/index");
     }
     
     

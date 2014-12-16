@@ -11,10 +11,12 @@ Longitude (For future use)
 -->
 <?php
 if (isset($ramp)) {
+    $name = $ramp['name'];
     $state = $ramp['state'];
     $town = $ramp['townID'];
     $waterbody = $ramp['waterbodyID'];
 } else {
+    $name = '';
     $state = '';
     $town = '';
     $waterbody = '';
@@ -30,7 +32,7 @@ method="post">
     
     <!-- Ramp Name -->
     <label for="rampName">Name</label><br/>
-    <input type="text" name="ramp[name]" class="medium" <?php if(isset($ramp)) echo "value='".$ramp['name']."'"; ?> ><br/><br/>
+    <input type="text" name="ramp[name]" class="medium" <?php if(isset($ramp)) echo "value='$name'"; ?> ><br/><br/>
     
     <!-- Ramp State -->
     <label for="state">State</label><br/>

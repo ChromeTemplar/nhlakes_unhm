@@ -34,31 +34,31 @@ desSave
 
 
 <?php
-if (isset($InvasiveSurvey)) {
+if (isset($invasiveSpecies)) {
    // $userID = $InvasiveSurvey['userID'];                  Works when Data is entered into database
    // $boatRampID = $InvasiveSurvey['boatRampID'];
    // $summaryID = $InvasiveSurvey['summaryID'];
-    $name = $InvasiveSurvey['name'];
-    $surveyDate = $InvasiveSurvey['surveyDate'];
-    $launchStatus = $InvasiveSurvey['launchStatus'];
-    $registrationState = $InvasiveSurvey['registrationState'];
-    $boatType = $InvasiveSurvey['boatType'];
-    $previousInteraction = $InvasiveSurvey['previousInteraction'];
-    $lastSiteVisted = $InvasiveSurvey['lastSiteVisted'];
-    $lastTownVisted = $InvasiveSurvey['lastTownVisted'];
-    $lastStateVisted = $InvasiveSurvey['LastStateVisted'];
-    $drained = $InvasiveSurvey['drained'];
-    $rinsed = $InvasiveSurvey['rinsed'];
-    $dryForFiveDays = $InvasiveSurvey['dryForFiveDays'];
-    $boaterAwareness = $InvasiveSurvey['boaterAwareness'];
-    $sentToDES = $InvasiveSurvey['sentToDES'];
-    $bowNumber = $InvasiveSurvey['bowNumber'];
-    $licensePlateNumber = $InvasiveSurvey['licensePlateNumber'];
-    $active = $InvasiveSurvey['active'];
-    $notes = $InvasiveSurvey['notes'];
-    $desResult = $InvasiveSurvey['desResult'];
-    $desNotes = $InvasiveSurvey['desNotes'];
-    $desSave = $InvasiveSurvey['desSave'];
+    $name = $invasiveSpecies['name'];
+    $surveyDate = $invasiveSpecies['surveyDate'];
+    $launchStatus = $invasiveSpecies['launchStatus'];
+    $registrationState = $invasiveSpecies['registrationState'];
+    $boatType = $invasiveSpecies['boatType'];
+    $previousInteraction = $invasiveSpecies['previousInteraction'];
+    $lastSiteVisted = $invasiveSpecies['lastSiteVisited'];
+    $lastTownVisted = $invasiveSpecies['lastTownVisited'];
+    $lastStateVisted = $invasiveSpecies['lastStateVisited'];
+    $drained = $invasiveSpecies['drained'];
+    $rinsed = $invasiveSpecies['rinsed'];
+    $dryForFiveDays = $invasiveSpecies['dryForFiveDays'];
+    $boaterAwareness = $invasiveSpecies['boaterAwareness'];
+    $sentToDES = $invasiveSpecies['sentToDES'];
+    $bowNumber = $invasiveSpecies['bowNumber'];
+    $licensePlateNumber = $invasiveSpecies['licensePlateNumber'];
+    $active = $invasiveSpecies['active'];
+    $notes = $invasiveSpecies['notes'];
+    $desResult = $invasiveSpecies['desResult'];
+    $desNotes = $invasiveSpecies['desNotes'];
+    $desSave = $invasiveSpecies['desSave'];
     
 } else {
 
@@ -133,8 +133,10 @@ method="post">
     
     <!-- Name -->
     <label for="Name">Name <BR> <small>(Of person who took the survey)</small></label><br/>
-    <input type="text" name="InvasiveSurvey[name]" class="medium" >
-    <?php if(isset($InvasiveSurvey)) echo "value='$name'"; ?>
+    <input type="text" name="InvasiveSurvey[name]" class="medium" 
+        <?php if(isset($invasiveSpecies)) echo "value='$name'"; ?>
+    >
+    
 
     <BR>
     <BR>
@@ -148,8 +150,10 @@ method="post">
     <!-- SurveyDate -->
     <label for="surveyDate">Date<small> (of incident)</small>
     </label><br/>
-    <input type="text" name="InvasiveSurvey[surveyDate]" class="medium">
-    <?php if(isset($InvasiveSurvey)) echo "value='$surveyDate'"; ?>
+    <input type="text" name="InvasiveSurvey[surveyDate]" class="medium"
+        <?php if(isset($invasiveSpecies)) echo "value='$surveyDate'"; ?>
+    >
+    
  
     <BR>
     <small>Note: Date must be entered as YYYY-MM-DD</small>
@@ -160,205 +164,379 @@ method="post">
     
     <!-- LaunchStatus -->
     <label for="launchStatus">Launch Status</label><br/>
-	<input type="checkbox" name="InvasiveSurvey[launchStatus]" value="1">Launched<br>
-        <?php if(isset($InvasiveSurvey)) echo "value='$launchStatus'"; ?>
-       
-	<input type="checkbox" name="InvasiveSurvey[launchStatus]" value="0">Retrieved<br>
+    <input type="radio" name="InvasiveSurvey[launchStatus]" value="1"
+        <?php 
+            if(isset($invasiveSpecies)) {
+                if ($launchStatus == 1) {
+                    echo " checked";
+                }
+            }
+        ?>  
+    >Launched<br>
+    <input type="radio" name="InvasiveSurvey[launchStatus]" value="0"
+        <?php 
+            if(isset($invasiveSpecies)) {
+                if ($launchStatus == 0) {
+                    echo " checked";
+                }
+            }
+        ?>       
+    >Retrieved<br>
 	
     <BR>
     
     <!-- RegistrationState -->
     <label for="registrationState">What state registration of the boat?</label><br/>
-	<input type="text" name="InvasiveSurvey[registrationState]" class="medium"><br/><br/>
-       <?php if(isset($InvasiveSurvey)) echo "value='$registrationState'"; ?>
-        <BR>
-        <BR>
+    <input type="text" name="InvasiveSurvey[registrationState]" class="medium"
+        <?php if(isset($invasiveSpecies)) echo "value='$registrationState'"; ?>
+    ><br/><br/>
+
+    <BR>
+    <BR>
          
     <!-- BoatType -->
     <label for="boatType">Type of Boat</label><br/>
 	
-	<input type="checkbox" name="InvasiveSurvey[boatType]"
-        <?php if(isset($InvasiveSurvey)) echo "value='$boatType'"; ?>
-	value="Inboard/Outboard">Inboard/Outboard<br>
+    <input type="radio" name="InvasiveSurvey[boatType]" value="Inboard/Outboard"
+        <?php 
+            if(isset($invasiveSpecies)) {
+                if ($boatType == "Inboard/Outboard") {
+                    echo " checked";
+                }
+            }
+        ?>
+    >Inboard/Outboard<br>
 
-	<input type="checkbox" name="InvasiveSurvey[boatType]" 
-        
-	value="PWC/Jet/Ski/JetBoat">PWC/JetSki/JetBoat<br>
-	
-	<input type="checkbox" name="InvasiveSurvey[boatType]" 
-        
-	value="Kayak/Canoe">Kayak/Canoe<br>
-	
-	
-	<input type="checkbox" name="InvasiveSurvey[boatType]" 
-        
-	value="Sail">Sail<br>
-	
-	<input type="checkbox" name="InvasiveSurvey[boatType]" 
-       
-	value="Other">Other<br>
+    <input type="radio" name="InvasiveSurvey[boatType]" value="PWC/Jet/Ski/JetBoat"
+         <?php 
+            if(isset($invasiveSpecies)) {
+                if ($boatType == "PWC/Jet/Ski/JetBoat") {
+                    echo " checked";
+                }
+            }
+        ?>  
+    >PWC/JetSki/JetBoat<br>
 
-	<BR>
+    <input type="radio" name="InvasiveSurvey[boatType]" value="Kayak/Canoe"
+         <?php 
+            if(isset($invasiveSpecies)) {
+                if ($boatType == "Kayak/Canoe") {
+                    echo " checked";
+                }
+            }
+        ?>  
+    >Kayak/Canoe<br>
+
+    <input type="radio" name="InvasiveSurvey[boatType]" value="Sail"
+        <?php 
+            if(isset($invasiveSpecies)) {
+                if ($boatType == "Sail") {
+                    echo " checked";
+                }
+            }
+        ?>   
+    >Sail<br>
+
+    <input type="radio" name="InvasiveSurvey[boatType]" value="Other"
+          <?php 
+            if(isset($invasiveSpecies)) {
+                if ($boatType == "Other") {
+                    echo " checked";
+                }
+            }
+        ?> 
+    >Other<br>
+
+    <BR>
         
         
     <!-- PreviousInteraction -->
-        <label for="previousInteraction">Did the Boater have any Previous Interaction with NH Lakes?</label><br/>
-	<input type="checkbox" name="InvasiveSurvey[previousInteraction]" 
-	<?php if(isset($InvasiveSurvey)) echo "value='$previousInteraction'"; ?>
-	value="1">Yes<br>
-	
-	<input type="checkbox" name="InvasiveSurvey[previousInteraction]" 
-	
-	value="0">No<br>
-	
-	<BR>
+    <label for="previousInteraction">Did the Boater have any Previous Interaction with NH Lakes?</label><br/>
+    <input type="radio" name="InvasiveSurvey[previousInteraction]" value="1"
+        <?php 
+            if(isset($invasiveSpecies)) {
+                if ($previousInteraction == 1) {
+                    echo " checked";
+                }
+            }
+        ?>
+    >Yes<br>
+
+    <input type="radio" name="InvasiveSurvey[previousInteraction]" value="0"
+        <?php 
+            if(isset($invasiveSpecies)) {
+                if ($previousInteraction == 0) {
+                    echo " checked";
+                }
+            }
+        ?>
+    >No<br>
+
+    <BR>
     
 
     
     <!-- LastSiteVisted -->
     <label for="LastTownVisted">Name of the Last Site Visted</label><br/>
-    <input type="text" name="InvasiveSurvey[lastTownVisted]" class="medium" ><br/><br/>
-    <?php if(isset($InvasiveSurvey)) echo "value='$lastTownVisted'"; ?>
-        <BR>
+    <input type="text" name="InvasiveSurvey[lastTownVisited]" class="medium" 
+        <?php if(isset($invasiveSpecies)) echo "value='$lastTownVisted'"; ?>
+    ><br/><br/>
+    
+    <BR>
     
  
     
     <!-- LastTownVisted -->
     <label for="lastSiteVisted">Name of the Last Town Visted</label><br/>
-	<input type="text" name="InvasiveSurvey[lastSiteVisted]" class="medium"><br/><br/>
-	<?php if(isset($InvasiveSurvey)) echo "value='$lastSiteVisted'"; ?>
-	<BR>
+    <input type="text" name="InvasiveSurvey[lastSiteVisited]" class="medium"
+        <?php if(isset($invasiveSpecies)) echo "value='$lastSiteVisted'"; ?>
+    ><br/><br/>
+    <BR>
 	
     <!-- LastStateVisted -->
     <label for="lastStateVisted">Name of the Last State Visted</label><br/>
-	<input type="text" name="InvasiveSurvey[lastStateVisted]" class="medium"><br/><br/>
-        <?php if(isset($InvasiveSurvey)) echo "value='$lastStateVisted'"; ?>
+    <input type="text" name="InvasiveSurvey[lastStateVisited]" class="medium"
+        <?php if(isset($invasiveSpecies)) echo "value='$lastStateVisted'"; ?>       
+    ><br/><br/>
+        
     <!-- Drained -->
     <label for="drained">Was the boat drained?</label><br/>
-	<input type="checkbox" name="InvasiveSurvey[drained]"
-	<?php if(isset($InvasiveSurvey)) echo "value='$drained'"; ?>
-	 value="1">Yes<br>
-	
-	<input type="checkbox" name="InvasiveSurvey[drained]" 
-	
-	value="0">No<br>
-	
-	<BR>
+    <input type="radio" name="InvasiveSurvey[drained]" value="1"
+        <?php 
+            if(isset($invasiveSpecies)) {
+                if ($drained == 1) {
+                    echo " checked";
+                }
+            }
+        ?> 
+    >Yes<br>
+
+    <input type="radio" name="InvasiveSurvey[drained]" value="0"
+        <?php 
+            if(isset($invasiveSpecies)) {
+                if ($drained == 0) {
+                    echo " checked";
+                }
+            }
+        ?>
+    >No<br>
+
+    <br/>
+        
+        
     
     <!-- Rinsed -->
     <label for="rinsed">Was the boat rinsed?</label><br/>
-	<input type="checkbox" name="InvasiveSurvey[rinsed]" 
-	<?php if(isset($InvasiveSurvey)) echo "value='$rinsed'"; ?>
-	value="1">Yes<br>
-	
-	<input type="checkbox" name="InvasiveSurvey[rinsed]" 
-	
-	value="0">No<br>
-	
-	
-	<BR>
+    <input type="radio" name="InvasiveSurvey[rinsed]" value="1"
+        <?php 
+            if(isset($invasiveSpecies)) {
+                if ($rinsed == 1) {
+                    echo " checked";
+                }
+            }
+        ?>
+    >Yes<br>
+
+    <input type="radio" name="InvasiveSurvey[rinsed]" value="0"
+        <?php 
+            if(isset($invasiveSpecies)) {
+                if ($rinsed == 0) {
+                    echo " checked";
+                }
+            }
+        ?>
+    >No<br>
+
+
+    <br/>
+    
+    
+    
     <!-- DryForFiveDays -->
     <label for="dryForFiveDays">Has the boat been dry for five days?</label><br/>
-	<input type="checkbox" name="InvasiveSurvey[dryForFiveDays]"
-	<?php if(isset($InvasiveSurvey)) echo "value='$dryForFiveDays'"; ?>
-	value="1">Yes<br>
-	
-	<input type="checkbox" name="InvasiveSurvey[dryForFiveDays]"
-	
-	value="0">No<br>
-	
-	<BR>
+    <input type="radio" name="InvasiveSurvey[dryForFiveDays]" value="1"
+        <?php 
+            if(isset($invasiveSpecies)) {
+                if ($dryForFiveDays == 1) {
+                    echo " checked";
+                }
+            }
+        ?>  
+    >Yes<br>
+
+    <input type="radio" name="InvasiveSurvey[dryForFiveDays]" value="0"
+        <?php 
+            if(isset($invasiveSpecies)) {
+                if ($dryForFiveDays == 0) {
+                    echo " checked";
+                }
+            }
+        ?>
+    >No<br>
+
+    <br/>
+    
+    
         
     <!-- Boater Awareness -->
     <label for="boaterAwareness">Type of Boat</label><br/>
 	
-	<input type="checkbox" name="InvasiveSurvey[boaterAwareness]" 
-	<?php if(isset($InvasiveSurvey)) echo "value='$boaterAwareness'"; ?>
-	value="High">High<br>
+    <input type="radio" name="InvasiveSurvey[boaterAwareness]" value="High"
+        <?php 
+            if(isset($invasiveSpecies)) {
+                if ($boaterAwareness == "High") {
+                    echo " checked";
+                }
+            }
+        ?>
+    >High<br>
 
-	<input type="checkbox" name="InvasiveSurvey[boaterAwareness]" 
-	
-	value="Medium">Low<br>
-	
-	<input type="checkbox" name="InvasiveSurvey[boaterAwareness]" 
-	
-	value="Low">Low<br>
+    <input type="radio" name="InvasiveSurvey[boaterAwareness]" value="Medium"
+        <?php 
+            if(isset($invasiveSpecies)) {
+                if ($boaterAwareness == "Medium") {
+                    echo " checked";
+                }
+            }
+        ?>
+    >Medium<br>
+
+    <input type="radio" name="InvasiveSurvey[boaterAwareness]" value="Low"
+        <?php 
+            if(isset($invasiveSpecies)) {
+                if ($boaterAwareness == "Low") {
+                    echo " checked";
+                }
+            }
+        ?>
+    >Low<br>
+    
+    <br/>
         
         
     <!-- BowNumber -->
     <label for="bowNumber">Bow Number</label><br/>
-	<input type="text" name="InvasiveSurvey[bowNumber]" class="medium"><br/><br/>
-        <?php if(isset($InvasiveSurvey)) echo "value='$bowNumber'"; ?>
+	<input type="text" name="InvasiveSurvey[bowNumber]" class="medium"
+            <?php if(isset($invasiveSpecies)) echo "value='$bowNumber'"; ?>
+        ><br/><br/>
+        
         
         <BR>
      
     <!-- License Plate Number -->
     <label for="bowNumber">License Plate</label><br/>
-	<input type="text" name="InvasiveSurvey[licensePlateNumber]" class="medium"><br/><br/>
-        <?php if(isset($InvasiveSurvey)) echo "value='$licensePlateNumber'"; ?>
-        
+	<input type="text" name="InvasiveSurvey[licensePlateNumber]" class="medium"
+            <?php if(isset($invasiveSpecies)) echo "value='$licensePlateNumber'"; ?>       
+        ><br/><br/>        
         <BR>
         
     <!-- sentToDES -->
     <label for="sentToDES">Was the specimen sent to DES?</label><br/>
-	<input type="checkbox" name="InvasiveSurvey[sentToDES]"
-	<?php if(isset($InvasiveSurvey)) echo "value='$sentToDES'"; ?>
-	value="1">Yes<br>
+    <input type="radio" name="InvasiveSurvey[sentToDES]" value="1"
+        <?php 
+            if(isset($invasiveSpecies)) {
+                if ($sentToDES == 1) {
+                    echo " checked";
+                }
+            }
+        ?>       
+    >Yes<br>
 	
-	<input type="checkbox" name="InvasiveSurvey[sentToDES]" 
-	
-	value="0">No<br>
+    <input type="radio" name="InvasiveSurvey[sentToDES]" value="0"
+        <?php 
+            if(isset($invasiveSpecies)) {
+                if ($sentToDES == 0) {
+                    echo " checked";
+                }
+            }
+        ?>   
+    >No<br>
 	
 	<BR>
     <!-- Notes -->
     <label for="notes">Notes</label><br/>
-	<input type="text" name="InvasiveSurvey[notes]" class="medium"><br/><br/>
-        <?php if(isset($InvasiveSurvey)) echo "value='$notes'"; ?>
-        
-	<BR>
-	
-	<!-- Active -->
-	<label for="active">Status of Find</label><br/>
-	<input type="checkbox" name="InvasiveSurvey[active]" 
-	<?php if(isset($InvasiveSurvey)) echo "value='$active'"; ?>
-	value="1">Active<br>
-	
-	
-	<input type="checkbox" name="InvasiveSurvey[active]" 
-	
-	value="0">Not Active<br>
-	
-	<BR>
+    <input type="text" name="InvasiveSurvey[notes]" class="medium"
+        <?php if(isset($invasiveSpecies)) echo "value='$notes'"; ?>       
+    ><br/><br/>        
+    <BR>
 
-        <!-- Des Result -->
-        <label for="desResult">Did DES confirm an Invasive Species was found?</label><br/>
-        <input type="checkbox" name="InvasiveSurvey[desResult]" 
-        <?php if(isset($InvasiveSurvey)) echo "value='$desResult'"; ?>
-        value="1">Confirmed<br>
-        
-        <input type="checkbox" name="InvasiveSurvey[desResult]" 
-          
-        value="0">Not Confirmed<br>
-        
-        <BR>
-    
-    
-        <!-- DES Notes-->
-        <label for="desNotes">Transcribe any DES Notes</label><br/>
-        <textarea name="InvasiveSurvey[desNotes]" rows="4" cols="50"></textarea><br/><br/>
-        <?php if(isset($InvasiveSurvey)) echo "value='$desNotes'"; ?>
-    
-        <BR>
-    
-        <!-- Des Save -->
-        <label for="desSave">Did DES confirm this as a Save?</label><br/>
-        <input type="checkbox" name="InvasiveSurvey[desSave]" 
-        <?php if(isset($InvasiveSurvey)) echo "value='$desSave'"; ?>
-        value="1">Save<br>
-        
-        <input type="checkbox" name="InvasiveSurvey[desSave]" 
-       
-        value="0">No Save<br>
+    <!-- Active -->
+    <label for="active">Status of Find</label><br/>
+    <input type="radio" name="InvasiveSurvey[active]" value="1"
+        <?php 
+            if(isset($invasiveSpecies)) {
+                if ($active == 1) {
+                    echo " checked";
+                }
+            }
+        ?>
+    >Active<br>
+
+
+    <input type="radio" name="InvasiveSurvey[active]" value="0"
+        <?php 
+            if(isset($invasiveSpecies)) {
+                if ($active == 0) {
+                    echo " checked";
+                }
+            }
+        ?>       
+    >Not Active<br>
+
+    <BR>
+
+    <!-- Des Result -->
+    <label for="desResult">Did DES confirm an Invasive Species was found?</label><br/>
+    <input type="radio" name="InvasiveSurvey[desResult]" value="1"
+        <?php 
+            if(isset($invasiveSpecies)) {
+                if ($desResult == 1) {
+                    echo " checked";
+                }
+            }
+        ?>
+    >Confirmed<br>
+
+    <input type="radio" name="InvasiveSurvey[desResult]" value="0"
+        <?php 
+            if(isset($invasiveSpecies)) {
+                if ($desResult == 0) {
+                    echo " checked";
+                }
+            }
+        ?>  
+    >Not Confirmed<br>
+
+    <BR>
+
+
+    <!-- DES Notes-->
+    <label for="desNotes">Transcribe any DES Notes</label><br/>
+    <textarea name="InvasiveSurvey[desNotes]" rows="4" cols="50"><?php if(isset($invasiveSpecies)) echo $desNotes; ?></textarea><br/><br/>
+
+    <BR>
+
+    <!-- Des Save -->
+    <label for="desSave">Did DES confirm this as a Save?</label><br/>
+    <input type="radio" name="InvasiveSurvey[desSave]" value="1"
+        <?php 
+            if(isset($invasiveSpecies)) {
+                if ($desSave == 1) {
+                    echo " checked";
+                }
+            }
+        ?>      
+    >Save<br>
+
+    <input type="radio" name="InvasiveSurvey[desSave]" value="0"
+        <?php 
+            if(isset($invasiveSpecies)) {
+                if ($desSave == 0) {
+                    echo " checked";
+                }
+            }
+        ?>    
+    >No Save<br>
         
     <BR>
     
