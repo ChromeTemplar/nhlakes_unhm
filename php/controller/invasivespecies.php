@@ -20,21 +20,41 @@ class InvasiveSpeciesController extends Controller
     
     public function index()
     { 
+        
+       /*** Instatiate a new boatramp model ***/
+        $model = new invasiveSpecies();  
+
+
+        /*** Get all Invasive Species ***/
+        $invasivespecies = $model->all("invasivesurvey");
+        
+   
+        
         /*** set a template variable ***/
-        $this->registry->template->welcome = 'Invasive Species';
+        
+        $this->registry->template->invasivespecies = $invasivespecies;
+        
+        $this->registry->template->welcome = 'Invasive Survey';
         
         /*** load the index template ***/
         $this->registry->template->show($this->name, 'index');
 
 
     }
-    /*
-    This function returns HTML table. This table contains the survey information obtained from the database.
-    */
-    public function newInvasiveSpecies()
-    {
-        /*** set a template variable ***/
-        $this->registry->template->welcome = 'New Invasive Species';
+    /**
+    * Loads a blank BoatRamp Form
+    **/
+    public function newInvasiveSurvey()
+    {   
+        /*** Instatiate a new boatramp model ***/
+        $this->model = new invasiveSpecies();
+
+   
+
+        /*** set template variables ***/
+        $this->registry->template->welcome = 'New Invasive Survey';
+
+
         
         /*** load the index template ***/
         $this->registry->template->show($this->name, 'new');
@@ -45,14 +65,58 @@ class InvasiveSpeciesController extends Controller
      * @param Int $survey_id
      * @return Object containing all Survey columns
      */
-    public function edit($survey_id)
+    public function edit($ID)
     {
         
         /*** set a template variable ***/
-        $this->registry->template->welcome = 'Edit Invasive Species';
+        $this->registry->template->welcome = 'Edit Invasive Survey';
         
         /*** load the edit template ***/
         $this->registry->template->show($this->name, 'edit');
         
     }
+    
+    
+        /**
+    * Gets called when a InvasiveSpecies form is submitted
+    **/
+    public function create() {
+        $model = new invasiveSpecies();
+      //  print_r ($_POST["InvasiveSurvey"]);
+        $model->addInvasiveSpecies($_POST["InvasiveSurvey"]);
+        
+        
+        
+        /*** Redirect User to InvasiveSpecies/Index ***/
+       header("location: index.php?rt=InvasiveSpecies/index");
+    }
+    
+    
+     /**
+    * Gets called when an Edit Invasive Species form is submitted
+    **/
+    public function update() {
+        $model = new invasiveSpecies($_GET['id']);
+        $model->updateInvasiveSpecies($_POST["ramp"]);
+        
+        /*** Redirect User to BoatRamp/Index ***/
+        header("location: index.php?rt=InvasiveSpecies/index");
+    }
+    
+    /**
+    * Gets called when a Boat Ramp is deleted
+    **/
+    public function delete() {
+        $model = new invasiveSpecies($_GET['id']);
+        $model->deleteInvasiveSpecies();
+        
+        /*** Redirect User to BoatRamp/Index ***/
+        header("location: index.php?rt=InvasiveSpecies/index");
+    }
+    
+    
+    
+    
+    
+    
 }
