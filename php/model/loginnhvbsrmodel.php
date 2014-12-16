@@ -72,7 +72,7 @@ class loginNHVBSRmodel extends Model {
  	 *  The below code is to deactivate a session when the user logsoff of the system
  	 */
  	public function deactivateSession($sessionKeyVal, $sessionStatus) {
- 		$deactivateActiveSession = "UPDATE sessionDetail set sessionStatus = 'D' WHERE sessionKeyVal = ? and sessionStatus = ?";
+ 		$deactivateActiveSession = "DELETE FROM sessionDetail WHERE sessionKeyVal = ? and sessionStatus = ?";
  		$statement = $this->conn->prepare($deactivateActiveSession); 
  		$statement->bind_param('ss', $sessionKeyVal, $sessionStatus);
  		$statement->execute();
