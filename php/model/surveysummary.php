@@ -72,6 +72,10 @@ class surveySummary extends Model
 			echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
 		}
 		
+		$data['summaryDate'] = date($data['summaryDate']);
+		$data['startShiftTime'] = date($data['summaryDate'] . ' ' . $data['startShiftTime']);
+		$data['endShiftTime'] = date($data['summaryDate'] . ' ' . $data['endShiftTime']);
+		
 		//get the boat ramp ID from the users selection
 		$startExclusive = strpos($data['boatRampName'], '(');
 		$data['boatRampID'] = (int) substr($data['boatRampName'], $startExclusive + 1, -1);

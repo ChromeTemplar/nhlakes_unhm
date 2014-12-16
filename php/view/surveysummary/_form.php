@@ -36,7 +36,7 @@ else
 	</h3></div>
 	
 	<div style="white-space: nowrap;"><h5>
-	Date:<input type='date' name='summary[summaryDate]' 
+	Date (YYYY-M-D):<input type='date' name='summary[summaryDate]' 
 		<?php if (isset($summary)) echo "value='".$summary['summaryDate']."'"; ?>>
 	<!-- FIXME the lake host should be a fixed read only field if a lake host is logged in, if a group leader is logged in, then
 	they can select the users in their group, if admin is logged in they can select any lake host. 
@@ -46,9 +46,9 @@ else
 	</h5></div>
 	
 	<div style="white-space: nowrap;"><h5>
-	1<sup>st</sup>Shift Start Time:<input type='datetime' name='summary[startShiftTime]'
+	1<sup>st</sup>Shift Start Time (H:MM):<input type='datetime' name='summary[startShiftTime]'
 		<?php if (isset($summary)) echo "value='".$summary['startShiftTime']."'"; ?>>
-	Last Shift End Time:<input type='datetime' name='summary[endShiftTime]'
+	Last Shift End Time (H:MM):<input type='datetime' name='summary[endShiftTime]'
 		<?php if (isset($summary)) echo "value='".$summary['endShiftTime']."'"; ?>>
 	</h5></div>
 	
