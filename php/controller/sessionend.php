@@ -17,7 +17,7 @@ class sessionendController {
 		
 		$_SESSION['Login.Error'] = "You are successfully logged off ! ";
 		session_destroy();
-		$this->registry->template->showlogon('session', 'LogonNHVBSR');
+		$this->registry->template->showlogon('session', 'LoginNHVBSR');
 		
 	}
 	
