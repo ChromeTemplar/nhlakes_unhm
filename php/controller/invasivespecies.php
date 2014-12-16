@@ -74,7 +74,7 @@ class InvasiveSpeciesController extends Controller
         /*** Get the Boat Ramp where ID = model->id ***/
         $invasiveSpecies = $this->model->at_id();
         
-        print_r($invasiveSpecies);
+       // print_r($invasiveSpecies);
         /*** set a template variable ***/
         $this->registry->template->welcome = 'Edit Invasive Survey';
         $this->registry->template->invasiveSpecies = $invasiveSpecies[0];
