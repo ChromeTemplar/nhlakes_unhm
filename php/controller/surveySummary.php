@@ -64,7 +64,7 @@ class SurveySummaryController extends Controller
     
     private function getLocalGroups()
     {
-    	$this->model->lakeHostGroups = $this->model->all('lakehostgroup');
+    	$this->model->lakeHostGroups = $this->model->all('LakeHostGroup');
     	$localGroups = array();
     	for($i = 0; $i < count($this->model->lakeHostGroups); ++$i)
     	{
@@ -77,7 +77,7 @@ class SurveySummaryController extends Controller
     
     private function getUsers()
     {
-    	$this->model->users = $this->model->all('user');
+    	$this->model->users = $this->model->all('User');
     	$userNames = array();
     	for($i = 0; $i < count($this->model->users); ++$i)
     	{
@@ -90,7 +90,7 @@ class SurveySummaryController extends Controller
     
     private function getRampNames()
     {
-    	$this->model->boatRamps = $this->model->all('boatramp');
+    	$this->model->boatRamps = $this->model->all('BoatRamp');
     	$rampNames = array();
     	for($i = 0; $i < count($this->model->boatRamps); ++$i)
     	{
@@ -103,7 +103,7 @@ class SurveySummaryController extends Controller
     
     private function getWaterbodyNames()
     {
-    	$this->model->waterbodies = $this->model->all('waterbody');
+    	$this->model->waterbodies = $this->model->all('Waterbody');
     	$waterbodyNames = array();
     	for($i = 0; $i < count($this->model->waterbodies); ++$i)
     	{
@@ -116,7 +116,7 @@ class SurveySummaryController extends Controller
     
     private function getTownNames()
     {
-    	$this->model->towns = $this->model->all('town');
+    	$this->model->towns = $this->model->all('Town');
     	$townNames = array();
     	for($i = 0; $i < count($this->model->towns); ++$i)
     	{

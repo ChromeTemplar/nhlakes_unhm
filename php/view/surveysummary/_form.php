@@ -47,9 +47,24 @@ else
 	
 	<div style="white-space: nowrap;"><h5>
 	1<sup>st</sup>Shift Start Time (H:MM):<input type='datetime' name='summary[startShiftTime]'
-		<?php if (isset($summary)) echo "value='".$summary['startShiftTime']."'"; ?>>
+		<?php
+		if (isset($summary))
+		{
+			//remove the leading date from the string
+			$pos = strpos($summary['startShiftTime'], " ");
+			$time = substr($summary['startShiftTime'], $pos + 1);
+			echo "value='".$time."'";
+		}?>>
 	Last Shift End Time (H:MM):<input type='datetime' name='summary[endShiftTime]'
-		<?php if (isset($summary)) echo "value='".$summary['endShiftTime']."'"; ?>>
+		<?php 
+		if (isset($summary)) 
+		{
+			//remove the leading date from the string
+			$pos = strpos($summary['endShiftTime'], " ");
+			$time = substr($summary['endShiftTime'], $pos + 1);
+			echo "value='".$time."'"; 
+		}?>>
+
 	</h5></div>
 	
 	<div style="white-space: nowrap;"><h5>

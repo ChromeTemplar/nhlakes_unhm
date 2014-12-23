@@ -18,7 +18,7 @@ class surveySummary extends Model
 		//initialize inherited attributes:
 		if (empty($this->table))
 		{
-			$this->table = 'summary';
+			$this->table = 'Summary';
 		}
 		 
 		if (!empty($id))
@@ -42,6 +42,8 @@ class surveySummary extends Model
 		//FIXME should make a function that
 		//returns only todays summaries
 		//but for now just return all of them
+		//or some way of selecting dates of summaries
+		//to filter what is displayed.
  		$results = $this->all();
 
 		return $results;
@@ -72,6 +74,8 @@ class surveySummary extends Model
 			echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
 		}
 		
+		//stick the summary date in front of the times to complete
+		//the datatime type used in the DB table
 		$data['summaryDate'] = date($data['summaryDate']);
 		$data['startShiftTime'] = date($data['summaryDate'] . ' ' . $data['startShiftTime']);
 		$data['endShiftTime'] = date($data['summaryDate'] . ' ' . $data['endShiftTime']);
@@ -117,7 +121,7 @@ class surveySummary extends Model
 		$mysqli = $this->conn;
 	
 		/* Prepared statement, stage 1: prepare */
-		if (!($stmt = $mysqli->prepare("UPDATE summary SET NH = ?, ME = ?, MA = ?, VT = ?, NY = ?, CT = ?, RI = ?, other = ?, 
+		if (!($stmt = $mysqli->prepare("UPDATE Summary SET NH = ?, ME = ?, MA = ?, VT = ?, NY = ?, CT = ?, RI = ?, other = ?, 
 				inboardOutboard = ?, pwc = ?, canoeKayak = ?, previous = ?, notPrevious = ?, sail = ?, otherBoatType = ?, 
 				drained = ?, notDrained = ?, rinsed = ?, notRinsed = ?, dry5 = ?, notDry5 = ?, awarenessHigh = ?, awarenessLow = ?, 
 				awarenessMedium = ?, speciesFoundYes = ?, speciesFoundNo = ?, sentDesYes = ?, sentDesNo = ?, summaryDate = ?, 
@@ -125,6 +129,12 @@ class surveySummary extends Model
 		{
 			echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
 		}
+		
+		//stick the summary date in front of the times to complete
+		//the datatime type used in the DB table
+		$data['summaryDate'] = date($data['summaryDate']);
+		$data['startShiftTime'] = date($data['summaryDate'] . ' ' . $data['startShiftTime']);
+		$data['endShiftTime'] = date($data['summaryDate'] . ' ' . $data['endShiftTime']);
 		
 		//get the boat ramp ID from the users selection
 		$startExclusive = strpos($data['boatRampName'], '(');
@@ -165,7 +175,7 @@ class surveySummary extends Model
 		$mysqli = $this->conn;
 	
 		/* Prepared statement, stage 1: prepare */
-		if (!($stmt = $mysqli->prepare("SELECT * FROM summary WHERE ID = ?")))
+		if (!($stmt = $mysqli->prepare("SELECT * FROM Summary WHERE ID = ?")))
 		{
 			echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
 		}
@@ -189,7 +199,7 @@ class surveySummary extends Model
 		$mysqli = $this->conn;
 	
 		/* Prepared statement, stage 1: prepare */
-		if (!($stmt = $mysqli->prepare("DELETE FROM summary WHERE ID = ?")))
+		if (!($stmt = $mysqli->prepare("DELETE FROM Summary WHERE ID = ?")))
 		{
 			echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
 		}
@@ -233,7 +243,7 @@ class surveySummary extends Model
 		if($ramp != null)
 		{
 			/* Prepared statement, stage 1: prepare */
-			if (!($stmt = $mysqli->prepare("SELECT * FROM waterbody WHERE ID = ?")))
+			if (!($stmt = $mysqli->prepare("SELECT * FROM Waterbody WHERE ID = ?")))
 			{
 				echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
 			}
@@ -288,7 +298,7 @@ class surveySummary extends Model
 		if($ramp != null)
 		{
 			/* Prepared statement, stage 1: prepare */
-			if (!($stmt = $mysqli->prepare("SELECT * FROM town WHERE ID = ?")))
+			if (!($stmt = $mysqli->prepare("SELECT * FROM Town WHERE ID = ?")))
 			{
 				echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
 			}
@@ -354,7 +364,7 @@ class surveySummary extends Model
 		$mysqli = $this->conn;
 			
 		/* Prepared statement, stage 1: prepare */
-		if (!($stmt = $mysqli->prepare("SELECT * FROM user WHERE ID = ?")))
+		if (!($stmt = $mysqli->prepare("SELECT * FROM User WHERE ID = ?")))
 		{
 			echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
 		}
