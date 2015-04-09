@@ -1,6 +1,6 @@
 <?php
 
-class lakehost extends Model
+class user extends Model
 {
     /*** Set Class Attribute Variables ***/
     var $host = "localhost";
@@ -33,7 +33,7 @@ class lakehost extends Model
     * @param Array $data : Array containing all of the $_POST data passed in by form
     *
     **/
-    function addLakeHost($data)
+    function adduser($data)
     {
         $mysqli = $this->conn;
         
@@ -41,7 +41,7 @@ class lakehost extends Model
             $table = $this->table;
 
         /* Prepared statement, stage 1: prepare */
-        if (!($stmt = $mysqli->prepare("INSERT INTO LakeHost (
+        if (!($stmt = $mysqli->prepare("INSERT INTO user (
 		
 			roleID, 
 			firstName, 
@@ -92,7 +92,7 @@ class lakehost extends Model
         $mysqli = $this->conn;
 
         /* Prepared statement, stage 1: prepare */
-        if (!($stmt = $mysqli->prepare("SELECT * FROM LakeHost WHERE ID = ?"))) {
+        if (!($stmt = $mysqli->prepare("SELECT * FROM user WHERE ID = ?"))) {
             echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
         }
 
@@ -110,12 +110,12 @@ class lakehost extends Model
     *
     * @param Array $data : Array containing $_POST data passed in by the form
     **/
-    function updateLakeHost($data) 
+    function updateuser($data) 
     {
         $mysqli = $this->conn;
 
         /* Prepared statement, stage 1: prepare */
-        if (!($stmt = $mysqli->prepare("UPDATE LakeHost SET 
+        if (!($stmt = $mysqli->prepare("UPDATE user SET 
 				
 				roleID = ?, 
 				firstName = ?,
@@ -157,12 +157,12 @@ class lakehost extends Model
     /**
     * Deletes a User from the DB
     **/
-    function deleteLakeHost() 
+    function deleteuser() 
     {
         $mysqli = $this->conn;
         
         /* Prepared statement, stage 1: prepare */
-        if (!($stmt = $mysqli->prepare("DELETE FROM LakeHost WHERE ID = ?"))) {
+        if (!($stmt = $mysqli->prepare("DELETE FROM user WHERE ID = ?"))) {
             echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
         }
 

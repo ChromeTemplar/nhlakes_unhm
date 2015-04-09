@@ -8,13 +8,13 @@
 * Delete[]
 */
 
-class LakeHostController extends Controller
+class userController extends Controller
 {
     var $name;
     var $registry;
 	var $model;
     
-    function lakeHostController($registry){
+    function userController($registry){
         $this->registry = $registry;
         $this->name = strtolower(substr(get_class($this), 0, -10));
     }
@@ -23,15 +23,15 @@ class LakeHostController extends Controller
     { 
     	
     	/*** Instatiate a new Lake Host model ***/
-    	$model = new lakeHost();
+    	$model = new user();
     	
     	
     	/*** Get all Lake Hosts ***/
-    	$lakehost = $model->all();
+    	$user = $model->all();
     	 
         /*** set a template variable ***/
         $this->registry->template->welcome = 'Lake Hosts';
-        $this->registry->template->lakehost = $lakehost;
+        $this->registry->template->user = $user;
         
         
         /*** load the index template ***/
@@ -42,10 +42,10 @@ class LakeHostController extends Controller
     /*
     This function returns HTML table. This table contains the survey information obtained from the database.
     */
-    public function newLakeHost()
+    public function newuser()
     {
     	
-    	$this->model = new lakeHost();
+    	$this->model = new user();
     	
         /*** set a template variable ***/
         $this->registry->template->welcome = 'New Lake Host';
@@ -63,13 +63,13 @@ class LakeHostController extends Controller
     public function edit()
     {
         
-    	$this->model = new lakeHost($_GET['id']);
+    	$this->model = new user($_GET['id']);
     	
-    	$lakeHost = $this->model->at_id();
+    	$user = $this->model->at_id();
     	
         /*** set a template variable ***/
         $this->registry->template->welcome = 'Edit Lake Host';
-		$this->registry->template->lakehost = $lakeHost[0];
+		$this->registry->template->user = $user[0];
 		
         /*** load the edit template ***/
         $this->registry->template->show($this->name, 'edit');
@@ -77,28 +77,28 @@ class LakeHostController extends Controller
     }
     
     public function create() {
-    	$model = new lakeHost();
-    	$model->addLakeHost($_POST["LakeHost"]);
+    	$model = new user();
+    	$model->adduser($_POST["user"]);
     
     	/*** Redirect User to BoatRamp/Index ***/
-    	header("location: index.php?rt=lakehost/index");
+    	header("location: index.php?rt=user/index");
     }
     
     public function update() {
-    	$model = new lakeHost($_GET['id']);
-    	$model->updateLakeHost($_POST["LakeHost"]);
+    	$model = new user($_GET['id']);
+    	$model->updateuser($_POST["user"]);
 		
 		/*** Redirect User to BoatRamp/Index ***/
-    	header("location: index.php?rt=lakehost/index");
+    	header("location: index.php?rt=user/index");
     
     }
     
     public function delete() {
-    	$model = new lakeHost($_GET['id']);
-    	$model->deleteLakeHost();
+    	$model = new user($_GET['id']);
+    	$model->deleteuser();
 		
 		/*** Redirect User to BoatRamp/Index ***/
-    	header("location: index.php?rt=lakehost/index");
+    	header("location: index.php?rt=user/index");
     
     }
 }

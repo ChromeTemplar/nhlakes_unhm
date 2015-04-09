@@ -32,7 +32,7 @@ class loginNHVBSRmodel extends Model {
 	 * passed by the user. 
 	 */
  	public function getPersonDetails($username, $password) {
- 		$selectFromPerson = "SELECT ID, roleID, firstName, lastName, phoneNumber, userName, email, (SHA1(password)) AS password, over18, verified,  activeUser FROM lakehost WHERE userName = ? and password = SHA1(?)";
+ 		$selectFromPerson = "SELECT ID, roleID, firstName, lastName, phoneNumber, userName, email, (SHA1(password)) AS password, over18, verified,  activeUser FROM user WHERE userName = ? and password = SHA1(?)";
  		
  		//the connection object created from the database 
  		// class is used to extract the user information from the table and

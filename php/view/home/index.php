@@ -25,8 +25,8 @@ echo $this->buttonTo("invasivespecies","newInvasiveSpecies", "New");
 <?php if (isset($_SESSION['roleID']) && ($_SESSION['roleID'] < 3)) { ?>
 <h2>Lake Host</h2>
 <?php
-echo $this->buttonTo("lakehost", "index", "All");
-echo $this->buttonTo("lakehost","newLakeHost", "New");
+echo $this->buttonTo("user", "index", "All");
+echo $this->buttonTo("user","newuser", "New");
 ?>
 <?php  } ?>
 
