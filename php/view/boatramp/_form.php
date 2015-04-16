@@ -12,6 +12,8 @@ Longitude (For future use)
 <?php
 if (isset($ramp)) {
     $name = $ramp['name'];
+    $longitude = $ramp['longitude'];
+    $latitude = $ramp['latitude'];
     $state = $ramp['state'];
     $town = $ramp['townID'];
     $waterbody = $ramp['waterbodyID'];
@@ -20,6 +22,8 @@ if (isset($ramp)) {
     $state = '';
     $town = '';
     $waterbody = '';
+    $longitude = '';
+    $latitude = '';
 }
 ?>
 
@@ -33,6 +37,14 @@ method="post">
     <!-- Ramp Name -->
     <label for="rampName">Name</label><br/>
     <input type="text" name="ramp[name]" class="medium" <?php if(isset($ramp)) echo "value='$name'"; ?> ><br/><br/>
+
+    <!-- Ramp Longitude -->
+    <label for="rampLongitude">Longitude</label><br/>
+    <input type="text" name="ramp[longitude]" class="medium" <?php if(isset($ramp)) echo "value='$longitude'"; ?> ><br/><br/>
+    
+    <!-- Ramp Name -->
+    <label for="rampLatitude">Latitude</label><br/>
+    <input type="text" name="ramp[latitude]" class="medium" <?php if(isset($ramp)) echo "value='$latitude'"; ?> ><br/><br/>
     
     <!-- Ramp State -->
     <label for="state">State</label><br/>
@@ -52,6 +64,7 @@ method="post">
     <!-- Ramp Notes-->
     <label for="notes">Notes</label><br/>
     <textarea name="ramp[notes]" rows="4" cols="25"><?php if(isset($ramp)) echo $ramp['notes'] ?></textarea><br/><br/>
+    
     
     <input type="submit" value="Submit">
     <?php echo $this->buttonTo("home","index","Cancel"); ?>

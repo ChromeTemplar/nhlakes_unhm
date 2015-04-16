@@ -85,14 +85,14 @@ class BoatRamp extends Model
     function updateBoatRamp($data) 
     {
         $mysqli = $this->conn;
-
+		
         /* Prepared statement, stage 1: prepare */
-        if (!($stmt = $mysqli->prepare("UPDATE BoatRamp SET state = ?, name = ?, waterbodyID = ?, townID = ?, notes = ? WHERE ID = ?"))) {
+        if (!($stmt = $mysqli->prepare("UPDATE BoatRamp SET state = ?, name = ?, waterbodyID = ?, townID = ?, notes = ?, longitude = ?, latitude = ? WHERE ID = ?"))) {
             echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
         }
 
         /* Prepared statement, stage 2: bind and execute */
-        if (!($stmt->bind_param("ssiisi", $data['state'], $data['name'], $data['waterbodyID'], $data['townID'], $data['notes'], $this->id))) {
+        if (!($stmt->bind_param("ssiisddi", $data['state'], $data['name'], $data['waterbodyID'], $data['townID'], $data['notes'], $data['longitude'], $data['latitude'], $this->id))) {
             echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
         }
 

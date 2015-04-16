@@ -84,7 +84,6 @@ class BoatRampController extends Controller
         $towns = $this->getTowns();
         /*** Get Waterbodies ***/
         $waterbodies = $this->getWaterbodies();
-
         
         /*** set template variables ***/
         $this->registry->template->welcome = 'Edit Boat Ramp';
