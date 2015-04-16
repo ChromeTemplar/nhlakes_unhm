@@ -42,12 +42,12 @@ class BoatRamp extends Model
             $table = $this->table;
 
         /* Prepared statement, stage 1: prepare */
-        if (!($stmt = $mysqli->prepare("INSERT INTO BoatRamp (state, name, waterbodyID, townID, notes) VALUES (?,?,?,?,?)"))) {
+        if (!($stmt = $mysqli->prepare("INSERT INTO BoatRamp (state, name, waterbodyID, townID, notes, longitude, latitude) VALUES (?,?,?,?,?,?,?)"))) {
             echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
         }
 
         /* Prepared statement, stage 2: bind and execute */
-        if (!($stmt->bind_param("ssiis", $data['state'], $data['name'], $data['waterbodyID'], $data['townID'], $data['notes']))) {
+        if (!($stmt->bind_param("ssiisdd", $data['state'], $data['name'], $data['waterbodyID'], $data['townID'], $data['notes'], $data['longitude'], $data['latitude']))) {
             echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
         }
         if (!$stmt->execute()) {
