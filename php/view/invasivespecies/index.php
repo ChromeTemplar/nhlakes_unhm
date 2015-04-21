@@ -1,7 +1,7 @@
 <h1><?php echo $welcome ?></h1>
 
 <?php
-
+include 'view/lakegroupstats/surveytotalview.php';
 if ($invasivespecies !="")        
     echo $this->buildTable($invasivespecies);
 else

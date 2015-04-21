@@ -612,7 +612,7 @@ CREATE TABLE User (
   password varbinary(40) NOT NULL,
   over18 tinyint(1) NOT NULL,
   verified tinyint(1) NOT NULL,
-  activeUser boolean NOT NULL,
+  activeUser boolean,
   PRIMARY KEY (ID),
   FOREIGN KEY (roleID) REFERENCES Role(ID)
 );
@@ -729,6 +729,7 @@ ID int(11) NOT NULL AUTO_INCREMENT,
 userID int(11),
 boatRampID int(11),
 summaryID int(11),
+lakeHostGroupID int (11),
 name varchar(50),
 surveyDate date,
 dateCreated timestamp,
@@ -754,7 +755,8 @@ desSave tinyint,
 PRIMARY KEY (ID),
 FOREIGN KEY (boatRampID) REFERENCES BoatRamp(ID),
 FOREIGN KEY (userID) REFERENCES User(ID),
-FOREIGN KEY (summaryID) REFERENCES Summary(ID)
+FOREIGN KEY (summaryID) REFERENCES Summary(ID),
+FOREIGN KEY (lakeHostGroupID) REFERENCES LakeHostGroup(ID)
 );
 
 

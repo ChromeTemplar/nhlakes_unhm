@@ -122,6 +122,25 @@ label {
     height: 200px;
 }
 
+table.surveytotal {
+    border: 1px solid #005588;
+}
+
+.surveytotal th{
+    background-color: #5f88bb;
+    border: 1px solid #005588;
+    color:white;
+}
+
+.surveytotal td {
+    border: 1px solid #005588;
+}
+
+td#surveytotalblue {
+    background-color: #5f88bb;
+    color:white;
+}
+
 /* Error classes for client validation */
 form label.error {
 color:red;
