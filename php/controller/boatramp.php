@@ -102,9 +102,11 @@ class BoatRampController extends Controller
     * Gets called when a New Boat Ramp form is submitted
     **/
     public function create() {
-        $model = new boatramp();
-        $model->addBoatRamp($_POST["ramp"]);
-        
+    	if (isset($_SESSION['roleID']) && ($_SESSION['roleID'] < 3)) {
+	        $model = new boatramp();
+	        $model->addBoatRamp($_POST["ramp"]);
+    	}
+	        
         /*** Redirect User to BoatRamp/Index ***/
         header("location: index.php?rt=boatramp/index");
     }
@@ -113,22 +115,26 @@ class BoatRampController extends Controller
     * Gets called when an Edit Boat Ramp form is submitted
     **/
     public function update() {
-        $model = new boatramp($_GET['id']);
-        $model->updateBoatRamp($_POST["ramp"]);
-        
-        /*** Redirect User to BoatRamp/Index ***/
-        header("location: index.php?rt=boatramp/index");
+    	if (isset($_SESSION['roleID']) && ($_SESSION['roleID'] < 3)) {
+	        $model = new boatramp($_GET['id']);
+	        $model->updateBoatRamp($_POST["ramp"]);
+    	}
+    	
+    	/*** Redirect User to BoatRamp/Index ***/
+    	header("location: index.php?rt=boatramp/index");
     }
     
     /**
     * Gets called when a Boat Ramp is deleted
     **/
     public function delete() {
-        $model = new boatramp($_GET['id']);
-        $model->deleteBoatRamp();
-        
-        /*** Redirect User to BoatRamp/Index ***/
-        header("location: index.php?rt=boatramp/index");
+    	if (isset($_SESSION['roleID']) && ($_SESSION['roleID'] < 3)) {
+	        $model = new boatramp($_GET['id']);
+	        $model->deleteBoatRamp();
+    	}
+    	
+    	/*** Redirect User to BoatRamp/Index ***/
+    	header("location: index.php?rt=boatramp/index");
     }
 
 
@@ -164,5 +170,14 @@ class BoatRampController extends Controller
 
         return $list;
     }
+    
+    /**
+     * Takes in a list of objects returns an html table for the Index pages for our data
+     * Includes an Edit button
+     *
+     * @param Array $surveys List of objects
+     * @return string
+     */
+    
 }
 

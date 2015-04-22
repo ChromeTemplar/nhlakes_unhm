@@ -10,7 +10,7 @@
         <?php 
         
         require_once "view/partials/_controlsTop.php";				 
-        echo "<div id='boatramp-table' >".$this->buildTable($ramps). "</div>";
+        echo "<div id='boatramp-table' >".$this->buildRampTable($ramps). "</div>";
         require_once "view/partials/_controlsBottom.php";
         
         ?>
@@ -27,7 +27,9 @@
 
 ?>
 <div id="content-bottom">
-    <?php echo $this->buttonTo("boatramp","newBoatRamp", "New"); ?>
+	<?php if (isset($_SESSION['roleID']) && ($_SESSION['roleID'] < 3)) { ?>
+	    <?php echo $this->buttonTo("boatramp","newBoatRamp", "New"); ?>
+	<?php  } ?>
     <br/>
     Return <?php echo $this->linkTo("home","index","Home"); ?>
 </div>

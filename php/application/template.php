@@ -183,6 +183,61 @@ class template
         return $html;
     }
     
+    public function buildRampTable($list) {
+    	$html = '<table class="list">';
+    
+    	$listHeaders = $list[0];
+    
+    	$html.= "<thead><tr>";
+    
+    	//Iterate through the keys
+    	foreach($listHeaders as $key => $val){
+    		if($key != "ID") {
+    			$html .= "<th class=''>$key</th>";
+    		}
+    	}
+    	 
+    	if (isset($_SESSION['roleID']) && ($_SESSION['roleID'] < 3)) {
+    		//Add edit button column to the end
+    		$html .= "<th>Edit</th>";
+    	  
+    		//Add edit button column to the end
+    		$html .= "<th>Delete</th>";
+    	}
+    
+    	$html .= "</tr></thead>";
+    
+    	//loop through all
+    	for($i=0;$i<count($list);$i++){
+    		$html .= "<tr class='list-item'>";
+    
+    		foreach($list[$i] as $key => $val){
+    			if ($key == "name")
+    				$html .= "<td class='title' >$val</td>";
+    			else if ($key != "ID")
+    				$html .= "<td>$val</td>";
+    		}
+    
+
+    		if (isset($_SESSION['roleID']) && ($_SESSION['roleID'] < 3)) {
+	    		//Add the Edit button column
+	    		$editButton = $this->buttonTo($this->registry->router->controller,"edit","Edit",$list[$i]["ID"]);
+	    		//Add the Delete Button Column
+	    		$deleteButton = $this->buttonTo($this->registry->router->controller,"delete","Delete",$list[$i]["ID"]);
+	    
+	    		$html .= "<td>".$editButton."</td>";
+	    		$html .= "<td>".$deleteButton."</td>";
+    		}
+    
+    		$html .= "</tr>";
+    	}
+    
+    
+    	$html .= "</table>";
+    
+    	return $html;
+    }
+    
     public function selectList($list, $properties, $selected ='', $ids = false)
     {
         $html = "<select ";
