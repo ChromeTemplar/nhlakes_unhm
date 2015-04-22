@@ -8,6 +8,7 @@ State
 Notes
 Latitude (For future use)
 Longitude (For future use)
+owner (For future use)
 -->
 <?php
 if (isset($ramp)) {
@@ -16,6 +17,8 @@ if (isset($ramp)) {
     $latitude = $ramp['latitude'];
     $state = $ramp['state'];
     $town = $ramp['townID'];
+    $owner = $ramp['owner'];
+    $private = $ramp['private'];
     $waterbody = $ramp['waterbodyID'];
 } else {
     $name = '';
@@ -24,6 +27,8 @@ if (isset($ramp)) {
     $waterbody = '';
     $longitude = '';
     $latitude = '';
+    $owner = '';
+    $privet = '';
 }
 ?>
 
@@ -45,6 +50,36 @@ method="post">
     <!-- Ramp Name -->
     <label for="rampLatitude">Latitude</label><br/>
     <input type="text" name="ramp[latitude]" class="medium" <?php if(isset($ramp)) echo "value='$latitude'"; ?> ><br/><br/>
+    
+    <!-- Ramp owner -->
+    <label for="rampowner">owner</label><br/>
+    <input type="text" name="ramp[owner]" class="medium" <?php if(isset($ramp)) echo "value='$owner'"; ?> ><br/><br/>
+    
+   
+    <!-- rampprivate -->
+    <label for="private">General public or is a private ramp?</label><br/>
+    <input type="radio" name="boatramp[private]" value="1"
+        <?php 
+            if(isset($boatramp)) {
+                if ($private == 1) {
+                    echo " checked";
+                }
+            }
+        ?> 
+    >public<br>
+
+    <input type="radio" name="boatramp[private]" value="0"
+        <?php 
+            if(isset($boatramp)) {
+                if ($private == 0) {
+                    echo " checked";
+                }
+            }
+        ?>
+    >private<br>
+
+    <br/>
+    
     
     <!-- Ramp State -->
     <label for="state">State</label><br/>

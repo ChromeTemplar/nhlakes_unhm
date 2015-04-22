@@ -42,12 +42,12 @@ class BoatRamp extends Model
             $table = $this->table;
 
         /* Prepared statement, stage 1: prepare */
-        if (!($stmt = $mysqli->prepare("INSERT INTO BoatRamp (state, name, waterbodyID, townID, notes, longitude, latitude) VALUES (?,?,?,?,?,?,?)"))) {
+        if (!($stmt = $mysqli->prepare("INSERT INTO BoatRamp (state, name, waterbodyID, townID, notes, longitude, latitude, owner) VALUES (?,?,?,?,?,?,?,?)"))) {
             echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
         }
 
         /* Prepared statement, stage 2: bind and execute */
-        if (!($stmt->bind_param("ssiisdd", $data['state'], $data['name'], $data['waterbodyID'], $data['townID'], $data['notes'], $data['longitude'], $data['latitude']))) {
+        if (!($stmt->bind_param("ssiisdd", $data['state'], $data['name'], $data['waterbodyID'], $data['townID'], $data['notes'], $data['longitude'], $data['latitude'],$data['owner']))) {
             echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
         }
         if (!$stmt->execute()) {
@@ -87,12 +87,12 @@ class BoatRamp extends Model
         $mysqli = $this->conn;
 		
         /* Prepared statement, stage 1: prepare */
-        if (!($stmt = $mysqli->prepare("UPDATE BoatRamp SET state = ?, name = ?, waterbodyID = ?, townID = ?, notes = ?, longitude = ?, latitude = ? WHERE ID = ?"))) {
+        if (!($stmt = $mysqli->prepare("UPDATE BoatRamp SET state = ?, name = ?, waterbodyID = ?, townID = ?, notes = ?, longitude = ?, latitude = ?, owner = ? WHERE ID = ?"))) {
             echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
         }
 
         /* Prepared statement, stage 2: bind and execute */
-        if (!($stmt->bind_param("ssiisddi", $data['state'], $data['name'], $data['waterbodyID'], $data['townID'], $data['notes'], $data['longitude'], $data['latitude'], $this->id))) {
+        if (!($stmt->bind_param("ssiisddi", $data['state'], $data['name'], $data['waterbodyID'], $data['townID'], $data['notes'], $data['longitude'], $data['latitude'], $data['owner'], $this->id))) {
             echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
         }
 
