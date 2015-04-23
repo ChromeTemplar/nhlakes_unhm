@@ -20,11 +20,11 @@ class reportController extends Controller
     	
     	/*** Get all Summaries ***/
 		//Breaks it up into different sections on the screen for reporting
-		//These functions are in applicationModel with descriptions
+		//These functions are in applicationModel with descriptions within it
     	$summary = $model->allStates();
     	 
         /*** set a template variable ***/
-        $this->registry->template->welcome = 'Reports';
+        $this->registry->template->welcome = 'Reports - All State Totals';
 		// Assigns $report to equal $summary?
         $this->registry->template->report = $summary;
         
@@ -32,16 +32,66 @@ class reportController extends Controller
         /*** load the index template ***/
         $this->registry->template->show($this->name, 'index');
 
-    	$summary = $model->allStates();
+		
+		///////////////////////////////////////
+		//** Start Section for Boat Types ** //
+    	$summary = $model->allBoatTypes();
     	 
         /*** set a template variable ***/
-        $this->registry->template->welcome = 'Reports - States';
+        $this->registry->template->welcome = 'Reports - All Boat Type Totals';
 		// Assigns $report to equal $summary?
         $this->registry->template->report = $summary;
         
         
         /*** load the index template ***/
         $this->registry->template->show($this->name, 'index');
+		//*** End Section for Boat Types ***///
+		//////////////////////////////////////
+		
+		// ** //
+		//** Start Section for all Previous Interactions ** //
+    	$summary = $model->allPreviousInteractions();
+    	 
+        /*** set a template variable ***/
+        $this->registry->template->welcome = 'Reports - All Previous Lake Host Interaction Totals';
+		// Assigns $report to equal $summary?
+        $this->registry->template->report = $summary;
+        
+        
+        /*** load the index template ***/
+        $this->registry->template->show($this->name, 'index');
+		//*** End Section for all Previous Interactions ***///
+		// ** //
+		
+		// ** //
+		//** Start Section for allDrained ** //
+    	$summary = $model->allDrained();
+    	 
+        /*** set a template variable ***/
+        $this->registry->template->welcome = 'Reports - Drained or Not Drained Totals';
+		// Assigns $report to equal $summary?
+        $this->registry->template->report = $summary;
+        
+        
+        /*** load the index template ***/
+        $this->registry->template->show($this->name, 'index');
+		//*** End Section for allDrained ***///
+		// ** //
+		
+		// ** //
+		//** Start Section for allRinsed ** //
+    	$summary = $model->allRinsed();
+    	 
+        /*** set a template variable ***/
+        $this->registry->template->welcome = 'Reports - Rinsed or Not Rinsed Totals';
+		// Assigns $report to equal $summary?
+        $this->registry->template->report = $summary;
+        
+        
+        /*** load the index template ***/
+        $this->registry->template->show($this->name, 'index');
+		//*** End Section for allRinsed ***///
+		// ** //
     }
     /*
     This function returns HTML table. This table contains the survey information obtained from the database.

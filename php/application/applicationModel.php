@@ -62,10 +62,13 @@ class Model {
         return $this->process($stmt);
     }
 	
-	// Used to grab all of the states for the Reporting page
+	
+	// *** Functions below are all queries for the Reporting Page, up until function process() *** ///
+	
+	// Shows totals for all States
     function allStates($table = '', $cols= '	SUM(NH) as NH, 
 												SUM(MA) as MA, 
-												SUM(VT) as "V T", 
+												SUM(VT) as VT, 
 												SUM(CT) as CT, 
 												SUM(RI) as RI,
 												SUM(NY) as NY
@@ -82,7 +85,148 @@ class Model {
         
         return $this->process($stmt);
     }
+	
+	// Shows totals for all Boat Types
+    function allBoatTypes($table = '', $cols= '	SUM(inboardOutboard) as "I/O", 
+												SUM(pwc) as "PWC Jet",
+												SUM(canoeKayak) as "Canoe/Kayak",
+												SUM(sail) as "Sail Boat",
+												SUM(otherBoatType) as "Other"
+												') {
+        $mysqli = $this->conn;
 
+        if (empty($table)) 
+            $table = $this->table;
+
+        /* Prepared statement, stage 1: prepare */
+        if (!($stmt = $mysqli->prepare("Select $cols FROM $table"))) {
+            echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+        }
+        
+        return $this->process($stmt);
+    }
+
+	function allPreviousInteractions($table = '', $cols= '	SUM(previous) as "Previously Interacted", 
+												SUM(notPrevious) as "Never Interacted"
+												') {
+        $mysqli = $this->conn;
+
+        if (empty($table)) 
+            $table = $this->table;
+
+        /* Prepared statement, stage 1: prepare */
+        if (!($stmt = $mysqli->prepare("Select $cols FROM $table"))) {
+            echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+        }
+        
+        return $this->process($stmt);
+    }
+	
+	function allDrained($table = '', $cols= '	SUM(drained) as "Drained", 
+												SUM(notDrained) as "Not Drained"
+												') {
+        $mysqli = $this->conn;
+
+        if (empty($table)) 
+            $table = $this->table;
+
+        /* Prepared statement, stage 1: prepare */
+        if (!($stmt = $mysqli->prepare("Select $cols FROM $table"))) {
+            echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+        }
+        
+        return $this->process($stmt);
+    }
+
+	function allRinsed($table = '', $cols= '	SUM(rinsed) as "Rinsed", 
+												SUM(notRinsed) as "Not Rinsed"
+												
+												') {
+        $mysqli = $this->conn;
+
+        if (empty($table)) 
+            $table = $this->table;
+
+        /* Prepared statement, stage 1: prepare */
+        if (!($stmt = $mysqli->prepare("Select $cols FROM $table"))) {
+            echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+        }
+        
+        return $this->process($stmt);
+    }
+	
+	function allDried($table = '', $cols= '	SUM(inboardOutboard) as "I/O", 
+												SUM(pwc) as "PWC Jet",
+												SUM(canoeKayak) as "Canoe/Kayak",
+												SUM(sail) as "Sail Boat",
+												SUM(otherBoatType) as "Other"
+												') {
+        $mysqli = $this->conn;
+
+        if (empty($table)) 
+            $table = $this->table;
+
+        /* Prepared statement, stage 1: prepare */
+        if (!($stmt = $mysqli->prepare("Select $cols FROM $table"))) {
+            echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+        }
+        
+        return $this->process($stmt);
+    }
+	
+	function allAwareness($table = '', $cols= '	SUM(inboardOutboard) as "I/O", 
+												SUM(pwc) as "PWC Jet"
+												') {
+        $mysqli = $this->conn;
+
+        if (empty($table)) 
+            $table = $this->table;
+
+        /* Prepared statement, stage 1: prepare */
+        if (!($stmt = $mysqli->prepare("Select $cols FROM $table"))) {
+            echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+        }
+        
+        return $this->process($stmt);
+    }
+	
+	function allSpecimenFound($table = '', $cols= '	SUM(inboardOutboard) as "I/O", 
+												SUM(pwc) as "PWC Jet"
+												') {
+        $mysqli = $this->conn;
+
+        if (empty($table)) 
+            $table = $this->table;
+
+        /* Prepared statement, stage 1: prepare */
+        if (!($stmt = $mysqli->prepare("Select $cols FROM $table"))) {
+            echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+        }
+        
+        return $this->process($stmt);
+    }
+	
+	function allSpecimenSent($table = '', $cols= '	SUM(inboardOutboard) as "I/O", 
+												SUM(pwc) as "PWC Jet"
+												') {
+        $mysqli = $this->conn;
+
+        if (empty($table)) 
+            $table = $this->table;
+
+        /* Prepared statement, stage 1: prepare */
+        if (!($stmt = $mysqli->prepare("Select $cols FROM $table"))) {
+            echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+        }
+        
+        return $this->process($stmt);
+    }
+	
+	// *** Functions above are all queries for the Reporting Page ***///
+	
+	
+	
+	
     /**
     * Exectutes a statement and calls the get_result method.
     *
