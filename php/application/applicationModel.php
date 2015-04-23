@@ -155,11 +155,8 @@ class Model {
         return $this->process($stmt);
     }
 	
-	function allDried($table = '', $cols= '	SUM(inboardOutboard) as "I/O", 
-												SUM(pwc) as "PWC Jet",
-												SUM(canoeKayak) as "Canoe/Kayak",
-												SUM(sail) as "Sail Boat",
-												SUM(otherBoatType) as "Other"
+	function allDried($table = '', $cols= '	SUM(dry5) as "Dried", 
+												SUM(notDry5) as "Not Dried"
 												') {
         $mysqli = $this->conn;
 
@@ -174,8 +171,9 @@ class Model {
         return $this->process($stmt);
     }
 	
-	function allAwareness($table = '', $cols= '	SUM(inboardOutboard) as "I/O", 
-												SUM(pwc) as "PWC Jet"
+	function allAwareness($table = '', $cols= '	SUM(awarenessLow) as "Low Awareness", 
+												SUM(awarenessMedium) as "Medium Awareness", 
+												SUM(awarenessHigh) as "High Awareness"
 												') {
         $mysqli = $this->conn;
 
@@ -190,8 +188,8 @@ class Model {
         return $this->process($stmt);
     }
 	
-	function allSpecimenFound($table = '', $cols= '	SUM(inboardOutboard) as "I/O", 
-												SUM(pwc) as "PWC Jet"
+	function allSpeciesFound($table = '', $cols= '	SUM(speciesFoundYes) as "Species Found", 
+												SUM(speciesFoundNo) as "Species Not Found"
 												') {
         $mysqli = $this->conn;
 
@@ -206,8 +204,8 @@ class Model {
         return $this->process($stmt);
     }
 	
-	function allSpecimenSent($table = '', $cols= '	SUM(inboardOutboard) as "I/O", 
-												SUM(pwc) as "PWC Jet"
+	function allSpecimenSent($table = '', $cols= '	SUM(sentDesYes) as "Sent to DES", 
+												SUM(sentDesNo) as "Not Sent to DES"
 												') {
         $mysqli = $this->conn;
 

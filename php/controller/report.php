@@ -68,7 +68,7 @@ class reportController extends Controller
     	$summary = $model->allDrained();
     	 
         /*** set a template variable ***/
-        $this->registry->template->welcome = 'Reports - Drained or Not Drained Totals';
+        $this->registry->template->welcome = 'Reports - Drained and Not Drained Totals';
 		// Assigns $report to equal $summary?
         $this->registry->template->report = $summary;
         
@@ -83,7 +83,7 @@ class reportController extends Controller
     	$summary = $model->allRinsed();
     	 
         /*** set a template variable ***/
-        $this->registry->template->welcome = 'Reports - Rinsed or Not Rinsed Totals';
+        $this->registry->template->welcome = 'Reports - Rinsed and Not Rinsed Totals';
 		// Assigns $report to equal $summary?
         $this->registry->template->report = $summary;
         
@@ -92,6 +92,67 @@ class reportController extends Controller
         $this->registry->template->show($this->name, 'index');
 		//*** End Section for allRinsed ***///
 		// ** //
+		
+		// ** //
+		//** Start Section for allDried ** //
+    	$summary = $model->allDried();
+    	 
+        /*** set a template variable ***/
+        $this->registry->template->welcome = 'Reports - Dried and Not Dried Totals';
+		// Assigns $report to equal $summary?
+        $this->registry->template->report = $summary;
+        
+        
+        /*** load the index template ***/
+        $this->registry->template->show($this->name, 'index');
+		//*** End Section for allDried ***///
+		// ** //
+		
+		// ** //
+		//** Start Section for allAwareness ** //
+    	$summary = $model->allAwareness();
+    	 
+        /*** set a template variable ***/
+        $this->registry->template->welcome = 'Reports - Awareness Totals';
+		// Assigns $report to equal $summary?
+        $this->registry->template->report = $summary;
+        
+        
+        /*** load the index template ***/
+        $this->registry->template->show($this->name, 'index');
+		//*** End Section for allAwareness ***///
+		// ** //
+		
+		// ** //
+		//** Start Section for allSpeciesFound ** //
+    	$summary = $model->allSpeciesFound();
+    	 
+        /*** set a template variable ***/
+        $this->registry->template->welcome = 'Reports - Specimen Found Totals';
+		// Assigns $report to equal $summary?
+        $this->registry->template->report = $summary;
+        
+        
+        /*** load the index template ***/
+        $this->registry->template->show($this->name, 'index');
+		//*** End Section for allSpeciesFound ***///
+		// ** //		
+		
+		// ** //
+		//** Start Section for allSpecimenSent ** //
+    	$summary = $model->allSpecimenSent();
+    	 
+        /*** set a template variable ***/
+        $this->registry->template->welcome = 'Reports - Specimen Sent Totals';
+		// Assigns $report to equal $summary?
+        $this->registry->template->report = $summary;
+        
+        
+        /*** load the index template ***/
+        $this->registry->template->show($this->name, 'index');
+		//*** End Section for allSpecimenSent ***///
+		// ** //		
+
     }
     /*
     This function returns HTML table. This table contains the survey information obtained from the database.
