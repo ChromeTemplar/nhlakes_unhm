@@ -21,7 +21,6 @@ if (isset($ramp)) {
     $private = $ramp['private'];
     $waterbody = $ramp['waterbodyID'];
     $owner = $ramp['owner'];
-    $private = $ramp['private'];
 } else {
     $name = '';
     $state = '';
@@ -30,7 +29,7 @@ if (isset($ramp)) {
     $longitude = '';
     $latitude = '';
     $owner = '';
-    $private = false;
+    $private = 0;
 }
 ?>
 
@@ -59,22 +58,17 @@ method="post">
     
     <!-- Ramp Private -->
     <label for="private">General public or is a private ramp?</label><br/>
-    <input type="radio" name="ramp[private]" value="1"
+    <input type="radio" name="ramp[private]" value="0"
         <?php 
-            if(isset($ramp)) {
-                if ($private == 1) {
-                    echo " checked";
-                }
+        	if ($private == 0) {
+                echo "checked";
             }
         ?> 
     >public<br>
-
-    <input type="radio" name="boatramp[private]" value="0"
+    <input type="radio" name="ramp[private]" value="1"
         <?php 
-            if(isset($boatramp)) {
-                if ($private == 0) {
-                    echo " checked";
-                }
+            if ($private == 1) {
+                echo "checked";
             }
         ?>
     >private<br>
