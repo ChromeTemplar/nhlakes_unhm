@@ -48,7 +48,28 @@ class Model {
     * @param String $table : table name to select from, by default it grabs the name of the model
     * @param String $cols : Column names to select 
     **/
-    function all($table = '', $cols= '*') {
+	function all($table = '', $cols= '*') {
+       $mysqli = $this->conn;
+
+        if (empty($table)) 
+            $table = $this->table;
+
+        /* Prepared statement, stage 1: prepare */
+        if (!($stmt = $mysqli->prepare("Select $cols FROM $table"))) {
+            echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+        }
+        
+        return $this->process($stmt);
+    }
+	
+	// Used to grab all of the states for the Reporting page
+    function allStates($table = '', $cols= '	SUM(NH) as NH, 
+												SUM(MA) as MA, 
+												SUM(VT) as "V T", 
+												SUM(CT) as CT, 
+												SUM(RI) as RI,
+												SUM(NY) as NY
+												') {
         $mysqli = $this->conn;
 
         if (empty($table)) 
@@ -62,11 +83,10 @@ class Model {
         return $this->process($stmt);
     }
 
-
     /**
     * Exectutes a statement and calls the get_result method.
     *
-    * @param Object $stmt : MySQLI query to be exectuted
+    * @param Object $stmt : MySQLI query to be executed
     **/
     function process($stmt) {
         if (!$stmt->execute()) {

@@ -183,6 +183,45 @@ class template
         return $html;
     }
     
+	
+	//The function below is used solely by the Reporting Group
+	//No other groups should be editing or using the table below
+	//It is basically a straight copy of the buildTable function, sans edit/delete buttons
+    public function buildReport($list) {
+        $html = '<table class="list">';
+        
+        $listHeaders = $list[0];
+        
+        $html.= "<thead><tr>";
+        
+        //Iterate through the keys
+        foreach($listHeaders as $key => $val){
+            $html .= "<th class=''>$key</th>";
+        }
+        
+        $html .= "</tr></thead>";
+
+        //loop through all 
+        for($i=0;$i<count($list);$i++){
+            $html .= "<tr class='list-item'>";
+
+            foreach($list[$i] as $key => $val){
+                if ($key == "name")
+                    $html .= "<td class='title' >$val</td>";   
+                else 
+                    $html .= "<td>$val</td>";   
+            }
+            
+
+        $html .= "</tr>";
+        }
+            
+        
+        $html .= "</table>";
+        
+        return $html;
+    }	
+
     public function buildRampTable($list) {
     	$html = '<table class="list">';
     
