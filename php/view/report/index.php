@@ -3,7 +3,7 @@
 <?php
 
 if ($report !="")
-	echo $this->buildTable($report);
+	echo $this->buildReport($report);
 else
 	echo "<h2> There are no Survey Summaries in the system. </h2>";
 
