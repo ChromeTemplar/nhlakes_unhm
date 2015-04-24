@@ -71,7 +71,8 @@ class Model {
 												SUM(VT) as VT, 
 												SUM(CT) as CT, 
 												SUM(RI) as RI,
-												SUM(NY) as NY
+												SUM(NY) as NY,
+												SUM(other) as Other
 												') {
         $mysqli = $this->conn;
 
