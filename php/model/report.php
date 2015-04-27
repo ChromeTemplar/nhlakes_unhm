@@ -4,7 +4,7 @@
 File: Model: Report.php
 Date: 4/27/2015
 Author: Reporting Group 2015
-Info: Contains database connection function and functions that contain database queries to pull data from the summary table to be displayed on the report page.
+Info: Contains database connection function and functions query the database to pull data from the summary table to be displayed on the report page.
 **/
 
 class report extends Model
@@ -126,6 +126,7 @@ class report extends Model
         return $this->process($stmt);
     }
 	
+	// Displays totals for Dried and Not dried.
 	function allDried($table = '', $cols= '	SUM(dry5) as "Dried", 
 												SUM(notDry5) as "Not Dried"
 												') {
