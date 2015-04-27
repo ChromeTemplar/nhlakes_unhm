@@ -27,12 +27,12 @@ class reportController extends Controller
         $this->registry->template->welcome = 'Reports - All State Totals';
 		// Assigns $report to equal $summary?
         $this->registry->template->report = $summary;
-        
-        
+
+
         /*** load the index template ***/
         $this->registry->template->show($this->name, 'index');
 
-		
+
 		///////////////////////////////////////
 		//** Start Section for Boat Types ** //
     	$summary = $model->allBoatTypes();
