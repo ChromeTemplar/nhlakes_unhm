@@ -24,7 +24,7 @@ class reportController extends Controller
     	$summary = $model->allStates();
     	 
         /*** set a template variable ***/
-        $this->registry->template->welcome = 'Reports - All State Totals';
+        $this->registry->template->welcome = 'States';
 		// Assigns $report to equal $summary?
         $this->registry->template->report = $summary;
 
@@ -38,7 +38,7 @@ class reportController extends Controller
     	$summary = $model->allBoatTypes();
     	 
         /*** set a template variable ***/
-        $this->registry->template->welcome = 'Reports - All Boat Type Totals';
+        $this->registry->template->welcome = 'Boat Types';
 		// Assigns $report to equal $summary?
         $this->registry->template->report = $summary;
         
@@ -53,7 +53,7 @@ class reportController extends Controller
     	$summary = $model->allPreviousInteractions();
     	 
         /*** set a template variable ***/
-        $this->registry->template->welcome = 'Reports - All Previous Lake Host Interaction Totals';
+        $this->registry->template->welcome = 'All Previous Lake Host Interactions';
 		// Assigns $report to equal $summary?
         $this->registry->template->report = $summary;
         
@@ -68,7 +68,7 @@ class reportController extends Controller
     	$summary = $model->allDrained();
     	 
         /*** set a template variable ***/
-        $this->registry->template->welcome = 'Reports - Drained and Not Drained Totals';
+        $this->registry->template->welcome = 'Drained and Not Drained Totals';
 		// Assigns $report to equal $summary?
         $this->registry->template->report = $summary;
         
@@ -83,7 +83,7 @@ class reportController extends Controller
     	$summary = $model->allRinsed();
     	 
         /*** set a template variable ***/
-        $this->registry->template->welcome = 'Reports - Rinsed and Not Rinsed Totals';
+        $this->registry->template->welcome = 'Rinsed and Not Rinsed Totals';
 		// Assigns $report to equal $summary?
         $this->registry->template->report = $summary;
         
@@ -98,7 +98,7 @@ class reportController extends Controller
     	$summary = $model->allDried();
     	 
         /*** set a template variable ***/
-        $this->registry->template->welcome = 'Reports - Dried and Not Dried Totals';
+        $this->registry->template->welcome = 'Dried and Not Dried Totals';
 		// Assigns $report to equal $summary?
         $this->registry->template->report = $summary;
         
@@ -113,7 +113,7 @@ class reportController extends Controller
     	$summary = $model->allAwareness();
     	 
         /*** set a template variable ***/
-        $this->registry->template->welcome = 'Reports - Awareness Totals';
+        $this->registry->template->welcome = 'Awareness Totals';
 		// Assigns $report to equal $summary?
         $this->registry->template->report = $summary;
         
@@ -128,7 +128,7 @@ class reportController extends Controller
     	$summary = $model->allSpeciesFound();
     	 
         /*** set a template variable ***/
-        $this->registry->template->welcome = 'Reports - Specimen Found Totals';
+        $this->registry->template->welcome = 'Specimen Found';
 		// Assigns $report to equal $summary?
         $this->registry->template->report = $summary;
         
@@ -143,7 +143,7 @@ class reportController extends Controller
     	$summary = $model->allSpecimenSent();
     	 
         /*** set a template variable ***/
-        $this->registry->template->welcome = 'Reports - Specimen Sent Totals';
+        $this->registry->template->welcome = 'Specimen Sent';
 		// Assigns $report to equal $summary?
         $this->registry->template->report = $summary;
         
