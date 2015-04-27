@@ -25,7 +25,8 @@ class report extends Model
 		// *** Functions below are all queries for the Reporting Page for each section *** ///
 	
 	// Shows totals for all States
-    function allStates($table = '', $cols= '	SUM(NH) as NH, 
+    function allStates($table = '', $cols= '	SUM(NH) as NH,
+												SUM(ME) as ME,
 												SUM(MA) as MA, 
 												SUM(VT) as VT, 
 												SUM(CT) as CT, 
