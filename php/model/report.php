@@ -22,7 +22,7 @@ class report extends Model
        $this->conn = mysqli_connect($this->host, $this->user, $this->pass, $this->db) or $this->error('Could not connect to database. Make sure settings are correct.'); 
     } 
 	
-		// *** Functions below are all queries for the Reporting Page for each section *** ///
+	// *** Functions below are all queries for the Reporting Page for each section *** ///
 	
 	// Shows totals for all States
     function allStates($table = '', $cols= '	SUM(NH) as NH,
