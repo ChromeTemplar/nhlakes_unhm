@@ -154,20 +154,5 @@ class reportController extends Controller
 		// ** //		
 
     }
-    /*
-    This function returns HTML table. This table contains the survey information obtained from the database.
-    */
-    public function newReport()
-    {
-    	
-    	$this->model = new report();
-    	
-        /*** set a template variable ***/
-        $this->registry->template->welcome = 'New Report';
-  
-        
-        /*** load the index template ***/
-        $this->registry->template->show($this->name, 'new');
-    }
 
 }
