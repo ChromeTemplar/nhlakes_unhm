@@ -1,5 +1,12 @@
 <?php
 
+/**
+File: Model: Report.php
+Date: 4/27/2015
+Author: Reporting Group 2015
+Info: Contains database connection function and functions that contain database queries to pull data from the summary table to be displayed on the report page.
+**/
+
 class report extends Model
 {
     /*** Set Class Attribute Variables ***/
@@ -18,14 +25,14 @@ class report extends Model
             $this->table = "summary"; 
         }         
 
-        /*** Create Connection to DB ***/
+        /*** Creates connection to the Database ***/
        $this->conn = mysqli_connect($this->host, $this->user, $this->pass, $this->db) or $this->error('Could not connect to database. Make sure settings are correct.'); 
     } 
 	
-	// *** Functions below are all queries for the Reporting Page for each section *** ///
+	// *** Functions below are queries for the Reporting Page for each section *** ///
 	
-	// Shows totals for all States
-    function allStates($table = '', $cols= '	SUM(NH) as NH,
+	// Displays the totals for all States. Sums the summary entries to create totals by state.
+    function allStates($table = '', $cols= '	SUM(NH) as NH, 
 												SUM(ME) as ME,
 												SUM(MA) as MA, 
 												SUM(VT) as VT, 
@@ -39,7 +46,7 @@ class report extends Model
         if (empty($table)) 
             $table = $this->table;
 
-        /* Prepared statement, stage 1: prepare */
+        /* Prepared statement, stage 1: prepare. Selects data from the summary table to be displayed on the report page. */ 
         if (!($stmt = $mysqli->prepare("Select $cols FROM $table"))) {
             echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
         }
@@ -59,7 +66,7 @@ class report extends Model
         if (empty($table)) 
             $table = $this->table;
 
-        /* Prepared statement, stage 1: prepare */
+        /* Prepared statement, stage 1: prepare. Selects data from the summary table to be displayed on the report page. */ 
         if (!($stmt = $mysqli->prepare("Select $cols FROM $table"))) {
             echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
         }
@@ -67,6 +74,7 @@ class report extends Model
         return $this->process($stmt);
     }
 
+	// Show totals for Previously Interacted and Never Interacted.
 	function allPreviousInteractions($table = '', $cols= '	SUM(previous) as "Previously Interacted", 
 												SUM(notPrevious) as "Never Interacted"
 												') {
@@ -75,7 +83,7 @@ class report extends Model
         if (empty($table)) 
             $table = $this->table;
 
-        /* Prepared statement, stage 1: prepare */
+        /* Prepared statement, stage 1: prepare. Selects data from the summary table to be displayed on the report page. */ 
         if (!($stmt = $mysqli->prepare("Select $cols FROM $table"))) {
             echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
         }
@@ -83,6 +91,7 @@ class report extends Model
         return $this->process($stmt);
     }
 	
+	// Displays totals for Drained and Not Drained.
 	function allDrained($table = '', $cols= '	SUM(drained) as "Drained", 
 												SUM(notDrained) as "Not Drained"
 												') {
@@ -91,14 +100,15 @@ class report extends Model
         if (empty($table)) 
             $table = $this->table;
 
-        /* Prepared statement, stage 1: prepare */
+        /* Prepared statement, stage 1: prepare. Selects data from the summary table to be displayed on the report page. */ 
         if (!($stmt = $mysqli->prepare("Select $cols FROM $table"))) {
             echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
         }
         
         return $this->process($stmt);
     }
-
+	
+	// Displays totals for Rinsed and Not rinsed.
 	function allRinsed($table = '', $cols= '	SUM(rinsed) as "Rinsed", 
 												SUM(notRinsed) as "Not Rinsed"
 												
@@ -108,7 +118,7 @@ class report extends Model
         if (empty($table)) 
             $table = $this->table;
 
-        /* Prepared statement, stage 1: prepare */
+        /* Prepared statement, stage 1: prepare. Selects data from the summary table to be displayed on the report page. */ 
         if (!($stmt = $mysqli->prepare("Select $cols FROM $table"))) {
             echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
         }
@@ -124,7 +134,7 @@ class report extends Model
         if (empty($table)) 
             $table = $this->table;
 
-        /* Prepared statement, stage 1: prepare */
+        /* Prepared statement, stage 1: prepare. Selects data from the summary table to be displayed on the report page. */ 
         if (!($stmt = $mysqli->prepare("Select $cols FROM $table"))) {
             echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
         }
@@ -132,6 +142,7 @@ class report extends Model
         return $this->process($stmt);
     }
 	
+	// Displays totals for Low Awareness, Medium Awareness, High Awareness.
 	function allAwareness($table = '', $cols= '	SUM(awarenessLow) as "Low Awareness", 
 												SUM(awarenessMedium) as "Medium Awareness", 
 												SUM(awarenessHigh) as "High Awareness"
@@ -141,7 +152,7 @@ class report extends Model
         if (empty($table)) 
             $table = $this->table;
 
-        /* Prepared statement, stage 1: prepare */
+        /* Prepared statement, stage 1: prepare. Selects data from the summary table to be displayed on the report page. */ 
         if (!($stmt = $mysqli->prepare("Select $cols FROM $table"))) {
             echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
         }
@@ -149,6 +160,7 @@ class report extends Model
         return $this->process($stmt);
     }
 	
+	// Displays totals for Species Found and Species Not Found.
 	function allSpeciesFound($table = '', $cols= '	SUM(speciesFoundYes) as "Species Found", 
 												SUM(speciesFoundNo) as "Species Not Found"
 												') {
@@ -157,7 +169,7 @@ class report extends Model
         if (empty($table)) 
             $table = $this->table;
 
-        /* Prepared statement, stage 1: prepare */
+        /* Prepared statement, stage 1: prepare. Selects data from the summary table to be displayed on the report page. */ 
         if (!($stmt = $mysqli->prepare("Select $cols FROM $table"))) {
             echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
         }
@@ -165,6 +177,7 @@ class report extends Model
         return $this->process($stmt);
     }
 	
+	// Displays totals for Sent to DES and Not Sent to DES.
 	function allSpecimenSent($table = '', $cols= '	SUM(sentDesYes) as "Sent to DES", 
 												SUM(sentDesNo) as "Not Sent to DES"
 												') {
@@ -173,7 +186,7 @@ class report extends Model
         if (empty($table)) 
             $table = $this->table;
 
-        /* Prepared statement, stage 1: prepare */
+        /* Prepared statement, stage 1: prepare. Selects data from the summary table to be displayed on the report page. */ 
         if (!($stmt = $mysqli->prepare("Select $cols FROM $table"))) {
             echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
         }
@@ -181,6 +194,5 @@ class report extends Model
         return $this->process($stmt);
     }
 	
-	// *** Functions above are all queries for the Reporting Page ***///
     
 }
