@@ -298,10 +298,10 @@ class template
         return $html;
     }	
 
-    public function buildRampTable($list) {
+    public function buildRampTable($list, $listHeaders) {
     	$html = '<table class="list">';
     
-    	$listHeaders = $list[0];
+    	//$listHeaders = $list[0];
     
     	$html.= "<thead><tr>";
     
@@ -311,39 +311,59 @@ class template
     			$html .= "<th class=''>$key</th>";
     		}
     	}
-    	 
-    	if (isset($_SESSION['roleID']) && ($_SESSION['roleID'] < 3)) {
-    		//Add edit button column to the end
-    		$html .= "<th>Edit</th>";
-    	  
-    		//Add edit button column to the end
-    		$html .= "<th>Delete</th>";
-    	}
-    
+    	
+    	//Add edit button column to the end
+    	$html .= "<th> </th>";
     	$html .= "</tr></thead>";
     
     	//loop through all
     	for($i=0;$i<count($list);$i++){
     		$html .= "<tr class='list-item'>";
-    
-    		foreach($list[$i] as $key => $val){
-    			if ($key == "name")
-    				$html .= "<td class='title' >$val</td>";
-    			else if ($key != "ID")
-    				$html .= "<td>$val</td>";
+    		
+    		foreach($list[$i] as $key => $val) {
+    			if (in_array($key, $listHeaders, true)) 
+    			{		 
+	    			if ($key == "name")
+	    			{
+	    				$html .= "<td class='title' >$val</td>";
+	    			}
+	    			else if ($key == "private")
+	    			{
+	    				if($val == true)
+	    				{
+							$html .= "<td class='private' >Private</td>";
+	    				}
+	    				else 
+	    				{
+	    					$html .= "<td class='public' >Public</td>";
+	    				}
+	    		
+	    			}
+	    			else if ($key == "waterbodyID") {
+	    				$html .= "<td class='$val'>$val</td>";
+	    			}
+	    			else if ($key != "ID")
+	    			{
+	    				$html .= "<td class='$val'>$val</td>";
+	    			}
+    			}
     		}
     
+    		//Add the Edit button column
+    		$viewButton = $this->buttonTo($this->registry->router->controller,"view","View",$list[$i]["ID"]);
 
+
+    		$html .= "<td>".$viewButton;
     		if (isset($_SESSION['roleID']) && ($_SESSION['roleID'] < 3)) {
 	    		//Add the Edit button column
 	    		$editButton = $this->buttonTo($this->registry->router->controller,"edit","Edit",$list[$i]["ID"]);
 	    		//Add the Delete Button Column
 	    		$deleteButton = $this->buttonTo($this->registry->router->controller,"delete","Delete",$list[$i]["ID"]);
-	    
-	    		$html .= "<td>".$editButton."</td>";
-	    		$html .= "<td>".$deleteButton."</td>";
+
+	    		$html .= "&nbsp;".$editButton;
+	    		$html .= "&nbsp;".$deleteButton;
     		}
-    
+    		$html .= "</td>";
     		$html .= "</tr>";
     	}
     

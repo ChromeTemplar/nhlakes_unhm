@@ -153,3 +153,23 @@ margin: 10px;
 form input.error {
 border:1px solid red;
 }
+.pager
+{
+	min-height:45px;
+	margin-bottom:10px;
+}
+tr.list-item {
+	height:46px;
+}
+td.private {
+    color: red;
+    font-weight: bold;
+}
+td.public {
+    color: blue;
+    font-weight: bold;
+}
+.warning {
+	color:red;
+	font-wieght:bold;
+}

@@ -1,7 +1,22 @@
 <h1><?php echo $welcome; ?></h1>
+<div>
+<?php if (isset($_SESSION['roleID']) && ($_SESSION['roleID'] < 3)) { ?>
+	    <?php echo $this->buttonTo("boatramp","newBoatRamp", "New"); ?>
+	<?php  } ?>
+    <br/>
+</div>
 
+<?php if ($ramps != ""){ 
 
-<?php if ($ramps != ""){ ?>
+$displayList = array(
+		"Name" => "name",	
+		//"WaterBody" => "waterbodyID",		
+		"Owner" => "owner",
+		"Ramp Access" => "private",
+		//"Notes" => "notes",
+);
+
+	?>
 
     <!-- demo -->
     <div id="data">
@@ -10,7 +25,7 @@
         <?php 
         
         require_once "view/partials/_controlsTop.php";				 
-        echo "<div id='boatramp-table' >".$this->buildRampTable($ramps, "ramps"). "</div>";
+        echo "<div id='boatramp-table' >".$this->buildRampTable($ramps, $displayList). "</div>";
         require_once "view/partials/_controlsBottom.php";
         
         ?>
@@ -27,10 +42,6 @@
 
 ?>
 <div id="content-bottom">
-	<?php if (isset($_SESSION['roleID']) && ($_SESSION['roleID'] < 3)) { ?>
-	    <?php echo $this->buttonTo("boatramp","newBoatRamp", "New"); ?>
-	<?php  } ?>
-    <br/>
     Return <?php echo $this->linkTo("home","index","Home"); ?>
 </div>
 

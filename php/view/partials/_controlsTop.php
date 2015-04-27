@@ -1,10 +1,10 @@
-<div class="jplist-panel">						
+<div class="jplist-panel pager">						
     <!-- items per page dropdown -->
-    <div 
-       class="jplist-drop-down" 
+    
+	<div class="jplist-drop-down" 
        data-control-type="items-per-page-drop-down" 
        data-control-name="paging" 
-       data-control-action="paging">
+       data-control-action="paging" >
 
        <ul>
          <li><span data-number="3"> 3 per page </span></li>
@@ -41,5 +41,3 @@
     </div>	
       
 </div>
-<br/><br/>
-
