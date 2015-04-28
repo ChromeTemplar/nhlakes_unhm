@@ -36,15 +36,17 @@ if (isset($ramp)) {
 <h1><?php echo $welcome; ?></h1>
 
 <div id="form">
+		
+<form id="boatRampForm" action="index.php?rt=boatramp/create" method="post">    
+   	<!-- Error Message --> 
+	<label id="errorMessage" class="generalError" style="<?php if(isset($errorOccured) && $errorOccured) echo "display:block"; else "display:none" ?>">
+	<?php 
+	if(isset($errorOccured) && $errorOccured)
+		echo $errorMessage;
+	?>	
+	</label>
 
-<form id="boatRampForm" <?php 
-    if (!isset($ramp))
-        echo "action='index.php?rt=boatramp/create' ";
-    else 
-        echo "action='index.php?rt=boatramp/update&id=".$ramp['ID']. "'"; ?>
-method="post">
-    
-    <!-- Ramp Name -->
+	<!-- Ramp Name -->
     <label for="rampName">Name</label><br/>
     <input type="text" name="ramp[name]" class="medium" <?php if(isset($ramp)) echo "value='$name'"; ?> ><br/><br/>
 
@@ -99,7 +101,7 @@ method="post">
     <textarea name="ramp[notes]" rows="4" cols="25"><?php if(isset($ramp)) echo $ramp['notes'] ?></textarea><br/><br/>
     
     
-    <input type="submit" value="Submit">
+    <input type="submit" name="create" value="Submit">
     <?php echo $this->buttonTo("home","index","Cancel"); ?>
 </form>
 </div>

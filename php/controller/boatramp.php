@@ -49,7 +49,7 @@ class BoatRampController extends Controller
 
         
         /*** Get States ***/
-        $states = array("NH","ME");
+        $states = array("NH", "ME");
         /*** Get Towns ***/
         $towns = $this->getTowns();
         /*** Get Waterbodies ***/
@@ -66,7 +66,38 @@ class BoatRampController extends Controller
         /*** load the index template ***/
         $this->registry->template->show($this->name, 'create');
     }
-
+    
+    /**
+     * Gets called when a New Boat Ramp form is submitted
+     **/
+    public function create() {
+    	if($_POST['create'] == "Submit")
+    	{
+	    	if (isset($_SESSION['roleID']) && ($_SESSION['roleID'] < 3)) {
+	    		$model = new boatramp();	 
+	    		$ramp = $_POST["ramp"];
+	    		 
+	    		try {
+	    			$model->addBoatRamp($ramp);
+	    			header("location: index.php?rt=boatramp/index");
+	    			// sucess!
+	    		}
+	    		catch (Exception $e)
+	    		{
+	    			$this->registry->template->ramp = $ramp;
+	    			$this->registry->template->errorOccured = true;
+	    			$this->registry->template->errorMessage = "The form could not be submited! Double check that all the required fields are filled out.";
+					$this->newBoatRamp();
+	    		}
+	    	}
+    	}
+		else 
+		{
+			header("location: index.php?rt=boatramp/index");		
+		}
+    }
+    
+    
     /**
      * Loads the form to view a Boat Ramp
      **/
@@ -130,18 +161,7 @@ class BoatRampController extends Controller
         
     }
     
-    /**
-    * Gets called when a New Boat Ramp form is submitted
-    **/
-    public function create() {
-    	if (isset($_SESSION['roleID']) && ($_SESSION['roleID'] < 3)) {
-	        $model = new boatramp();
-	        $model->addBoatRamp($_POST["ramp"]);
-    	}
-	        
-        /*** Redirect User to BoatRamp/Index ***/
-        header("location: index.php?rt=boatramp/index");
-    }
+
     
     /**
     * Gets called when an Edit Boat Ramp form is submitted

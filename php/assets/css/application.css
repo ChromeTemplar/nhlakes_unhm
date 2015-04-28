@@ -153,6 +153,13 @@ margin: 10px;
 form input.error {
 border:1px solid red;
 }
+
+.generalError
+{
+	font-size:1.2em;
+	color:red;
+}
+
 .pager
 {
 	min-height:45px;
@@ -173,3 +180,17 @@ td.public {
 	color:red;
 	font-wieght:bold;
 }
+select.selectmenu {
+	border: 1px solid #aaa;
+	background: #5f88bb url("images/ui-bg_flat_75_5f88bb_40x100.png") 50% 50% repeat-x;
+	font-weight: normal;
+	color: #fff;
+	font-family: Verdana,Arial,sans-serif;
+	font-size: 1.1em;
+	padding:.4em 1em;
+	
+}
+.selectmenu option {
+	background-color: white;
+	color: black;
+  }

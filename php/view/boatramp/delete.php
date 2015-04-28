@@ -43,8 +43,11 @@ if (isset($ramp)) {
     else 
         echo "action='index.php?rt=boatramp/deleteRamp&id=".$ramp['ID']. "'"; ?>
 method="post">
-	    <div class="warning">Are you sure you want to delete this Boat Ramp?</div>
-     <br />
+    <div class="warning">Are you sure you want to delete this Boat Ramp?</div>
+    <br />
+    <input type="submit" value="Delete" name="delete">
+    <?php echo $this->buttonTo("home","index","Cancel"); ?>
+    <br/><br/> 
     <!-- Ramp Name -->
     <label for="rampName">Name</label><br/>
     <div name="rampName"><?php if(isset($ramp)) echo "$name"; ?></label><br/><br/>
@@ -106,10 +109,7 @@ method="post">
     
     <!-- Ramp Notes-->
     <label for="notes">Notes</label><br/>
-    <div><?php if(isset($ramp)) echo $ramp['notes'] ?></div><br/><br/>
-        
-    <input type="submit" value="Delete" name="delete">
-    <?php echo $this->buttonTo("home","index","Cancel"); ?>
+    <div><?php if(isset($ramp)) echo $ramp['notes'] ?></div>
 </form>
 </div>
 <br />

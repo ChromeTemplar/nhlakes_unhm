@@ -36,13 +36,7 @@ if (isset($ramp)) {
 <h1><?php echo $welcome; ?></h1>
 
 <div id="form">
-<form id="boatRampForm" <?php 
-    if (!isset($ramp))
-        echo "action='index.php?rt=boatramp/create' ";
-    else 
-        echo "action='index.php?rt=boatramp/update&id=".$ramp['ID']. "'"; ?>
-method="post">
-    
+<form id="boatRampForm" <?php echo "action='index.php?rt=boatramp/update&id=".$ramp['ID']. "'"; ?> method="post">
     <!-- Ramp Name -->
     <label for="rampName">Name</label><br/>
     <input type="text" name="ramp[name]" class="medium" <?php if(isset($ramp)) echo "value='$name'"; ?> ><br/><br/>

@@ -48,10 +48,12 @@ class BoatRamp extends Model
 
         /* Prepared statement, stage 2: bind and execute */
         if (!($stmt->bind_param("ssiisddsi", $data['state'], $data['name'], $data['waterbodyID'], $data['townID'], $data['notes'], $data['longitude'], $data['latitude'], $data['owner'], $data['private']))) {
-            echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
+            $errorMessage =  "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
+            throw new Exception($errorMessage);
         }
         if (!$stmt->execute()) {
-            echo "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
+            $errorMessage =  "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
+            throw new Exception($errorMessage);
         }
     }
 

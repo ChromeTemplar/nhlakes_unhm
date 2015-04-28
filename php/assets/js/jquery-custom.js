@@ -1,15 +1,19 @@
 $(document).ready(function () {
-
+		jQuery.validator.addMethod('selectcheck', function (value) {
+		    return (value != '-Select-');
+		}, "please select");
+	
+	
        $("input[type=button],input[type=submit], button").button();
 
        $(".radio").buttonset();
 
-       $(".selectmenu").selectmenu();
-
-       $("#towns, #waterbodies")
-            .selectmenu()
-            .selectmenu("menuWidget")
-                .addClass("overflow"); 
+       // removed this becuase is was messing up jquery validation
+//        $(".selectmenu").selectmenu();
+//       $("#towns, #waterbodies")
+//            .selectmenu()
+//            .selectmenu("menuWidget")
+//                .addClass("overflow"); 
     
     $("#navigation").find("li").hover(
         function() {
@@ -42,12 +46,42 @@ $(document).ready(function () {
     // Validation rules for the boat ramp form
     $("#boatRampForm").validate({
        rules: {
-           "ramp\[name\]" : "required"
+            "ramp\[name\]" :
+            {   
+        	   required:true,
+           	},
+           "ramp\[longitude\]" : {
+        	   required:true,
+        	   number:true,
+           },
+           "ramp\[latitude\]" : {
+        	   required:true,
+        	   number:true,
+           },
+           "ramp\[owner\]" : {
+        	   required:true,
+        	},
+            "ramp\[state\]" : {
+               selectcheck: true
+         	},
+            "ramp\[townID\]" : {
+                selectcheck: true
+          	},
+            "ramp\[waterbodyID\]" : {
+                selectcheck: true
+           	},
        },
        messages : {
-            "ramp\[name\]": "Ramp Name is required!"
+            "ramp\[name\]": "Ramp Name is required!",
+            "ramp\[state\]": "Please select a state!",
+            "ramp\[townID\]" : "Please select a town!",
+            "ramp\[waterbodyID\]": "Please select a body of water!"
         }
     });
+    
+    
+    
+    
     
     // Validation rules for the water body form
     $("#waterbody-form").validate({
@@ -59,4 +93,5 @@ $(document).ready(function () {
         }
     });
   
+ 
 });
