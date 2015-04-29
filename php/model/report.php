@@ -14,7 +14,6 @@ class report extends Model
     var $user = "root";
     var $pass = '';
     var $db = "NHVBSR";
-	var $thisyear = "2015";
 	
     /**
     * Constructor
@@ -31,9 +30,6 @@ class report extends Model
     } 
 	
 	// *** Functions below are queries for the Reporting Page for each section *** ///
-	
-	
-	
 	
 	// Displays the totals for all States. Sums the summary entries to create totals by state.
     function allStates($table = '', $cols= '	SUM(NH) as NH, 
@@ -53,7 +49,7 @@ class report extends Model
             $table = $this->table;
 
         /* Prepared statement, stage 1: prepare. Selects data from the summary table to be displayed on the report page. */ 
-        if (!($stmt = $mysqli->prepare("Select $cols FROM $table WHERE summaryDate >= $this->thisyear"))) {
+        if (!($stmt = $mysqli->prepare("Select $cols FROM $table WHERE YEAR(summaryDate) = YEAR(Now())"))) {
             echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
         }
         
@@ -73,7 +69,7 @@ class report extends Model
             $table = $this->table;
 
         /* Prepared statement, stage 1: prepare. Selects data from the summary table to be displayed on the report page. */ 
-        if (!($stmt = $mysqli->prepare("Select $cols FROM $table"))) {
+        if (!($stmt = $mysqli->prepare("Select $cols FROM $table WHERE YEAR(summaryDate) = YEAR(Now())"))) {
             echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
         }
         
@@ -90,7 +86,7 @@ class report extends Model
             $table = $this->table;
 
         /* Prepared statement, stage 1: prepare. Selects data from the summary table to be displayed on the report page. */ 
-        if (!($stmt = $mysqli->prepare("Select $cols FROM $table"))) {
+        if (!($stmt = $mysqli->prepare("Select $cols FROM $table WHERE YEAR(summaryDate) = YEAR(Now())"))) {
             echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
         }
         
@@ -107,7 +103,7 @@ class report extends Model
             $table = $this->table;
 
         /* Prepared statement, stage 1: prepare. Selects data from the summary table to be displayed on the report page. */ 
-        if (!($stmt = $mysqli->prepare("Select $cols FROM $table"))) {
+        if (!($stmt = $mysqli->prepare("Select $cols FROM $table WHERE YEAR(summaryDate) = YEAR(Now())"))) {
             echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
         }
         
@@ -125,7 +121,7 @@ class report extends Model
             $table = $this->table;
 
         /* Prepared statement, stage 1: prepare. Selects data from the summary table to be displayed on the report page. */ 
-        if (!($stmt = $mysqli->prepare("Select $cols FROM $table"))) {
+        if (!($stmt = $mysqli->prepare("Select $cols FROM $table WHERE YEAR(summaryDate) = YEAR(Now())"))) {
             echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
         }
         
@@ -142,7 +138,7 @@ class report extends Model
             $table = $this->table;
 
         /* Prepared statement, stage 1: prepare. Selects data from the summary table to be displayed on the report page. */ 
-        if (!($stmt = $mysqli->prepare("Select $cols FROM $table"))) {
+        if (!($stmt = $mysqli->prepare("Select $cols FROM $table WHERE YEAR(summaryDate) = YEAR(Now())"))) {
             echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
         }
         
@@ -160,7 +156,7 @@ class report extends Model
             $table = $this->table;
 
         /* Prepared statement, stage 1: prepare. Selects data from the summary table to be displayed on the report page. */ 
-        if (!($stmt = $mysqli->prepare("Select $cols FROM $table"))) {
+        if (!($stmt = $mysqli->prepare("Select $cols FROM $table WHERE YEAR(summaryDate) = YEAR(Now())"))) {
             echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
         }
         
@@ -177,7 +173,7 @@ class report extends Model
             $table = $this->table;
 
         /* Prepared statement, stage 1: prepare. Selects data from the summary table to be displayed on the report page. */ 
-        if (!($stmt = $mysqli->prepare("Select $cols FROM $table"))) {
+        if (!($stmt = $mysqli->prepare("Select $cols FROM $table WHERE YEAR(summaryDate) = YEAR(Now())"))) {
             echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
         }
         
@@ -194,7 +190,7 @@ class report extends Model
             $table = $this->table;
 
         /* Prepared statement, stage 1: prepare. Selects data from the summary table to be displayed on the report page. */ 
-        if (!($stmt = $mysqli->prepare("Select $cols FROM $table"))) {
+        if (!($stmt = $mysqli->prepare("Select $cols FROM $table WHERE YEAR(summaryDate) = YEAR(Now())"))) {
             echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
         }
         
