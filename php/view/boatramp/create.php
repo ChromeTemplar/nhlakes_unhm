@@ -31,9 +31,6 @@ if (isset($ramp)) {
     $owner = '';
     $private = 0;
 }
-
-$googleMap="https://www.google.com/maps/embed/v1/place?q=" . $latitude .",". $longitude . "&key=AIzaSyBQ4-bwkv8XTikMZ3772S4nG9w11Q5JL2k";
-
 ?>
 <h1><?php echo $welcome; ?></h1>
 
@@ -61,10 +58,24 @@ $googleMap="https://www.google.com/maps/embed/v1/place?q=" . $latitude .",". $lo
     <input type="radio" name="ramp[private]" value="0" <?php if ($private == 0) { echo "checked"; } ?> 
     >public<br />
     <input type="radio" name="ramp[private]" value="1" <?php if ($private == 1) { echo "checked"; } ?>
-    >private<br>
-    <br/>
-
-    <div class="coordinates">
+    >private<br><br/>
+    
+    <!-- Ramp State -->
+    <label for="state">State</label><br/>
+    <?php echo $this->selectList($states, array("name" => "ramp[state]", "id" => "state", "class" => "medium selectmenu"),$state); ?>
+    <br/><br/>
+    
+    <!-- Ramp Town -->
+    <label for="town">Town</label><br/>
+    <?php echo $this->selectList($towns, array("name" => "ramp[townID]","id" => "town", "class" => "medium selectmenu", "id" => "towns"),$town, true); ?>
+    <br/><br/>
+    
+    <!-- Ramp Waterbody -->
+    <label for="waterbody">Waterbody</label><br/>
+    <?php echo $this->selectList($waterbodies, array("name" => "ramp[waterbodyID]", "id" => "waterbodies", "class" => "medium selectmenu"),$waterbody, true); ?>
+    <br/><br />
+    
+     <div class="coordinates">
     	<div class="latitude">
 			<!-- Ramp Latitude -->
 			<label for="rampLatitude">Latitude</label><br/>
@@ -76,7 +87,7 @@ $googleMap="https://www.google.com/maps/embed/v1/place?q=" . $latitude .",". $lo
 			<input type="text" id="longitude" name="ramp[longitude]" class="medium" <?php if(isset($ramp)) echo "value='$longitude'"; ?>>
     	</div>
     	<div class="nhvbsrMapBtn">
-    		<input type="button" value="Lookup coorinates" onclick="nhvbsrMap.codeLatLng()">
+    		<input type="button" class="coordinatesBtn" value="Lookup coordinates" onclick="nhvbsrMap.codeLatLng()">
     	</div>
     </div>
 	<div id="map-canvas">
@@ -92,21 +103,6 @@ $googleMap="https://www.google.com/maps/embed/v1/place?q=" . $latitude .",". $lo
 		</script>  	
    	</div>
     <br/>
-    
-    <!-- Ramp State -->
-    <label for="state">State</label><br/>
-    <?php echo $this->selectList($states, array("name" => "ramp[state]", "id" => "state", "class" => "medium selectmenu"),$state); ?>
-    <br/><br/>
-    
-    <!-- Ramp Town -->
-    <label for="town">Town</label><br/>
-    <?php echo $this->selectList($towns, array("name" => "ramp[townID]","id" => "town", "class" => "medium selectmenu", "id" => "towns"),$town, true); ?>
-    <br/><br/>
-    
-    <!-- Ramp Waterbody -->
-    <label for="waterbody">Waterbody</label><br/>
-    <?php echo $this->selectList($waterbodies, array("name" => "ramp[waterbodyID]", "id" => "waterbodies", "class" => "medium selectmenu"),$waterbody, true); ?>
-    <br/><br/>
     
     <!-- Ramp Notes-->
     <label for="notes">Notes</label><br/>

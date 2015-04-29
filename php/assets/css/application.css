@@ -215,6 +215,10 @@ select.selectmenu {
  	vertical-align:bottom;
 	margin-bottom: 12px;
  }
+ 
+ .coordinatesBtn {
+ 	width:228px;
+ }
 
 .latitude label.error, .longitude label.error  {
 	margin: 0;

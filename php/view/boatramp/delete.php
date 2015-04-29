@@ -51,13 +51,19 @@ method="post">
     <!-- Ramp Name -->
     <label for="rampName">Ramp Name</label><br/>
     <div><?php if(isset($ramp)) echo "$name"; ?></div><br/><br/>
-    
+   
+       <!-- Ramp Name -->
+    <label>Ramp Name</label><br/>
+    <div><?php if(isset($ramp)) echo "$name"; ?>
+    </div><br/>
+       
     <!-- Ramp Owner -->
     <label for="rampOwner">Owner</label><br/>
-    <div><?php if(isset($ramp)) echo $owner; ?></div><br/>
+    <div><?php if(isset($ramp)) echo $owner; ?>
+    </div><br/>
     
     <!-- Ramp Private -->
-    <label>Ramp Access</label><br/>
+    <label for="private">Ramp Access</label><br/>
     <div>
             <?php 
         	if ($private == true) {
@@ -67,30 +73,13 @@ method="post">
             	echo "Public - This boat ramp is in public domain.";
             }
         ?> 
-    </div>
-    <br/>
-    
- 	<div>
- 	    <label>Location</label><br/>
-		<div id="map-canvas">
-			<script>
-				// setup google map.
-				nhvbsrMap.edit = false; // give the map the id
-				nhvbsrMap.latitudeID = 'latitude'; // give the map the id
-				nhvbsrMap.longitudeID = 'longitude';
-				nhvbsrMap.latitude = <?php echo $latitude ?>;
-				nhvbsrMap.longitude = <?php echo $longitude ?>;
-				nhvbsrMap.mapID = 'map-canvas',
-				google.maps.event.addDomListener(window, 'load', nhvbsrMap.initialize);
-			</script>  	
-	   	</div>
-    </div>
-    <br />
-    
+    </div><br/>
+
     <!-- Ramp State -->
     <label for="state">State</label><br/>
+    <div>
     <?php echo $state; ?>
-    <br/><br/>
+    </div><br/>
     
     <!-- Ramp Town -->
     <label for="town">Town</label><br/>
@@ -116,12 +105,29 @@ method="post">
     </div>
     <br />
     
+    <div>
+ 	    <label>Location</label><br/>
+		<div id="map-canvas">
+			<script>
+				// setup google map.
+				nhvbsrMap.edit = false; // give the map the id
+				nhvbsrMap.latitudeID = 'latitude'; // give the map the id
+				nhvbsrMap.longitudeID = 'longitude';
+				nhvbsrMap.latitude = <?php echo $latitude ?>;
+				nhvbsrMap.longitude = <?php echo $longitude ?>;
+				nhvbsrMap.mapID = 'map-canvas',
+				google.maps.event.addDomListener(window, 'load', nhvbsrMap.initialize);
+			</script>  	
+	   	</div>
+    </div>
+    <br />
+    
     <!-- Ramp Notes-->
     <label for="notes">Notes</label><br/>
     <div><?php if(isset($ramp)) echo $ramp['notes'] ?></div>
 </form>
 </div>
-<br />
+<br /><br />
 <div class="botViewBtn">
 List <?php echo $this->linkTo("boatramp", "index", "Boat Ramps"); ?><br>
 Return <?php echo $this->linkTo("home","index","Home"); ?></div>
