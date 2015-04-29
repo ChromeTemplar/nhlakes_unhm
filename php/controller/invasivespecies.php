@@ -29,11 +29,12 @@ class InvasiveSpeciesController extends Controller
         $invasivespecies = $model->all("InvasiveSurvey");
         
         $lakeGroupStats = new LakeGroupStats();
-        
         /*** Get Survey Totals ***/
         $surveyTotalGroup = $lakeGroupStats->getSurveyTotalByGroup(1);
         $surveyTotalUser = $lakeGroupStats->getSurveyTotalByUser(1);
         $surveyTotal = $lakeGroupStats->getSurveyTotal();
+        $lakeHostGroupName = $lakeGroupStats->getlakeHostGroupName($_SESSION['userName']);
+
         
         /*** set a template variable ***/
         
@@ -41,6 +42,7 @@ class InvasiveSpeciesController extends Controller
         $this->registry->template->surveyTotalGroup = $surveyTotalGroup;
         $this->registry->template->surveyTotalUser = $surveyTotalUser;
         $this->registry->template->surveyTotal = $surveyTotal;
+        $this->registry->template->lakeHostGroupName = $lakeHostGroupName;
         
         $this->registry->template->welcome = 'Invasive Survey';
         

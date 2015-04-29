@@ -685,6 +685,7 @@ FOREIGN KEY (lakeHostGroupID) REFERENCES LakeHostGroup(ID)
 
 CREATE TABLE Summary (
 ID int(11) NOT NULL AUTO_INCREMENT,
+lakeHostGroupID int (11),
 NH int(4),
 ME int(4),
 MA int(4),
@@ -721,6 +722,7 @@ startShiftTime datetime,
 endShiftTime datetime,
 FOREIGN KEY (boatRampID) REFERENCES BoatRamp(ID),
 FOREIGN KEY (userID) REFERENCES User(ID),
+FOREIGN KEY (lakeHostGroupID) REFERENCES LakeHostGroup(ID),
 PRIMARY KEY (ID)
 );
 
@@ -732,7 +734,6 @@ ID int(11) NOT NULL AUTO_INCREMENT,
 userID int(11),
 boatRampID int(11),
 summaryID int(11),
-lakeHostGroupID int (11),
 name varchar(50),
 surveyDate date,
 dateCreated timestamp,
@@ -758,8 +759,7 @@ desSave tinyint,
 PRIMARY KEY (ID),
 FOREIGN KEY (boatRampID) REFERENCES BoatRamp(ID),
 FOREIGN KEY (userID) REFERENCES User(ID),
-FOREIGN KEY (summaryID) REFERENCES Summary(ID),
-FOREIGN KEY (lakeHostGroupID) REFERENCES LakeHostGroup(ID)
+FOREIGN KEY (summaryID) REFERENCES Summary(ID)
 );
 
 

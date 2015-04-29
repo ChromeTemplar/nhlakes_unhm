@@ -4,11 +4,11 @@
         <th colspan='2' class="surveytotalheader">Survey Total</th>
     </tr>
     <tr>
-        <td id="surveytotalblue">Group</td>
+        <td id="surveytotalblue">Group: <?php echo $lakeHostGroupName; ?></td>
         <td><?php echo $surveyTotalGroup ?></td>
     </tr>
     <tr>
-        <td id="surveytotalblue">User</td>
+        <td id="surveytotalblue">User: <?php echo $_SESSION['firstName'].' '.$_SESSION['lastName']; ?></td>
         <td><?php echo $surveyTotalUser ?></td>
     </tr>
     <tr>
