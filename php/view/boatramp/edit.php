@@ -26,50 +26,70 @@ if (isset($ramp)) {
     $state = '';
     $town = '';
     $waterbody = '';
-    $longitude = '';
-    $latitude = '';
+    $latitude = '42.9869';
+    $longitude = '-71.4686';
     $owner = '';
     $private = 0;
 }
+
+$googleMap="https://www.google.com/maps/embed/v1/place?q=" . $latitude .",". $longitude . "&key=AIzaSyBQ4-bwkv8XTikMZ3772S4nG9w11Q5JL2k";
+
 ?>
 
 <h1><?php echo $welcome; ?></h1>
 
 <div id="form">
 <form id="boatRampForm" <?php echo "action='index.php?rt=boatramp/update&id=".$ramp['ID']. "'"; ?> method="post">
+    <?php if(isset($errorOccured) && $errorOccured) { ?>
+   	<!-- Error Message -->
+	<label id="errorMessage" class="generalError">
+	<?php	echo $errorMessage; ?>	
+	</label>
+	<?php } ?>
+    
     <!-- Ramp Name -->
-    <label for="rampName">Name</label><br/>
+    <label for="rampName">Ramp Name</label><br/>
     <input type="text" name="ramp[name]" class="medium" <?php if(isset($ramp)) echo "value='$name'"; ?> ><br/><br/>
 
-    <!-- Ramp Longitude -->
-    <label for="rampLongitude">Longitude</label><br/>
-    <input type="text" name="ramp[longitude]" class="medium" <?php if(isset($ramp)) echo "value='$longitude'"; ?> ><br/><br/>
-    
-    <!-- Ramp Latitude -->
-    <label for="rampLatitude">Latitude</label><br/>
-    <input type="text" name="ramp[latitude]" class="medium" <?php if(isset($ramp)) echo "value='$latitude'"; ?> ><br/><br/>
-    
     <!-- Ramp Owner -->
     <label for="rampOwner">Owner</label><br/>
     <input type="text" name="ramp[owner]" class="medium" <?php if(isset($ramp)) echo "value='$owner'"; ?> ><br/><br/>
     
-    <!-- Ramp Private -->
-    <label for="private">Ramp Access</label><br/>
-    <input type="radio" name="ramp[private]" value="0"
-        <?php 
-        	if ($private == 0) {
-                echo "checked";
-            }
-        ?> 
-    >public<br>
-    <input type="radio" name="ramp[private]" value="1"
-        <?php 
-            if ($private == 1) {
-                echo "checked";
-            }
-        ?>
+        <!-- Ramp Access -->
+    <label for="private">Ramp Access</label><br />
+    <input type="radio" name="ramp[private]" value="0" <?php if ($private == 0) { echo "checked"; } ?> 
+    >public<br />
+    <input type="radio" name="ramp[private]" value="1" <?php if ($private == 1) { echo "checked"; } ?>
     >private<br>
-
+    <br/>
+    
+    <div class="coordinates">
+    	<div class="latitude">
+			<!-- Ramp Latitude -->
+			<label for="rampLatitude">Latitude</label><br/>
+			<input type="text" id="latitude" name="ramp[latitude]" class="medium" <?php if(isset($ramp)) echo "value='$latitude'"; ?> >
+    	</div>
+    	<div class="longitude">
+    		<!-- Ramp Longitude -->
+  			<label for="rampLongitude">Longitude</label><br/>
+			<input type="text" id="longitude" name="ramp[longitude]" class="medium" <?php if(isset($ramp)) echo "value='$longitude'"; ?>>
+    	</div>
+    	<div class="nhvbsrMapBtn">
+    		<input type="button" value="Lookup coorinates" onclick="nhvbsrMap.codeLatLng()">
+    	</div>
+    </div>
+	<div id="map-canvas">
+		<script>
+			// setup google map.
+			nhvbsrMap.edit = true; // give the map the id
+			nhvbsrMap.latitudeID = 'latitude'; // give the map the id
+			nhvbsrMap.longitudeID = 'longitude';
+			nhvbsrMap.latitude = <?php echo $latitude ?>;
+			nhvbsrMap.longitude = <?php echo $longitude ?>;
+			nhvbsrMap.mapID = 'map-canvas',
+			google.maps.event.addDomListener(window, 'load', nhvbsrMap.initialize);
+		</script>  	
+   	</div>
     <br/>
     
     <!-- Ramp State -->

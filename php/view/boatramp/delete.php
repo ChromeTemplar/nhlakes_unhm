@@ -20,7 +20,7 @@ if (isset($ramp)) {
     $owner = $ramp['owner'];
     $private = $ramp['private'];
     $waterbody = $ramp['waterbodyID'];
-    $owner = $ramp['owner'];
+    $owner = $ramp['owner'];    
 } else {
     $name = '';
     $state = '';
@@ -49,24 +49,16 @@ method="post">
     <?php echo $this->buttonTo("home","index","Cancel"); ?>
     <br/><br/> 
     <!-- Ramp Name -->
-    <label for="rampName">Name</label><br/>
-    <div name="rampName"><?php if(isset($ramp)) echo "$name"; ?></label><br/><br/>
-
-    <!-- Ramp Longitude -->
-    <label for="rampLongitude">Longitude</label><br/>
-    <div name="rampLongitude"><?php if(isset($ramp)) echo $longitude; ?></div></div><br/>
-    
-    <!-- Ramp Latitude -->
-    <label for="rampLatitude">Latitude</label><br/>
-    <div name="rampLatitude"><?php if(isset($ramp)) echo $latitude; ?> </div><br/>
+    <label for="rampName">Ramp Name</label><br/>
+    <div><?php if(isset($ramp)) echo "$name"; ?></div><br/><br/>
     
     <!-- Ramp Owner -->
     <label for="rampOwner">Owner</label><br/>
-    <div name="rampOwner"><?php if(isset($ramp)) echo $owner; ?></div><br/>
+    <div><?php if(isset($ramp)) echo $owner; ?></div><br/>
     
     <!-- Ramp Private -->
     <label>Ramp Access</label><br/>
-    <div name="private">
+    <div>
             <?php 
         	if ($private == true) {
                 echo "Private - This boat ramp is in private domain. TRESPASSERS WILL BE SHOT. SURVIVORS WILL BE SHOT AGAIN.";
@@ -77,6 +69,23 @@ method="post">
         ?> 
     </div>
     <br/>
+    
+ 	<div>
+ 	    <label>Location</label><br/>
+		<div id="map-canvas">
+			<script>
+				// setup google map.
+				nhvbsrMap.edit = false; // give the map the id
+				nhvbsrMap.latitudeID = 'latitude'; // give the map the id
+				nhvbsrMap.longitudeID = 'longitude';
+				nhvbsrMap.latitude = <?php echo $latitude ?>;
+				nhvbsrMap.longitude = <?php echo $longitude ?>;
+				nhvbsrMap.mapID = 'map-canvas',
+				google.maps.event.addDomListener(window, 'load', nhvbsrMap.initialize);
+			</script>  	
+	   	</div>
+    </div>
+    <br />
     
     <!-- Ramp State -->
     <label for="state">State</label><br/>

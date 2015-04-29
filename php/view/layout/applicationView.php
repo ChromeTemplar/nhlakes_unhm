@@ -17,7 +17,10 @@
         <script src="assets/js/jplist-core.min.js"></script>
         <script src="assets/js/jplist.textbox-control.min.js"></script>
         <script src="assets/js/jplist.pagination-bundle.min.js"></script>   
-        
+		<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
+		<script src="assets/js/maps-custom.js"></script>         
+		
+
     </head>
     
     <body>

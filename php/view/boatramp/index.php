@@ -9,7 +9,7 @@
 <?php if ($ramps != ""){ 
 
 $displayList = array(
-		"Name" => "name",	
+		"Ramp Name" => "name",	
 		//"WaterBody" => "waterbodyID",		
 		"Owner" => "owner",
 		"Ramp Access" => "private",

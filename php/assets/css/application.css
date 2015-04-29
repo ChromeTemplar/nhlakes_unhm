@@ -193,4 +193,36 @@ select.selectmenu {
 .selectmenu option {
 	background-color: white;
 	color: black;
-  }
+}
+
+.latitude {
+	display:inline-block;
+	vertical-align:top;
+	width:182px;
+	height:75px;
+}
+.longitude {
+	display:inline-block;
+	vertical-align:top;
+	width:182px;
+	height:75px;
+}
+
+ .nhvbsrMapBtn {
+ 	display:inline-block;
+ 	vertical-align:bottom;
+	margin-bottom: 12px;
+ }
+
+.latitude label.error, .longitude label.error  {
+	margin: 0;
+	display: block;
+}
+
+#map-canvas {
+    height: 400px;
+    width:600px;
+    margin-top: 10px;
+    padding: 0px
+ }
+ 
