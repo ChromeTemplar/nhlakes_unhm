@@ -18,7 +18,7 @@
 				<input type="text" name="userId" value="User ID" class="userId" onblur="onBlur(this)" onfocus="onFocus(this)"/> <br />
 				<br /> <input type="password" name="password" value="Password" onblur="onBlur(this)" onfocus="onFocus(this)"
 					class="password" /> <br /> <br /> <input type="submit"
-					value="Submit" class="button" /> <br />
+					value="Login" class="button" /> <br />
 			</form>
 			<script>
 			function onBlur(el) {
