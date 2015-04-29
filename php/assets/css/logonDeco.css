@@ -28,6 +28,11 @@ body {
 .password:hover, .password:focus,
 input[type=submit]:hover, input[type=submit]:focus {
     opacity: 1.0;
+    
+}
+
+input[type=submit]:hover, input[type=submit]:focus {
+    background-color:green;
 }
 
 .userId, .password {
@@ -39,16 +44,19 @@ input[type=submit]:hover, input[type=submit]:focus {
 
 input[type=submit] {
     padding:5px 15px;
-    background:#6595ED;
-    border:0 none;
+    background-color:blue;
+    color:white;
+
     cursor:pointer;
     -webkit-border-radius:10px;
     border-radius:5px; 
     height:50px; 
     width:120px;
     font-size:20px;
-    opacity: 0.8;
+    opacity: 0.9;
 	float:right;
+	border:solid 1px;
+	border-color:white;
     margin-right: 16px;
    
 }
