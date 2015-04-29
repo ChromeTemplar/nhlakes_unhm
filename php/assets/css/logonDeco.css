@@ -1,3 +1,7 @@
+body {
+	margin:20px 0;
+}
+
 * {
 	font-family:cursive;
 	font-size:12px;
@@ -5,9 +9,12 @@
 
 #form {
 	float:center;
+	width:400px;
+	margin:12% auto;
 }
 
 #wholeBody {
+	width:100%;
 }
 
 
@@ -16,9 +23,6 @@
 	 background-attachment: fixed;
 	 background-repeat: no-repeat;
 	 background-size : 100% 100%;
-}
-.userId {	
-    margin-right:20em;
 }
 .userId:hover, .userId:focus,
 .password:hover, .password:focus,
@@ -33,11 +37,6 @@ input[type=submit]:hover, input[type=submit]:focus {
     opacity:0.8;
 }
 
-.password {
-    margin-right:40em;
-	
-}
-
 input[type=submit] {
     padding:5px 15px;
     background:#6595ED;
@@ -49,6 +48,9 @@ input[type=submit] {
     width:120px;
     font-size:20px;
     opacity: 0.8;
+	float:right;
+    margin-right: 16px;
+   
 }
 
 .err_msg {
@@ -67,4 +69,19 @@ input[type=submit] {
 	position:relative;
 	top=30px;
 	right=40px;
+}
+.welcome_msg {
+	font-family:cursive;
+	font-size:40px;
+	color:gold;
+	position:relative;
+	top=30px;
+	right=40px;
+}
+.messageBanner
+{
+opacity:0.8; 
+background-color:white;
+text-align:center;
+width:100%;"
 }

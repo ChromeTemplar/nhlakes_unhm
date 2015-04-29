@@ -8,7 +8,11 @@
 
 <body class="background_style">
 	<div id="wholeBody">
-		<br /> <br /> <br /> <br /> <br />
+		<div class="messageBanner">
+			<span class="welcome_msg" style="text-align:center;">
+			Welcome to NHVBSR.GOV!
+			</span>
+		</div>
 		<div id="form">
 			<form action="index.php?rt=home/index" method="post">
 				<input type="text" name="userId" value="User ID" class="userId" onblur="onBlur(this)" onfocus="onFocus(this)"/> <br />
@@ -29,28 +33,32 @@
 			}
 			</script>
 		</div>
+					
+		<div class="messageBanner">
+			<span class="err_msg" style="text-align:center;">
+				<?php
+				//the below lines of codes are displaying the error message 	
+			if (isset ( $_SESSION ['Login.Error'] )) {
+						echo $_SESSION ['Login.Error'];
+						unset ( $_SESSION ['Login.Error'] );
+			// 			echo "<script type=text/javascript>";
+			// 			echo "alert('An error has occurred.')";
+			// 			echo "</script>";
+					}
+					?>
+			</span>
+			<span class="info_msg">
+				<?php
+				// the below lines of codes are displaying the information message
+				if (isset ( $_SESSION ['LOGIN.info'] )) {
+					echo $_SESSION ['LOGIN.info'];
+					unset ( $_SESSION ['LOGIN.info'] );
+				}
+				?>	
+			</span>
+		</div>
 	</div>
-	<span class="err_msg">
-		<?php
-	//the below lines of codes are displaying the error message 	
-if (isset ( $_SESSION ['Login.Error'] )) {
-			echo $_SESSION ['Login.Error'];
-			unset ( $_SESSION ['Login.Error'] );
-			echo "<script type=text/javascript>";
-			echo "alert('An error has occurred.')";
-			echo "</script>";
-		}
-		?>
-	</span>
-	<span class="info_msg">
-		<?php
-		// the below lines of codes are displaying the information message
-		if (isset ( $_SESSION ['LOGIN.info'] )) {
-			echo $_SESSION ['LOGIN.info'];
-			unset ( $_SESSION ['LOGIN.info'] );
-		}
-		?>	
-	</span>
+	
 </body>
 
 </html>

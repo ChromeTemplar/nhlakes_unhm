@@ -15,7 +15,7 @@ class sessionendController {
 		$loginNHVBSRdb = new loginNHVBSRmodel();
 		$loginNHVBSRdb->deactivateSession($sessionVal, 'A');
 		
-		$_SESSION['Login.Error'] = "You are successfully logged off ! ";
+		$_SESSION['LOGIN.info'] = "You are successfully logged off ! ";
 		session_destroy();
 		$this->registry->template->showlogon('session', 'LoginNHVBSR');
 		
