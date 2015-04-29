@@ -313,7 +313,7 @@ class template
     	}
     	
     	//Add edit button column to the end
-    	$html .= "<th> </th>";
+    	$html .= "<th>Actions</th>";
     	$html .= "</tr></thead>";
     
     	//loop through all
