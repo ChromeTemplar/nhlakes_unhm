@@ -30,8 +30,8 @@ class InvasiveSpeciesController extends Controller
         
         $lakeGroupStats = new LakeGroupStats();
         /*** Get Survey Totals ***/
-        $surveyTotalGroup = $lakeGroupStats->getSurveyTotalByGroup(1);
-        $surveyTotalUser = $lakeGroupStats->getSurveyTotalByUser(1);
+        $surveyTotalGroup = $lakeGroupStats->getSurveyTotalByGroup($_SESSION['userName']);
+        $surveyTotalUser = $lakeGroupStats->getSurveyTotalByUser($_SESSION['userName']);
         $surveyTotal = $lakeGroupStats->getSurveyTotal();
         $lakeHostGroupName = $lakeGroupStats->getlakeHostGroupName($_SESSION['userName']);
 

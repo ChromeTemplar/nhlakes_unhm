@@ -22,17 +22,21 @@ class LakeGroupStats extends Model
        $this->conn = mysqli_connect($this->host, $this->user, $this->pass, $this->db) or $this->error('Could not connect to database. Make sure settings are correct.'); 
     }
     
-    function getSurveyTotalByGroup($lakeHostGroupID) 
+    function getSurveyTotalByGroup($username) 
     {
         $mysqli = $this->conn;
         
         /* Prepared statement, stage 1: prepare */
-        if (!($stmt = $mysqli->prepare("SELECT COUNT(*) as surveyTotal FROM summary WHERE lakeHostGroupID = ?"))) {
+        if (!($stmt = $mysqli->prepare("SELECT COUNT(*) as surveyTotal  FROM lakehostgroup
+            JOIN summary ON summary.lakeHostGroupID = lakehostgroup.ID
+            JOIN lakehostmember ON lakehostmember.lakeHostGroupID = lakehostgroup.ID
+            JOIN user ON user.ID = lakehostmember.userID
+            WHERE user.userName = ?"))) {
             echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
         }
 
         /* Prepared statement, stage 2: bind and execute */
-        if (!($stmt->bind_param("i", $lakeHostGroupID))) {
+        if (!($stmt->bind_param("s", $username))) {
             echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
         }
 
@@ -44,17 +48,19 @@ class LakeGroupStats extends Model
         return $total['surveyTotal'];
     }
     
-    function getSurveyTotalByUser($userID) 
+    function getSurveyTotalByUser($username) 
     {
         $mysqli = $this->conn;
         
         /* Prepared statement, stage 1: prepare */
-        if (!($stmt = $mysqli->prepare("SELECT COUNT(*) as surveyTotal FROM summary WHERE userID = ?"))) {
+        if (!($stmt = $mysqli->prepare("SELECT COUNT(*) as surveyTotal FROM summary 
+            JOIN user ON user.ID = summary.userID
+            WHERE user.userName = ?"))) {
             echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
         }
 
         /* Prepared statement, stage 2: bind and execute */
-        if (!($stmt->bind_param("i", $userID))) {
+        if (!($stmt->bind_param("s", $username))) {
             echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
         }
 
