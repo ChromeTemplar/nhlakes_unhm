@@ -119,3 +119,5 @@ $googleMap="https://www.google.com/maps/embed/v1/place?q=" . $latitude .",". $lo
 </div>
 
 List <?php echo $this->linkTo("boatramp", "index", "Boat Ramps"); ?><br>
+Return <?php echo $this->linkTo("home","index","Home"); ?></div>
+<br /><br />
