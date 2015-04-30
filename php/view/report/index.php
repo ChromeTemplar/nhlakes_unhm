@@ -9,11 +9,9 @@ Info: Displays the report created from build report on the reporting page. See M
 **/
 
 // Build report if there is no report available. If data is available the report will be displayed.
-if ($report !="")
-	echo $this->buildReport($report);
-else
-	// If no data is available or there is no database connection, the following will be displayed.
-	echo "<h2> There are no Survey Summaries in the system. </h2>";
+echo $this->buttonTo("report", "allReports", "All");
+echo $this->buttonTo("report","rampReports", "By Boat Ramp");
+echo $this->buttonTo("report","groupReports", "By Lake Group");
 
 ?><br>
 <!-- Displays the home link to return back to the home page. -->
