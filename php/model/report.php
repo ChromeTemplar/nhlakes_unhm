@@ -56,6 +56,16 @@ class report extends Model
         return $this->process($stmt);
     }
 	
+	
+	///////////////////////////////////////////
+	///////////////////////////////////////////
+	// Section 1 - All Summaries //////////////
+	///////////////////////////////////////////
+	///////////////////////////////////////////
+	
+	
+	
+	
 	// Shows totals for all Boat Types
     function allBoatTypes($table = '', $cols= '	SUM(inboardOutboard) as "I/O", 
 												SUM(pwc) as "PWC Jet",
@@ -196,6 +206,16 @@ class report extends Model
         
         return $this->process($stmt);
     }
+	
+	
+	
+	///////////////////////////////////////////
+	///////////////////////////////////////////
+	// Section 2 - Group By Ramp //////////////
+	///////////////////////////////////////////
+	///////////////////////////////////////////
+	
+	
 	
 	function allStatesRamp($table = 'summary s, boatramp b', $cols= 'b.name as "Boat Ramp",
 												SUM(s.NH) as NH, 
@@ -371,8 +391,20 @@ class report extends Model
         return $this->process($stmt);
     }
 	
+	
+	
+	///////////////////////////////////////////
+	///////////////////////////////////////////
+	// Section 3 - Group By Lake Host Group////
+	///////////////////////////////////////////
+	///////////////////////////////////////////
+	
+	
+	
+	
+	
 		// Displays the totals for all States. Sums the summary entries to create totals by state.
-    function allStatesGroup($table = 'summary s, boatramp b, lakehostgroup l', $cols= 'l.lakeHostGroupName,
+    function allStatesGroup($table = 'summary s, boatramp b, lakehostgroup l', $cols= 'l.lakeHostGroupName as "Group Name",
 												SUM(s.NH) as NH, 
 												SUM(s.ME) as ME,
 												SUM(s.MA) as MA, 
@@ -401,7 +433,7 @@ class report extends Model
     }
 	
 	// Shows totals for all Boat Types
-    function allBoatTypesGroup($table = 'summary s, boatramp b, lakehostgroup l', $cols= 'l.lakeHostGroupName,	
+    function allBoatTypesGroup($table = 'summary s, boatramp b, lakehostgroup l', $cols= 'l.lakeHostGroupName as "Group Name",	
 												SUM(s.inboardOutboard) as "I/O", 
 												SUM(s.pwc) as "PWC Jet",
 												SUM(s.canoeKayak) as "Canoe/Kayak",
@@ -425,7 +457,7 @@ class report extends Model
     }
 
 	// Show totals for Previously Interacted and Never Interacted.
-	function allPreviousInteractionsGroup($table = 'summary s, boatramp b, lakehostgroup l', $cols= 'l.lakeHostGroupName,	
+	function allPreviousInteractionsGroup($table = 'summary s, boatramp b, lakehostgroup l', $cols= 'l.lakeHostGroupName as "Group Name",	
 												SUM(s.previous) as "Previously Interacted", 
 												SUM(s.notPrevious) as "Never Interacted"
 												') {
@@ -446,7 +478,7 @@ class report extends Model
     }
 	
 	// Displays totals for Drained and Not Drained.
-	function allDrainedGroup($table = 'summary s, boatramp b, lakehostgroup l', $cols= 'l.lakeHostGroupName,
+	function allDrainedGroup($table = 'summary s, boatramp b, lakehostgroup l', $cols= 'l.lakeHostGroupName as "Group Name",
 												SUM(s.drained) as "Drained", 
 												SUM(s.notDrained) as "Not Drained"
 												') {
@@ -467,7 +499,7 @@ class report extends Model
     }
 	
 	// Displays totals for Rinsed and Not rinsed.
-	function allRinsedGroup($table = 'summary s, boatramp b, lakehostgroup l', $cols= 'l.lakeHostGroupName,
+	function allRinsedGroup($table = 'summary s, boatramp b, lakehostgroup l', $cols= 'l.lakeHostGroupName as "Group Name",
 												SUM(s.rinsed) as "Rinsed", 
 												SUM(s.notRinsed) as "Not Rinsed"
 												
@@ -489,7 +521,7 @@ class report extends Model
     }
 	
 	// Displays totals for Dried and Not dried.
-	function allDriedGroup($table = 'summary s, boatramp b, lakehostgroup l', $cols= 'l.lakeHostGroupName,
+	function allDriedGroup($table = 'summary s, boatramp b, lakehostgroup l', $cols= 'l.lakeHostGroupName as "Group Name",
 												SUM(s.dry5) as "Dried", 
 												SUM(s.notDry5) as "Not Dried"
 												') {
@@ -510,7 +542,7 @@ class report extends Model
     }
 	
 	// Displays totals for Low Awareness, Medium Awareness, High Awareness.
-	function allAwarenessGroup($table = 'summary s, boatramp b, lakehostgroup l', $cols= 'l.lakeHostGroupName,
+	function allAwarenessGroup($table = 'summary s, boatramp b, lakehostgroup l', $cols= 'l.lakeHostGroupName as "Group Name",
 												SUM(s.awarenessLow) as "Low Awareness", 
 												SUM(s.awarenessMedium) as "Medium Awareness", 
 												SUM(s.awarenessHigh) as "High Awareness"
@@ -532,7 +564,7 @@ class report extends Model
     }
 	
 	// Displays totals for Species Found and Species Not Found.
-	function allSpeciesFoundGroup($table = 'summary s, boatramp b, lakehostgroup l', $cols= 'l.lakeHostGroupName,	
+	function allSpeciesFoundGroup($table = 'summary s, boatramp b, lakehostgroup l', $cols= 'l.lakeHostGroupName as "Group Name",	
 												SUM(s.speciesFoundYes) as "Species Found", 
 												SUM(s.speciesFoundNo) as "Species Not Found"
 												') {
@@ -553,7 +585,7 @@ class report extends Model
     }
 	
 	// Displays totals for Sent to DES and Not Sent to DES.
-	function allSpecimenSentGroup($table = 'summary s, boatramp b, lakehostgroup l', $cols= 'l.lakeHostGroupName,	
+	function allSpecimenSentGroup($table = 'summary s, boatramp b, lakehostgroup l', $cols= 'l.lakeHostGroupName as "Group Name",	
 												SUM(s.sentDesYes) as "Sent to DES", 
 												SUM(s.sentDesNo) as "Not Sent to DES"
 												') {
