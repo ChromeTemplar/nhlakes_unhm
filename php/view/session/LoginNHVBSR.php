@@ -42,7 +42,7 @@
 						echo $_SESSION ['Login.Error'];
 						unset ( $_SESSION ['Login.Error'] );
 						echo "<script type=text/javascript>";
-						echo "alert('Error'.')";
+						echo "alert('Error 400'.')";
 						echo "</script>";
 					}
 					?>

@@ -158,12 +158,13 @@ class template
     	
     	//the username of the current session holder
     	$currentSessionUser = $_SESSION['userName'];
+    	//switches to lowercase
+    	$currentSessionUser = strtolower($currentSessionUser);
     	
     	//The indexes of the array of users
-    	
     	for($n=0; $n<count($list); $n++){
     		foreach($list[$n] as $key => $val){
-    			if($val==$currentSessionUser && $val!='0'){
+    			if(strtolower($val)==$currentSessionUser && $val!='0'){
     				$coordinator = $n;
     			}
     		}
@@ -181,9 +182,9 @@ class template
         $html.= "<thead><tr>";
         
 		//Iterate through the keys
-        foreach($listHeaders as $key => $val){
-        	
-            if($key === "ID" || $key === "coordinatorID" || $key === "password"){         	
+        foreach($listHeaders as $key => $val)
+        {
+            if($key === "ID" || $key === "coordinatorID" || $key === "password" || $key === "over18" || $key === "verified"){         	
             	continue;
             }
             else {
@@ -206,20 +207,23 @@ class template
  
         //loop through all 
         for($i=0;$i<count($list);$i++){
-            $html .= "<tr class='list-item'>";
+
             //control which lakehosts are displayed for coordinators
-            if($isUserTable == true && $isCoordinator == true){
+            if($isUserTable == true && $isCoordinator == true) {			//This would be a coordinator
             	
-            	if($coordinatorID == $list[$i]['coordinatorID'] && $list[$i]['userName'] != $currentSessionUser) {
+            	if($coordinatorID == $list[$i]['coordinatorID'] && strtolower($list[$i]['userName']) != $currentSessionUser && $list[$i]['roleID'] != 1) 
+            	{
+            		$html .= "<tr class='list-item'>";
 	            	foreach($list[$i] as $key => $val){
 	                	if ($key === "ID" || $key === "coordinatorID" || $key === "password"){
 	                		continue;
 	                	}
 	            		elseif ($key == "name") {
+
 	                    	$html .= "<td class='title' >$val</td>";
 	            		}
 	                	else { 
-	                    	$html .= "<td>$val</td>";
+	                    	$html .= "<td class=". $key .">$val</td>";
 	                	}                  
 	            	}
 	            	//Add the Edit button column
@@ -239,31 +243,34 @@ class template
 	            	$html .= "</tr>";
             	}
             }
-			elseif ($isUserTable == true && $isCoordinator == false) {
-            	foreach($list[$i] as $key => $val){
-            		if ($key === "ID" || $key === "coordinatorID" || $key === "password"){
-            			continue;
+			elseif ($isUserTable == true && $isCoordinator == false) { 		//This would be an admin
+				if ($list[$i]['roleID'] != 1) {
+					foreach($list[$i] as $key => $val){
+            			if ($key === "ID" || $key === "coordinatorID" || $key === "password"){
+            				continue;
+            			}
+            			elseif ($key == "name")
+            				$html .= "<td class='title' >$val</td>";
+            			else
+            				$html .= "<td>$val</td>";
             		}
-            		elseif ($key == "name")
-            			$html .= "<td class='title' >$val</td>";
-            		else
-            			$html .= "<td>$val</td>";
-            	}
-            	//Add the Edit button column
-            	$editButton = $this->buttonTo($this->registry->router->controller,"edit","Edit",$list[$i]["ID"]);
-            	//Add the Deactivate Button Column
-            	if($list[$i]['activeUser'] == 0) {
-            		$activationButton = $this->buttonTo($this->registry->router->controller,"activate","Activate",$list[$i]["ID"]);
-            	}
-            	else {
-            		$activationButton = $this->buttonTo($this->registry->router->controller,"deactivate", "Deactivate",$list[$i]["ID"]);
-            	}
-            	 
-            	$html .= "<td>".$editButton."</td>";
-            	
-            	$html .= "<td>".$activationButton."</td>";
-            	
-            	$html .= "</tr>";
+               
+            		//Add the Edit button column
+            		$editButton = $this->buttonTo($this->registry->router->controller,"edit","Edit",$list[$i]["ID"]);
+            		//Add the Deactivate Button Column
+            		if($list[$i]['activeUser'] == 0) {
+            			$activationButton = $this->buttonTo($this->registry->router->controller,"activate","Activate",$list[$i]["ID"]);
+            		}
+            		else {
+            			$activationButton = $this->buttonTo($this->registry->router->controller,"deactivate", "Deactivate",$list[$i]["ID"]);
+            		}
+            		 
+            		$html .= "<td>".$editButton."</td>";
+            		
+            		$html .= "<td>".$activationButton."</td>";
+            		
+            		$html .= "</tr>";
+				}
             }            
             else {
             	foreach($list[$i] as $key => $val){

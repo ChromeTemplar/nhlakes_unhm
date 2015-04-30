@@ -604,15 +604,15 @@ INSERT INTO `Role` (roleDescription) values ('Lake Host');
 CREATE TABLE User (
   ID int NOT NULL AUTO_INCREMENT,
   roleID int NOT NULL,
-  coordinatorID int NOT NULL,
+  coordinatorID varchar(100) NOT NULL,
   firstName varchar(50) NOT NULL,
   lastName varchar(50) NOT NULL,
   phoneNumber varbinary(50),
   userName varchar(50) NOT NULL,
   email varbinary(50) NOT NULL,
   password varbinary(40) NOT NULL,
-  over18 tinyint(1) NOT NULL,
-  verified tinyint(1) NOT NULL,
+  /*over18 tinyint(1) NOT NULL,		Old values, may add back in upon request
+  verified tinyint(1) NOT NULL,*/   
   activeUser tinyint(1) NOT NULL,
   PRIMARY KEY (ID),
   FOREIGN KEY (roleID) REFERENCES Role(ID)
@@ -620,39 +620,39 @@ CREATE TABLE User (
 
 
 INSERT INTO `User` 
-(ID, roleID, coordinatorID, firstName, lastName, phoneNumber, username, email, password, over18, verified, activeUser)
+(ID, roleID, coordinatorID, firstName, lastName, phoneNumber, username, email, password, activeUser)
 values 
-(0001, 0001, 0001, 'John', 'Smith', '603-111-2222', 'jsmith', 'jsmith@hotmail.com', SHA1('password'), 1, 1, 1);
+(0001, 0001, '0', 'John', 'Smith', '603-111-2222', 'jsmith', 'jsmith@hotmail.com', SHA1('password'), 1);
 
 INSERT INTO `User` 
-(ID, roleID, coordinatorID, firstName, lastName, phoneNumber, username, email, password, over18, verified, activeUser)
+(ID, roleID, coordinatorID, firstName, lastName, phoneNumber, username, email, password, activeUser)
 values 
-(0002, 0001, 0001, 'Maria', 'Miller', '603-111-3333', 'mmiller', 'mmiller@hotmail.com', SHA1('password'), 1, 1, 1);
+(0002, 0002, '1', 'Maria', 'Miller', '603-111-3333', 'mmiller', 'mmiller@hotmail.com', SHA1('password'), 1);
 
 INSERT INTO `User` 
-(ID, roleID, coordinatorID, firstName, lastName, phoneNumber, username, email, password, over18, verified, activeUser)
+(ID, roleID, coordinatorID, firstName, lastName, phoneNumber, username, email, password, activeUser)
 values 
-(0003, 0002, 0001, 'Charles', 'Babbage', '603-111-3333', 'cBabbage', 'cBaggage@hotmail.com', SHA1('password'), 1, 1, 1);
+(0003, 0002, '1,2', 'Charles', 'Babbage', '603-111-3333', 'cBabbage', 'cBaggage@hotmail.com', SHA1('password'), 1);
 
 INSERT INTO `User` 
-(ID, roleID, coordinatorID, firstName, lastName, phoneNumber, username, email, password, over18, verified, activeUser)
+(ID, roleID, coordinatorID, firstName, lastName, phoneNumber, username, email, password, activeUser)
 values 
-(0004, 0002, 0002, 'John', 'Nash', '603-111-3333', 'jnash', 'jnash@hotmail.com', SHA1('password'), 1, 1, 1);
+(0004, 0002, '2', 'John', 'Nash', '603-111-3333', 'jnash', 'jnash@hotmail.com', SHA1('password'), 1);
 
 INSERT INTO `User` 
-(ID, roleID, coordinatorID, firstName, lastName, phoneNumber, username, email, password, over18, verified, activeUser)
+(ID, roleID, coordinatorID, firstName, lastName, phoneNumber, username, email, password, activeUser)
 values 
-(0005, 0003, 0001, 'Mary', 'Curie', '603-111-3333', 'mCurie', 'mCurie@hotmail.com', SHA1('password'), 1, 1, 1);
+(0005, 0003, '1', 'Mary', 'Curie', '603-111-3333', 'mCurie', 'mCurie@hotmail.com', SHA1('password'), 1);
 
 INSERT INTO `User` 
-(ID, roleID, coordinatorID, firstName, lastName, phoneNumber, username, email, password, over18, verified, activeUser)
+(ID, roleID, coordinatorID, firstName, lastName, phoneNumber, username, email, password, activeUser)
 values 
-(0006, 0003, 0002, 'Jonas', 'Salk', '603-111-3333', 'jSalk', 'jsalk@hotmail.com', SHA1('password'), 1, 1, 1);
+(0006, 0003, '2', 'Jonas', 'Salk', '603-111-3333', 'jSalk', 'jsalk@hotmail.com', SHA1('password'), 1);
 
 INSERT INTO `User` 
-(ID, roleID, coordinatorID, firstName, lastName, phoneNumber, username, email, password, over18, verified, activeUser)
+(ID, roleID, coordinatorID, firstName, lastName, phoneNumber, username, email, password, activeUser)
 values 
-(0007, 0003, 0002, 'Timmy', 'Timtim', '603-111-1234', 'ttimtim', 'ttimtim@hotmail.com', SHA1('password'), 1, 1, 0);
+(0007, 0003, '2', 'Timmy', 'Timtim', '603-111-1234', 'ttimtim', 'ttimtim@hotmail.com', SHA1('password'), 0);
 
 
 CREATE TABLE BoatRamp(
