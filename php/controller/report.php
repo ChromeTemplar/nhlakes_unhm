@@ -26,117 +26,53 @@ class reportController extends Controller
     	
     	/*** Instantiate a new Report model ***/
     	$model = new report();
-    	
+		/*** set a template variable ***/
+        $this->registry->template->welcome = 'All Summaries';
     	
     	/*** Get all Summaries ***/
 		//Breaks it up into different sections on the screen for reporting
 		//These functions are in applicationModel with descriptions within it
+		
 		//** Start Section for States ** //
-    	$summary = $model->allStates();
-    	 
-        /*** set a template variable ***/
-        $this->registry->template->welcome = 'States';
-		// Assigns $allreport to equal $summary?
-        $this->registry->template->allreport = $summary;
-
-        /*** load the view ***/
-        $this->registry->template->show($this->name, 'allReports');
-
-
+		// Assigns $allstate  
+        $this->registry->template->allstate = $model->allStates();
+		
 		//** Start Section for Boat Types ** //
-    	$summary = $model->allBoatTypes();
-    	 
-        /*** set a template variable ***/
-        $this->registry->template->welcome = 'Boat Types';
-		// Assigns $allreport to equal $summary?
-        $this->registry->template->allreport = $summary;
-        
-        /*** load the view ***/
-        $this->registry->template->show($this->name, 'allReports');
-
+		// Assigns $allboat  
+        $this->registry->template->allboat = $model->allBoatTypes();
 		
 		//** Start Section for all Previous Interactions ** //
-    	$summary = $model->allPreviousInteractions();
-    	 
-        /*** set a template variable ***/
-        $this->registry->template->welcome = 'All Previous Lake Host Interactions';
-		// Assigns $allreport to equal $summary?
-        $this->registry->template->allreport = $summary;
-        
-        /*** load the view ***/
-        $this->registry->template->show($this->name, 'allReports');
-
+		// Assigns $allprev  
+        $this->registry->template->allprev = $model->allPreviousInteractions();
 		
 		//** Start Section for allDrained ** //
-    	$summary = $model->allDrained();
-    	 
-        /*** set a template variable ***/
-        $this->registry->template->welcome = 'Drained and Not Drained Totals';
-		// Assigns $allreport to equal $summary?
-        $this->registry->template->allreport = $summary;
-        
-        /*** load the view***/
-        $this->registry->template->show($this->name, 'allReports');
-
-		
+		// Assigns $alldrained  
+        $this->registry->template->alldrained = $model->allDrained();
+       
 		//** Start Section for allRinsed ** //
-    	$summary = $model->allRinsed();
-    	 
-        /*** set a template variable ***/
-        $this->registry->template->welcome = 'Rinsed and Not Rinsed Totals';
-		// Assigns $allreport to equal $summary?
-        $this->registry->template->allreport = $summary;
-        
-        /*** load the view***/
-        $this->registry->template->show($this->name, 'allReports');
-
+		// Assigns $allrinsed  
+        $this->registry->template->allrinsed = $model->allRinsed();
 		
 		//** Start Section for allDried ** //
-    	$summary = $model->allDried();
-    	 
-        /*** set a template variable ***/
-        $this->registry->template->welcome = 'Dried and Not Dried Totals';
-		// Assigns $allreport to equal $summary?
-        $this->registry->template->allreport = $summary;
-        
-        /*** load the view***/
-        $this->registry->template->show($this->name, 'allReports');
+		// Assigns $alldried  
+        $this->registry->template->alldried = $model->allDried();
 
-		
 		//** Start Section for allAwareness ** //
-    	$summary = $model->allAwareness();
-    	 
-        /*** set a template variable ***/
-        $this->registry->template->welcome = 'Awareness Totals';
-		// Assigns $allreport to equal $summary?
-        $this->registry->template->allreport = $summary;
+		// Assigns $allaware  
+        $this->registry->template->allaware = $model->allAwareness();
         
-        /*** load the view***/
-        $this->registry->template->show($this->name, 'allReports');
-
-		
 		//** Start Section for allSpeciesFound ** //
-    	$summary = $model->allSpeciesFound();
-    	 
-        /*** set a template variable ***/
-        $this->registry->template->welcome = 'Specimen Found';
-		// Assigns $allreport to equal $summary?
-        $this->registry->template->allreport = $summary;
-        
-        /*** load the view***/
+		// Assigns $allfound  
+        $this->registry->template->allfound = $model->allSpeciesFound();
+ 		
+		//** Start Section for allSpecimenSent ** //
+		// Assigns $allsent  
+        $this->registry->template->allsent = $model->allSpecimenSent();
+  
+  
+  		/*** load the view***/
         $this->registry->template->show($this->name, 'allReports');
 
-		
-		//** Start Section for allSpecimenSent ** //
-    	$summary = $model->allSpecimenSent();
-    	 
-        /*** set a template variable ***/
-        $this->registry->template->welcome = 'Specimen Sent';
-		// Assigns $allreport to equal $summary?
-        $this->registry->template->allreport = $summary;
-  
-        /*** load the view***/
-        $this->registry->template->show($this->name, 'allReports');
     }
 	
 	public function rampReports()
@@ -145,113 +81,47 @@ class reportController extends Controller
     	/*** Instantiate a new Report model ***/
     	$model = new report();
     	
-    	
+    	/*** set a template variable ***/
+        $this->registry->template->welcome = 'All Summaries By Boat Ramp';
     	/*** Get all Summaries ***/
 		//Breaks it up into different sections on the screen for reporting
 		//These functions are in applicationModel with descriptions within it
 		//** Start Section for States ** //
-    	$summary = $model->allStatesRamp();
-    	 
-        /*** set a template variable ***/
-        $this->registry->template->welcome = 'States';
-		// Assigns $rampreport to equal $summary?
-        $this->registry->template->rampreport = $summary;
-
-        /*** load the view ***/
-        $this->registry->template->show($this->name, 'rampReports');
-
+		// Assigns $rampreport  
+        $this->registry->template->rampstate = $model->allStatesRamp();
 
 		//** Start Section for Boat Types ** //
-    	$summary = $model->allBoatTypesRamp();
-    	 
-        /*** set a template variable ***/
-        $this->registry->template->welcome = 'Boat Types';
-		// Assigns $rampreport to equal $summary?
-        $this->registry->template->rampreport = $summary;
-        
-        /*** load the view ***/
-        $this->registry->template->show($this->name, 'rampReports');
+		// Assigns $rampreport  
+        $this->registry->template->rampboat = $model->allBoatTypesRamp();
 
-		
 		//** Start Section for all Previous Interactions ** //
-    	$summary = $model->allPreviousInteractionsRamp();
-    	 
-        /*** set a template variable ***/
-        $this->registry->template->welcome = 'All Previous Lake Host Interactions';
-		// Assigns $rampreport to equal $summary?
-        $this->registry->template->rampreport = $summary;
-        
-        /*** load the view ***/
-        $this->registry->template->show($this->name, 'rampReports');
+		// Assigns $rampreport  
+        $this->registry->template->rampprev = $model->allPreviousInteractionsRamp();
 
-		
 		//** Start Section for allDrained ** //
-    	$summary = $model->allDrainedRamp();
-    	 
-        /*** set a template variable ***/
-        $this->registry->template->welcome = 'Drained and Not Drained Totals';
-		// Assigns $rampreport to equal $summary?
-        $this->registry->template->rampreport = $summary;
-        
-        /*** load the view***/
-        $this->registry->template->show($this->name, 'rampReports');
+		// Assigns $rampreport  
+        $this->registry->template->rampdrained = $model->allDrainedRamp();
 
-		
 		//** Start Section for allRinsed ** //
-    	$summary = $model->allRinsedRamp();
-    	 
-        /*** set a template variable ***/
-        $this->registry->template->welcome = 'Rinsed and Not Rinsed Totals';
-		// Assigns $rampreport to equal $summary?
-        $this->registry->template->rampreport = $summary;
-        
-        /*** load the view***/
-        $this->registry->template->show($this->name, 'rampReports');
-
+		// Assigns $rampreport  
+        $this->registry->template->ramprinsed = $model->allRinsedRamp();
 		
 		//** Start Section for allDried ** //
-    	$summary = $model->allDriedRamp();
-    	 
-        /*** set a template variable ***/
-        $this->registry->template->welcome = 'Dried and Not Dried Totals';
-		// Assigns $rampreport to equal $summary?
-        $this->registry->template->rampreport = $summary;
-        
-        /*** load the view***/
-        $this->registry->template->show($this->name, 'rampReports');
-
+		// Assigns $rampreport  
+        $this->registry->template->rampdried = $model->allDriedRamp();
 		
 		//** Start Section for allAwareness ** //
-    	$summary = $model->allAwarenessRamp();
-    	 
-        /*** set a template variable ***/
-        $this->registry->template->welcome = 'Awareness Totals';
-		// Assigns $rampreport to equal $summary?
-        $this->registry->template->rampreport = $summary;
-        
-        /*** load the view***/
-        $this->registry->template->show($this->name, 'rampReports');
+		// Assigns $rampreport  
+        $this->registry->template->rampaware = $model->allAwarenessRamp();
 
-		
 		//** Start Section for allSpeciesFound ** //
-    	$summary = $model->allSpeciesFoundRamp();
-    	 
-        /*** set a template variable ***/
-        $this->registry->template->welcome = 'Specimen Found';
-		// Assigns $rampreport to equal $summary?
-        $this->registry->template->rampreport = $summary;
-        
-        /*** load the view***/
-        $this->registry->template->show($this->name, 'rampReports');
+		// Assigns $rampreport  
+        $this->registry->template->rampfound = $model->allSpeciesFoundRamp();;
 
-		
 		//** Start Section for allSpecimenSent ** //
-    	$summary = $model->allSpecimenSentRamp();
-    	 
-        /*** set a template variable ***/
-        $this->registry->template->welcome = 'Specimen Sent';
-		// Assigns $rampreport to equal $summary?
-        $this->registry->template->rampreport = $summary;
+		// Assigns $rampreport  
+        $this->registry->template->rampsent = $model->allSpecimenSentRamp();
+  
   
         /*** load the view***/
         $this->registry->template->show($this->name, 'rampReports');
@@ -259,117 +129,51 @@ class reportController extends Controller
 	
 	public function groupReports()
     { 
-    	
     	/*** Instantiate a new Report model ***/
     	$model = new report();
-    	
+		
+		/*** set a template variable ***/
+        $this->registry->template->welcome = 'All Summaries By Lake Host Group';
     	
     	/*** Get all Summaries ***/
 		//Breaks it up into different sections on the screen for reporting
 		//These functions are in applicationModel with descriptions within it
 		//** Start Section for States ** //
-    	$summary = $model->allStatesGroup();
-    	 
-        /*** set a template variable ***/
-        $this->registry->template->welcome = 'States';
-		// Assigns $groupreport to equal $summary?
-        $this->registry->template->groupreport = $summary;
-
-        /*** load the view ***/
-        $this->registry->template->show($this->name, 'groupReports');
-
+		// Assigns $groupstate  
+        $this->registry->template->groupstate = $model->allStatesGroup();
 
 		//** Start Section for Boat Types ** //
-    	$summary = $model->allBoatTypesGroup();
-    	 
-        /*** set a template variable ***/
-        $this->registry->template->welcome = 'Boat Types';
-		// Assigns $groupreport to equal $summary?
-        $this->registry->template->groupreport = $summary;
-        
-        /*** load the view ***/
-        $this->registry->template->show($this->name, 'groupReports');
+		// Assigns $groupboat
+        $this->registry->template->groupboat = $model->allBoatTypesGroup();
 
-		
 		//** Start Section for all Previous Interactions ** //
-    	$summary = $model->allPreviousInteractionsGroup();
-    	 
-        /*** set a template variable ***/
-        $this->registry->template->welcome = 'All Previous Lake Host Interactions';
-		// Assigns $groupreport to equal $summary?
-        $this->registry->template->groupreport = $summary;
-        
-        /*** load the view ***/
-        $this->registry->template->show($this->name, 'groupReports');
+		// Assigns $groupprev  
+        $this->registry->template->groupprev = $model->allPreviousInteractionsGroup();
 
-		
 		//** Start Section for allDrained ** //
-    	$summary = $model->allDrainedGroup();
-    	 
-        /*** set a template variable ***/
-        $this->registry->template->welcome = 'Drained and Not Drained Totals';
-		// Assigns $groupreport to equal $summary?
-        $this->registry->template->groupreport = $summary;
-        
-        /*** load the view***/
-        $this->registry->template->show($this->name, 'groupReports');
+		// Assigns $groupdrained  
+        $this->registry->template->groupdrained = $model->allDrainedGroup();
 
-		
 		//** Start Section for allRinsed ** //
-    	$summary = $model->allRinsedGroup();
-    	 
-        /*** set a template variable ***/
-        $this->registry->template->welcome = 'Rinsed and Not Rinsed Totals';
-		// Assigns $groupreport to equal $summary?
-        $this->registry->template->groupreport = $summary;
-        
-        /*** load the view***/
-        $this->registry->template->show($this->name, 'groupReports');
-
+		// Assigns $grouprinsed  
+        $this->registry->template->grouprinsed = $model->allRinsedGroup();
 		
 		//** Start Section for allDried ** //
-    	$summary = $model->allDriedGroup();
-    	 
-        /*** set a template variable ***/
-        $this->registry->template->welcome = 'Dried and Not Dried Totals';
-		// Assigns $groupreport to equal $summary?
-        $this->registry->template->groupreport = $summary;
-        
-        /*** load the view***/
-        $this->registry->template->show($this->name, 'groupReports');
-
+		// Assigns $groupdried  
+        $this->registry->template->groupdried = $model->allDriedGroup();
 		
 		//** Start Section for allAwareness ** //
-    	$summary = $model->allAwarenessGroup();
-    	 
-        /*** set a template variable ***/
-        $this->registry->template->welcome = 'Awareness Totals';
-		// Assigns $groupreport to equal $summary?
-        $this->registry->template->groupreport = $summary;
-        
-        /*** load the view***/
-        $this->registry->template->show($this->name, 'groupReports');
-
+		// Assigns $groupaware  
+        $this->registry->template->groupaware = $model->allAwarenessGroup();
 		
 		//** Start Section for allSpeciesFound ** //
-    	$summary = $model->allSpeciesFoundGroup();
-    	 
-        /*** set a template variable ***/
-        $this->registry->template->welcome = 'Specimen Found';
-		// Assigns $groupreport to equal $summary?
-        $this->registry->template->groupreport = $summary;
-        
-        /*** load the view***/
-        $this->registry->template->show($this->name, 'groupReports');
-
+		// Assigns $groupfound  
+        $this->registry->template->groupfound = $model->allSpeciesFoundGroup();
 		
 		//** Start Section for allSpecimenSent ** //
-    	$summary = $model->allSpecimenSentGroup();
-    	 
-        /*** set a template variable ***/
-        $this->registry->template->welcome = 'Specimen Sent';
-		// Assigns $groupreport to equal $summary?
-        $this->registry->template->groupreport = $summary;
+		// Assigns $groupsent  
+        $this->registry->template->groupsent = $model->allSpecimenSentGroup();
+  
   
         /*** load the view***/
         $this->registry->template->show($this->name, 'groupReports');
