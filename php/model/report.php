@@ -32,7 +32,8 @@ class report extends Model
 	// *** Functions below are queries for the Reporting Page for each section *** ///
 	
 	// Displays the totals for all States. Sums the summary entries to create totals by state.
-    function allStates($table = '', $cols= '	SUM(NH) as NH, 
+    function allStates($table = '', $cols= '	boatRampID,
+												SUM(NH) as NH, 
 												SUM(ME) as ME,
 												SUM(MA) as MA, 
 												SUM(VT) as VT, 
@@ -49,7 +50,7 @@ class report extends Model
             $table = $this->table;
 
         /* Prepared statement, stage 1: prepare. Selects data from the summary table to be displayed on the report page. */ 
-        if (!($stmt = $mysqli->prepare("Select $cols FROM $table WHERE YEAR(summaryDate) = YEAR(Now())"))) {
+        if (!($stmt = $mysqli->prepare("Select $cols FROM $table WHERE YEAR(summaryDate) = YEAR(Now()) GROUP BY boatRampID"))) {
             echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
         }
         
