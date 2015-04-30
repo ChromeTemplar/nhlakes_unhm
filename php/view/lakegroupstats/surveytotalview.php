@@ -4,16 +4,16 @@
         <th colspan='2' class="surveytotalheader">Survey Total</th>
     </tr>
     <tr>
-        <td id="surveytotalblue">Group: <?php echo $lakeHostGroupName; ?></td>
-        <td><?php echo $surveyTotalGroup ?></td>
+        <td id="surveytotalblue"><?php echo $lakeHostGroupName; ?> has completed:</td>
+        <td><?php echo $surveyTotalGroup ?> surveys</td>
     </tr>
     <tr>
-        <td id="surveytotalblue">User: <?php echo $_SESSION['firstName'].' '.$_SESSION['lastName']; ?></td>
-        <td><?php echo $surveyTotalUser ?></td>
+        <td id="surveytotalblue"><?php echo $_SESSION['firstName'].' '.$_SESSION['lastName']; ?> has completed:</td>
+        <td><?php echo $surveyTotalUser ?> surveys</td>
     </tr>
     <tr>
-        <td id="surveytotalblue">Total</td>
-        <td><?php echo $surveyTotal ?></td>
+        <td id="surveytotalblue">Total completed by all hosts:</td>
+        <td><?php echo $surveyTotal ?> surveys</td>
     </tr>
 </table>
 <br />
