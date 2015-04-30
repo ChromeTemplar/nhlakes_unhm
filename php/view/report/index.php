@@ -13,9 +13,9 @@ echo $this->buttonTo("report", "allReports", "All");
 echo $this->buttonTo("report","rampReports", "By Boat Ramp");
 echo $this->buttonTo("report","groupReports", "By Lake Group");
 
-?><br>
+?><br><br>
 <!-- Displays the home link to return back to the home page. -->
-<!--Return <?php echo $this->linkTo("home","index","Home"); ?> -->
+Return <?php echo $this->linkTo("home","index","Home"); ?>
 <br>
 
 
