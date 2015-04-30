@@ -32,8 +32,7 @@ class report extends Model
 	// *** Functions below are queries for the Reporting Page for each section *** ///
 	
 	// Displays the totals for all States. Sums the summary entries to create totals by state.
-    function allStates($table = '', $cols= '	boatRampID,
-												SUM(NH) as NH, 
+    function allStates($table = '', $cols= '	SUM(NH) as NH, 
 												SUM(ME) as ME,
 												SUM(MA) as MA, 
 												SUM(VT) as VT, 
@@ -50,7 +49,7 @@ class report extends Model
             $table = $this->table;
 
         /* Prepared statement, stage 1: prepare. Selects data from the summary table to be displayed on the report page. */ 
-        if (!($stmt = $mysqli->prepare("Select $cols FROM $table WHERE YEAR(summaryDate) = YEAR(Now()) GROUP BY boatRampID"))) {
+        if (!($stmt = $mysqli->prepare("Select $cols FROM $table WHERE YEAR(summaryDate) = YEAR(Now())"))) {
             echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
         }
         
@@ -198,5 +197,380 @@ class report extends Model
         return $this->process($stmt);
     }
 	
+	function allStatesRamp($table = 'summary s, boatramp b', $cols= 'b.name as "Boat Ramp",
+												SUM(s.NH) as NH, 
+												SUM(s.ME) as ME,
+												SUM(s.MA) as MA, 
+												SUM(s.VT) as VT, 
+												SUM(s.CT) as CT, 
+												SUM(s.RI) as RI,
+												SUM(s.NY) as NY,
+												SUM(s.other) as Other
+												') {
+        $mysqli = $this->conn;
+		
+		
+		
+        if (empty($table)) 
+            $table = $this->table;
+
+        /* Prepared statement, stage 1: prepare. Selects data from the summary table to be displayed on the report page. */ 
+        if (!($stmt = $mysqli->prepare("Select $cols FROM $table WHERE s.boatRampID = b.ID AND YEAR(s.summaryDate) = YEAR(Now()) GROUP BY b.name"))) {
+            echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+        }
+        
+        return $this->process($stmt);
+    }
+	
+	// Shows totals for all Boat Types
+    function allBoatTypesRamp($table = 'summary s, boatramp b', $cols= 'b.name as "Boat Ramp",
+												SUM(s.inboardOutboard) as "I/O", 
+												SUM(s.pwc) as "PWC Jet",
+												SUM(s.canoeKayak) as "Canoe/Kayak",
+												SUM(s.sail) as "Sail Boat",
+												SUM(s.otherBoatType) as "Other"
+												') {
+        $mysqli = $this->conn;
+
+        if (empty($table)) 
+            $table = $this->table;
+
+        /* Prepared statement, stage 1: prepare. Selects data from the summary table to be displayed on the report page. */ 
+        if (!($stmt = $mysqli->prepare("Select $cols FROM $table WHERE s.boatRampID = b.ID AND YEAR(s.summaryDate) = YEAR(Now()) GROUP BY b.name"))) {
+            echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+        }
+        
+        return $this->process($stmt);
+    }
+
+	// Show totals for Previously Interacted and Never Interacted.
+	function allPreviousInteractionsRamp($table = 'summary s, boatramp b', $cols= 'b.name as "Boat Ramp",
+												SUM(s.previous) as "Previously Interacted", 
+												SUM(s.notPrevious) as "Never Interacted"
+												') {
+        $mysqli = $this->conn;
+
+        if (empty($table)) 
+            $table = $this->table;
+
+        /* Prepared statement, stage 1: prepare. Selects data from the summary table to be displayed on the report page. */ 
+        if (!($stmt = $mysqli->prepare("Select $cols FROM $table WHERE s.boatRampID = b.ID AND YEAR(s.summaryDate) = YEAR(Now()) GROUP BY b.name"))) {
+            echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+        }
+       
+        return $this->process($stmt);
+    }
+	
+	// Displays totals for Drained and Not Drained.
+	function allDrainedRamp($table = 'summary s, boatramp b', $cols= 'b.name as "Boat Ramp",
+												SUM(s.drained) as "Drained", 
+												SUM(s.notDrained) as "Not Drained"
+												') {
+        $mysqli = $this->conn;
+
+        if (empty($table)) 
+            $table = $this->table;
+
+        /* Prepared statement, stage 1: prepare. Selects data from the summary table to be displayed on the report page. */ 
+        if (!($stmt = $mysqli->prepare("Select $cols FROM $table WHERE s.boatRampID = b.ID AND YEAR(s.summaryDate) = YEAR(Now()) GROUP BY b.name"))) {
+            echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+        }
+        
+        return $this->process($stmt);
+    }
+	
+	// Displays totals for Rinsed and Not rinsed.
+	function allRinsedRamp($table = 'summary s, boatramp b', $cols= 'b.name as "Boat Ramp",
+												SUM(s.rinsed) as "Rinsed", 
+												SUM(s.notRinsed) as "Not Rinsed"
+												
+												') {
+        $mysqli = $this->conn;
+
+        if (empty($table)) 
+            $table = $this->table;
+
+        /* Prepared statement, stage 1: prepare. Selects data from the summary table to be displayed on the report page. */ 
+        if (!($stmt = $mysqli->prepare("Select $cols FROM $table WHERE s.boatRampID = b.ID AND YEAR(s.summaryDate) = YEAR(Now()) GROUP BY b.name"))) {
+            echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+        }
+        
+        return $this->process($stmt);
+    }
+	
+	// Displays totals for Dried and Not dried.
+	function allDriedRamp($table = 'summary s, boatramp b', $cols= 'b.name as "Boat Ramp",
+												SUM(s.dry5) as "Dried", 
+												SUM(s.notDry5) as "Not Dried"
+												') {
+        $mysqli = $this->conn;
+
+        if (empty($table)) 
+            $table = $this->table;
+
+        /* Prepared statement, stage 1: prepare. Selects data from the summary table to be displayed on the report page. */ 
+        if (!($stmt = $mysqli->prepare("Select $cols FROM $table WHERE s.boatRampID = b.ID AND YEAR(s.summaryDate) = YEAR(Now()) GROUP BY b.name"))) {
+            echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+        }
+        
+        return $this->process($stmt);
+    }
+	
+	// Displays totals for Low Awareness, Medium Awareness, High Awareness.
+	function allAwarenessRamp($table = 'summary s, boatramp b', $cols= 'b.name as "Boat Ramp",
+												SUM(s.awarenessLow) as "Low Awareness", 
+												SUM(s.awarenessMedium) as "Medium Awareness", 
+												SUM(s.awarenessHigh) as "High Awareness"
+												') {
+        $mysqli = $this->conn;
+
+        if (empty($table)) 
+            $table = $this->table;
+
+        /* Prepared statement, stage 1: prepare. Selects data from the summary table to be displayed on the report page. */ 
+        if (!($stmt = $mysqli->prepare("Select $cols FROM $table WHERE s.boatRampID = b.ID AND YEAR(s.summaryDate) = YEAR(Now()) GROUP BY b.name"))) {
+            echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+        }
+        
+        return $this->process($stmt);
+    }
+	
+	// Displays totals for Species Found and Species Not Found.
+	function allSpeciesFoundRamp($table = 'summary s, boatramp b', $cols= 'b.name as "Boat Ramp",
+												SUM(s.speciesFoundYes) as "Species Found", 
+												SUM(s.speciesFoundNo) as "Species Not Found"
+												') {
+        $mysqli = $this->conn;
+
+        if (empty($table)) 
+            $table = $this->table;
+
+        /* Prepared statement, stage 1: prepare. Selects data from the summary table to be displayed on the report page. */ 
+        if (!($stmt = $mysqli->prepare("Select $cols FROM $table WHERE s.boatRampID = b.ID AND YEAR(s.summaryDate) = YEAR(Now()) GROUP BY b.name"))) {
+            echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+        }
+        
+        return $this->process($stmt);
+    }
+	
+	// Displays totals for Sent to DES and Not Sent to DES.
+	function allSpecimenSentRamp($table = 'summary s, boatramp b', $cols= 'b.name as "Boat Ramp",
+												SUM(s.sentDesYes) as "Sent to DES", 
+												SUM(s.sentDesNo) as "Not Sent to DES"
+												') {
+        $mysqli = $this->conn;
+
+        if (empty($table)) 
+            $table = $this->table;
+
+        /* Prepared statement, stage 1: prepare. Selects data from the summary table to be displayed on the report page. */ 
+        if (!($stmt = $mysqli->prepare("Select $cols FROM $table WHERE s.boatRampID = b.ID AND YEAR(s.summaryDate) = YEAR(Now()) GROUP BY b.name"))) {
+            echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+        }
+        
+        return $this->process($stmt);
+    }
+	
+		// Displays the totals for all States. Sums the summary entries to create totals by state.
+    function allStatesGroup($table = 'summary s, boatramp b, lakehostgroup l', $cols= 'l.lakeHostGroupName,
+												SUM(s.NH) as NH, 
+												SUM(s.ME) as ME,
+												SUM(s.MA) as MA, 
+												SUM(s.VT) as VT, 
+												SUM(s.CT) as CT, 
+												SUM(s.RI) as RI,
+												SUM(s.NY) as NY,
+												SUM(s.other) as Other
+												') {
+        $mysqli = $this->conn;
+		
+		
+		
+        if (empty($table)) 
+            $table = $this->table;
+
+        /* Prepared statement, stage 1: prepare. Selects data from the summary table to be displayed on the report page. */ 
+        if (!($stmt = $mysqli->prepare("Select $cols FROM $table WHERE s.boatRampID = b.ID 
+																   AND b.lakeHostGroupID = l.ID
+																   AND YEAR(s.summaryDate) = YEAR(Now()) 
+																   GROUP BY l.lakeHostGroupName"))) {
+            echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+        }
+        
+        return $this->process($stmt);
+    }
+	
+	// Shows totals for all Boat Types
+    function allBoatTypesGroup($table = 'summary s, boatramp b, lakehostgroup l', $cols= 'l.lakeHostGroupName,	
+												SUM(s.inboardOutboard) as "I/O", 
+												SUM(s.pwc) as "PWC Jet",
+												SUM(s.canoeKayak) as "Canoe/Kayak",
+												SUM(s.sail) as "Sail Boat",
+												SUM(s.otherBoatType) as "Other"
+												') {
+        $mysqli = $this->conn;
+
+        if (empty($table)) 
+            $table = $this->table;
+
+        /* Prepared statement, stage 1: prepare. Selects data from the summary table to be displayed on the report page. */ 
+        if (!($stmt = $mysqli->prepare("Select $cols FROM $table WHERE s.boatRampID = b.ID 
+																   AND b.lakeHostGroupID = l.ID
+																   AND YEAR(s.summaryDate) = YEAR(Now()) 
+																   GROUP BY l.lakeHostGroupName"))) {
+            echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+        }
+        
+        return $this->process($stmt);
+    }
+
+	// Show totals for Previously Interacted and Never Interacted.
+	function allPreviousInteractionsGroup($table = 'summary s, boatramp b, lakehostgroup l', $cols= 'l.lakeHostGroupName,	
+												SUM(s.previous) as "Previously Interacted", 
+												SUM(s.notPrevious) as "Never Interacted"
+												') {
+        $mysqli = $this->conn;
+
+        if (empty($table)) 
+            $table = $this->table;
+
+        /* Prepared statement, stage 1: prepare. Selects data from the summary table to be displayed on the report page. */ 
+        if (!($stmt = $mysqli->prepare("Select $cols FROM $table WHERE s.boatRampID = b.ID 
+																   AND b.lakeHostGroupID = l.ID
+																   AND YEAR(s.summaryDate) = YEAR(Now()) 
+																   GROUP BY l.lakeHostGroupName"))) {
+            echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+        }
+        
+        return $this->process($stmt);
+    }
+	
+	// Displays totals for Drained and Not Drained.
+	function allDrainedGroup($table = 'summary s, boatramp b, lakehostgroup l', $cols= 'l.lakeHostGroupName,
+												SUM(s.drained) as "Drained", 
+												SUM(s.notDrained) as "Not Drained"
+												') {
+        $mysqli = $this->conn;
+
+        if (empty($table)) 
+            $table = $this->table;
+
+        /* Prepared statement, stage 1: prepare. Selects data from the summary table to be displayed on the report page. */ 
+        if (!($stmt = $mysqli->prepare("Select $cols FROM $table WHERE s.boatRampID = b.ID 
+																   AND b.lakeHostGroupID = l.ID
+																   AND YEAR(s.summaryDate) = YEAR(Now()) 
+																   GROUP BY l.lakeHostGroupName"))) {
+            echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+        }
+        
+        return $this->process($stmt);
+    }
+	
+	// Displays totals for Rinsed and Not rinsed.
+	function allRinsedGroup($table = 'summary s, boatramp b, lakehostgroup l', $cols= 'l.lakeHostGroupName,
+												SUM(s.rinsed) as "Rinsed", 
+												SUM(s.notRinsed) as "Not Rinsed"
+												
+												') {
+        $mysqli = $this->conn;
+
+        if (empty($table)) 
+            $table = $this->table;
+
+        /* Prepared statement, stage 1: prepare. Selects data from the summary table to be displayed on the report page. */ 
+        if (!($stmt = $mysqli->prepare("Select $cols FROM $table WHERE s.boatRampID = b.ID 
+																   AND b.lakeHostGroupID = l.ID
+																   AND YEAR(s.summaryDate) = YEAR(Now()) 
+																   GROUP BY l.lakeHostGroupName"))) {
+            echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+        }
+        
+        return $this->process($stmt);
+    }
+	
+	// Displays totals for Dried and Not dried.
+	function allDriedGroup($table = 'summary s, boatramp b, lakehostgroup l', $cols= 'l.lakeHostGroupName,
+												SUM(s.dry5) as "Dried", 
+												SUM(s.notDry5) as "Not Dried"
+												') {
+        $mysqli = $this->conn;
+
+        if (empty($table)) 
+            $table = $this->table;
+
+        /* Prepared statement, stage 1: prepare. Selects data from the summary table to be displayed on the report page. */ 
+        if (!($stmt = $mysqli->prepare("Select $cols FROM $table WHERE s.boatRampID = b.ID 
+																   AND b.lakeHostGroupID = l.ID
+																   AND YEAR(s.summaryDate) = YEAR(Now()) 
+																   GROUP BY l.lakeHostGroupName"))) {
+            echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+        }
+        
+        return $this->process($stmt);
+    }
+	
+	// Displays totals for Low Awareness, Medium Awareness, High Awareness.
+	function allAwarenessGroup($table = 'summary s, boatramp b, lakehostgroup l', $cols= 'l.lakeHostGroupName,
+												SUM(s.awarenessLow) as "Low Awareness", 
+												SUM(s.awarenessMedium) as "Medium Awareness", 
+												SUM(s.awarenessHigh) as "High Awareness"
+												') {
+        $mysqli = $this->conn;
+
+        if (empty($table)) 
+            $table = $this->table;
+
+        /* Prepared statement, stage 1: prepare. Selects data from the summary table to be displayed on the report page. */ 
+        if (!($stmt = $mysqli->prepare("Select $cols FROM $table WHERE s.boatRampID = b.ID 
+																   AND b.lakeHostGroupID = l.ID
+																   AND YEAR(s.summaryDate) = YEAR(Now()) 
+																   GROUP BY l.lakeHostGroupName"))) {
+            echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+        }
+        
+        return $this->process($stmt);
+    }
+	
+	// Displays totals for Species Found and Species Not Found.
+	function allSpeciesFoundGroup($table = 'summary s, boatramp b, lakehostgroup l', $cols= 'l.lakeHostGroupName,	
+												SUM(s.speciesFoundYes) as "Species Found", 
+												SUM(s.speciesFoundNo) as "Species Not Found"
+												') {
+        $mysqli = $this->conn;
+
+        if (empty($table)) 
+            $table = $this->table;
+
+        /* Prepared statement, stage 1: prepare. Selects data from the summary table to be displayed on the report page. */ 
+        if (!($stmt = $mysqli->prepare("Select $cols FROM $table WHERE s.boatRampID = b.ID 
+																   AND b.lakeHostGroupID = l.ID
+																   AND YEAR(s.summaryDate) = YEAR(Now()) 
+																   GROUP BY l.lakeHostGroupName"))) {
+            echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+        }
+        
+        return $this->process($stmt);
+    }
+	
+	// Displays totals for Sent to DES and Not Sent to DES.
+	function allSpecimenSentGroup($table = 'summary s, boatramp b, lakehostgroup l', $cols= 'l.lakeHostGroupName,	
+												SUM(s.sentDesYes) as "Sent to DES", 
+												SUM(s.sentDesNo) as "Not Sent to DES"
+												') {
+        $mysqli = $this->conn;
+
+        if (empty($table)) 
+            $table = $this->table;
+
+        /* Prepared statement, stage 1: prepare. Selects data from the summary table to be displayed on the report page. */ 
+        if (!($stmt = $mysqli->prepare("Select $cols FROM $table WHERE s.boatRampID = b.ID 
+																   AND b.lakeHostGroupID = l.ID
+																   AND YEAR(s.summaryDate) = YEAR(Now()) 
+																   GROUP BY l.lakeHostGroupName"))) {
+            echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+        }
+        
+        return $this->process($stmt);
+    }
     
 }
