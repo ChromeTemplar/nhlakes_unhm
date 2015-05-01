@@ -178,5 +178,59 @@ class reportController extends Controller
         /*** load the view***/
         $this->registry->template->show($this->name, 'groupReports');
     }
+	
+	    public function allDateReports()
+    { 
+    	
+    	/*** Instantiate a new Report model ***/
+    	$model = new report();
+		/*** set a template variable ***/
+        $this->registry->template->welcome = 'All Summaries By Date';
+    	
+    	/*** Get all Summaries ***/
+		//Breaks it up into different sections on the screen for reporting
+		//These functions are in applicationModel with descriptions within it
+		
+		//** Start Section for States ** //
+		// Assigns $allstate  
+        $this->registry->template->alldatestate = $model->allDateStates();
+		
+		//** Start Section for Boat Types ** //
+		// Assigns $allboat  
+        $this->registry->template->alldateboat = $model->allDateBoatTypes();
+		
+		//** Start Section for all Previous Interactions ** //
+		// Assigns $allprev  
+        $this->registry->template->alldateprev = $model->allDatePreviousInteractions();
+		
+		//** Start Section for allDrained ** //
+		// Assigns $alldrained  
+        $this->registry->template->alldatedrained = $model->allDateDrained();
+       
+		//** Start Section for allRinsed ** //
+		// Assigns $allrinsed  
+        $this->registry->template->alldaterinsed = $model->allDateRinsed();
+		
+		//** Start Section for allDried ** //
+		// Assigns $alldried  
+        $this->registry->template->alldatedried = $model->allDateDried();
+
+		//** Start Section for allAwareness ** //
+		// Assigns $allaware  
+        $this->registry->template->alldateaware = $model->allDateAwareness();
+        
+		//** Start Section for allSpeciesFound ** //
+		// Assigns $allfound  
+        $this->registry->template->alldatefound = $model->allDateSpeciesFound();
+ 		
+		//** Start Section for allSpecimenSent ** //
+		// Assigns $allsent  
+        $this->registry->template->alldatesent = $model->allDateSpecimenSent();
+  
+  
+  		/*** load the view***/
+        $this->registry->template->show($this->name, 'allDateReports');
+
+    }
 
 }
