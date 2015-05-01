@@ -90,6 +90,7 @@ if (isset($ramp)) {
     		<input type="button" class="coordinatesBtn" value="Lookup coordinates" onclick="nhvbsrMap.codeLatLng()">
     	</div>
     </div>
+    <div>Click the map to get coordinates</div>
 	<div id="map-canvas">
 		<script>
 			// setup google map.
@@ -98,8 +99,10 @@ if (isset($ramp)) {
 			nhvbsrMap.longitudeID = 'longitude';
 			nhvbsrMap.latitude = <?php echo $latitude ?>;
 			nhvbsrMap.longitude = <?php echo $longitude ?>;
-			nhvbsrMap.mapID = 'map-canvas',
+			nhvbsrMap.mapID = 'map-canvas';
+			nhvbsrMap.bindSelectersToMap("#state", "#towns", "#waterbodies");
 			google.maps.event.addDomListener(window, 'load', nhvbsrMap.initialize);
+
 		</script>  	
    	</div>
     <br/>

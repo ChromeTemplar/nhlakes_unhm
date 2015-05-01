@@ -96,7 +96,7 @@ if (isset($ramp)) {
 				nhvbsrMap.longitudeID = 'longitude';
 				nhvbsrMap.latitude = <?php echo $latitude ?>;
 				nhvbsrMap.longitude = <?php echo $longitude ?>;
-				nhvbsrMap.mapID = 'map-canvas',
+				nhvbsrMap.mapID = 'map-canvas';
 				google.maps.event.addDomListener(window, 'load', nhvbsrMap.initialize);
 			</script>  	
 	   	</div>
