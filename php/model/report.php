@@ -9,12 +9,6 @@ Info: Contains database connection function and functions query the database to 
 
 class report extends Model
 {
-    /*** Set Class Attribute Variables ***/
-    var $host = "localhost";
-    var $user = "root";
-    var $pass = '';
-    var $db = "NHVBSR";
-	
     /**
     * Constructor
     **/
@@ -25,10 +19,9 @@ class report extends Model
             $this->table = "summary"; 
         }         
 
-        /*** Creates connection to the Database ***/
-       $this->conn = mysqli_connect($this->host, $this->user, $this->pass, $this->db) or $this->error('Could not connect to database. Make sure settings are correct.'); 
-    } 
-
+       /*** use parent model to connect to DB ***/
+        parent::connectToDb();
+    }
 		
 	///////////////////////////////////////////
 	///////////////////////////////////////////

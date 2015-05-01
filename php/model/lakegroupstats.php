@@ -2,12 +2,6 @@
 
 class LakeGroupStats extends Model
 {
-    /*** Set Class Attribute Variables ***/
-    var $host = "localhost";
-    var $user = "root";
-    var $pass = '';
-    var $db = "NHVBSR";
-
     /**
     * Constructor
     **/
@@ -18,8 +12,8 @@ class LakeGroupStats extends Model
             $this->table = 'summary';
         }         
 
-        /*** Create Connection to DB ***/
-       $this->conn = mysqli_connect($this->host, $this->user, $this->pass, $this->db) or $this->error('Could not connect to database. Make sure settings are correct.'); 
+       /*** use parent model to connect to DB ***/
+        parent::connectToDb();
     }
     
     function getSurveyTotalByGroup($username) 
