@@ -16,7 +16,7 @@ class Model {
      * 
      * @param   integer   ID of row to update or delete 
      */ 
-    function __construct() { 
+    function __construct($host = '', $user = '', $pass = '', $db = '') { 
         return $this->connectToDb();
     }
     

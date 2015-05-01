@@ -28,6 +28,12 @@ echo $this->buttonTo("invasivespecies","newInvasiveSpecies", "New");
 echo $this->buttonTo("user", "index", "All");
 echo $this->buttonTo("user","newuser", "New");
 ?>
+
+<h2>Groups</h2>
+<?php 
+echo $this->buttonTo("group", "index", "View");
+echo $this->buttonTo("group","newgroup", "New");
+?>
 <?php  } ?>
 
 <h2>Survey Summary</h2>

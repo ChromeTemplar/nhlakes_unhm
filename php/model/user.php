@@ -126,13 +126,13 @@ class user extends Model
         /* Prepared statement, stage 1: prepare */
         if (!($stmt = $mysqli->prepare("UPDATE user SET 
 				
-				roleID = ?,
-        		coordinatorID = ?, 
+        		roleID = ?,
+        		coordinatorID = CONCAT(coordinatorID, ',', ?), 
 				firstName = ?,
 				lastName = ?, 
 				phoneNumber = ?,
 				email = ?, 
-				password = SHA1(?),
+				password = SHA1(?)
 										WHERE ID = ?"))) {
 										
             echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;

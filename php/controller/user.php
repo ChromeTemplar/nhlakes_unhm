@@ -79,7 +79,6 @@ class userController extends Controller
     public function create() {
     	$model = new user();
     	$model->adduser($_POST["user"]);
-    	$model->checkFName($_POST["user"]);
     
     	/*** Redirect User to BoatRamp/Index ***/
     	header("location: index.php?rt=user/index");

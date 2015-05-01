@@ -588,6 +588,8 @@ notes varchar(100),
 PRIMARY KEY (ID)
 );
 
+INSERT INTO LakeHostGroup (lakeHostGroupName, notes)
+VALUES	('The New Kids on the Dock', 'No relation to any similar sounding group.');
 
 CREATE TABLE Role (
   roleDescription varchar(15),

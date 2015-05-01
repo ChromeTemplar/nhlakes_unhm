@@ -43,8 +43,7 @@ method="post">
     
     <!-- Coordinator ID -->
     <label for="coordinatorID">Coordinator ID</label><br/>
-    <input type="text" name="user[coordinatorID]" class="medium" maxlength='1' required
-	<?php if(isset($user)) echo "value='$coordinatorID'"; ?>><br/><br/>
+    <input type="text" name="user[coordinatorID]" class="medium" maxlength='1'><br/><br/>
     
     <!-- Fist Name -->
     <label for="firstName">First Name</label><br/>
