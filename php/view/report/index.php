@@ -9,7 +9,9 @@ Info: Displays the report created from build report on the reporting page. See M
 **/
 
 // Build report if there is no report available. If data is available the report will be displayed.
+
 echo $this->buttonTo("report", "allReports", "All");
+echo $this->buttonTo("report", "allDateReports", "By Date");
 echo $this->buttonTo("report","rampReports", "By Boat Ramp");
 echo $this->buttonTo("report","groupReports", "By Lake Host Group");
 
