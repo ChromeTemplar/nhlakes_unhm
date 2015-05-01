@@ -6,11 +6,12 @@
     <br/>
 </div>
 
-<?php if ($ramps != ""){ 
+<?php if ($ramps != "") 
+{ 
 
 $displayList = array(
 		"Ramp Name" => "name",	
-		//"WaterBody" => "waterbodyID",		
+		"WaterBody" => "waterbodyID",		
 		"Owner" => "owner",
 		"Ramp Access" => "private",
 		//"Notes" => "notes",
@@ -44,6 +45,3 @@ $displayList = array(
 <div id="content-bottom">
     Return <?php echo $this->linkTo("home","index","Home"); ?>
 </div>
-
-
-

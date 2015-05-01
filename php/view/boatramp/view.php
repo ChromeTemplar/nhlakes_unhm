@@ -49,13 +49,9 @@ if (isset($ramp)) {
     <!-- Ramp Private -->
     <label for="private">Ramp Access</label><br/>
     <div>
-            <?php 
-        	if ($private == true) {
-                echo "Private - This boat ramp is in private domain. TRESPASSERS WILL BE SHOT. SURVIVORS WILL BE SHOT AGAIN.";
-            }
-            else {
-            	echo "Public - This boat ramp is in public domain.";
-            }
+	   <?php 
+			if ($private == true) { echo "Private - This boat ramp is in private domain. TRESPASSERS WILL BE SHOT. SURVIVORS WILL BE SHOT AGAIN."; }
+			else { echo "Public - This boat ramp is in public domain."; }
         ?> 
     </div><br/>
 
@@ -91,6 +87,7 @@ if (isset($ramp)) {
     
     <div>
  	    <label>Location</label><br/>
+ 	    <div><?php echo $latitude ?>, <?php echo $longitude ?></div>
 		<div id="map-canvas">
 			<script>
 				// setup google map.
@@ -110,8 +107,8 @@ if (isset($ramp)) {
     <label for="notes">Notes</label><br/>
     <div><?php if(isset($ramp)) echo $ramp['notes'] ?></div>
 </div>
-<br /><br />
-<div class="botViewBtn">
+<div id="content-bottom">
 List <?php echo $this->linkTo("boatramp", "index", "Boat Ramps"); ?><br>
-Return <?php echo $this->linkTo("home","index","Home"); ?></div>
+Return <?php echo $this->linkTo("home","index","Home"); ?>
+</div>
 <br />

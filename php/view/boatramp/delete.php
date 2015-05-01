@@ -107,6 +107,7 @@ method="post">
     
     <div>
  	    <label>Location</label><br/>
+ 	    <div><?php echo $latitude ?>, <?php echo $longitude ?></div> 	    
 		<div id="map-canvas">
 			<script>
 				// setup google map.
@@ -127,8 +128,8 @@ method="post">
     <div><?php if(isset($ramp)) echo $ramp['notes'] ?></div>
 </form>
 </div>
-<br /><br />
-<div class="botViewBtn">
+<div id="content-bottom">
 List <?php echo $this->linkTo("boatramp", "index", "Boat Ramps"); ?><br>
-Return <?php echo $this->linkTo("home","index","Home"); ?></div>
+Return <?php echo $this->linkTo("home","index","Home"); ?>
+</div>
 <br />

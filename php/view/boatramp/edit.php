@@ -113,8 +113,8 @@ if (isset($ramp)) {
     <?php echo $this->buttonTo("home","index","Cancel"); ?>
 </form>
 </div>
-<br />
-<div class="botViewBtn">
+<div id="content-bottom">
 List <?php echo $this->linkTo("boatramp", "index", "Boat Ramps"); ?><br>
-Return <?php echo $this->linkTo("home","index","Home"); ?></div>
+Return <?php echo $this->linkTo("home","index","Home"); ?>
+</div>
 <br />
