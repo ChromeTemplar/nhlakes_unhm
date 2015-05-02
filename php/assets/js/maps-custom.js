@@ -26,6 +26,7 @@ var nhvbsrMap = {
 			google.maps.event.addListener(nhvbsrMap.map, 'click', function(evt) {
 				nhvbsrMap.bindLatLong(evt.latLng);
 				nhvbsrMap.placeMarker(evt.latLng, nhvbsrMap.map);
+				nhvbsrMap.showAddress(false);
 			});
 		}
 		
@@ -60,7 +61,7 @@ var nhvbsrMap = {
 	    document.getElementById(nhvbsrMap.latitudeID).value = lat;
 	    document.getElementById(nhvbsrMap.longitudeID).value = long;
 	},
-	codeLatLng: function () {
+	showAddress: function (center) {
 	  var lat =  document.getElementById(nhvbsrMap.latitudeID).value;
 	  var lng = document.getElementById(nhvbsrMap.longitudeID).value;
 	  var latlng = new google.maps.LatLng(lat, lng);
@@ -71,12 +72,15 @@ var nhvbsrMap = {
 	    	  nhvbsrMap.infowindow.setContent(results[1].formatted_address);
 	          nhvbsrMap.infowindow.open(nhvbsrMap.map, nhvbsrMap.marker);
 	          nhvbsrMap.marker.setPosition(latlng);
-	          nhvbsrMap.map.setCenter(latlng);
+	          if(center)
+	          {
+		          nhvbsrMap.map.setCenter(latlng);
+	          }
 	      } else {
-	        alert('No results found');
+	       // alert('No results found');
 	      }
 	    } else {
-	      alert('Geocoder failed due to: ' + status);
+	      //alert('Geocoder failed due to: ' + status);
 	    }
 	  });
 	},
