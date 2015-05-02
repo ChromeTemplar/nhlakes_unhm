@@ -11,6 +11,7 @@
     <li><?php echo $this->linkTo("group", "index", "Groups"); ?></li>
     <?php  } ?>
     <li><?php echo $this->linkTo("invasivespecies", "index", "Invasive Species"); ?></li>
+    <li><?php echo $this->linkTo("surveysummary", "index", "Survey Summary"); ?></li>    
     <li><?php echo $this->linkTo("report", "index", "Report"); ?></li>
     <li><?php echo $this->linkTo("sessionend","end","Logout"); ?></li>
- </ul>
+ </ul> 
