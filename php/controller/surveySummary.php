@@ -15,8 +15,8 @@ class SurveySummaryController extends Controller
     public function index()
     { 
         $model = new surveySummary();
-        $surveySummaries = $model->allToday(); 
-
+       
+        $surveySummaries = $model->all("Summary");
         $this->registry->template->summary = $surveySummaries;
         $this->registry->template->welcome = 'Survey Summary';
         

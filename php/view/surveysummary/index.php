@@ -1,9 +1,10 @@
 <h1><?php echo $welcome;?></h1>
 
 <?php
-echo $this->buildTable($summary);
-
-echo $this->buttonTo("surveySummary","newSurveySummary", "New");
+if ($summary !="")
+	echo $this->buildTable($summary, "surveysummary");
+else
+	echo "<h2>No Survey Summary Found </h2>";
 ?>
 
 <br>
