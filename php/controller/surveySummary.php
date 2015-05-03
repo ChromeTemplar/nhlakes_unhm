@@ -221,7 +221,7 @@ class SurveySummaryController extends Controller
     	$this->registry->template->summary = $summary;
     
     	/*** load the edit template ***/
-    	$this->registry->template->show($this->name, 'edit');
+    	$this->registry->template->show($this->name, 'view');
     }
     
     

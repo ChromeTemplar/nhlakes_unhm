@@ -94,6 +94,24 @@ class InvasiveSpeciesController extends Controller
         
     }
     
+    public function view()
+    {
+    	/*** Instatiate a new boatramp model with the ID of the one we are editing ***/
+    	$this->model = new invasiveSpecies($_GET['id']);
+    
+    
+    	/*** Get the Boat Ramp where ID = model->id ***/
+    	$invasiveSpecies = $this->model->at_id();
+    
+    	print_r($invasiveSpecies);// Used to debugging
+    	/*** set a template variable ***/
+    	$this->registry->template->welcome = 'Edit Invasive Survey';
+    	$this->registry->template->invasiveSpecies = $invasiveSpecies[0];
+    
+    	/*** load the edit template ***/
+    	$this->registry->template->show($this->name, 'view');
+    
+    }
     
         /**
     * Gets called when a InvasiveSpecies form is submitted

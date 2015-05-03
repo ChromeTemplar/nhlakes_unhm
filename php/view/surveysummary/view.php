@@ -18,17 +18,7 @@ else
 }
 ?>
 
-<form id="surveySummaryForm"
-	<?php 
-    if (!isset($summary))
-    {
-        echo "action='index.php?rt=surveysummary/create' ";
-    }
-    else
-    {
-        echo "action='index.php?rt=surveysummary/update&id=".$summary['ID']. "'"; 
-    }
-    ?> method="post">
+
     
 	<!-- THIS IS THE START OF THE HEADER FOR THE SURVEY SUMMARY -->
 	<div style="white-space: nowrap;"><h3>
@@ -105,36 +95,28 @@ State Boat Registration
 	</tr>
 	<tr>
 		<td>
-			<input type='number' name='summary[NH]'  
-			<?php if (isset($summary)) echo "value='".$summary['NH']."'"; ?> />
+			<?php if (isset($summary)) echo $summary['NH']; ?>
+		</td>
+		<td>  
+			<?php if (isset($summary)) echo $summary['MA']; ?>
+		</td>
+		<td>  
+			<?php if (isset($summary)) echo $summary['ME']; ?>
+		</td>
+		<td> 
+			<?php if (isset($summary)) echo $summary['VT']; ?>
+		</td>
+		<td> 
+			<?php if (isset($summary)) echo $summary['CT']; ?>
+		</td>
+		<td> 
+			<?php if (isset($summary)) echo $summary['RI']; ?>
 		</td>
 		<td>
-			<input type='number' name='summary[MA]'  
-			<?php if (isset($summary)) echo "value='".$summary['MA']."'"; ?> />
+			<?php if (isset($summary)) echo $summary['NY']; ?>
 		</td>
 		<td>
-			<input type='number' name='summary[ME]'  
-			<?php if (isset($summary)) echo "value='".$summary['ME']."'"; ?> />
-		</td>
-		<td>
-			<input type='number' name='summary[VT]'  
-			<?php if (isset($summary)) echo "value='".$summary['VT']."'"; ?> />
-		</td>
-		<td>
-			<input type='number' name='summary[CT]'  
-			<?php if (isset($summary)) echo "value='".$summary['CT']."'"; ?> />
-		</td>
-		<td>
-			<input type='number' name='summary[RI]'  
-			<?php if (isset($summary)) echo "value='".$summary['RI']."'"; ?> />
-		</td>
-		<td>
-			<input type='number' name='summary[NY]'
-			<?php if (isset($summary)) echo "value='".$summary['NY']."'"; ?> />
-		</td>
-		<td>
-			<input type='number' name='summary[other]'  
-			<?php if (isset($summary)) echo "value='".$summary['other']."'"; ?> />
+			<?php if (isset($summary)) echo $summary['other']; ?>
 		</td>
 	</tr>
 </table>
@@ -150,24 +132,19 @@ Type of Boat
 	</tr>
 	<tr>
 	    <td>
-			<input type='number' name='summary[inboardOutboard]'  
-			<?php if (isset($summary)) echo "value='".$summary['inboardOutboard']."'"; ?> />
+			<?php if (isset($summary)) echo $summary['inboardOutboard']; ?>
 		</td>
 		<td>
-			<input type='number' name='summary[pwc]'  
-			<?php if (isset($summary)) echo "value='".$summary['pwc']."'"; ?> />
+			<?php if (isset($summary)) echo $summary['pwc']; ?>
 		</td>
 		<td>
-			<input type='number' name='summary[canoeKayak]'  
-			<?php if (isset($summary)) echo "value='".$summary['canoeKayak']."'"; ?> />
+			<?php if (isset($summary)) echo $summary['canoeKayak']; ?>
 		</td>
 		<td>
-			<input type='number' name='summary[sail]'  
-			<?php if (isset($summary)) echo "value='".$summary['sail']."'"; ?> />
+			<?php if (isset($summary)) echo $summary['sail']; ?>
 		</td>
 		<td>
-			<input type='number' name='summary[otherBoatType]'  
-			<?php if (isset($summary)) echo "value='".$summary['otherBoatType']."'"; ?> />
+			<?php if (isset($summary)) echo $summary['otherBoatType']; ?>
 		</td>
 	</tr>
 </table>
@@ -180,12 +157,10 @@ Prior interaction with Lake Host?
 	</tr>
 	<tr>
 		<td>
-			<input type='number' name='summary[previous]'  
-			<?php if (isset($summary)) echo "value='".$summary['previous']."'"; ?> />
+			<?php if (isset($summary)) echo $summary['previous']; ?>
 		</td>
-		<td>
-			<input type='number' name= 'summary[notPrevious]'    
-			<?php if (isset($summary)) echo "value='".$summary['notPrevious']."'"; ?> />
+		<td>    
+			<?php if (isset($summary)) echo $summary['notPrevious']; ?>
 		</td>
 	</tr>
 </table>
@@ -198,12 +173,10 @@ Drained after last waterbody?
 	</tr>
 	<tr>
 		<td>
-			<input type='number' name='summary[drained]'  
-			<?php if (isset($summary)) echo "value='".$summary['drained']."'"; ?> />
+			<?php if (isset($summary)) echo $summary['drained']; ?>
 		</td>
 		<td>
-			<input type='number' name='summary[notDrained]'  
-			<?php if (isset($summary)) echo "value='".$summary['notDrained']."'"; ?> />
+			<?php if (isset($summary)) echo $summary['notDrained']; ?>
 		</td>
 	</tr>
 </table>
@@ -216,12 +189,10 @@ Rinsed after last waterbody?
 	</tr>
 	<tr>
 		<td>
-			<input type='number' name='summary[rinsed]'  
-			<?php if (isset($summary)) echo "value='".$summary['rinsed']."'"; ?> />
+			<?php if (isset($summary)) echo $summary['rinsed']; ?>
 		</td>
 		<td>
-			<input type="number" name='summary[notRinsed]'  
-			<?php if (isset($summary)) echo "value='".$summary['notRinsed']."'"; ?> />
+			<?php if (isset($summary)) echo $summary['notRinsed']; ?>
 		</td>
 	</tr>
 </table>
@@ -234,12 +205,10 @@ Dry for at least 5 days since last waterbody?
 	</tr>
 	<tr>
 		<td>
-			<input type='number' name='summary[dry5]'  
-			<?php if (isset($summary)) echo "value='".$summary['dry5']."'"; ?> />
+			<?php if (isset($summary)) echo $summary['dry5']; ?>
 		</td>
 		<td>
-			<input type='number' name='summary[notDry5]'  
-			<?php if (isset($summary)) echo "value='".$summary['notDry5']."'"; ?> />
+			<?php if (isset($summary)) echo $summary['notDry5']; ?>
 		</td>
 	</tr>
 </table>
@@ -253,16 +222,13 @@ Boater awareness of AIS problem
 	</tr>
 	<tr>
 		<td>
-			<input type='number' name='summary[awarenessHigh]'  
-			<?php if (isset($summary)) echo "value='".$summary['awarenessHigh']."'"; ?> />
+			<?php if (isset($summary)) echo $summary['awarenessHigh']; ?>
 		</td>
 		<td>
-			<input type='number' name='summary[awarenessMedium]'  
-			<?php if (isset($summary)) echo "value='".$summary['awarenessMedium']."'"; ?> />
+			<?php if (isset($summary)) echo $summary['awarenessMedium']; ?>
 		</td>
 		<td>
-			<input type='number' name='summary[awarenessLow]'  
-			<?php if (isset($summary)) echo "value='".$summary['awarenessLow']."'"; ?> />
+			<?php if (isset($summary)) echo $summary['awarenessLow']; ?>
 		</td>
 	</tr>
 </table>
@@ -275,12 +241,10 @@ Specimen found?
 	</tr>
 	<tr>
 		<td>
-			<input type='number' name='summary[speciesFoundYes]'  
-			<?php if (isset($summary)) echo "value='".$summary['speciesFoundYes']."'"; ?> />
+			<?php if (isset($summary)) echo $summary['speciesFoundYes']; ?>
 		</td>
 		<td>
-			<input type='number' name='summary[speciesFoundNo]'  
-			<?php if (isset($summary)) echo "value='".$summary['speciesFoundNo']."'"; ?> />
+			<?php if (isset($summary)) echo $summary['speciesFoundNo']; ?>
 		</td>
 	</tr>
 </table>
@@ -293,17 +257,12 @@ Sent to DES?
 	</tr>
 	<tr>
 		<td>
-			<input type='number' name='summary[sentDesYes]'  
-			<?php if (isset($summary)) echo "value='".$summary['sentDesYes']."'"; ?> />
+			<?php if (isset($summary)) echo $summary['sentDesYes']; ?>
 		</td>
 		<td>
-			<input type='number' name='summary[sentDesNo]'  
-			<?php if (isset($summary)) echo "value='".$summary['sentDesNo']."'"; ?> />
+			<?php if (isset($summary)) echo $summary['sentDesNo']; ?>
 		</td>
 	</tr>
 </table>
-	
 
-</br>
-<input type='submit' value='Submit' />
 </form>    
