@@ -57,6 +57,7 @@ class surveySummary extends Model
 	 **/
 	public function addSummary($data)
 	{
+		print_r($data);
 		$mysqli = $this->conn;
 	
 		if (empty($table))
@@ -73,6 +74,7 @@ class surveySummary extends Model
 		{
 			echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
 		}
+		
 		
 		//stick the summary date in front of the times to complete
 		//the datatime type used in the DB table

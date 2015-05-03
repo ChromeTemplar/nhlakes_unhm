@@ -1,34 +1,23 @@
 <?php
-/**
-* Create CRUD methods for this controller
-* 
-* Create[]
-* Read[]
-* Update[]
-* Delete[]
-*/
 
 class InvasiveSpeciesController extends Controller
-{
+{     
     var $name;
     var $registry;
+    var $model;
     
-    function invasiveSpeciesController($registry){
+    function InvasiveSpeciesController($registry)
+    {
         $this->registry = $registry;
         $this->name = strtolower(substr(get_class($this), 0, -10));
     }
     
     public function index()
     { 
-        
-       /*** Instatiate a new boatramp model ***/
-        $model = new invasiveSpecies();  
-
-
-        /*** Get all Invasive Species ***/
-        $invasivespecies = $model->all("InvasiveSurvey");
-        
-        $lakeGroupStats = new LakeGroupStats();
+        $model = new invasivespecies();
+       
+        $invasivespecies = $model->all("invasivesurvey");
+ $lakeGroupStats = new LakeGroupStats();
         /*** Get Survey Totals ***/
         $surveyTotalGroup = $lakeGroupStats->getSurveyTotalByGroup($_SESSION['userName']);
         $surveyTotalUser = $lakeGroupStats->getSurveyTotalByUser($_SESSION['userName']);
@@ -44,30 +33,134 @@ class InvasiveSpeciesController extends Controller
         $this->registry->template->surveyTotal = $surveyTotal;
         $this->registry->template->lakeHostGroupName = $lakeHostGroupName;
         
-        $this->registry->template->welcome = 'Invasive Survey';
-        
         /*** load the index template ***/
+        $this->registry->template->welcome = 'Invasive Survey';
         $this->registry->template->show($this->name, 'index');
-
-
     }
-    /**
-    * Loads a blank BoatRamp Form
-    **/
+    
+    /*
+    This function returns HTML table. This table contains the survey 
+    summary information obtained from the database.
+    */
     public function newInvasiveSurvey()
-    {   
-        /*** Instatiate a new boatramp model ***/
-        $this->model = new invasiveSpecies();
-
-   
-
-        /*** set template variables ***/
-        $this->registry->template->welcome = 'New Invasive Survey';
-
-
+    {
+    	$this->model = new invasivespecies();
+    	
+    	//towns are used to filter the boat ramp selection and 
+    	//are not downloaded to the summary DB table
+    	//FIXME need to make this filter the boat ramps.
+    	$townNames = $this->getTownNames();
+    	
+    	//waterbodies are used to filter the boat ramp selection
+    	//and are not downloaded to the summary DB table
+    	//FIXME need to make this filter the boat ramps.
+    	$waterbodyNames = $this->getWaterbodyNames();
+    	
+    	$rampNames = $this->getRampNames();
+    	
+    	//if you're a user you CAN be a lake host.
+    	//use this to populate lake hosts field
+    	$userNames = $this->getUsers();
+    	
+    	$localGroups = $this->getLocalGroups();
+    	   	
+    	//set template variables, these are what are being used in the _form.php
+    	$this->registry->template->welcome = 'New Invasive Species';
+     	$this->registry->template->localGroups = $localGroups;
+     	$this->registry->template->towns = $townNames;
+     	$this->registry->template->waterbodies = $waterbodyNames;
+     	$this->registry->template->rampNames = $rampNames;
+     	$this->registry->template->lakeHostNames = $userNames;
         
         /*** load the index template ***/
         $this->registry->template->show($this->name, 'new');
+    }
+    
+    private function getLocalGroups()
+    {
+    	$this->model->lakeHostGroups = $this->model->all('LakeHostGroup');
+    	$localGroups = array();
+    	for($i = 0; $i < count($this->model->lakeHostGroups); ++$i)
+    	{
+    		$group = $this->model->lakeHostGroups[$i];
+    		$localGroups[$i] = ($group['lakeHostGroupName'] . ' ' . '(' . $group['ID'] . ')');
+    	}
+    	
+    	return $localGroups;
+    }
+    
+    private function getUsers()
+    {
+    	$this->model->users = $this->model->all('User');
+    	$userNames = array();
+    	for($i = 0; $i < count($this->model->users); ++$i)
+    	{
+    		$user = $this->model->users[$i];
+    		$userNames[$i] = ($user['firstName'] . ' ' . $user['lastName'] . ' ' . '(' . $user['ID'] . ')');
+    	}
+    	
+    	return $userNames;
+    }
+    
+    private function getRampNames()
+    {
+    	$this->model->boatRamps = $this->model->all('BoatRamp');
+    	$rampNames = array();
+    	for($i = 0; $i < count($this->model->boatRamps); ++$i)
+    	{
+    		$ramp = $this->model->boatRamps[$i];
+    		$rampNames[$i] = ($ramp['name'] . ' ' . '(' . $ramp['ID'] . ')');
+    	}
+    	
+    	return $rampNames;
+    }
+    
+    private function getWaterbodyNames()
+    {
+    	$this->model->waterbodies = $this->model->all('Waterbody');
+    	$waterbodyNames = array();
+    	for($i = 0; $i < count($this->model->waterbodies); ++$i)
+    	{
+    		$waterbody = $this->model->waterbodies[$i];
+    		$waterbodyNames[$i] = ($waterbody['name'] . ' ' . '(' . $waterbody['ID'] . ')');
+    	}
+    	
+    	return $waterbodyNames;
+    }
+    
+    private function getTownNames()
+    {
+    	$this->model->towns = $this->model->all('Town');
+    	$townNames = array();
+    	for($i = 0; $i < count($this->model->towns); ++$i)
+    	{
+    		$town = $this->model->towns[$i];
+    		$townNames[$i] = ($town['name'] . ' ' . '(' . $town['ID'] . ')');
+    	}
+    	
+    	return $townNames;
+    }
+    
+    /**
+     * Gets called when a survey summary is deleted
+     **/
+ public function delete() {
+        $model = new invasiveSpecies($_GET['id']);
+        $model->deleteInvasiveSpecies();
+        
+        /*** Redirect User to Index ***/
+        header("location: index.php?rt=invasivespecies/index");
+    }
+    
+    /**
+     * Gets called when an Edit survey form is submitted
+     **/
+public function update() {
+        $model = new invasiveSpecies($_GET['id']);
+        $model->updateInvasiveSpecies($_POST["InvasiveSurvey"]);
+        
+        /*** Redirect User to BoatRamp/Index ***/
+        header("location: index.php?rt=invasivespecies/index");
     }
 
     /**
@@ -75,7 +168,7 @@ class InvasiveSpeciesController extends Controller
      * @param Int $survey_id
      * @return Object containing all Survey columns
      */
-    public function edit()
+ public function edit()
     {
                 /*** Instatiate a new boatramp model with the ID of the one we are editing ***/
         $this->model = new invasiveSpecies($_GET['id']);
@@ -94,7 +187,7 @@ class InvasiveSpeciesController extends Controller
         
     }
     
-    public function view()
+ public function view()
     {
     	/*** Instatiate a new boatramp model with the ID of the one we are editing ***/
     	$this->model = new invasiveSpecies($_GET['id']);
@@ -113,12 +206,19 @@ class InvasiveSpeciesController extends Controller
     
     }
     
-        /**
-    * Gets called when a InvasiveSpecies form is submitted
-    **/
-    public function create() {
+    /**
+     * 
+     * Gets called when a New Survey Summary form is submitted
+     * 
+     * Im not sure why we create another model for submitting to the database
+     * apparently the one for displaying the summary gets destroyed by the MVC framwork.
+     * So apparently I have to use a global to save info which is stupid.
+     * Why use OOP if you're going to use globals!
+     * 
+     **/
+public function create() {
         $model = new invasiveSpecies();
-        print_r ($_POST["InvasiveSurvey"]);
+       // print_r ($_POST["InvasiveSurvey"]);
         $model->addInvasiveSpecies($_POST["InvasiveSurvey"]);
         
         
@@ -126,33 +226,5 @@ class InvasiveSpeciesController extends Controller
         /*** Redirect User to InvasiveSpecies/Index ***/
        header("location: index.php?rt=invasivespecies/index");
     }
-    
-    
-     /**
-    * Gets called when an Edit Invasive Species form is submitted
-    **/
-    public function update() {
-        $model = new invasiveSpecies($_GET['id']);
-        $model->updateInvasiveSpecies($_POST["InvasiveSurvey"]);
-        
-        /*** Redirect User to BoatRamp/Index ***/
-        header("location: index.php?rt=invasivespecies/index");
-    }
-    
-    /**
-    * Gets called when a Boat Ramp is deleted
-    **/
-    public function delete() {
-        $model = new invasiveSpecies($_GET['id']);
-        $model->deleteInvasiveSpecies();
-        
-        /*** Redirect User to Index ***/
-        header("location: index.php?rt=invasivespecies/index");
-    }
-    
-    
-    
-    
-    
     
 }

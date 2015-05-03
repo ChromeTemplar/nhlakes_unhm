@@ -90,26 +90,11 @@ if (isset($invasiveSpecies)) {
 }
 ?>
 
-<form id="invasivespeciesForm" 
-
-<?php 
-    if (!isset($invasiveSpecies))
-    {
-        echo "action='index.php?rt=invasivespecies/create' ";
-    
-    }
-    else 
-    {
-        echo "action='index.php?rt=invasivespecies/update&id=".$invasiveSpecies['ID']. "'";
-    }
-    ?>
-   method="post">
-
 
     <!-- UserID -->
     <!--<label for="userID">UserID</label><br/>
     <input type="text" name="InvasiveSurvey[userID]" class="medium" > -->
-    <?php  if(isset($invasiveSpecies)) echo "value='$userID'"; ?>
+    <?php  if(isset($invasiveSpecies)) echo $userID; ?>
    
        
     
@@ -119,7 +104,7 @@ if (isset($invasiveSpecies)) {
     <!-- BoatRamp -->
    <!-- <label for="boatRampID">Boat Ramp ID</label><br/>
     <input type="text" name="InvasiveSurvey[boatRampID]" class="medium"> -->
-    <?php  if(isset($invasiveSpecies)) echo "value='$boatRampID'"; ?>
+    <?php  if(isset($invasiveSpecies)) echo $boatRampID; ?>
   
     
  
@@ -130,7 +115,7 @@ if (isset($invasiveSpecies)) {
     <!-- Summary ID -->
     <!-- <label for="Name">Summary ID <BR> <small>(Of person who took the survey)</label><br/>
     <input type="text" name="InvasiveSurvey[summaryID]" class="medium" > -->
-    <?php  if(isset($invasiveSpecies)) echo "value='$summaryID'"; ?>
+    <?php  if(isset($invasiveSpecies)) echo $summaryID; ?>
     
    
     <BR>
@@ -141,9 +126,7 @@ if (isset($invasiveSpecies)) {
     
     <!-- Name -->
     <label for="Name">Name <BR> <small>(Of person who took the survey)</small></label><br/>
-    <input type="text" name="InvasiveSurvey[name]" class="medium" 
-        <?php if(isset($invasiveSpecies)) echo "value='$name'"; ?>
-    >
+    <div><?php if(isset($invasiveSpecies)) echo $name; ?></div>
     
 
     <BR>
@@ -158,9 +141,7 @@ if (isset($invasiveSpecies)) {
     <!-- SurveyDate -->
     <label for="surveyDate">Date<small> (of incident)</small>
     </label><br/>
-    <input type="text" name="InvasiveSurvey[surveyDate]" class="medium"
-        <?php if(isset($invasiveSpecies)) echo "value='$surveyDate'"; ?>
-    >
+    <div><?php if(isset($invasiveSpecies)) echo $surveyDate; ?></div>
     
  
     <BR>
@@ -176,7 +157,7 @@ if (isset($invasiveSpecies)) {
         <?php 
             if(isset($invasiveSpecies)) {
                 if ($launchStatus == 1) {
-                    echo " checked";
+                    echo "Launched<br>";
                 }
             }
         ?>  
@@ -185,7 +166,7 @@ if (isset($invasiveSpecies)) {
         <?php 
             if(isset($invasiveSpecies)) {
                 if ($launchStatus == 0) {
-                    echo " checked";
+                    echo "Retrieved<br>";
                 }
             }
         ?>       
@@ -195,9 +176,9 @@ if (isset($invasiveSpecies)) {
     -->
     <!-- RegistrationState -->
     <label for="registrationState">What state registration of the boat?</label><br/>
-    <input type="text" name="InvasiveSurvey[registrationState]" class="medium"
-        <?php if(isset($invasiveSpecies)) echo "value='$registrationState'"; ?>
-    ><br/><br/>
+    
+    <div><?php if(isset($invasiveSpecies)) echo $registrationState; ?></div>
+    <br/><br/>
 
     <BR>
     <BR>
@@ -209,7 +190,7 @@ if (isset($invasiveSpecies)) {
         <?php 
             if(isset($invasiveSpecies)) {
                 if ($boatType == "Inboard/Outboard") {
-                    echo " checked";
+                    echo $boatType."<br>";
                 }
             }
         ?>
@@ -219,7 +200,7 @@ if (isset($invasiveSpecies)) {
          <?php 
             if(isset($invasiveSpecies)) {
                 if ($boatType == "PWC/Jet/Ski/JetBoat") {
-                    echo " checked";
+                    echo $boatType."<br>";
                 }
             }
         ?>  
@@ -229,7 +210,7 @@ if (isset($invasiveSpecies)) {
          <?php 
             if(isset($invasiveSpecies)) {
                 if ($boatType == "Kayak/Canoe") {
-                    echo " checked";
+                    echo $boatType."<br>";
                 }
             }
         ?>  
@@ -239,7 +220,7 @@ if (isset($invasiveSpecies)) {
         <?php 
             if(isset($invasiveSpecies)) {
                 if ($boatType == "Sail") {
-                    echo " checked";
+                    echo $boatType;
                 }
             }
         ?>   
@@ -249,7 +230,7 @@ if (isset($invasiveSpecies)) {
           <?php 
             if(isset($invasiveSpecies)) {
                 if ($boatType == "Other") {
-                    echo " checked";
+                    echo $boatType;
                 }
             }
         ?> 
@@ -264,7 +245,7 @@ if (isset($invasiveSpecies)) {
         <?php 
             if(isset($invasiveSpecies)) {
                 if ($previousInteraction == 1) {
-                    echo " checked";
+                    echo "Yes<br>";
                 }
             }
         ?>
@@ -274,7 +255,7 @@ if (isset($invasiveSpecies)) {
         <?php 
             if(isset($invasiveSpecies)) {
                 if ($previousInteraction == 0) {
-                    echo " checked";
+                    echo "No<br>";
                 }
             }
         ?>
@@ -286,9 +267,9 @@ if (isset($invasiveSpecies)) {
     
     <!-- LastSiteVisted -->
     <label for="LastTownVisted">Name of the Last Site Visted</label><br/>
-    <input type="text" name="InvasiveSurvey[lastTownVisited]" class="medium" 
-        <?php if(isset($invasiveSpecies)) echo "value='$lastTownVisted'"; ?>
-    ><br/><br/>
+    <div>
+        <?php if(isset($invasiveSpecies)) echo $lastTownVisted; ?>
+    </div><br/><br/>
     
     <BR>
     
@@ -296,16 +277,16 @@ if (isset($invasiveSpecies)) {
     
     <!-- LastTownVisted -->
     <label for="lastSiteVisted">Name of the Last Town Visted</label><br/>
-    <input type="text" name="InvasiveSurvey[lastSiteVisited]" class="medium"
-        <?php if(isset($invasiveSpecies)) echo "value='$lastSiteVisted'"; ?>
-    ><br/><br/>
+    <div>
+        <?php if(isset($invasiveSpecies)) echo $lastSiteVisted; ?>
+    </div><br/><br/>
     <BR>
 	
     <!-- LastStateVisted -->
     <label for="lastStateVisted">Name of the Last State Visted</label><br/>
-    <input type="text" name="InvasiveSurvey[lastStateVisited]" class="medium"
-        <?php if(isset($invasiveSpecies)) echo "value='$lastStateVisted'"; ?>       
-    ><br/><br/>
+    <div>
+        <?php if(isset($invasiveSpecies)) echo $lastStateVisted; ?>       
+    </div><br/><br/>
         
     <!-- Drained 
     <label for="drained">Was the boat drained?</label><br/>
@@ -313,7 +294,7 @@ if (isset($invasiveSpecies)) {
         <?php 
             if(isset($invasiveSpecies)) {
                 if ($drained == 1) {
-                    echo " checked";
+                    echo "Yes";
                 }
             }
         ?> 
@@ -323,7 +304,7 @@ if (isset($invasiveSpecies)) {
         <?php 
             if(isset($invasiveSpecies)) {
                 if ($drained == 0) {
-                    echo " checked";
+                    echo "No";
                 }
             }
         ?>
@@ -339,7 +320,7 @@ if (isset($invasiveSpecies)) {
         <?php 
             if(isset($invasiveSpecies)) {
                 if ($rinsed == 1) {
-                    echo " checked";
+                    echo "Yes<br>";
                 }
             }
         ?>
@@ -349,7 +330,7 @@ if (isset($invasiveSpecies)) {
         <?php 
             if(isset($invasiveSpecies)) {
                 if ($rinsed == 0) {
-                    echo " checked";
+                    echo "No<br>";
                 }
             }
         ?>
@@ -366,7 +347,7 @@ if (isset($invasiveSpecies)) {
         <?php 
             if(isset($invasiveSpecies)) {
                 if ($dryForFiveDays == 1) {
-                    echo " checked";
+                    echo "Yes<br>";
                 }
             }
         ?>  
@@ -376,7 +357,7 @@ if (isset($invasiveSpecies)) {
         <?php 
             if(isset($invasiveSpecies)) {
                 if ($dryForFiveDays == 0) {
-                    echo " checked";
+                    echo "No<br>";
                 }
             }
         ?>
@@ -393,7 +374,7 @@ if (isset($invasiveSpecies)) {
         <?php 
             if(isset($invasiveSpecies)) {
                 if ($boaterAwareness == "High") {
-                    echo " checked";
+                    echo $boaterAwareness."<br>";
                 }
             }
         ?>
@@ -403,7 +384,7 @@ if (isset($invasiveSpecies)) {
         <?php 
             if(isset($invasiveSpecies)) {
                 if ($boaterAwareness == "Medium") {
-                    echo " checked";
+                    echo $boaterAwareness."<br>";
                 }
             }
         ?>
@@ -413,7 +394,7 @@ if (isset($invasiveSpecies)) {
         <?php 
             if(isset($invasiveSpecies)) {
                 if ($boaterAwareness == "Low") {
-                    echo " checked";
+                    echo $boaterAwareness."<br>";
                 }
             }
         ?>
@@ -424,48 +405,44 @@ if (isset($invasiveSpecies)) {
       -->  
     <!-- BowNumber -->
     <label for="bowNumber">Bow Number</label><br/>
-	<input type="text" name="InvasiveSurvey[bowNumber]" class="medium"
-            <?php if(isset($invasiveSpecies)) echo "value='$bowNumber'"; ?>
-        ><br/><br/>
+	<div>
+            <?php if(isset($invasiveSpecies)) echo $bowNumber; ?>
+    </div><br/><br/>
         
         
         <BR>
      
     <!-- License Plate Number -->
     <label for="bowNumber">License Plate</label><br/>
-	<input type="text" name="InvasiveSurvey[licensePlateNumber]" class="medium"
-            <?php if(isset($invasiveSpecies)) echo "value='$licensePlateNumber'"; ?>       
-        ><br/><br/>        
+	<div>
+            <?php if(isset($invasiveSpecies)) echo $licensePlateNumber; ?>       
+    </div><br/><br/>        
         <BR>
         
     <!-- sentToDES -->
     <label for="sentToDES">Was the specimen sent to DES?</label><br/>
-    <input type="radio" name="InvasiveSurvey[sentToDES]" value="1"
+    <div>
         <?php 
             if(isset($invasiveSpecies)) {
                 if ($sentToDES == 1) {
-                    echo " checked";
+                    echo "Yes<br>";
+                }
+				else if ($sentToDES == 0) {
+                    echo "No<br>";
                 }
             }
-        ?>       
-    >Yes<br>
-	
-    <input type="radio" name="InvasiveSurvey[sentToDES]" value="0"
-        <?php 
             if(isset($invasiveSpecies)) {
-                if ($sentToDES == 0) {
-                    echo " checked";
-                }
+                
             }
         ?>   
-    >No<br>
+    </div>
 	
 	<BR>
     <!-- Notes -->
     <label for="notes">Notes</label><br/>
-    <input type="text" name="InvasiveSurvey[notes]" class="medium"
-        <?php if(isset($invasiveSpecies)) echo "value='$notes'"; ?>       
-    ><br/><br/>        
+    <div>
+        <?php if(isset($invasiveSpecies)) echo $notes; ?>       
+    </div><br/><br/>        
     <BR>
 
     <!-- Active 
@@ -474,7 +451,7 @@ if (isset($invasiveSpecies)) {
         <?php 
             if(isset($invasiveSpecies)) {
                 if ($active == 1) {
-                    echo " checked";
+                    echo "Active<br>";
                 }
             }
         ?>
@@ -485,7 +462,7 @@ if (isset($invasiveSpecies)) {
         <?php 
             if(isset($invasiveSpecies)) {
                 if ($active == 0) {
-                    echo " checked";
+                    echo "Not Active<br>";
                 }
             }
         ?>       
@@ -499,7 +476,7 @@ if (isset($invasiveSpecies)) {
         <?php 
             if(isset($invasiveSpecies)) {
                 if ($desResult == 1) {
-                    echo " checked";
+                    echo "Confirmed<br>";
                 }
             }
         ?>
@@ -509,7 +486,7 @@ if (isset($invasiveSpecies)) {
         <?php 
             if(isset($invasiveSpecies)) {
                 if ($desResult == 0) {
-                    echo " checked";
+                    echo "Not Confirmed<br>";
                 }
             }
         ?>  
@@ -550,8 +527,8 @@ if (isset($invasiveSpecies)) {
     
     
     -->
-    <input type="submit" value="Submit">
+   
     
-    <?php echo $this->buttonTo("home","index","Cancel"); ?>
+    <?php echo $this->buttonTo("home","index","Back"); ?>
     
-    </form>
+   

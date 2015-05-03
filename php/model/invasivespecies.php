@@ -100,6 +100,8 @@ class invasiveSpecies extends Model
             echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
         }      
 
+       // $lakeHostGroupName = $lakeGroupStats->getlakeHostGroupName($_SESSION['userName']);
+      //  $data['userID'] =$lakeGroupStats->getlakeHostGroupName($_SESSION['userName']);
         /* Prepared statement, stage 2: bind and execute */
         if (!($stmt->bind_param("iiissississsiiisssiisisi"
                 
