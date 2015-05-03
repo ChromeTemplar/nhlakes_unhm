@@ -90,12 +90,20 @@ if (isset($invasiveSpecies)) {
 }
 ?>
 
-<form id="invasivespeciesForm" <?php 
-    if (!isset($invasivespecies))
+<form id="invasivespeciesForm" 
+
+<?php 
+    if (!isset($invasiveSpecies))
+    {
         echo "action='index.php?rt=invasivespecies/create' ";
+    
+    }
     else 
-        echo "action='index.php?rt=invasivespecies/update&id=".$invasivespecies['ID']. "'"; ?>
-method="post">
+    {
+        echo "action='index.php?rt=invasivespecies/update&id=".$invasiveSpecies['ID']. "'";
+    }
+    ?>
+   method="post">
 
 
     <!-- UserID -->

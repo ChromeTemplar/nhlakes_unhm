@@ -167,9 +167,9 @@ class invasiveSpecies extends Model
 
         /* Prepared statement, stage 1: prepare */
         if (!($stmt = $mysqli->prepare("UPDATE InvasiveSurvey SET "
-                //. "userID = ?, "
-                //. " boatRampID = ?,"
-                //. " summaryID = ?,"
+                . "userID = ?, "
+               . " boatRampID = ?,"
+                . " summaryID = ?,"
                 . " name = ?,"
                 . " surveyDate = ? ,"
                 . " launchStatus = ?,"
@@ -197,10 +197,10 @@ class invasiveSpecies extends Model
         }
 
         /* Prepared statement, stage 2: bind and execute */
-        if (!($stmt->bind_param("ssississsiiisssiisisi" 
-                //,$data['userID'] 
-                //,$data['boatRampID'] 
-                //,$data['summaryID'] 
+        if (!($stmt->bind_param("iiissississsiiisssiisisii" 
+                ,$data['userID'] 
+                ,$data['boatRampID'] 
+                ,$data['summaryID'] 
                 ,$data['name'] 
                 ,$data['surveyDate'] 
                 ,$data['launchStatus'] 
@@ -221,7 +221,8 @@ class invasiveSpecies extends Model
                 ,$data['active'] 
                 ,$data['desResult'] 
                 ,$data['desNotes'] 
-                ,$data['desSave'], $this->id))) {
+                ,$data['desSave'],
+        		 $this->id))) {
             echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
         }
 

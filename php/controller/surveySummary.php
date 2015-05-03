@@ -190,7 +190,40 @@ class SurveySummaryController extends Controller
         $this->registry->template->show($this->name, 'edit');
     }
     
-   
+    public function view()
+    {
+    	/*** Instatiate a new boatramp model with the ID of the one we are editing ***/
+    	$this->model = new surveysummary($_GET['id']);
+    
+    	/*** Get the Boat Ramp where ID = model->id ***/
+    	$summary = $this->model->at_id();
+    
+    	//set the selection boxes selected parameters of the summary header
+    	$summary['waterbody'] = $this->model->getWaterbodyFromRampID($summary['boatRampID']);
+    	$summary['town'] = $this->model->getTownFromRampID($summary['boatRampID']);
+    	$summary['boatRampName'] = $this->model->getRampNameFromID($summary['boatRampID']);
+    	$summary['lakeHostName'] = $this->model->getLakeHostNameFromUserID($summary['userID']);
+    	$localGroup = $summary['localGroup'] = $this->model->getLocalGroupFromUserID($summary['userID']);
+    
+    	$rampNames = $this->getRampNames();
+    	$userNames = $this->getUsers();
+    	$localGroups = $this->getLocalGroups();
+    	$townNames = $this->getTownNames();
+    	$waterbodyNames = $this->getWaterbodyNames();
+    
+    	/*** set the selection boxes and summary data ***/
+    	$this->registry->template->welcome = 'Edit Survey Summary';
+    	$this->registry->template->localGroups = $localGroups;
+    	$this->registry->template->towns = $townNames;
+    	$this->registry->template->waterbodies = $waterbodyNames;
+    	$this->registry->template->rampNames = $rampNames;
+    	$this->registry->template->lakeHostNames = $userNames;
+    	$this->registry->template->summary = $summary;
+    
+    	/*** load the edit template ***/
+    	$this->registry->template->show($this->name, 'edit');
+    }
+    
     
     /**
      * 

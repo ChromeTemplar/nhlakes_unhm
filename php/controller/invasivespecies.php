@@ -100,7 +100,7 @@ class InvasiveSpeciesController extends Controller
     **/
     public function create() {
         $model = new invasiveSpecies();
-      //  print_r ($_POST["InvasiveSurvey"]);
+        print_r ($_POST["InvasiveSurvey"]);
         $model->addInvasiveSpecies($_POST["InvasiveSurvey"]);
         
         
@@ -115,7 +115,7 @@ class InvasiveSpeciesController extends Controller
     **/
     public function update() {
         $model = new invasiveSpecies($_GET['id']);
-        $model->updateInvasiveSpecies($_POST["ramp"]);
+        $model->updateInvasiveSpecies($_POST["InvasiveSurvey"]);
         
         /*** Redirect User to BoatRamp/Index ***/
         header("location: index.php?rt=invasivespecies/index");
@@ -128,7 +128,7 @@ class InvasiveSpeciesController extends Controller
         $model = new invasiveSpecies($_GET['id']);
         $model->deleteInvasiveSpecies();
         
-        /*** Redirect User to BoatRamp/Index ***/
+        /*** Redirect User to Index ***/
         header("location: index.php?rt=invasivespecies/index");
     }
     
