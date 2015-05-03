@@ -1,7 +1,10 @@
 <h1><?php echo $welcome; ?></h1>
 
 
-<?php if ($summary != "") 
+
+<?php
+
+ if ($summary != "") 
 { 
 
 $displayList = array(
@@ -21,7 +24,7 @@ $displayList = array(
         <?php 
         
         require_once "view/partials/_controlsTop.php";				 
-        echo "<div id='boatramp-table' >".$this->buildRampTable($summary, $displayList). "</div>";
+        echo "<div id='summary-table' >".$this->buildSurveyTable($summary, $displayList). "</div>";
         require_once "view/partials/_controlsBottom.php";
         
         ?>

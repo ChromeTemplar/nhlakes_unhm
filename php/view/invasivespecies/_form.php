@@ -35,9 +35,9 @@ desSave
 
 <?php
 if (isset($invasiveSpecies)) {
-   // $userID = $InvasiveSurvey['userID'];                  Works when Data is entered into database
-   // $boatRampID = $InvasiveSurvey['boatRampID'];
-   // $summaryID = $InvasiveSurvey['summaryID'];
+    $userID = $invasiveSpecies['userID'];                  //Works when Data is entered into database
+    $boatRampID = $invasiveSpecies['boatRampID'];
+    $summaryID = $invasiveSpecies['summaryID'];
     $name = $invasiveSpecies['name'];
     $surveyDate = $invasiveSpecies['surveyDate'];
     $launchStatus = $invasiveSpecies['launchStatus'];
@@ -63,9 +63,9 @@ if (isset($invasiveSpecies)) {
 } else {
 
     
-    // $userID = '';        See Above
-    // $boatRampID = '';
-    // $summaryID = '';
+     $userID = '';       
+     $boatRampID = '';
+     $summaryID = '';
     $name = '';
     $surveyDate = '';
     $launchStatus = '';
@@ -101,7 +101,7 @@ method="post">
     <!-- UserID -->
     <!--<label for="userID">UserID</label><br/>
     <input type="text" name="InvasiveSurvey[userID]" class="medium" > -->
-    <?php // if(isset($InvasiveSurvey)) echo "value='$userID'"; ?>
+    <?php  if(isset($invasiveSpecies)) echo "value='$userID'"; ?>
    
        
     
@@ -111,7 +111,7 @@ method="post">
     <!-- BoatRamp -->
    <!-- <label for="boatRampID">Boat Ramp ID</label><br/>
     <input type="text" name="InvasiveSurvey[boatRampID]" class="medium"> -->
-    <?php // if(isset($InvasiveSurvey)) echo "value='$boatRampID'"; ?>
+    <?php  if(isset($invasiveSpecies)) echo "value='$boatRampID'"; ?>
   
     
  
@@ -122,7 +122,7 @@ method="post">
     <!-- Summary ID -->
     <!-- <label for="Name">Summary ID <BR> <small>(Of person who took the survey)</label><br/>
     <input type="text" name="InvasiveSurvey[summaryID]" class="medium" > -->
-    <?php // if(isset($InvasiveSurvey)) echo "value='$summaryID'"; ?>
+    <?php  if(isset($invasiveSpecies)) echo "value='$summaryID'"; ?>
     
    
     <BR>

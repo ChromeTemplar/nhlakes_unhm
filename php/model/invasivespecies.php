@@ -72,9 +72,9 @@ class invasiveSpecies extends Model
         /* Prepared statement, stage 1: prepare */
         if (!($stmt = $mysqli->prepare("INSERT INTO InvasiveSurvey ( " 
 
-              //. "userID, "   works when users are entered into system
-              //. "boatRampID, "  works when boatramps are entered into system
-              //. "summaryID, "  Works when summary data is entered into system
+              . "userID, "   //works when users are entered into system
+              . "boatRampID, " // works when boatramps are entered into system
+              . "summaryID, " // Works when summary data is entered into system
                 . "name, "
                 . "surveyDate, "
                 . "launchStatus, "
@@ -96,7 +96,7 @@ class invasiveSpecies extends Model
                 . "desResult, "
                 . "desNotes, "
                 . "desSave"
-                . ") VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"))) {
+                . ") VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"))) {
             echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
         }      
 
