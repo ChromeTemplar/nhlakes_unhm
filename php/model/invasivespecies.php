@@ -101,15 +101,15 @@ class invasiveSpecies extends Model
         }      
 
         /* Prepared statement, stage 2: bind and execute */
-        if (!($stmt->bind_param("ssississsiiisssiisisi"
+        if (!($stmt->bind_param("iiissississsiiisssiisisi"
                 
 
                  //$data['boatrampID'], add comma being sisisis
    
                 
-                //,$data['userID']  see above
-                //,$data['boatRampID'] 
-                //,$data['summaryID'] 
+                ,$data['userID'] //  see above
+               ,$data['boatRampID'] 
+               ,$data['summaryID'] 
                 ,$data['name'] 
                 ,$data['surveyDate'] 
                 ,$data['launchStatus'] 
