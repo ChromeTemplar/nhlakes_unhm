@@ -88,7 +88,7 @@ if (isset($ramp)) {
 			<input type="text" id="longitude" name="ramp[longitude]" class="medium" <?php if(isset($ramp)) echo "value='$longitude'"; ?>>
     	</div>
     	<div class="nhvbsrMapBtn">
-    		<input type="button" class="coordinatesBtn" value="Lookup coordinates" onclick="nhvbsrMap.codeLatLng()">
+    		<input type="button" class="coordinatesBtn" value="Lookup coordinates" onclick="nhvbsrMap.showAddress(true);">
     	</div>
     </div>
     <div>Click the map to get coordinates</div>  
