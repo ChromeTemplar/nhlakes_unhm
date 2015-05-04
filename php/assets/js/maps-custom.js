@@ -44,6 +44,7 @@ var nhvbsrMap = {
 	
 	  	  google.maps.event.addListener(nhvbsrMap.marker, 'dragend', function(evt){
 	  		  nhvbsrMap.bindLatLong(evt.latLng);
+	  		  nhvbsrMap.showAddress(false);
 	  		});
 	  	}
 	  	else 
