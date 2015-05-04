@@ -416,13 +416,13 @@ class template
         return $html;
     }	
 
-    public function buildRampTable($list, $listHeaders) {
+    public function buildRampTable($list) {
     	$html = '<table class="list">';
     
-    	//$listHeaders = $list[0];
-    
+    	$listHeaders = $list[0];
+    	 
     	$html.= "<thead><tr>";
-    
+    	
     	//Iterate through the keys
     	foreach($listHeaders as $key => $val){
     		if($key != "ID") {
@@ -439,13 +439,12 @@ class template
     		$html .= "<tr class='list-item'>";
     		
     		foreach($list[$i] as $key => $val) {
-    			if (in_array($key, $listHeaders, true)) 
-    			{		 
+    		
 	    			if ($key == "name")
 	    			{
 	    				$html .= "<td class='title' >$val</td>";
 	    			}
-	    			else if ($key == "private")
+	    			else if ($key == "Ramp Access")
 	    			{
 	    				if($val == true)
 	    				{
@@ -455,16 +454,11 @@ class template
 	    				{
 	    					$html .= "<td class='public' >Public</td>";
 	    				}
-	    		
-	    			}
-	    			else if ($key == "waterbodyID") {
-	    				$html .= "<td class='$val'>$val</td>";
 	    			}
 	    			else if ($key != "ID")
 	    			{
 	    				$html .= "<td class='$val'>$val</td>";
 	    			}
-    			}
     		}
     
     		//Add the Edit button column

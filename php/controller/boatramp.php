@@ -26,7 +26,7 @@ class BoatRampController extends Controller
         $model = new boatramp();  
 
         /*** Get all Ramps ***/
-        $ramps = $model->all();
+        $ramps = $model->allFlat();
         
         /*** set template variables ***/
         $this->registry->template->welcome = 'Boat Ramps';

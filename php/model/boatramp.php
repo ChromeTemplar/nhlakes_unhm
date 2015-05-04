@@ -21,6 +21,21 @@ class BoatRamp extends Model
         parent::connectToDb();
      }
 
+     
+     function allFlat($table = '', $cols= '*') {
+     	$mysqli = $this->conn;
+     	$cols = "ID, name as 'Ramp Name',(select name from town where town.ID = boatramp.townID) as Town, (select name from waterbody where waterbody.ID = boatramp.waterbodyID) as 'Waterbody', private as 'Ramp Access'";
+     	if (empty($table))
+     		$table = $this->table;
+     
+     	/* Prepared statement, stage 1: prepare */
+     	if (!($stmt = $mysqli->prepare("Select $cols FROM $table"))) {
+     		echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+     	}
+     
+     	return $this->process($stmt);
+     }
+      
 
     /**
     * Adds a new Boat Ramp to the DB with the given $data
