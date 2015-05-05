@@ -17,21 +17,9 @@ class InvasiveSpeciesController extends Controller
         $model = new invasivespecies();
        
         $invasivespecies = $model->all("invasivesurvey");
- $lakeGroupStats = new LakeGroupStats();
-        /*** Get Survey Totals ***/
-        $surveyTotalGroup = $lakeGroupStats->getSurveyTotalByGroup($_SESSION['userName']);
-        $surveyTotalUser = $lakeGroupStats->getSurveyTotalByUser($_SESSION['userName']);
-        $surveyTotal = $lakeGroupStats->getSurveyTotal();
-        $lakeHostGroupName = $lakeGroupStats->getlakeHostGroupName($_SESSION['userName']);
-
         
         /*** set a template variable ***/
-        
         $this->registry->template->invasivespecies = $invasivespecies;
-        $this->registry->template->surveyTotalGroup = $surveyTotalGroup;
-        $this->registry->template->surveyTotalUser = $surveyTotalUser;
-        $this->registry->template->surveyTotal = $surveyTotal;
-        $this->registry->template->lakeHostGroupName = $lakeHostGroupName;
         
         /*** load the index template ***/
         $this->registry->template->welcome = 'Invasive Survey';

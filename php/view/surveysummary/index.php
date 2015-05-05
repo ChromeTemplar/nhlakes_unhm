@@ -3,7 +3,7 @@
 
 
 <?php
-
+include 'view/lakegroupstats/surveytotalview.php';
  if ($summary != "") 
 { 
 

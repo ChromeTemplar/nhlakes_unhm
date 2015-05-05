@@ -20,6 +20,18 @@ class SurveySummaryController extends Controller
         $this->registry->template->summary = $surveySummaries;
         $this->registry->template->welcome = 'Survey Summary';
         
+        $lakeGroupStats = new LakeGroupStats();
+        /*** Get Survey Totals ***/
+        $surveyTotalGroup = $lakeGroupStats->getSurveyTotalByGroup($_SESSION['userName']);
+        $surveyTotalUser = $lakeGroupStats->getSurveyTotalByUser($_SESSION['userName']);
+        $surveyTotal = $lakeGroupStats->getSurveyTotal();
+        $lakeHostGroupName = $lakeGroupStats->getlakeHostGroupName($_SESSION['userName']);
+        /*** set a template variable ***/
+        $this->registry->template->surveyTotalGroup = $surveyTotalGroup;
+        $this->registry->template->surveyTotalUser = $surveyTotalUser;
+        $this->registry->template->surveyTotal = $surveyTotal;
+        $this->registry->template->lakeHostGroupName = $lakeHostGroupName;
+        
         /*** load the index template ***/
         $this->registry->template->show($this->name, 'index');
     }
@@ -169,7 +181,7 @@ class SurveySummaryController extends Controller
         $summary['town'] = $this->model->getTownFromRampID($summary['boatRampID']);
         $summary['boatRampName'] = $this->model->getRampNameFromID($summary['boatRampID']);
         $summary['lakeHostName'] = $this->model->getLakeHostNameFromUserID($summary['userID']);
-        $localGroup = $summary['localGroup'] = $this->model->getLocalGroupFromUserID($summary['userID']);
+        $summary['localGroup'] = $this->model->getLakeHostGroupName($summary['lakeHostGroupID']);
         
         $rampNames = $this->getRampNames();
         $userNames = $this->getUsers();
@@ -203,7 +215,7 @@ class SurveySummaryController extends Controller
     	$summary['town'] = $this->model->getTownFromRampID($summary['boatRampID']);
     	$summary['boatRampName'] = $this->model->getRampNameFromID($summary['boatRampID']);
     	$summary['lakeHostName'] = $this->model->getLakeHostNameFromUserID($summary['userID']);
-    	$localGroup = $summary['localGroup'] = $this->model->getLocalGroupFromUserID($summary['userID']);
+    	$summary['localGroup'] = $this->model->getLakeHostGroupName($summary['lakeHostGroupID']);
     
     	$rampNames = $this->getRampNames();
     	$userNames = $this->getUsers();

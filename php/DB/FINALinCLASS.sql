@@ -686,7 +686,8 @@ FOREIGN KEY (userID) REFERENCES User(ID),
 FOREIGN KEY (lakeHostGroupID) REFERENCES LakeHostGroup(ID)
 );
 
-
+INSERT INTO LakeHostMember (userID, lakeHostGroupID)
+VALUES	(1,1);
 
 
 CREATE TABLE Summary (
