@@ -659,6 +659,7 @@ values
 
 CREATE TABLE BoatRamp(
 ID int(11) NOT NULL AUTO_INCREMENT,
+active bit (1),
 state varchar(20) NOT NULL,
 lakeHostGroupID int (11) ,
 name varchar (50) NOT NULL,
@@ -667,7 +668,7 @@ townID int NOT NULL,
 latitude float,
 longitude float,
 owner varchar (50) NOT NULL,
-private tinyint (1),
+private bit (1),
 notes varchar(265),
 PRIMARY KEY (ID),
 FOREIGN KEY (townID) REFERENCES Town(ID),
