@@ -257,6 +257,14 @@ class template
 		
 			                    	$html .= "<td class='title' >$val</td>";
 			            		}
+			            		elseif ($key === "activeUser") {
+			            			if ($val == 1){
+			            				$html .= "<td class='title' >Yes</td>";
+			            			}
+			            			else {
+			            				$html .= "<td class='title' >No</td>";
+			            			}			            		
+			            		}
 	    		            	else { 
 	    	    	            	$html .= "<td class=". $key .">$val</td>";
 	    	        	    	}                  
@@ -294,6 +302,14 @@ class template
             			}
             			elseif ($key == "name"){
             				$html .= "<td class='title' >$val</td>";
+            			}
+            			elseif ($key === "activeUser") {
+            				if ($val == 1){
+            					$html .= "<td class='title' >Yes</td>";
+            				}
+            				else {
+            					$html .= "<td class='title' >No</td>";
+            				}
             			}
             			else{
             				$html .= "<td>$val</td>";
