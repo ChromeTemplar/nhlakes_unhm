@@ -5,7 +5,7 @@
 File: View: allReports.php
 Date: 4/29/2015
 Author: Reporting Group 2015
-Info: Displays the report created from build report on the reporting page. See Model:Report.php and View:Report.php.
+Info: Displays all reports created from build report function. See Model:Report.php and Controller:Report.php.
 **/
 
 // Build report if there is no report available. If data is available the report will be displayed.
