@@ -83,7 +83,7 @@ $(document).ready(function () {
         }
     });
     
-    // Validation rules for the boat ramp form
+    // Validation rules for the survey form
     $("#surveySummaryForm").validate({
        rules: {
             "summary\[lakeHostName\]" :
@@ -119,6 +119,22 @@ $(document).ready(function () {
         }
     });
     
+    
+    // Validation rules for the invasive survey form
+    $("#invasivespeciesForm").validate({
+       rules: {
+           
+           "summary\[summaryDate\]" : {
+        	   required:true,
+        	   
+           },
+    
+       },
+       messages : {
+    	   "summary\[summaryDate\]": "Please enter the Date in this format: YYYY-M-D",
+            
+        }
+    });
     
     
     

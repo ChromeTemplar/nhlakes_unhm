@@ -158,9 +158,15 @@ if (isset($invasiveSpecies)) {
     <!-- SurveyDate -->
     <label for="surveyDate">Date<small> (of incident)</small>
     </label><br/>
-    <input type="text" name="InvasiveSurvey[surveyDate]" class="medium"
-        <?php if(isset($invasiveSpecies)) echo "value='$surveyDate'"; ?>
-    >
+  
+ 
+  
+  	<input type='date' name='InvasiveSurvey[surveyDate]' 
+		<?php
+$date = new DateTime();
+
+echo "value='".$date->format('Y-m-d')."'";
+?>>
     
  
     <BR>
