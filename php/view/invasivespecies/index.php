@@ -9,10 +9,9 @@ if ($invasivespecies != "")
 
 $displayList = array(
 				
-		
-		"Boat Ramp" => "boatRampID",
 		"UserID" => "userID",
-		"Date" => "dateCreated",
+		"Survey Date" => "surveyDate"
+		//"Date" => "dateCreated",
 		//"Notes" => "notes",
 );
 

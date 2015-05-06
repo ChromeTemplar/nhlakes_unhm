@@ -101,7 +101,8 @@ class invasiveSpecies extends Model
         }      
 
        // $lakeHostGroupName = $lakeGroupStats->getlakeHostGroupName($_SESSION['userName']);
-      //  $data['userID'] =$lakeGroupStats->getlakeHostGroupName($_SESSION['userName']);
+       $data['userID'] = $this->getUser ($_SESSION['userName']);
+       //$lakeGroupStats->getlakeHostGroupName($_SESSION['userName']);
         /* Prepared statement, stage 2: bind and execute */
         if (!($stmt->bind_param("iiissississsiiisssiisisi"
                 
@@ -263,6 +264,30 @@ class invasiveSpecies extends Model
         }  
     }
     
+    
+    function getUser($currentUserID)
+    {
+    	//connect to mysqli
+    	$mysqli = $this->conn;
+    
+    	/* Prepared statement, stage 1: prepare */
+    	if (!($stmt = $mysqli->prepare("SELECT ID as surveyTotal from user  WHERE (user.userName = ?);"))) {
+    
+    		echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+    	}
+    
+    	/* Prepared statement, stage 2: bind and execute */
+    	if (!($stmt->bind_param("s", $currentUserID))) {
+    		echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
+    	}
+    
+    	if (!$stmt->execute()) {
+    		echo "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
+    	}
+    	$result = $stmt->get_result();
+    	$total = $result->fetch_assoc();
+    	return $total['surveyTotal'];
+    }
     
     
     

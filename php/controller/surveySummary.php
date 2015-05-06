@@ -24,14 +24,22 @@ class SurveySummaryController extends Controller
         /*** Get Survey Totals ***/
         $surveyTotalGroup = $lakeGroupStats->getSurveyTotalByGroup($_SESSION['userName']);
         $surveyTotalUser = $lakeGroupStats->getSurveyTotalByUser($_SESSION['userName']);
+        
         $surveyTotal = $lakeGroupStats->getSurveyTotal();
         $lakeHostGroupName = $lakeGroupStats->getlakeHostGroupName($_SESSION['userName']);
+        
+        //used by Survey Summary and Invasive species to get the current user.
+        $surveyUser = $lakeGroupStats->getUser($_SESSION['userName']);
+        
         /*** set a template variable ***/
+        
         $this->registry->template->surveyTotalGroup = $surveyTotalGroup;
         $this->registry->template->surveyTotalUser = $surveyTotalUser;
         $this->registry->template->surveyTotal = $surveyTotal;
         $this->registry->template->lakeHostGroupName = $lakeHostGroupName;
         
+        $this->registry->template->surveyUser = $surveyUser;
+
         /*** load the index template ***/
         $this->registry->template->show($this->name, 'index');
     }

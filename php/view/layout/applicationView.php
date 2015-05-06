@@ -4,6 +4,8 @@
         <!-- CSS -->
         <link rel="stylesheet" href="assets/css/jplist-core.min.css" />
         <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/smoothness/jquery-ui.css" />
+      
+ 
         <link rel="stylesheet" href="assets/css/application.css" />
         <link rel="stylesheet" href="assets/css/jquery-ui.theme.css" />
         <link rel="stylesheet" href="assets/css/jplist-textbox-control.min.css" />
@@ -20,7 +22,11 @@
 		<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
 		<script src="assets/js/maps-custom.js"></script>         
 		
-
+<script>
+  $(function() {
+    $( "#datepicker" ).datepicker();
+  });
+  </script>
     </head>
     
     <body>

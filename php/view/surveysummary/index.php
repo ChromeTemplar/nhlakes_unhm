@@ -8,10 +8,13 @@ include 'view/lakegroupstats/surveytotalview.php';
 { 
 
 $displayList = array(
-		"Lake Host" => "lakeHostGroupID",	
-		"Date" => "summaryDate",		
-		"UserID" => "userID",
+		"Date" => "summaryDate",
 		"Boat Ramp" => "boatRampID",
+		"UserID" => "userID",
+		"Total inspections" => "totalInspections"	
+				
+		
+		
 		//"Notes" => "notes",
 );
 
@@ -47,5 +50,4 @@ $displayList = array(
 Return <?php echo $this->linkTo("home","index","Home"); ?>
 </div>
 
-<?php echo $_SESSION['userName']  ?>
 
