@@ -22,7 +22,7 @@ class user extends Model
     } 
     
     /**
-     * Adds a new Person to the DB with the given $data
+     * Adds a new user to the database with the given $data
      *
      * @param Array $data : Array containing all of the $_POST data passed in by form
      *
@@ -62,7 +62,7 @@ class user extends Model
 		// Combines areaCode, phoneBegin, and phoneEnd and adds hyphens inbetween to produce a phone number
 		$phoneNumber = implode("-",$phoneNumberArray);
 		
-		
+		// Sets user to active; or yes
 		$activeUser = 1;
 		
 		
@@ -77,8 +77,6 @@ class user extends Model
 			$userName,
 			$data['email'],
 			$data['password'],
-			//$data['over18'],    Unecessary values
-			//$data['verified'],  for the moment
         	$activeUser
 									))) {
             echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
@@ -111,16 +109,12 @@ class user extends Model
 
 
     /**
-    * Updates a Person row in the DB
+    * Updates a user row in the database
     *
     * @param Array $data : Array containing $_POST data passed in by the form
     **/
     function updateuser($data) 
     {
-		$i = 0;
-    	foreach($data as $value){
-    		$i++;
-    	}
         $mysqli = $this->conn;
         
         /* Prepared statement, stage 1: prepare */
@@ -153,9 +147,6 @@ class user extends Model
 				$phoneNumber,
 				$data['email'],
 				$data['password'],
-				//$data['over18'],		Unecessary values
-				//$data['verified'],	for the moment
-				
 								$this->id))) {
 								
             echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
@@ -165,9 +156,13 @@ class user extends Model
             echo "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
         }
     }
-	
+    /**
+     * Activates a user row in the database
+     *
+     **/
 	function activateUser()
     {
+    	// Sets the value of activated to yes
     	$int = 1;
     	
      	$mysqli = $this->conn;
@@ -192,9 +187,13 @@ class user extends Model
         }  
     
     }
-	
+    /**
+     * Deactivates a user row in the database
+     *
+     **/
     function deactivateUser()
     {
+    	// Sets the value of activated to no
     	$int = 0;
     	 
     	$mysqli = $this->conn;

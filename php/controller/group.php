@@ -55,7 +55,7 @@ class groupController extends Controller
         $this->registry->template->show($this->name, 'displayGroup');
     }
     /*
-     This function returns HTML table. This table contains the survey information obtained from the database.
+     This function creates a new group element
      */
     public function newgroup()
     {
@@ -67,7 +67,9 @@ class groupController extends Controller
     	/*** load the index template ***/
     	$this->registry->template->show($this->name, 'new');
     }
-    
+    /*
+     This function creates a new group for users
+     */
     public function create() {
     	$model = new group();
     	$model->addgroup($_POST["lakeHostGroup"]);

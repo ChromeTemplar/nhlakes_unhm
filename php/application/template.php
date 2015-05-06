@@ -130,9 +130,14 @@ class template
     
     /**
      * Takes in a list of objects returns an html table for the Index pages for our data
-     * Includes an Edit button
+     * Includes an Edit button, Delete button, and De/Activate button
      * 
-     * @param Array $surveys List of objects
+     * This function could be applied to each teams table, just specify the controller
+     * and create an new elseif
+     * 
+     * @param Array $list List of objects
+     * @param String $controller Specifies which type of table it is
+     * @param Int $groupID The ID of the group that is selected, tells which group to populate 
      * @return string
      */
     public function buildTable($list, $controller='', $groupID='') {
@@ -184,10 +189,13 @@ class template
 		//Iterate through the keys
         foreach($listHeaders as $key => $val)
         {
+        	// Make sure it is a user table and if so set the headers to user friendly text 
             if($isUserTable==true){
+            	// Skip these keys because they do not need to be shown
         		if($key === "ID" || $key === "coordinatorID" || $key === "password"){         	
             		continue;
             	}
+            	// Display user friendly headers
             	else {
             			switch ($key) {
             				case "roleID":
@@ -216,10 +224,13 @@ class template
             		}
             	}
             }
+            // Check to see if a group table and if so display user friendly headers
             elseif($isGroupTable==true){
+            	// Skip these keys because they are not something to display to the user
             	if ($key === "ID" || $key === "roleID" || $key === "coordinatorID" || $key === "userName" || $key === "password" || $key === "activeUser"){
             		continue;
             	}
+            	// Display user friendly headers
             	else {
             	switch ($key) {
             				case "firstName":
@@ -239,11 +250,13 @@ class template
             		}
             	}
             }
+            // Else, do normal
             else {
         		$html .= "<th class=''>$key</th>";
             }
         }
         
+        // Group table don't need an edit button so check to see if it isn't a group table
         if($isGroupTable==false) {
         	//Add edit button column to the end
         	$html .= "<th>Edit</th>";
@@ -267,13 +280,15 @@ class template
         	if($isUserTable == false && $isGroupTable == false){
 				$html .= "<tr class='list-item'>";
 			}
-            //control which lakehosts are displayed for coordinators
+            //Determine which type of table to build
+            //Create a coordinator table
             if($isUserTable == true && $isCoordinator == true)			//This would be a coordinator
             {	
+            	// Parse through coordinatorID to get all groups user is connected to
             	$w = $list[$i]['coordinatorID'];
             	$x = str_getcsv($w, ",");
             	
-            	foreach($x as $y => $z){
+            	foreach($x as $y => $z){	//For each coordinatorID as ...
             		
             		//Stores the coordinatorID
             		$s = $list[$coordinator]['coordinatorID'];
@@ -281,8 +296,12 @@ class template
             		
             		foreach($t as $u => $v){
             			
+            			// Store current coordinator ID
             			$coordinatorID = $v;
             		
+            			// If the current coordinatorID is equal to the desired coordinator
+            			// AND the user is not themself (don't display themself)
+            			// AND they are not an admin
             			if($coordinatorID == $z && strtolower($list[$i]['userName']) != $currentSessionUser && $list[$i]['roleID'] != 1) 
             			{	
             				$html .= "<tr class='list-item'>";
@@ -290,13 +309,12 @@ class template
 	            			foreach($list[$i] as $key => $val){
 
 	            				if ($key === "ID" || $key === "coordinatorID" || $key === "password"){
-	            		    		continue;
+	            		    		continue; //skip these
 	            		   	 	}
 	            				elseif ($key == "name") {
-		
 			                    	$html .= "<td class='title' >$val</td>";
 			            		}
-			            		elseif ($key === "roleID") {
+			            		elseif ($key === "roleID") { // Rename these
 			            			if ($val == 2){
 			            				$html .= "<td class='title' >Group Coordinator</td>";
 			            			}
@@ -304,7 +322,7 @@ class template
 			            				$html .= "<td class='title' >Lake Host</td>";
 			            			}
 			            		}
-			            		elseif ($key === "activeUser") {
+			            		elseif ($key === "activeUser") { // Rename these
 			            			if ($val == 1){
 			            				$html .= "<td class='title' >Yes</td>";
 			            			}
@@ -338,19 +356,20 @@ class template
         	    	}	
         	    }
             }
+            // Create an Admin table instead
 			elseif ($isUserTable == true && $isCoordinator == false) { 		//This would be an admin
 				
-				if ($list[$i]['roleID'] != 1) {
+				if ($list[$i]['roleID'] != 1) {	// List everyone but themself
 					
 					foreach($list[$i] as $key => $val){
             			
 						if ($key === "ID" || $key === "coordinatorID" || $key === "password"){
-            				continue;
+            				continue;	// Skip these
             			}
             			elseif ($key == "name"){
             				$html .= "<td class='title' >$val</td>";
             			}
-            			elseif ($key === "roleID") {
+            			elseif ($key === "roleID") {	// Rename these
             				if ($val == 2){
             					$html .= "<td class='title' >Group Coordinator</td>";
             				}
@@ -358,7 +377,7 @@ class template
             					$html .= "<td class='title' >Lake Host</td>";
             				}
             			}
-            			elseif ($key === "activeUser") {
+            			elseif ($key === "activeUser") {	// Rename these
             				if ($val == 1){
             					$html .= "<td class='title' >Yes</td>";
             				}
@@ -389,20 +408,23 @@ class template
             		$html .= "</tr>";
 				}
             }
+            // Create a Group Table instead
             elseif($isGroupTable == true){
             	
+            	// Parse through coordinatorID to get all groups user is connected to
             	$g = $list[$i]['coordinatorID'];
             	$x = str_getcsv($g, ",");
             	
             	foreach($x as $y => $z){
             	
+            		// If desired group ID is equal to the user coordinator ID
             		if($groupID == $z)
             		{
             			foreach($list[$i] as $key => $val){
             				if ($key === "ID" || $key === "roleID" || $key === "coordinatorID" || $key === "userName" || $key === "password" || $key === "activeUser"){
             					continue;
             				}
-            				elseif ($list[$i]['roleID'] == 2) {
+            				elseif ($list[$i]['roleID'] == 2) {	// Special font for coordinators
             					$html .= "<td style='color:#009900;'><b>$val</b></td>";
             				}
             				else {
@@ -412,7 +434,8 @@ class template
             		}
             		$html .= "</tr>";
             	}
-            }            
+            }  
+            // Create a normal table instead          
             else {
             		foreach($list[$i] as $key => $val){
             			if ($key == "name")

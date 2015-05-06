@@ -1,7 +1,7 @@
-<!-- This form will handle New/Edit User. 
--->
+<!-- This form will handle New/Edit User. -->
 
 <?php
+// Set values to populate fields if editing a user
 if (isset($user)) {
 	$roleID = $user['roleID'];
 	$coordinatorID = $user ['coordinatorID'];
@@ -24,6 +24,7 @@ if (isset($user)) {
     //$verified = '';
 }
 ?>
+
 
 <form id="userForm" <?php 
     if (!isset($user))
@@ -74,8 +75,8 @@ method="post">
     <label for="password">Password</label><br/>
     <input type="text" name="user[password]" class="medium" required><br/><br/>
 
-	<!-- ######### ######## DEPRICATED ######## ########
-	<!-- Over 18 --
+	<?php /*######### ######## DEPRICATED ######## ########
+	<!-- Over 18 -->
     <label for="roleID">Over 18</label>
     <select name="user[over18]" required>
     <option value="1" <?php //if(isset($user)) echo "value='$over18'"; ?>>Yes</option>
@@ -88,7 +89,7 @@ method="post">
     <option value="1" <?php //if(isset($user)) echo "value='$verified'"; ?>>Yes</option>
     <option value="0" <?php //if(isset($user)) echo "value='$verified'"; ?>>No</option>
     </select><br/><br/> 
-    -->
+    */?>
     <input type="submit" value="Submit">
     
     <a href='index.php?rt=user/index'><input type='button' value='Cancel'></a>

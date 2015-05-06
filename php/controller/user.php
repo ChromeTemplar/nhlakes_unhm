@@ -19,14 +19,17 @@ class userController extends Controller
         $this->name = strtolower(substr(get_class($this), 0, -10));
     }
     
+    /*
+     This function sets the basic template for a user.
+     */
     public function index()
     { 
     	
-    	/*** Instatiate a new Lake Host model ***/
+    	/*** Instatiate a new user model ***/
     	$model = new user();
     	
     	
-    	/*** Get all Lake Hosts ***/
+    	/*** Get all users ***/
     	$user = $model->all();
     	 
         /*** set a template variable ***/
@@ -56,9 +59,7 @@ class userController extends Controller
     }
 
     /**
-     * 
-     * @param Int $survey_id
-     * @return Object containing all Survey columns
+     * This function obtains which user to edit and where to edit
      */
     public function edit()
     {
@@ -75,7 +76,9 @@ class userController extends Controller
         $this->registry->template->show($this->name, 'edit');
 
     }
-    
+    /*
+     This function creates new users by calling code in the model
+     */
     public function create() {
     	$model = new user();
     	$model->adduser($_POST["user"]);
@@ -83,7 +86,9 @@ class userController extends Controller
     	/*** Redirect User to BoatRamp/Index ***/
     	header("location: index.php?rt=user/index");
     }
-    
+    /*
+     This function updates current users by calling code in the model
+     */
     public function update() {
     	$model = new user($_GET['id']);
     	$model->updateuser($_POST["user"]);
@@ -92,7 +97,9 @@ class userController extends Controller
     	header("location: index.php?rt=user/index");
     
     }
-    
+    /*
+     This function activates deactivated users
+     */
     public function activate() {
     	$model = new user($_GET['id']);
     	$model->activateUser();
@@ -100,7 +107,9 @@ class userController extends Controller
     	/*** Redirect User to BoatRamp/Index ***/
     	header("location: index.php?rt=user/index");
     }    
-    
+    /*
+     This function deactivates activated users
+     */
     public function deactivate() {
     	$model = new user($_GET['id']);
     	$model->deactivateUser();

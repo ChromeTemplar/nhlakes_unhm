@@ -4,23 +4,27 @@ echo $welcome;?></h1>
 
 <h2> Please Select a Group. </h2>
 
-<!--  <select id="groupID" required>
-  <option disabled>----- Select Group -----</option>-->
-  <?php
+<?php 
+  /* OLD CODE FOR DROP DOWN
+  <select id="groupID" required>
+  <option disabled>----- Select Group -----</option>
+  */
+
   $model = new group();
   echo $model->dropDownto("lakehostgroup","lakeHostGroupName","ID", "groupID");
   
-  /*
+  /* OLD CODE FOR DROP DOWN
   	for($i=0; $i<count($lakeHostGroup); $i++)
   	{
   	foreach($groupArray as $id => $group) { 
 			 echo "<option value=$id>$group</option>\n";
 			}
   	}
-  	*/
-  ?>
+  */
+?>
 </select><br/><br/>
 
+<?php //Javascript function to direct page to selected group ?>
 <script>
 function doThis(){
 	var groupID=document.getElementById('groupID').value;
