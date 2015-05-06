@@ -183,7 +183,7 @@ class SurveySummaryController extends Controller
 
         /*** Get the Boat Ramp where ID = model->id ***/
         $summary = $this->model->at_id();
-        print_r ($summary);
+        //print_r ($summary);
         //set the selection boxes selected parameters of the summary header
         $summary['waterbody'] = $this->model->getWaterbodyFromRampID($summary['boatRampID']);
         $summary['town'] = $this->model->getTownFromRampID($summary['boatRampID']);
@@ -258,7 +258,7 @@ class SurveySummaryController extends Controller
     public function create()
     {
     	$model = new surveysummary();
-    	print_r ($_POST["summary"]);
+    	//print_r ($_POST["summary"]);
     	$model->addSummary($_POST["summary"]);
     	
     

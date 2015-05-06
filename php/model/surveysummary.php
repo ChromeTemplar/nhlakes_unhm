@@ -57,7 +57,7 @@ class surveySummary extends Model
 	 **/
 	public function addSummary($data)
 	{
-		print_r($data);
+		//print_r($data);
 		$mysqli = $this->conn;
 	
 		if (empty($table))
