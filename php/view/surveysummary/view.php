@@ -79,10 +79,10 @@ Number Inspected
 <input type='number' name='summary[totalInspections]'
 <?php if (isset($summary)) echo "value='".$summary['totalInspections']."'"; ?> />
 <br><br>
-<u>Totals</u>
+<strong>Totals</strong>
 <br><br>
-State Boat Registration
-<table  border="1" cellpadding="0" cellspacing="0">
+<strong>State Boat Registration</strong>
+<table  border="0" cellpadding="10" cellspacing="3">
 	<tr>
 		<td>NH </td>
 		<td>MA<br>(MS)</td>
@@ -121,8 +121,8 @@ State Boat Registration
 	</tr>
 </table>
 
-Type of Boat
-<table  border="1" cellpadding="0" cellspacing="0">
+<strong>Type of Boat</strong>
+<table  border="0" cellpadding="10" cellspacing="3">
 	<tr>
 		<td>I/O</td>
 		<td>PWC<br>jet</td>
@@ -149,8 +149,8 @@ Type of Boat
 	</tr>
 </table>
 
-Prior interaction with Lake Host?
-<table  border="1" cellpadding="0" cellspacing="0">
+<strong>Prior interaction with Lake Host?</strong>
+<table  border="0" cellpadding="10" cellspacing="3">
 	<tr>
 		<td>Yes</td>
 		<td>No</td>
@@ -165,8 +165,8 @@ Prior interaction with Lake Host?
 	</tr>
 </table>
 
-Drained after last waterbody?
-<table  border="1" cellpadding="0" cellspacing="0">
+<strong>Drained after last waterbody?</strong>
+<table  border="0" cellpadding="10" cellspacing="3">
 	<tr>
 		<td>Yes</td>
 		<td>No</td>
@@ -181,8 +181,8 @@ Drained after last waterbody?
 	</tr>
 </table>
 
-Rinsed after last waterbody?
-<table  border="1" cellpadding="0" cellspacing="0">
+<strong>Rinsed after last waterbody?</strong>
+<table  border="0" cellpadding="10" cellspacing="3">
 	<tr>
 		<td>Yes</td>
 		<td>No</td>
@@ -197,8 +197,8 @@ Rinsed after last waterbody?
 	</tr>
 </table>
 
-Dry for at least 5 days since last waterbody?
-<table  border="1" cellpadding="0" cellspacing="0">
+<strong>Dry for at least 5 days since last waterbody?</strong>
+<table  border="0" cellpadding="10" cellspacing="3">
 	<tr>
 		<td>Yes</td>
 		<td>No</td>
@@ -213,8 +213,8 @@ Dry for at least 5 days since last waterbody?
 	</tr>
 </table>
 
-Boater awareness of AIS problem
-<table  border="1" cellpadding="0" cellspacing="0">
+<strong>Boater awareness of AIS problem</strong>
+<table  border="0" cellpadding="10" cellspacing="3">
 	<tr>
 		<td>High</td>
 		<td>Medium</td>
@@ -233,8 +233,8 @@ Boater awareness of AIS problem
 	</tr>
 </table>
 
-Specimen found?
-<table  border="1" cellpadding="0" cellspacing="0">
+<strong>Specimen found?</strong>
+<table  border="0" cellpadding="10" cellspacing="3">
 	<tr>
 		<td>Yes</td>
 		<td>No</td>
@@ -249,8 +249,8 @@ Specimen found?
 	</tr>
 </table>
 
-Sent to DES?
-<table  border="1" cellpadding="0" cellspacing="0">
+<strong>Sent to DES?</strong>
+<table  border="0" cellpadding="10" cellspacing="3">
 	<tr>
 		<td>Yes</td>
 		<td>No</td>
