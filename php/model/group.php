@@ -50,22 +50,22 @@ class group extends Model
      * this code should be placed in the template.php file. The code
      * should be modified to prevent possible SQL injection.
      */
-    function dropDownto($table, $field, $iD, $dropDownID) {
+    function dropDownto() {
     	$queryArray = array();
     	$html ="";
 
     	$mysqli = $this->conn;
-    	$query = "SELECT ".$iD.",".$field." FROM ".$table." ORDER BY ".$field." ASC";
+    	$query = "SELECT ID,lakeHostGroupName FROM lakehostgroup ORDER BY lakeHostGroupName ASC";
     	$stmt = $mysqli->query($query);
     	
     	/*
     	// Prepared statement, stage 1: prepare 
-    	if (!($stmt = $mysqli->prepare("SELECT ?, ? FROM lakehostgroup ORDER BY lakeHostGroupName"))) {
+    	if (!($stmt = $mysqli->prepare("SELECT ?, ? FROM ? ORDER BY ?))) {
     		echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
     	}
     	
     	// Prepared statement, stage 2: bind and execute
-        if (!($stmt->bind_param('is', $iD, $field))) {
+        if (!($stmt->bind_param('ssss', , , ,))) {
             echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
         }
     	if (!$stmt->execute()) {
@@ -75,12 +75,12 @@ class group extends Model
     	
     	if ($stmt->num_rows > 0) {
     		while($row = $stmt->fetch_assoc()) {
-    			$queryArrayID = $row[$iD];
-    			$queryArrayField = $row[$field];
+    			$queryArrayID = $row['ID'];
+    			$queryArrayField = $row['lakeHostGroupName'];
     			$queryArray[$queryArrayID] = $queryArrayField;
     		}
     	}
-    	$html .= "<select id= $dropDownID required>";
+    	$html .= "<select id= groupID required>";
     	foreach($queryArray as $key => $value) {
     		$html .= "<option value=$key>$value</option>\n";
     	}

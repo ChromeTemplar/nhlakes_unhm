@@ -11,7 +11,7 @@ echo $welcome;?></h1>
   */
 
   $model = new group();
-  echo $model->dropDownto("lakehostgroup","lakeHostGroupName","ID", "groupID");
+  echo $model->dropDownto();
   
   /* OLD CODE FOR DROP DOWN
   	for($i=0; $i<count($lakeHostGroup); $i++)
