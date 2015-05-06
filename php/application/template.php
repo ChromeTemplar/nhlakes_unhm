@@ -191,7 +191,7 @@ class template
             	else {
             			switch ($key) {
             				case "roleID":
-            					$html .= "<th class=''>Role ID</th>";
+            					$html .= "<th class=''>Role</th>";
             					break;
             				case "firstName":
             					$html .= "<th class=''>First Name</th>";
@@ -203,7 +203,7 @@ class template
             					$html .= "<th class=''>Phone Number</th>";
             					break;
             				case "userName":
-            					$html .= "<th class=''>User Name</th>";
+            					$html .= "<th class=''>Username</th>";
             					break;
             				case "email":
             					$html .= "<th class=''>Email</th>";
@@ -296,6 +296,14 @@ class template
 		
 			                    	$html .= "<td class='title' >$val</td>";
 			            		}
+			            		elseif ($key === "roleID") {
+			            			if ($val == 2){
+			            				$html .= "<td class='title' >Group Coordinator</td>";
+			            			}
+			            			else {
+			            				$html .= "<td class='title' >Lake Host</td>";
+			            			}
+			            		}
 			            		elseif ($key === "activeUser") {
 			            			if ($val == 1){
 			            				$html .= "<td class='title' >Yes</td>";
@@ -341,6 +349,14 @@ class template
             			}
             			elseif ($key == "name"){
             				$html .= "<td class='title' >$val</td>";
+            			}
+            			elseif ($key === "roleID") {
+            				if ($val == 2){
+            					$html .= "<td class='title' >Group Coordinator</td>";
+            				}
+            				else {
+            					$html .= "<td class='title' >Lake Host</td>";
+            				}
             			}
             			elseif ($key === "activeUser") {
             				if ($val == 1){
