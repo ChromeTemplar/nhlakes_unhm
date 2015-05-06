@@ -78,6 +78,7 @@ class SurveySummaryController extends Controller
      	$this->registry->template->rampNames = $rampNames;
      	$this->registry->template->lakeHostNames = $userNames;
         
+     	
         /*** load the index template ***/
         $this->registry->template->show($this->name, 'new');
     }
@@ -191,6 +192,8 @@ class SurveySummaryController extends Controller
         $summary['lakeHostName'] = $this->model->getLakeHostNameFromUserID($summary['userID']);
         $summary['localGroup'] = $this->model->getLakeHostGroupName($summary['lakeHostGroupID']);
         
+       
+        
         $rampNames = $this->getRampNames();
         $userNames = $this->getUsers();
         $localGroups = $this->getLocalGroups();
@@ -225,6 +228,8 @@ class SurveySummaryController extends Controller
     	$summary['lakeHostName'] = $this->model->getLakeHostNameFromUserID($summary['userID']);
     	$summary['localGroup'] = $this->model->getLakeHostGroupName($summary['lakeHostGroupID']);
     
+    	
+    	
     	$rampNames = $this->getRampNames();
     	$userNames = $this->getUsers();
     	$localGroups = $this->getLocalGroups();
@@ -260,7 +265,7 @@ class SurveySummaryController extends Controller
     	$model = new surveysummary();
     	//print_r ($_POST["summary"]);
     	$model->addSummary($_POST["summary"]);
-    	
+    
     
     	/*** Redirect User to survey summary/Index ***/
     	header("location: index.php?rt=surveysummary/index");

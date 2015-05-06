@@ -34,10 +34,20 @@ else
 	<div style="white-space: nowrap;"><h3>
 	<?php echo "NH LAKES 2014 Lake Host Program Ramp Daily Summary Sheet"; ?>
 	</h3></div>
-	
+		
 	<div style="white-space: nowrap;"><h5>
-	Date (YYYY-M-D):<input type='date' name='summary[summaryDate]' 
-		<?php if (isset($summary)) echo "value='".$summary['summaryDate']."'"; ?>>
+	Date (YYYY-M-D): 		
+	<input type='date' name='summary[summaryDate]' 
+		<?php
+$date = new DateTime();
+
+echo "value='".$date->format('Y-m-d')."'";
+?>>
+	
+
+	
+	
+		
 	<!-- FIXME the lake host should be a fixed read only field if a lake host is logged in, if a group leader is logged in, then
 	they can select the users in their group, if admin is logged in they can select any lake host. 
 	so need to implement the fixed if(permission == lakehost) and if (permission == admin) etc... -->
