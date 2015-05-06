@@ -29,7 +29,7 @@ class BoatRamp extends Model
      		$table = $this->table;
      
      	/* Prepared statement, stage 1: prepare */
-     	if (!($stmt = $mysqli->prepare("Select $cols FROM $table"))) {
+     	if (!($stmt = $mysqli->prepare("Select $cols FROM $table where active = true"))) {
      		echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
      	}
      
@@ -75,7 +75,7 @@ class BoatRamp extends Model
         $mysqli = $this->conn;
 
         /* Prepared statement, stage 1: prepare */
-        if (!($stmt = $mysqli->prepare("SELECT * FROM BoatRamp WHERE ID = ?"))) {
+        if (!($stmt = $mysqli->prepare("SELECT * FROM BoatRamp WHERE ID = ? and active = true"))) {
             echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
         }
 
@@ -98,17 +98,21 @@ class BoatRamp extends Model
         $mysqli = $this->conn;
 		
         /* Prepared statement, stage 1: prepare */
-        if (!($stmt = $mysqli->prepare("UPDATE BoatRamp SET state = ?, name = ?, waterbodyID = ?, townID = ?, notes = ?, longitude = ?, latitude = ?, owner = ?, private = ? WHERE ID = ?"))) {
+        if (!($stmt = $mysqli->prepare("UPDATE BoatRamp SET state = ?, name = ?, waterbodyID = ?, townID = ?, notes = ?, longitude = ?, latitude = ?, owner = ?, private = ?, active = ? WHERE ID = ?"))) {
             echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
         }
 
         /* Prepared statement, stage 2: bind and execute */
-        if (!($stmt->bind_param("ssiisddsii", $data['state'], $data['name'], $data['waterbodyID'], $data['townID'], $data['notes'], $data['longitude'], $data['latitude'], $data['owner'], $data['private'], $this->id))) {
+        if (!($stmt->bind_param("ssiisddsiii", $data['state'], $data['name'], $data['waterbodyID'], $data['townID'], $data['notes'], $data['longitude'], $data['latitude'], $data['owner'], $data['private'], $data['active'], $this->id))) {
             echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
+            $errorMessage =  "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
+            throw new Exception($errorMessage);
         }
 
         if (!$stmt->execute()) {
             echo "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
+            $errorMessage = "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
+            throw new Exception($errorMessage);
         }
     }
 
@@ -126,11 +130,13 @@ class BoatRamp extends Model
 
         /* Prepared statement, stage 2: bind and execute */
         if (!($stmt->bind_param("i", $this->id))) {
-            echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
+       		$errorMessage =  "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
+            throw new Exception($errorMessage);
         }
 
         if (!$stmt->execute()) {
-            echo "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
+           $errorMessage = "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
+           throw new Exception($errorMessage);
         }  
     }
 

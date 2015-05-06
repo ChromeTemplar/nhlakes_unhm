@@ -659,7 +659,7 @@ values
 
 CREATE TABLE BoatRamp(
 ID int(11) NOT NULL AUTO_INCREMENT,
-active bit (1),
+active bit (1) DEFAULT true,
 state varchar(20) NOT NULL,
 lakeHostGroupID int (11) ,
 name varchar (50) NOT NULL,

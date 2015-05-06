@@ -43,6 +43,15 @@ if (isset($ramp)) {
     else 
         echo "action='index.php?rt=boatramp/deleteRamp&id=".$ramp['ID']. "'"; ?>
 method="post">
+    
+   	<?php if(isset($errorOccured) && $errorOccured) { ?>
+   	<!-- Error Message -->
+	<label id="errorMessage" class="generalError">
+	<?php echo $errorMessage; ?>	
+	</label>
+	<br /><br />
+	<?php } ?>
+	
     <div class="warning">Are you sure you want to delete this Boat Ramp?</div>
     <br />
     <input type="submit" value="Delete" name="delete">
