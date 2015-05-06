@@ -22,11 +22,7 @@
 		<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
 		<script src="assets/js/maps-custom.js"></script>         
 		
-<script>
-  $(function() {
-    $( "#datepicker" ).datepicker();
-  });
-  </script>
+
     </head>
     
     <body>

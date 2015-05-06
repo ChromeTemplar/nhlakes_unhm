@@ -35,6 +35,10 @@ $(document).ready(function () {
         }         
     );
      
+    $(function() {
+        $( "#datepicker" ).datepicker();
+      });
+    
     
      //check all jPList javascript options
     $('#data').jplist({				

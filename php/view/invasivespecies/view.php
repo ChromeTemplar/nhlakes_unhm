@@ -92,8 +92,8 @@ if (isset($invasiveSpecies)) {
 
 
     <!-- UserID -->
-    <!--<label for="userID">UserID</label><br/>
-    <input type="text" name="InvasiveSurvey[userID]" class="medium" > -->
+    <label for="userID">UserID</label><br/>
+   
     <?php  if(isset($invasiveSpecies)) echo $userID; ?>
    
        
