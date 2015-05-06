@@ -1,5 +1,12 @@
 <?php
 
+/**
+File: Controller: report.php
+Date: 4/29/2015
+Author: Reporting Group 2015
+Info: Controller for reports page. See Model:Report.php and View:Index.php.
+**/
+
 class reportController extends Controller
 {
     var $name;
@@ -20,6 +27,8 @@ class reportController extends Controller
         /*** load the index template ***/
         $this->registry->template->show($this->name, 'index');
 	}
+	
+	// Function to display all reports.
 	
     public function allReports()
     { 
@@ -127,6 +136,8 @@ class reportController extends Controller
         $this->registry->template->show($this->name, 'rampReports');
     }
 	
+	// Function for filtering report by group.
+	
 	public function groupReports()
     { 
     	/*** Instantiate a new Report model ***/
@@ -177,7 +188,10 @@ class reportController extends Controller
   
         /*** load the view***/
         $this->registry->template->show($this->name, 'groupReports');
+		
     }
+	
+		// Function for reports filtered by date.
 	
 	    public function allDateReports()
     { 
