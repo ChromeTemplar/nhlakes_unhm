@@ -29,7 +29,7 @@ class BoatRamp extends Model
      		$table = $this->table;
      
      	/* Prepared statement, stage 1: prepare */
-     	if (!($stmt = $mysqli->prepare("Select $cols FROM $table where active = true"))) {
+     	if (!($stmt = $mysqli->prepare("Select $cols FROM $table where active IS NOT false"))) {
      		echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
      	}
      
@@ -75,7 +75,7 @@ class BoatRamp extends Model
         $mysqli = $this->conn;
 
         /* Prepared statement, stage 1: prepare */
-        if (!($stmt = $mysqli->prepare("SELECT * FROM BoatRamp WHERE ID = ? and active = true"))) {
+        if (!($stmt = $mysqli->prepare("SELECT * FROM BoatRamp WHERE ID = ?"))) {
             echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
         }
 
