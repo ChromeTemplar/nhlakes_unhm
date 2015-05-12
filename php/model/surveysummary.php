@@ -37,6 +37,7 @@ class surveySummary extends Model
 		$this->lakeHostGroups = null;
 	}
 	
+	//not in use
 	public function allToday()
 	{
 		//FIXME should make a function that

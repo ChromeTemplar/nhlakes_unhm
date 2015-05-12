@@ -1,36 +1,5 @@
 
-<!-- 
-   
-The Following inputs will be placed in the database
-ID - AutoIncrement
-userID
-boatRampID
-summaryID
-name
-dateCreated - Timestamp
-surveyDate
-launchStatus
-registrationState
-boatType
-previousInteraction
-lastSiteVisited
-lastTownVisited
-lastStateVisited
-drained
-rinsed
-dryForFiveDays
-boaterAwareness
-bowNumber
-licensePlateNumber
-sentToDES
-notes
-active
-desResult
-desNotes
-desSave
--->   
-    
-    <?php
+   <?php
 
 class invasiveSpecies extends Model
 {
@@ -72,9 +41,9 @@ class invasiveSpecies extends Model
         /* Prepared statement, stage 1: prepare */
         if (!($stmt = $mysqli->prepare("INSERT INTO InvasiveSurvey ( " 
 
-              . "userID, "   //works when users are entered into system
-              . "boatRampID, " // works when boatramps are entered into system
-              . "summaryID, " // Works when summary data is entered into system
+              . "userID, "   
+              . "boatRampID, " 
+              . "summaryID, " 
                 . "name, "
                 . "surveyDate, "
                 . "launchStatus, "

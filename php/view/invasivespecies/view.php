@@ -1,32 +1,5 @@
 <!-- This form will create new suspected invasive species finds and edit existing finds.
 
-This Form will have the following inputs:
-ID - AutoIncrement
-userID
-boatRampID
-summaryID
-name
-dateCreated - Timestamp
-surveyDate
-launchStatus
-registrationState
-boatType
-previousInteraction
-lastSiteVisited
-lastTownVisited
-lastStateVisited
-drained
-rinsed
-dryForFiveDays
-boaterAwareness
-bowNumber
-licensePlateNumber
-sentToDES
-notes
-active
-desResult
-desNotes
-desSave
 -->
 
 
@@ -35,7 +8,7 @@ desSave
 
 <?php
 if (isset($invasiveSpecies)) {
-    $userID = $invasiveSpecies['userID'];                  //Works when Data is entered into database
+    $userID = $invasiveSpecies['userID'];                 
     $boatRampID = $invasiveSpecies['boatRampID'];
     $summaryID = $invasiveSpecies['summaryID'];
     $name = $invasiveSpecies['name'];
