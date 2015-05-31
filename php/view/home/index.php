@@ -1,5 +1,7 @@
 <h1><?php echo $welcome; ?></h1>
 
+<h2><?php $usersName = $_SESSION['firstName'];
+		  echo  "Welcome $usersName"; ?></h2>
 <!-- The below validation is to expose the below links only for people with role of admin or Coordinators -->
 <h2>Boat Ramp</h2>
 <?php
@@ -27,6 +29,12 @@ echo $this->buttonTo("invasivespecies","newInvasiveSpecies", "New");
 <?php
 echo $this->buttonTo("user", "index", "All");
 echo $this->buttonTo("user","newuser", "New");
+?>
+
+<h2>Groups</h2>
+<?php 
+echo $this->buttonTo("group", "index", "View");
+echo $this->buttonTo("group","newgroup", "New");
 ?>
 <?php  } ?>
 

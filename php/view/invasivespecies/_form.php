@@ -1,43 +1,12 @@
 <!-- This form will create new suspected invasive species finds and edit existing finds.
-
-This Form will have the following inputs:
-ID - AutoIncrement
-userID
-boatRampID
-summaryID
-name
-dateCreated - Timestamp
-surveyDate
-launchStatus
-registrationState
-boatType
-previousInteraction
-lastSiteVisited
-lastTownVisited
-lastStateVisited
-drained
-rinsed
-dryForFiveDays
-boaterAwareness
-bowNumber
-licensePlateNumber
-sentToDES
-notes
-active
-desResult
-desNotes
-desSave
 -->
-
-
-
 
 
 <?php
 if (isset($invasiveSpecies)) {
-   // $userID = $InvasiveSurvey['userID'];                  Works when Data is entered into database
-   // $boatRampID = $InvasiveSurvey['boatRampID'];
-   // $summaryID = $InvasiveSurvey['summaryID'];
+    $userID = $invasiveSpecies['userID'];                  
+    $boatRampID = $invasiveSpecies['boatRampID'];
+    $summaryID = $invasiveSpecies['summaryID'];
     $name = $invasiveSpecies['name'];
     $surveyDate = $invasiveSpecies['surveyDate'];
     $launchStatus = $invasiveSpecies['launchStatus'];
@@ -63,9 +32,9 @@ if (isset($invasiveSpecies)) {
 } else {
 
     
-    // $userID = '';        See Above
-    // $boatRampID = '';
-    // $summaryID = '';
+     $userID = '';       
+     $boatRampID = '';
+     $summaryID = '';
     $name = '';
     $surveyDate = '';
     $launchStatus = '';
@@ -90,18 +59,26 @@ if (isset($invasiveSpecies)) {
 }
 ?>
 
-<form id="invasivespeciesForm" <?php 
-    if (!isset($invasivespecies))
+<form id="invasivespeciesForm" 
+
+<?php 
+    if (!isset($invasiveSpecies))
+    {
         echo "action='index.php?rt=invasivespecies/create' ";
+    
+    }
     else 
-        echo "action='index.php?rt=invasivespecies/update&id=".$invasivespecies['ID']. "'"; ?>
-method="post">
+    {
+        echo "action='index.php?rt=invasivespecies/update&id=".$invasiveSpecies['ID']. "'";
+    }
+    ?>
+   method="post">
 
 
     <!-- UserID -->
     <!--<label for="userID">UserID</label><br/>
     <input type="text" name="InvasiveSurvey[userID]" class="medium" > -->
-    <?php // if(isset($InvasiveSurvey)) echo "value='$userID'"; ?>
+    <?php  if(isset($invasiveSpecies)) echo "value='$userID'"; ?>
    
        
     
@@ -111,7 +88,7 @@ method="post">
     <!-- BoatRamp -->
    <!-- <label for="boatRampID">Boat Ramp ID</label><br/>
     <input type="text" name="InvasiveSurvey[boatRampID]" class="medium"> -->
-    <?php // if(isset($InvasiveSurvey)) echo "value='$boatRampID'"; ?>
+    <?php  if(isset($invasiveSpecies)) echo "value='$boatRampID'"; ?>
   
     
  
@@ -122,7 +99,7 @@ method="post">
     <!-- Summary ID -->
     <!-- <label for="Name">Summary ID <BR> <small>(Of person who took the survey)</label><br/>
     <input type="text" name="InvasiveSurvey[summaryID]" class="medium" > -->
-    <?php // if(isset($InvasiveSurvey)) echo "value='$summaryID'"; ?>
+    <?php  if(isset($invasiveSpecies)) echo "value='$summaryID'"; ?>
     
    
     <BR>
@@ -150,9 +127,15 @@ method="post">
     <!-- SurveyDate -->
     <label for="surveyDate">Date<small> (of incident)</small>
     </label><br/>
-    <input type="text" name="InvasiveSurvey[surveyDate]" class="medium"
-        <?php if(isset($invasiveSpecies)) echo "value='$surveyDate'"; ?>
-    >
+  
+ 
+  
+  	<input type='date' name='InvasiveSurvey[surveyDate]' 
+		<?php
+$date = new DateTime();
+
+echo "value='".$date->format('Y-m-d')."'";
+?>>
     
  
     <BR>
@@ -162,7 +145,7 @@ method="post">
     
     <br/><br/>
     
-    <!-- LaunchStatus -->
+    <!-- LaunchStatus 
     <label for="launchStatus">Launch Status</label><br/>
     <input type="radio" name="InvasiveSurvey[launchStatus]" value="1"
         <?php 
@@ -184,7 +167,7 @@ method="post">
     >Retrieved<br>
 	
     <BR>
-    
+    -->
     <!-- RegistrationState -->
     <label for="registrationState">What state registration of the boat?</label><br/>
     <input type="text" name="InvasiveSurvey[registrationState]" class="medium"
@@ -194,7 +177,7 @@ method="post">
     <BR>
     <BR>
          
-    <!-- BoatType -->
+    <!-- BoatType 
     <label for="boatType">Type of Boat</label><br/>
 	
     <input type="radio" name="InvasiveSurvey[boatType]" value="Inboard/Outboard"
@@ -249,8 +232,8 @@ method="post">
 
     <BR>
         
-        
-    <!-- PreviousInteraction -->
+    -->    
+    <!-- PreviousInteraction
     <label for="previousInteraction">Did the Boater have any Previous Interaction with NH Lakes?</label><br/>
     <input type="radio" name="InvasiveSurvey[previousInteraction]" value="1"
         <?php 
@@ -274,7 +257,7 @@ method="post">
 
     <BR>
     
-
+    -->
     
     <!-- LastSiteVisted -->
     <label for="LastTownVisted">Name of the Last Site Visted</label><br/>
@@ -299,7 +282,7 @@ method="post">
         <?php if(isset($invasiveSpecies)) echo "value='$lastStateVisted'"; ?>       
     ><br/><br/>
         
-    <!-- Drained -->
+    <!-- Drained 
     <label for="drained">Was the boat drained?</label><br/>
     <input type="radio" name="InvasiveSurvey[drained]" value="1"
         <?php 
@@ -323,9 +306,9 @@ method="post">
 
     <br/>
         
-        
+      -->  
     
-    <!-- Rinsed -->
+    <!-- Rinsed 
     <label for="rinsed">Was the boat rinsed?</label><br/>
     <input type="radio" name="InvasiveSurvey[rinsed]" value="1"
         <?php 
@@ -351,8 +334,8 @@ method="post">
     <br/>
     
     
-    
-    <!-- DryForFiveDays -->
+    -->
+    <!-- DryForFiveDays 
     <label for="dryForFiveDays">Has the boat been dry for five days?</label><br/>
     <input type="radio" name="InvasiveSurvey[dryForFiveDays]" value="1"
         <?php 
@@ -377,8 +360,8 @@ method="post">
     <br/>
     
     
-        
-    <!-- Boater Awareness -->
+     -->   
+    <!-- Boater Awareness 
     <label for="boaterAwareness">Type of Boat</label><br/>
 	
     <input type="radio" name="InvasiveSurvey[boaterAwareness]" value="High"
@@ -413,7 +396,7 @@ method="post">
     
     <br/>
         
-        
+      -->  
     <!-- BowNumber -->
     <label for="bowNumber">Bow Number</label><br/>
 	<input type="text" name="InvasiveSurvey[bowNumber]" class="medium"
@@ -460,7 +443,7 @@ method="post">
     ><br/><br/>        
     <BR>
 
-    <!-- Active -->
+    <!-- Active 
     <label for="active">Status of Find</label><br/>
     <input type="radio" name="InvasiveSurvey[active]" value="1"
         <?php 
@@ -484,8 +467,8 @@ method="post">
     >Not Active<br>
 
     <BR>
-
-    <!-- Des Result -->
+     -->
+    <!-- Des Result >
     <label for="desResult">Did DES confirm an Invasive Species was found?</label><br/>
     <input type="radio" name="InvasiveSurvey[desResult]" value="1"
         <?php 
@@ -509,14 +492,14 @@ method="post">
 
     <BR>
 
-
-    <!-- DES Notes-->
+  
+    <!-- DES Notes
     <label for="desNotes">Transcribe any DES Notes</label><br/>
     <textarea name="InvasiveSurvey[desNotes]" rows="4" cols="50"><?php if(isset($invasiveSpecies)) echo $desNotes; ?></textarea><br/><br/>
 
     <BR>
-
-    <!-- Des Save -->
+   -->
+    <!-- Des Save 
     <label for="desSave">Did DES confirm this as a Save?</label><br/>
     <input type="radio" name="InvasiveSurvey[desSave]" value="1"
         <?php 
@@ -541,7 +524,7 @@ method="post">
     <BR>
     
     
-    
+    -->
     <input type="submit" value="Submit">
     
     <?php echo $this->buttonTo("home","index","Cancel"); ?>

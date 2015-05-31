@@ -15,11 +15,31 @@ class SurveySummaryController extends Controller
     public function index()
     { 
         $model = new surveySummary();
-        $surveySummaries = $model->allToday(); 
-
+       
+        $surveySummaries = $model->all("Summary");
         $this->registry->template->summary = $surveySummaries;
         $this->registry->template->welcome = 'Survey Summary';
         
+        $lakeGroupStats = new LakeGroupStats();
+        /*** Get Survey Totals ***/
+        $surveyTotalGroup = $lakeGroupStats->getSurveyTotalByGroup($_SESSION['userName']);
+        $surveyTotalUser = $lakeGroupStats->getSurveyTotalByUser($_SESSION['userName']);
+        
+        $surveyTotal = $lakeGroupStats->getSurveyTotal();
+        $lakeHostGroupName = $lakeGroupStats->getlakeHostGroupName($_SESSION['userName']);
+        
+        //used by Survey Summary and Invasive species to get the current user.
+        $surveyUser = $lakeGroupStats->getUser($_SESSION['userName']);
+        
+        /*** set a template variable ***/
+        
+        $this->registry->template->surveyTotalGroup = $surveyTotalGroup;
+        $this->registry->template->surveyTotalUser = $surveyTotalUser;
+        $this->registry->template->surveyTotal = $surveyTotal;
+        $this->registry->template->lakeHostGroupName = $lakeHostGroupName;
+        
+        $this->registry->template->surveyUser = $surveyUser;
+
         /*** load the index template ***/
         $this->registry->template->show($this->name, 'index');
     }
@@ -58,6 +78,7 @@ class SurveySummaryController extends Controller
      	$this->registry->template->rampNames = $rampNames;
      	$this->registry->template->lakeHostNames = $userNames;
         
+     	
         /*** load the index template ***/
         $this->registry->template->show($this->name, 'new');
     }
@@ -163,13 +184,15 @@ class SurveySummaryController extends Controller
 
         /*** Get the Boat Ramp where ID = model->id ***/
         $summary = $this->model->at_id();
-
+        //print_r ($summary);
         //set the selection boxes selected parameters of the summary header
         $summary['waterbody'] = $this->model->getWaterbodyFromRampID($summary['boatRampID']);
         $summary['town'] = $this->model->getTownFromRampID($summary['boatRampID']);
         $summary['boatRampName'] = $this->model->getRampNameFromID($summary['boatRampID']);
         $summary['lakeHostName'] = $this->model->getLakeHostNameFromUserID($summary['userID']);
-        $localGroup = $summary['localGroup'] = $this->model->getLocalGroupFromUserID($summary['userID']);
+        $summary['localGroup'] = $this->model->getLakeHostGroupName($summary['lakeHostGroupID']);
+        
+       
         
         $rampNames = $this->getRampNames();
         $userNames = $this->getUsers();
@@ -190,7 +213,42 @@ class SurveySummaryController extends Controller
         $this->registry->template->show($this->name, 'edit');
     }
     
-   
+    public function view()
+    {
+    	/*** Instatiate a new boatramp model with the ID of the one we are editing ***/
+    	$this->model = new surveysummary($_GET['id']);
+    
+    	/*** Get the Boat Ramp where ID = model->id ***/
+    	$summary = $this->model->at_id();
+    
+    	//set the selection boxes selected parameters of the summary header
+    	$summary['waterbody'] = $this->model->getWaterbodyFromRampID($summary['boatRampID']);
+    	$summary['town'] = $this->model->getTownFromRampID($summary['boatRampID']);
+    	$summary['boatRampName'] = $this->model->getRampNameFromID($summary['boatRampID']);
+    	$summary['lakeHostName'] = $this->model->getLakeHostNameFromUserID($summary['userID']);
+    	$summary['localGroup'] = $this->model->getLakeHostGroupName($summary['lakeHostGroupID']);
+    
+    	
+    	
+    	$rampNames = $this->getRampNames();
+    	$userNames = $this->getUsers();
+    	$localGroups = $this->getLocalGroups();
+    	$townNames = $this->getTownNames();
+    	$waterbodyNames = $this->getWaterbodyNames();
+    
+    	/*** set the selection boxes and summary data ***/
+    	$this->registry->template->welcome = 'Edit Survey Summary';
+    	$this->registry->template->localGroups = $localGroups;
+    	$this->registry->template->towns = $townNames;
+    	$this->registry->template->waterbodies = $waterbodyNames;
+    	$this->registry->template->rampNames = $rampNames;
+    	$this->registry->template->lakeHostNames = $userNames;
+    	$this->registry->template->summary = $summary;
+    
+    	/*** load the edit template ***/
+    	$this->registry->template->show($this->name, 'view');
+    }
+    
     
     /**
      * 
@@ -205,8 +263,9 @@ class SurveySummaryController extends Controller
     public function create()
     {
     	$model = new surveysummary();
+    	//print_r ($_POST["summary"]);
     	$model->addSummary($_POST["summary"]);
-    	
+    
     
     	/*** Redirect User to survey summary/Index ***/
     	header("location: index.php?rt=surveysummary/index");

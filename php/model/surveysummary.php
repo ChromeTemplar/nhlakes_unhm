@@ -26,8 +26,8 @@ class surveySummary extends Model
 			$this->id = $id;
 		}
 		
-		/*** Create Connection to DB ***/
-		$this->conn = mysqli_connect($this->host, $this->user, $this->pass, $this->db) or $this->error('Could not connect to database. Make sure settings are correct.');
+		/*** use parent model to connect to DB ***/
+		parent::connectToDb();
 		
 		//init attributes:
 		$this->boatRamps = null;
@@ -37,6 +37,7 @@ class surveySummary extends Model
 		$this->lakeHostGroups = null;
 	}
 	
+	//not in use
 	public function allToday()
 	{
 		//FIXME should make a function that
@@ -57,6 +58,7 @@ class surveySummary extends Model
 	 **/
 	public function addSummary($data)
 	{
+		//print_r($data);
 		$mysqli = $this->conn;
 	
 		if (empty($table))
@@ -65,14 +67,15 @@ class surveySummary extends Model
 		}
 	
 		/* Prepared statement, stage 1: prepare */
-		if (!($stmt = $mysqli->prepare("INSERT INTO Summary (NH, ME, MA, VT, NY, CT, RI, other, 
+		if (!($stmt = $mysqli->prepare("INSERT INTO Summary (lakeHostGroupID, NH, ME, MA, VT, NY, CT, RI, other, 
 				inboardOutboard, pwc, canoeKayak, previous, notPrevious, sail, otherBoatType, drained, notDrained, rinsed,
 				notRinsed, dry5, notDry5, awarenessHigh, awarenessLow, awarenessMedium, speciesFoundYes, speciesFoundNo,
 				sentDesYes, sentDesNo, summaryDate, boatRampID, userID, totalInspections, startShiftTime, endShiftTime)
-				 VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)")))
+				 VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)")))
 		{
 			echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
 		}
+		
 		
 		//stick the summary date in front of the times to complete
 		//the datatime type used in the DB table
@@ -83,6 +86,10 @@ class surveySummary extends Model
 		//get the boat ramp ID from the users selection
 		$startExclusive = strpos($data['boatRampName'], '(');
 		$data['boatRampID'] = (int) substr($data['boatRampName'], $startExclusive + 1, -1);
+        
+        //get the lakeHostGroupID from the users selection
+        $startExclusive = strpos($data['localGroup'], '(');
+		$data['lakeHostGroupID'] = (int) substr($data['localGroup'], $startExclusive + 1, -1);
 		
 		//get the user ID from the users selection
 		$startExclusive = strpos($data['lakeHostName'], '(');
@@ -92,7 +99,8 @@ class surveySummary extends Model
 		//$data['town'] is not sent to the DB only used for boat ramp filtering/selection
 		
 		/* Prepared statement, stage 2: bind and execute */
-		if (!($stmt->bind_param("iiiiiiiiiiiiiiiiiiiiiiiiiiiisiiiss", 
+		if (!($stmt->bind_param("iiiiiiiiiiiiiiiiiiiiiiiiiiiiisiiiss", 
+                $data['lakeHostGroupID'], 
 				$data['NH'], $data['ME'], $data['MA'], $data['VT'], $data['NY'], $data['CT'], 
 				$data['RI'], $data['other'], $data['inboardOutboard'], $data['pwc'], $data['canoeKayak'], 
 				$data['previous'], $data['notPrevious'], $data['sail'], $data['otherBoatType'], $data['drained'], 
@@ -121,7 +129,7 @@ class surveySummary extends Model
 		$mysqli = $this->conn;
 	
 		/* Prepared statement, stage 1: prepare */
-		if (!($stmt = $mysqli->prepare("UPDATE Summary SET NH = ?, ME = ?, MA = ?, VT = ?, NY = ?, CT = ?, RI = ?, other = ?, 
+		if (!($stmt = $mysqli->prepare("UPDATE Summary SET lakeHostGroupID = ?, NH = ?, ME = ?, MA = ?, VT = ?, NY = ?, CT = ?, RI = ?, other = ?, 
 				inboardOutboard = ?, pwc = ?, canoeKayak = ?, previous = ?, notPrevious = ?, sail = ?, otherBoatType = ?, 
 				drained = ?, notDrained = ?, rinsed = ?, notRinsed = ?, dry5 = ?, notDry5 = ?, awarenessHigh = ?, awarenessLow = ?, 
 				awarenessMedium = ?, speciesFoundYes = ?, speciesFoundNo = ?, sentDesYes = ?, sentDesNo = ?, summaryDate = ?, 
@@ -143,12 +151,17 @@ class surveySummary extends Model
 		//get the user ID from the users selection
 		$startExclusive = strpos($data['lakeHostName'], '(');
 		$data['userID'] = (int) substr($data['lakeHostName'], $startExclusive + 1, -1);
+        
+        //get the lakeHostGroupID from the users selection
+        $startExclusive = strpos($data['localGroup'], '(');
+		$data['lakeHostGroupID'] = (int) substr($data['localGroup'], $startExclusive + 1, -1);
 		
 		//$data['waterbody'] is not sent to the DB only used for boat ramp filtering/selection
 		//$data['town'] is not sent to the DB only used for boat ramp filtering/selection
 	
 		/* Prepared statement, stage 2: bind and execute */
-		if (!($stmt->bind_param("iiiiiiiiiiiiiiiiiiiiiiiiiiiisiiissi", 
+		if (!($stmt->bind_param("iiiiiiiiiiiiiiiiiiiiiiiiiiiiisiiissi", 
+                $data['lakeHostGroupID'],
 				$data['NH'], $data['ME'], $data['MA'], $data['VT'], $data['NY'], $data['CT'], 
 				$data['RI'], $data['other'], $data['inboardOutboard'], $data['pwc'], $data['canoeKayak'], 
 				$data['previous'], $data['notPrevious'], $data['sail'], $data['otherBoatType'], $data['drained'], 
@@ -391,7 +404,41 @@ class surveySummary extends Model
 		
 		return $name;
 	}
+    
+    function getLakeHostGroupName($lakeHostGroupID)
+    {
+        $mysqli = $this->conn;
+			
+		/* Prepared statement, stage 1: prepare */
+		if (!($stmt = $mysqli->prepare("SELECT * FROM lakehostgroup WHERE ID = ?")))
+		{
+			echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+		}
+			
+		/* Prepared statement, stage 2: bind and execute */
+		if (!($stmt->bind_param("i", $lakeHostGroupID)))
+		{
+			echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
+		}
+		
+		$buff = $this->process($stmt);
+		
+		$groupname = null;
+		if(!empty($buff))
+		{
+			$groupname = $buff[0];
+		}
+		
+		$name = null;
+		if(!empty($groupname))
+		{
+			$name = $groupname['lakeHostGroupName']. ' ' . '(' . $lakeHostGroupID . ')';
+		}
+		
+		return $name;
+    }
 	
+    //depricated since lakeHostGroupID is included in summary table, use getLakeHostGroupName() instead
 	public function getLocalGroupFromUserID($userID)
 	{
 		$name = null;
@@ -445,4 +492,5 @@ class surveySummary extends Model
 		
 		return $name;
 	}
+    
 }

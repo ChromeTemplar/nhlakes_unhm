@@ -48,29 +48,50 @@ class LoginNHVBSRController extends Controller
 			$firstName = isset($row['firstName']) ? ($row['firstName']) : '';
 			$lastName = isset($row['lastName']) ? ($row['lastName']) : '';
 			$roleId   = isset($row['roleID']) ? ($row['roleID']) : '';
+			$coordinatorID = isset($row['coordinatorID']) ? ($row['coordinatorID']) : '';
+			$activeUser = isset($row['activeUser']) ? ($row['activeUser']) : '';	
 			
-			if (session_id() == PHP_SESSION_NONE) {
-				session_start();
+			//Checks to make sure that the user is active and able to log on
+			if ($activeUser == 0){
+				$_SESSION['Login.Error'] = "Inactive User ";
+				session_destroy();
+				$this->registry->template->showLogon('session', 'LoginNHVBSR');
 			}
+			else {
+				if (session_id() == PHP_SESSION_NONE) {
+					session_start();
+				}
+				
+				$myCurrentDate = new DateTime("now", new DateTimeZone("America/New_York"));
+				$timeStampKey = $myCurrentDate->format("Y-m-d-H-i-s");
+				$sessionKey = $userId.$timeStampKey;	
+				$loginNHVBSRdb->setSessionDetail(session_id(), $sessionKey, "A");			
+				$_SESSION ['IDKey'] = $sessionKey;
+				$_SESSION['firstName'] = $firstName;
+				$_SESSION['lastName'] = $lastName;
+				$_SESSION['userName'] = $userId; 
+				$_SESSION['roleID'] = $roleId;
+				
+				//Before showing the user the main page, log the successful login event
+				appendLogEntry($timeStampKey . " > " . "User: " . $userId . " Logged in Successfully.");
+				
+				/*** set a template variable ***/
+				$this->registry->template->welcome = 'Home';
+				$this->registry->template->show('home', 'index');
+			}	
+		} else {
 			
+			//Timestamp for logging purposes
 			$myCurrentDate = new DateTime("now", new DateTimeZone("America/New_York"));
 			$timeStampKey = $myCurrentDate->format("Y-m-d-H-i-s");
-			$sessionKey = $userId.$timeStampKey;	
-			$loginNHVBSRdb->setSessionDetail(session_id(), $sessionKey, "A");			
-			$_SESSION ['IDKey'] = $sessionKey;
-			$_SESSION['firstName'] = $firstName;
-			$_SESSION['lastName'] = $lastName;
-			$_SESSION['userName'] = $userId; 
-			$_SESSION['roleID'] = $roleId;
 			
-			/*** set a template variable ***/
-			$this->registry->template->welcome = 'Home';
-			$this->registry->template->show('home', 'index');
-			
-		} else {
 			//the logic to redirect to the login page with appropriate error message
 			$_SESSION['Login.Error'] = "Invalid credentials ";
 			session_destroy();
+			
+			//Before showing the user the login page again, log the unsuccessful login event
+			appendLogEntry($timeStampKey . " > " . "User: " . $userId . " Login failed, Invalid Credentails");
+			
 			$this->registry->template->showLogon('session', 'LoginNHVBSR');	
 		}
 		

@@ -49,32 +49,11 @@ if (isset($ramp)) {
     <!-- Ramp Private -->
     <label for="private">Ramp Access</label><br/>
     <div>
-            <?php 
-        	if ($private == true) {
-                echo "Private - This boat ramp is in private domain. TRESPASSERS WILL BE SHOT. SURVIVORS WILL BE SHOT AGAIN.";
-            }
-            else {
-            	echo "Public - This boat ramp is in public domain.";
-            }
+	   <?php 
+			if ($private == true) { echo "Private - This boat ramp is in private domain. TRESPASSERS WILL BE SHOT. SURVIVORS WILL BE SHOT AGAIN."; }
+			else { echo "Public - This boat ramp is in public domain."; }
         ?> 
     </div><br/>
- 	<div>
- 	    <label>Location</label><br/>
-		<div id="map-canvas">
-			<script>
-				// setup google map.
-				nhvbsrMap.edit = false; // give the map the id
-				nhvbsrMap.latitudeID = 'latitude'; // give the map the id
-				nhvbsrMap.longitudeID = 'longitude';
-				nhvbsrMap.latitude = <?php echo $latitude ?>;
-				nhvbsrMap.longitude = <?php echo $longitude ?>;
-				nhvbsrMap.mapID = 'map-canvas',
-				google.maps.event.addDomListener(window, 'load', nhvbsrMap.initialize);
-			</script>  	
-	   	</div>
-    </div>
-    <br />
-    
 
     <!-- Ramp State -->
     <label for="state">State</label><br/>
@@ -106,12 +85,30 @@ if (isset($ramp)) {
     </div>
     <br />
     
+    <div>
+ 	    <label>Location</label><br/>
+ 	    <div><?php echo $latitude ?>, <?php echo $longitude ?></div>
+		<div id="map-canvas">
+			<script>
+				// setup google map.
+				nhvbsrMap.edit = false; // give the map the id
+				nhvbsrMap.latitudeID = 'latitude'; // give the map the id
+				nhvbsrMap.longitudeID = 'longitude';
+				nhvbsrMap.latitude = <?php echo $latitude ?>;
+				nhvbsrMap.longitude = <?php echo $longitude ?>;
+				nhvbsrMap.mapID = 'map-canvas';
+				google.maps.event.addDomListener(window, 'load', nhvbsrMap.initialize);
+			</script>  	
+	   	</div>
+    </div>
+    <br />
+    
     <!-- Ramp Notes-->
     <label for="notes">Notes</label><br/>
     <div><?php if(isset($ramp)) echo $ramp['notes'] ?></div>
 </div>
-<br />
-<div class="botViewBtn">
+<div id="content-bottom">
 List <?php echo $this->linkTo("boatramp", "index", "Boat Ramps"); ?><br>
-Return <?php echo $this->linkTo("home","index","Home"); ?></div>
+Return <?php echo $this->linkTo("home","index","Home"); ?>
+</div>
 <br />

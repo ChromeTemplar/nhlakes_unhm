@@ -26,7 +26,7 @@ class BoatRampController extends Controller
         $model = new boatramp();  
 
         /*** Get all Ramps ***/
-        $ramps = $model->all();
+        $ramps = $model->allFlat();
         
         /*** set template variables ***/
         $this->registry->template->welcome = 'Boat Ramps';
@@ -222,13 +222,53 @@ class BoatRampController extends Controller
     	
     	if($delete == "Delete")
     	{
-	    	if (isset($_SESSION['roleID']) && ($_SESSION['roleID'] < 3)) {
-		        $model = new boatramp($_GET['id']);
-		        $model->deleteBoatRamp();
-	    	}
+//     		if (isset($_SESSION['roleID']) && ($_SESSION['roleID'] == 3)) 
+//     		{
+	    		
+// 	    		try {
+// 			        $model = new boatramp($_GET['id']);
+// 			        $model->deleteBoatRamp();
+// 			    	/*** Redirect User to BoatRamp/Index ***/
+// 			    	header("location: index.php?rt=boatramp/index");
+// 	    			// sucess!
+// 	    		}
+// 	    		catch (Exception $e)
+// 	    		{
+// 	    			$ramp = new boatramp($_GET['id']);
+// 	    			$this->registry->template->ramp = $ramp;
+// 	    			$this->registry->template->errorOccured = true;
+// 	    			$this->registry->template->errorMessage = "The boatramp could not be deleted because it is in use.";
+// 	    			$this->delete();
+// 	    		}
+//     		}
+    		if (isset($_SESSION['roleID']) && ($_SESSION['roleID'] < 3))
+    		{
+    			try {
+			        $model = new boatramp($_GET['id']);
+			        $ramp = $model->at_id()[0];
+			        $ramp['active'] = false;
+			        $model->updateBoatRamp( $ramp );
+			        header("location: index.php?rt=boatramp/index");
+    			}
+    			catch (Exception $e)
+    			{
+    				$ramp = new boatramp($_GET['id']);
+    				$this->registry->template->ramp = $ramp;
+    				$this->registry->template->errorOccured = true;
+    				$this->registry->template->errorMessage = "The boatramp could not be deleted because it is in use.";
+    				$this->delete();
+    			}
+    		}
+    		else {
+    			header("location: index.php?rt=boatramp/index");
+    		}
+    			  
     	}
-    	/*** Redirect User to BoatRamp/Index ***/
-    	header("location: index.php?rt=boatramp/index");
+    	else
+    	{
+    		header("location: index.php?rt=boatramp/index");
+    	}
+
     }
 
 

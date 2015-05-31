@@ -228,3 +228,17 @@ select.selectmenu {
     padding: 0px
  }
  
+ #userForm{
+	color: black;
+	background: #C0C0C0;
+	align: center;
+	border: 10px black;
+    position: absolute;
+    left: 175px;
+    top: 150px;
+    box-shadow: 10px 10px 10px #888888
+}
+
+.nhvbsrMapBtn input {
+    width: 225px;
+}

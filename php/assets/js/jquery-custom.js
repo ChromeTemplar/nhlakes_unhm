@@ -35,6 +35,10 @@ $(document).ready(function () {
         }         
     );
      
+    $(function() {
+        $( "#datepicker" ).datepicker();
+      });
+    
     
      //check all jPList javascript options
     $('#data').jplist({				
@@ -79,7 +83,58 @@ $(document).ready(function () {
         }
     });
     
+    // Validation rules for the survey form
+    $("#surveySummaryForm").validate({
+       rules: {
+            "summary\[lakeHostName\]" :
+            {   
+        	   required:true,
+           	},
+           "summary\[summaryDate\]" : {
+        	   required:true,
+        	   
+           },
+           "summary\[localGroup\]" : {
+        	   required:true,
+        	   selectcheck: true
+           },
+           "summary\[town\]" : {
+        	   required:true,
+        	   selectcheck: true
+           },  
+           
+           "summary\[totalInspections\]" : {
+        	   required:true,
+        	   
+           },  
+           
+           "summary\[boatRampName\]" : {
+        	   required:true,
+        	   selectcheck: true 
+           },  
+       },
+       messages : {
+    	   "summary\[summaryDate\]": "Please enter the Date in this format: YYYY-M-D",
+            
+        }
+    });
     
+    
+    // Validation rules for the invasive survey form
+    $("#invasivespeciesForm").validate({
+       rules: {
+           
+           "summary\[summaryDate\]" : {
+        	   required:true,
+        	   
+           },
+    
+       },
+       messages : {
+    	   "summary\[summaryDate\]": "Please enter the Date in this format: YYYY-M-D",
+            
+        }
+    });
     
     
     

@@ -11,7 +11,10 @@ class survey extends Model
          
         if (!empty($id)) { 
             $this->id = $id; 
-        } 
+        }
+        
+        /*** use parent model to connect to DB ***/
+        parent::connectToDb();
     }
     
     

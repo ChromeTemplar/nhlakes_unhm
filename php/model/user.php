@@ -2,12 +2,6 @@
 
 class user extends Model
 {
-    /*** Set Class Attribute Variables ***/
-    var $host = "localhost";
-    var $user = "root";
-    var $pass = '';
-    var $db = "NHVBSR";
-
     /**
     * Constructor
     **/
@@ -23,16 +17,16 @@ class user extends Model
             $this->id = $id; 
         } 
 
-        /*** Create Connection to DB ***/
-       $this->conn = mysqli_connect($this->host, $this->user, $this->pass, $this->db) or $this->error('Could not connect to database. Make sure settings are correct.'); 
+        /*** use parent model to connect to DB ***/
+        parent::connectToDb();
     } 
-
+    
     /**
-    * Adds a new Person to the DB with the given $data
-    *
-    * @param Array $data : Array containing all of the $_POST data passed in by form
-    *
-    **/
+     * Adds a new user to the database with the given $data
+     *
+     * @param Array $data : Array containing all of the $_POST data passed in by form
+     *
+     **/
     function adduser($data)
     {
         $mysqli = $this->conn;
@@ -51,10 +45,9 @@ class user extends Model
 			userName, 
 			email, 
 			password, 
-			over18,
-			verified) 
+        	activeUser) 
 			
-			VALUES (?,?,?,?,?,?,?,SHA1(?),?,?)"))) {
+			VALUES (?,?,?,?,?,?,?,SHA1(?),?)"))) {
 			
             echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
         }
@@ -69,8 +62,12 @@ class user extends Model
 		// Combines areaCode, phoneBegin, and phoneEnd and adds hyphens inbetween to produce a phone number
 		$phoneNumber = implode("-",$phoneNumberArray);
 		
+		// Sets user to active; or yes
+		$activeUser = 1;
+		
+		
         /* Prepared statement, stage 2: bind and execute */
-        if (!($stmt->bind_param("iissssssii",
+        if (!($stmt->bind_param("isssssssi",
 		
 			$data['roleID'],
         	$data['coordinatorID'],	
@@ -80,8 +77,7 @@ class user extends Model
 			$userName,
 			$data['email'],
 			$data['password'],
-			$data['over18'],
-			$data['verified']
+        	$activeUser
 									))) {
             echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
         }
@@ -113,7 +109,7 @@ class user extends Model
 
 
     /**
-    * Updates a Person row in the DB
+    * Updates a user row in the database
     *
     * @param Array $data : Array containing $_POST data passed in by the form
     **/
@@ -124,26 +120,17 @@ class user extends Model
         /* Prepared statement, stage 1: prepare */
         if (!($stmt = $mysqli->prepare("UPDATE user SET 
 				
-				roleID = ?,
-        		coordinatorID = ?, 
+        		roleID = ?,
+        		coordinatorID = CONCAT(coordinatorID, ',', ?), 
 				firstName = ?,
 				lastName = ?, 
-				phoneNumber = ?, 
-				userName = ?, 
+				phoneNumber = ?,
 				email = ?, 
-				password = SHA1(?), 
-				over18 = ?, 
-				verified = ? 
+				password = SHA1(?)
 										WHERE ID = ?"))) {
 										
             echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
         }
-        
-        // Creates array of firstName & lastName
-        $userNameArray = array($data['firstName'], $data['lastName']);
-        // Combines firstName & lastName and adds a . in the middle
-        $userName = implode(".",$userNameArray);
-        //$userName is created as firstName.lastName
         
         // Creates array for phone number using areaCode, phoneBegin, phoneEnd
         $phoneNumberArray = array($data['areaCode'], $data['phoneBegin'], $data['phoneEnd']);
@@ -151,19 +138,15 @@ class user extends Model
         $phoneNumber = implode("-",$phoneNumberArray);        
         
         /* Prepared statement, stage 2: bind and execute */
-        if (!($stmt->bind_param("iissssssiii",
+        if (!($stmt->bind_param("issssssi",
 		
 				$data['roleID'],
         		$data['coordinatorID'],
 				$data['firstName'],
 				$data['lastName'],
 				$phoneNumber,
-				$userName,
 				$data['email'],
 				$data['password'],
-				$data['over18'],
-				$data['verified'],
-				
 								$this->id))) {
 								
             echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
@@ -173,7 +156,73 @@ class user extends Model
             echo "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
         }
     }
+    /**
+     * Activates a user row in the database
+     *
+     **/
+	function activateUser()
+    {
+    	// Sets the value of activated to yes
+    	$int = 1;
+    	
+     	$mysqli = $this->conn;
+        
+        /* Prepared statement, stage 1: prepare */
+        if (!($stmt = $mysqli->prepare("UPDATE user SET 
+        		activeUser = ?
+        			WHERE ID = ?"))) {
+            echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+        }
 
+        /* Prepared statement, stage 2: bind and execute */
+        
+        if (!($stmt->bind_param("ii", 
+        		$int, 
+        			$this-> id))) {
+            echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
+        }
+
+        if (!$stmt->execute()) {
+            echo "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
+        }  
+    
+    }
+    /**
+     * Deactivates a user row in the database
+     *
+     **/
+    function deactivateUser()
+    {
+    	// Sets the value of activated to no
+    	$int = 0;
+    	 
+    	$mysqli = $this->conn;
+    
+    	/* Prepared statement, stage 1: prepare */
+    	if (!($stmt = $mysqli->prepare("UPDATE user SET 
+    			activeUser = ?
+    				WHERE ID = ?"))) {
+    		echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+    	}
+    
+    	/* Prepared statement, stage 2: bind and execute */
+    
+    	if (!($stmt->bind_param("ii", 
+    			$int, 
+    				$this-> id))) {
+    		echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
+    	}
+    
+    	if (!$stmt->execute()) {
+    		echo "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
+    	}
+    
+    }
+	
+	
+//////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////// DEPRICATED /////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////
     /**
     * Deletes a User from the DB
     **/

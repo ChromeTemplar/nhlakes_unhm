@@ -3,6 +3,9 @@
 * Main Controller. All other controllers Extend this
 * 
 */
+
+include 'application/applicationLogging.php';
+
 Abstract class Controller 
 {
     

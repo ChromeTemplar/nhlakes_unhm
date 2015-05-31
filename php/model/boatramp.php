@@ -2,13 +2,6 @@
 
 class BoatRamp extends Model
 {
-    /*** Set Class Attribute Variables ***/
-    var $host = "localhost";
-    var $user = "root";
-    var $pass = '';
-    var $db = "NHVBSR";
-
-    
     /**
     * Constructor
     **/
@@ -23,10 +16,26 @@ class BoatRamp extends Model
         if (!empty($id)) { 
             $this->id = $id; 
         } 
-        
-        $this->conn = mysqli_connect($this->host, $this->user, $this->pass, $this->db) or $this->error('Could not connect to database. Make sure settings are correct.');
-    }
 
+   		/*** use parent model to connect to DB ***/
+        parent::connectToDb();
+     }
+
+     
+     function allFlat($table = '', $cols= '*') {
+     	$mysqli = $this->conn;
+     	$cols = "ID, name as 'Ramp Name',(select name from town where town.ID = boatramp.townID) as Town, (select name from waterbody where waterbody.ID = boatramp.waterbodyID) as 'Waterbody', private as 'Ramp Access'";
+     	if (empty($table))
+     		$table = $this->table;
+     
+     	/* Prepared statement, stage 1: prepare */
+     	if (!($stmt = $mysqli->prepare("Select $cols FROM $table where active IS NOT false"))) {
+     		echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+     	}
+     
+     	return $this->process($stmt);
+     }
+      
 
     /**
     * Adds a new Boat Ramp to the DB with the given $data
@@ -89,17 +98,21 @@ class BoatRamp extends Model
         $mysqli = $this->conn;
 		
         /* Prepared statement, stage 1: prepare */
-        if (!($stmt = $mysqli->prepare("UPDATE BoatRamp SET state = ?, name = ?, waterbodyID = ?, townID = ?, notes = ?, longitude = ?, latitude = ?, owner = ?, private = ? WHERE ID = ?"))) {
+        if (!($stmt = $mysqli->prepare("UPDATE BoatRamp SET state = ?, name = ?, waterbodyID = ?, townID = ?, notes = ?, longitude = ?, latitude = ?, owner = ?, private = ?, active = ? WHERE ID = ?"))) {
             echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
         }
 
         /* Prepared statement, stage 2: bind and execute */
-        if (!($stmt->bind_param("ssiisddsii", $data['state'], $data['name'], $data['waterbodyID'], $data['townID'], $data['notes'], $data['longitude'], $data['latitude'], $data['owner'], $data['private'], $this->id))) {
+        if (!($stmt->bind_param("ssiisddsiii", $data['state'], $data['name'], $data['waterbodyID'], $data['townID'], $data['notes'], $data['longitude'], $data['latitude'], $data['owner'], $data['private'], $data['active'], $this->id))) {
             echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
+            $errorMessage =  "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
+            throw new Exception($errorMessage);
         }
 
         if (!$stmt->execute()) {
             echo "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
+            $errorMessage = "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
+            throw new Exception($errorMessage);
         }
     }
 
@@ -117,11 +130,13 @@ class BoatRamp extends Model
 
         /* Prepared statement, stage 2: bind and execute */
         if (!($stmt->bind_param("i", $this->id))) {
-            echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
+       		$errorMessage =  "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
+            throw new Exception($errorMessage);
         }
 
         if (!$stmt->execute()) {
-            echo "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
+           $errorMessage = "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
+           throw new Exception($errorMessage);
         }  
     }
 
