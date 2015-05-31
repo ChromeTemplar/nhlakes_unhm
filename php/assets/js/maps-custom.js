@@ -26,7 +26,6 @@ var nhvbsrMap = {
 			google.maps.event.addListener(nhvbsrMap.map, 'click', function(evt) {
 				nhvbsrMap.bindLatLong(evt.latLng);
 				nhvbsrMap.placeMarker(evt.latLng, nhvbsrMap.map);
-				nhvbsrMap.showAddress(false);
 			});
 		}
 		
@@ -44,7 +43,6 @@ var nhvbsrMap = {
 	
 	  	  google.maps.event.addListener(nhvbsrMap.marker, 'dragend', function(evt){
 	  		  nhvbsrMap.bindLatLong(evt.latLng);
-	  		  nhvbsrMap.showAddress(false);
 	  		});
 	  	}
 	  	else 
@@ -62,7 +60,7 @@ var nhvbsrMap = {
 	    document.getElementById(nhvbsrMap.latitudeID).value = lat;
 	    document.getElementById(nhvbsrMap.longitudeID).value = long;
 	},
-	showAddress: function (center) {
+	codeLatLng: function () {
 	  var lat =  document.getElementById(nhvbsrMap.latitudeID).value;
 	  var lng = document.getElementById(nhvbsrMap.longitudeID).value;
 	  var latlng = new google.maps.LatLng(lat, lng);
@@ -73,78 +71,13 @@ var nhvbsrMap = {
 	    	  nhvbsrMap.infowindow.setContent(results[1].formatted_address);
 	          nhvbsrMap.infowindow.open(nhvbsrMap.map, nhvbsrMap.marker);
 	          nhvbsrMap.marker.setPosition(latlng);
-	          if(center)
-	          {
-		          nhvbsrMap.map.setCenter(latlng);
-	          }
+	          nhvbsrMap.map.setCenter(latlng);
 	      } else {
-	       // alert('No results found');
+	        alert('No results found');
 	      }
 	    } else {
-	      //alert('Geocoder failed due to: ' + status);
+	      alert('Geocoder failed due to: ' + status);
 	    }
 	  });
-	},
-	SetMapAddress: function(address)
-	{
-	   var geocoder = nhvbsrMap.geocoder;
-	   if (geocoder) {
-	      geocoder.geocode({ 'address': address }, function (results, status) {
-	        if (status == google.maps.GeocoderStatus.OK) {
-	        	 nhvbsrMap.map.fitBounds(results[0].geometry.viewport);
-	        }
-	      });
-	   }
-	},
-	bindSelectersToMap: function(stateSelect, townSelect, waterbodySelect)
-	{
-		var state;
-		var town;
-		var waterbody;
-	    address = "";
-	    
-		$( stateSelect ).change(function() {
-		    state = $( stateSelect + " option:selected").text();
-		    var address = "";
-		    if(state != undefined && state != "-Select-")
-		    {
-				address += ", " + state;   
-			}
-			nhvbsrMap.SetMapAddress(address);
-		});
-	
-		$( townSelect ).change(function() {
-		    town = $( townSelect + " option:selected").text();
-		    var address = "";
-	
-		    if(town != undefined && town != "-Select-")
-		    {
-				address += ", " + town;   
-			}
-		    if(state != undefined && state != "-Select-")
-		    {
-				address += ", " + state;   
-			}
-			nhvbsrMap.SetMapAddress(address);
-		});
-	
-		$( waterbodySelect ).change(function() {
-			waterbody = $(waterbodySelect + " option:selected").text();
-		    var address = "";
-			
-		    if(waterbody != undefined && waterbody != "-Select-")
-		    {
-		    	address += waterbody;
-			}
-		    if(town != undefined && town != "-Select-")
-		    {
-				address += ", " + town;   
-			}
-		    if(state != undefined && state != "-Select-")
-		    {
-				address += ", " + state;   
-			}
-			nhvbsrMap.SetMapAddress(address);
-		});
 	}
 }

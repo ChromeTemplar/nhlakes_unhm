@@ -19,17 +19,14 @@ class userController extends Controller
         $this->name = strtolower(substr(get_class($this), 0, -10));
     }
     
-    /*
-     This function sets the basic template for a user.
-     */
     public function index()
     { 
     	
-    	/*** Instatiate a new user model ***/
+    	/*** Instatiate a new Lake Host model ***/
     	$model = new user();
     	
     	
-    	/*** Get all users ***/
+    	/*** Get all Lake Hosts ***/
     	$user = $model->all();
     	 
         /*** set a template variable ***/
@@ -59,7 +56,9 @@ class userController extends Controller
     }
 
     /**
-     * This function obtains which user to edit and where to edit
+     * 
+     * @param Int $survey_id
+     * @return Object containing all Survey columns
      */
     public function edit()
     {
@@ -76,9 +75,7 @@ class userController extends Controller
         $this->registry->template->show($this->name, 'edit');
 
     }
-    /*
-     This function creates new users by calling code in the model
-     */
+    
     public function create() {
     	$model = new user();
     	$model->adduser($_POST["user"]);
@@ -86,9 +83,7 @@ class userController extends Controller
     	/*** Redirect User to BoatRamp/Index ***/
     	header("location: index.php?rt=user/index");
     }
-    /*
-     This function updates current users by calling code in the model
-     */
+    
     public function update() {
     	$model = new user($_GET['id']);
     	$model->updateuser($_POST["user"]);
@@ -97,30 +92,6 @@ class userController extends Controller
     	header("location: index.php?rt=user/index");
     
     }
-    /*
-     This function activates deactivated users
-     */
-    public function activate() {
-    	$model = new user($_GET['id']);
-    	$model->activateUser();
-    
-    	/*** Redirect User to BoatRamp/Index ***/
-    	header("location: index.php?rt=user/index");
-    }    
-    /*
-     This function deactivates activated users
-     */
-    public function deactivate() {
-    	$model = new user($_GET['id']);
-    	$model->deactivateUser();
-    
-    	/*** Redirect User to BoatRamp/Index ***/
-    	header("location: index.php?rt=user/index");
-    }
-    
-//////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////// DEPRICATED /////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////////    
     
     public function delete() {
     	$model = new user($_GET['id']);

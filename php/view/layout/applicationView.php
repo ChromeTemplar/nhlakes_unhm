@@ -4,8 +4,6 @@
         <!-- CSS -->
         <link rel="stylesheet" href="assets/css/jplist-core.min.css" />
         <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/smoothness/jquery-ui.css" />
-      
- 
         <link rel="stylesheet" href="assets/css/application.css" />
         <link rel="stylesheet" href="assets/css/jquery-ui.theme.css" />
         <link rel="stylesheet" href="assets/css/jplist-textbox-control.min.css" />

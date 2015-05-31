@@ -10,7 +10,7 @@
 	<div id="wholeBody">
 		<div class="messageBanner">
 			<span class="welcome_msg" style="text-align:center;">
-			Welcome to NHVBSR
+			Welcome to NHVBSR.GOV!
 			</span>
 		</div>
 		<div id="form">
@@ -41,9 +41,9 @@
 			if (isset ( $_SESSION ['Login.Error'] )) {
 						echo $_SESSION ['Login.Error'];
 						unset ( $_SESSION ['Login.Error'] );
-						echo "<script type=text/javascript>";
-						echo "alert('Error 400'.')";
-						echo "</script>";
+			// 			echo "<script type=text/javascript>";
+			// 			echo "alert('An error has occurred.')";
+			// 			echo "</script>";
 					}
 					?>
 			</span>

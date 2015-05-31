@@ -9,6 +9,12 @@ class Model {
     var $fields; 
     var $id; 
     var $conn;
+
+    var $host = 'localhost'; 
+    var $user = 'root'; 
+    var $pass = ''; 
+    var $db   = 'NHVBSR';
+
      
     /** 
      * Constructor function, gets table name, sets the ID of a current row 
@@ -17,28 +23,18 @@ class Model {
      * @param   integer   ID of row to update or delete 
      */ 
     function __construct($host = '', $user = '', $pass = '', $db = '') { 
-        return $this->connectToDb();
-    }
-    
- 	function connectToDb() { 
-        $hostName = gethostname();
-        include_once("connect.php");
         
-        if(strtolower($hostName) == "stem3") 
-        {  
-        	$this->conn = Connect::getProdConn() or $this->error('Could not connect to database. Make sure settings are correct.');
-		} else 
-		{
-			$this->conn = Connect::getDevConn() or $this->error('Could not connect to database. Make sure settings are correct.');
-		}
-		
+        $host = !empty($host) ? $host : $this->host; 
+        $user = !empty($user) ? $user : $this->user; 
+        $pass = !empty($pass) ? $pass : $this->pass; 
+        $db   = !empty($db)   ? $db   : $this->db; 
+     
+        $this->conn = mysqli_connect($host, $user, $pass, $db) or $this->error('Could not connect to database. Make sure settings are correct.'); 
+       
         if (mysqli_connect_errno())
-        {
             echo "Failed to connect to MySQL: " . mysqli_connect_error();
-        }
         
-        if (is_resource($this->conn)) 
-        {
+        if (is_resource($this->conn)) {
             mysqli_select_db($db, $this->conn) or $this->error("Database '$db' could not be found."); 
             return $this->conn;
         }

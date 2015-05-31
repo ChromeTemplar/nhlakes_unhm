@@ -6,8 +6,16 @@
     <br/>
 </div>
 
-<?php if ($ramps != "") 
-{ 
+<?php if ($ramps != ""){ 
+
+$displayList = array(
+		"Ramp Name" => "name",	
+		//"WaterBody" => "waterbodyID",		
+		"Owner" => "owner",
+		"Ramp Access" => "private",
+		//"Notes" => "notes",
+);
+
 	?>
 
     <!-- demo -->
@@ -17,7 +25,7 @@
         <?php 
         
         require_once "view/partials/_controlsTop.php";				 
-        echo "<div id='boatramp-table' >".$this->buildRampTable($ramps). "</div>";
+        echo "<div id='boatramp-table' >".$this->buildRampTable($ramps, $displayList). "</div>";
         require_once "view/partials/_controlsBottom.php";
         
         ?>
@@ -36,3 +44,6 @@
 <div id="content-bottom">
     Return <?php echo $this->linkTo("home","index","Home"); ?>
 </div>
+
+
+

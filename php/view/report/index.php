@@ -5,19 +5,19 @@
 File: View: Index.php
 Date: 4/27/2015
 Author: Reporting Group 2015
-Info: See Model:Report.php and Controller:Report.php.
+Info: Displays the report created from build report on the reporting page. See Model:Report.php and View:Report.php.
 **/
 
 // Build report if there is no report available. If data is available the report will be displayed.
+if ($report !="")
+	echo $this->buildReport($report);
+else
+	// If no data is available or there is no database connection, the following will be displayed.
+	echo "<h2> There are no Survey Summaries in the system. </h2>";
 
-echo $this->buttonTo("report", "allReports", "All");
-echo $this->buttonTo("report", "allDateReports", "By Date");
-echo $this->buttonTo("report","rampReports", "By Boat Ramp");
-echo $this->buttonTo("report","groupReports", "By Lake Host Group");
-
-?><br><br>
+?><br>
 <!-- Displays the home link to return back to the home page. -->
-Return <?php echo $this->linkTo("home","index","Home"); ?>
+<!--Return <?php echo $this->linkTo("home","index","Home"); ?> -->
 <br>
 
 

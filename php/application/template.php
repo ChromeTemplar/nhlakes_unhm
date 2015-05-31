@@ -130,35 +130,24 @@ class template
     
     /**
      * Takes in a list of objects returns an html table for the Index pages for our data
-     * Includes an Edit button, Delete button, and De/Activate button
+     * Includes an Edit button
      * 
-     * This function could be applied to each teams table, just specify the controller
-     * and create an new elseif
-     * 
-     * @param Array $list List of objects
-     * @param String $controller Specifies which type of table it is
-     * @param Int $groupID The ID of the group that is selected, tells which group to populate 
+     * @param Array $surveys List of objects
      * @return string
      */
-    public function buildTable($list, $controller='', $groupID='') {
-    	//Determines if a User Table
+    public function buildTable($list, $controller) {
+    	//Determines if a User Table, or other form of table
     	$isUserTable = false;
-    	
-    	//Determines if Group table
-		$isGroupTable = false;
-    	
+
     	if ($controller == "user"){
     		$isUserTable = true;
     	}
     	
-    	if ($controller == "group"){
-    		$isGroupTable = true;
-    	}
-		
     	//Determines if current session user is a coordinator
     	$isCoordinator = false;
     	if (isset($_SESSION['roleID']) && ($_SESSION['roleID'] == 2)){
     		$isCoordinator = true;
+    		//echo "<script>alert($isCoordinator);</script>";
     	}
     	    
     	//Placeholder for the variable that stores the index of the current coordinator
@@ -166,18 +155,20 @@ class template
     	
     	//the username of the current session holder
     	$currentSessionUser = $_SESSION['userName'];
-    	//switches to lowercase
-    	$currentSessionUser = strtolower($currentSessionUser);
     	
     	//The indexes of the array of users
-    	for($n=0; $n<count($list); $n++)
-    	{
-    		foreach($list[$n] as $key => $val)
-    		{
-    			if(strtolower($val)==$currentSessionUser && $val!='0'){
+    	
+    	for($n=0; $n<count($list); $n++){
+    		foreach($list[$n] as $key => $val){
+    			if($val==$currentSessionUser && $val!='0'){
     				$coordinator = $n;
     			}
     		}
+    	}
+    	
+    	if($isUserTable==true && $isCoordinator==true){
+    		//Stores the coordinatorID
+    		$coordinatorID = print_r($list[$coordinator]['coordinatorID'], true);
     	}
     	
     	$html = '<table class="list">';
@@ -186,283 +177,80 @@ class template
        
         $html.= "<thead><tr>";
         
-		//Iterate through the keys
-        foreach($listHeaders as $key => $val)
-        {
-        	// Make sure it is a user table and if so set the headers to user friendly text 
-            if($isUserTable==true){
-            	// Skip these keys because they do not need to be shown
-        		if($key === "ID" || $key === "coordinatorID" || $key === "password"){         	
-            		continue;
-            	}
-            	// Display user friendly headers
-            	else {
-            			switch ($key) {
-            				case "roleID":
-            					$html .= "<th class=''>Role</th>";
-            					break;
-            				case "firstName":
-            					$html .= "<th class=''>First Name</th>";
-            					break;
-            				case "lastName":
-            					$html .= "<th class=''>Last Name</th>";
-            					break;
-            				case "phoneNumber":
-            					$html .= "<th class=''>Phone Number</th>";
-            					break;
-            				case "userName":
-            					$html .= "<th class=''>Username</th>";
-            					break;
-            				case "email":
-            					$html .= "<th class=''>Email</th>";
-            					break;
-            				case "activeUser":
-            					$html .= "<th class=''>Active User?</th>";
-            					break;
-            				default:
-            					$html .= "<th class=''>$key</th>";            				
-            		}
-            	}
-            }
-            // Check to see if a group table and if so display user friendly headers
-            elseif($isGroupTable==true){
-            	// Skip these keys because they are not something to display to the user
-            	if ($key === "ID" || $key === "roleID" || $key === "coordinatorID" || $key === "userName" || $key === "password" || $key === "activeUser"){
-            		continue;
-            	}
-            	// Display user friendly headers
-            	else {
-            	switch ($key) {
-            				case "firstName":
-            					$html .= "<th class=''>First Name</th>";
-            					break;
-            				case "lastName":
-            					$html .= "<th class=''>Last Name</th>";
-            					break;
-            				case "phoneNumber":
-            					$html .= "<th class=''>Phone Number</th>";
-            					break;
-            				case "email":
-            					$html .= "<th class=''>Email</th>";
-            					break;
-            				default:
-            					$html .= "<th class=''>$key</th>";            				
-            		}
-            	}
-            }
-            // Else, do normal
-            else {
-        		$html .= "<th class=''>$key</th>";
-            }
+        //Iterate through the keys
+        foreach($listHeaders as $key => $val){
+            $html .= "<th class=''>$key</th>";
         }
+        //Add edit button column to the end
+        $html .= "<th>Edit</th>";
         
-        // Group table don't need an edit button so check to see if it isn't a group table
-        if($isGroupTable==false) {
-        	//Add edit button column to the end
-        	$html .= "<th>Edit</th>";
-        }
-        
-        //Add delete button column to the end, but a deactivate button if it is a user
-        if($isUserTable == true){
-        	$html .= "<th>Reactivate/Deactivate</th>";
-        }
-        else {
-        	if($isGroupTable == false){
-        		$html .= "<th>Delete</th>";
-        	}
-        }
+        //Add edit button column to the end
+        $html .= "<th>Delete</th>";
         
         $html .= "</tr></thead>";
 
+ 
         //loop through all 
-        for($i=0;$i<count($list);$i++)
-        {	
-        	if($isUserTable == false && $isGroupTable == false){
-				$html .= "<tr class='list-item'>";
-			}
-            //Determine which type of table to build
-            //Create a coordinator table
-            if($isUserTable == true && $isCoordinator == true)			//This would be a coordinator
-            {	
-            	// Parse through coordinatorID to get all groups user is connected to
-            	$w = $list[$i]['coordinatorID'];
-            	$x = str_getcsv($w, ",");
+        for($i=0;$i<count($list);$i++){
+            $html .= "<tr class='list-item'>";
+            //control which lakehosts are displayed for coordinators
+            if($isUserTable == true && $isCoordinator == true){
             	
-            	foreach($x as $y => $z){	//For each coordinatorID as ...
-            		
-            		//Stores the coordinatorID
-            		$s = $list[$coordinator]['coordinatorID'];
-            		$t = str_getcsv($s, ",");
-            		
-            		foreach($t as $u => $v){
-            			
-            			// Store current coordinator ID
-            			$coordinatorID = $v;
-            		
-            			// If the current coordinatorID is equal to the desired coordinator
-            			// AND the user is not themself (don't display themself)
-            			// AND they are not an admin
-            			if($coordinatorID == $z && strtolower($list[$i]['userName']) != $currentSessionUser && $list[$i]['roleID'] != 1) 
-            			{	
-            				$html .= "<tr class='list-item'>";
-	            			
-	            			foreach($list[$i] as $key => $val){
-
-	            				if ($key === "ID" || $key === "coordinatorID" || $key === "password"){
-	            		    		continue; //skip these
-	            		   	 	}
-	            				elseif ($key == "name") {
-			                    	$html .= "<td class='title' >$val</td>";
-			            		}
-			            		elseif ($key === "roleID") { // Rename these
-			            			if ($val == 2){
-			            				$html .= "<td class='title' >Group Coordinator</td>";
-			            			}
-			            			else {
-			            				$html .= "<td class='title' >Lake Host</td>";
-			            			}
-			            		}
-			            		elseif ($key === "activeUser") { // Rename these
-			            			if ($val == 1){
-			            				$html .= "<td class='title' >Yes</td>";
-			            			}
-			            			else {
-			            				$html .= "<td class='title' >No</td>";
-			            			}			            		
-			            		}
-	    		            	else { 
-	    	    	            	$html .= "<td class=". $key .">$val</td>";
-	    	        	    	}                  
-	    	        		}
-	    	        		
-	    	        		//Add the Edit button column
-	    	        		$editButton = $this->buttonTo($this->registry->router->controller,"edit","Edit",$list[$i]["ID"]);
-	    	        		
-	    	        		//Add the Deactivate Button Column
-	    	        		if($list[$i]['activeUser'] == 0) {
-	    	        			$activationButton = $this->buttonTo($this->registry->router->controller,"activate","Activate",$list[$i]["ID"]);
-	    	        		}
-	    	        		else {
-	    	        			$activationButton = $this->buttonTo($this->registry->router->controller,"deactivate", "Deactivate",$list[$i]["ID"]);
-	    	        		}
-	    	        		 
-	    	        		$html .= "<td>".$editButton."</td>";
-	    	        		
-	    	        		$html .= "<td>".$activationButton."</td>";
-	    	        		 
-	    	        		$html .= "</tr>";
-        	    	
-       		     		}
-        	    	}	
-        	    }
-            }
-            // Create an Admin table instead
-			elseif ($isUserTable == true && $isCoordinator == false) { 		//This would be an admin
-				
-				if ($list[$i]['roleID'] != 1) {	// List everyone but themself
-					
-					foreach($list[$i] as $key => $val){
-            			
-						if ($key === "ID" || $key === "coordinatorID" || $key === "password"){
-            				continue;	// Skip these
-            			}
-            			elseif ($key == "name"){
-            				$html .= "<td class='title' >$val</td>";
-            			}
-            			elseif ($key === "roleID") {	// Rename these
-            				if ($val == 2){
-            					$html .= "<td class='title' >Group Coordinator</td>";
-            				}
-            				else {
-            					$html .= "<td class='title' >Lake Host</td>";
-            				}
-            			}
-            			elseif ($key === "activeUser") {	// Rename these
-            				if ($val == 1){
-            					$html .= "<td class='title' >Yes</td>";
-            				}
-            				else {
-            					$html .= "<td class='title' >No</td>";
-            				}
-            			}
-            			else{
-            				$html .= "<td>$val</td>";
-            			}
-            		}
-               
-            		//Add the Edit button column
-            		$editButton = $this->buttonTo($this->registry->router->controller,"edit","Edit",$list[$i]["ID"]);
-            		
-            		//Add the Deactivate Button Column
-            		if($list[$i]['activeUser'] == 0) {
-            			$activationButton = $this->buttonTo($this->registry->router->controller,"activate","Activate",$list[$i]["ID"]);
-            		}
-            		else {
-            			$activationButton = $this->buttonTo($this->registry->router->controller,"deactivate", "Deactivate",$list[$i]["ID"]);
-            		}
-            		 
-            		$html .= "<td>".$editButton."</td>";
-            		
-            		$html .= "<td>".$activationButton."</td>";
-            		
-            		$html .= "</tr>";
-				}
-            }
-            // Create a Group Table instead
-            elseif($isGroupTable == true){
-            	
-            	// Parse through coordinatorID to get all groups user is connected to
-            	$g = $list[$i]['coordinatorID'];
-            	$x = str_getcsv($g, ",");
-            	
-            	foreach($x as $y => $z){
-            	
-            		// If desired group ID is equal to the user coordinator ID
-            		if($groupID == $z)
-            		{
-            			foreach($list[$i] as $key => $val){
-            				if ($key === "ID" || $key === "roleID" || $key === "coordinatorID" || $key === "userName" || $key === "password" || $key === "activeUser"){
-            					continue;
-            				}
-            				elseif ($list[$i]['roleID'] == 2) {	// Special font for coordinators
-            					$html .= "<td style='color:#009900;'><b>$val</b></td>";
-            				}
-            				else {
-            					$html .= "<td>$val</td>";
-            				}
-            			}
-            		}
-            		$html .= "</tr>";
+            	if($coordinatorID == $list[$i]['coordinatorID'] && $list[$i]['userName'] != $currentSessionUser) {
+	            	foreach($list[$i] as $key => $val){
+	                	if ($key == "name") 
+	                    	$html .= "<td class='title' >$val</td>";        
+	                	else 
+	                    	$html .= "<td>$val</td>";                  
+	            	}
+	            	//Add the Edit button column
+	            	$editButton = $this->buttonTo($this->registry->router->controller,"edit","Edit",$list[$i]["ID"]);
+	            	//Add the Delete Button Column
+	            	$deleteButton = $this->buttonTo($this->registry->router->controller,"delete","Delete",$list[$i]["ID"]);
+	            	 
+	            	$html .= "<td>".$editButton."</td>";
+	            	//Custom delete button that utilizes a pop-up confirmation message
+	            	$html .= "<td><button onclick=\"deleteEntry()\">Delete</button></td>";
+	            	 
+	            	$html .= "<script>function deleteEntry() {
+    					var confirmMessage;
+    					if (confirm(\"Are you sure you want to delete this entry?\") == true) {
+        					confirmMessage = \"Please wait...\";
+            				window.location='index.php?rt=".$this->registry->router->controller."/delete&id=".$list[$i]["ID"]."';
+    						document.getElementById(\"delete\").innerHTML = confirmMessage;
+        				}
+					 }</script>";
+	            	 
+	            	$html .= "</tr>";
             	}
-            }  
-            // Create a normal table instead          
+            }            
             else {
-            		foreach($list[$i] as $key => $val){
-            			if ($key == "name")
-            				$html .= "<td class='title' >$val</td>";
-            			else
-            				$html .= "<td>$val</td>";
-            		}
-            		//Add the Edit button column
-            		$editButton = $this->buttonTo($this->registry->router->controller,"edit","Edit",$list[$i]["ID"]);
-            		//Add the Delete Button Column
-            		$deleteButton = $this->buttonTo($this->registry->router->controller,"delete","Delete",$list[$i]["ID"]);
-            	 
-            		$html .= "<td>".$editButton."</td>";
-            		//Custom delete button that utilizes a pop-up confirmation message
-            		$html .= "<td><button onclick=\"deleteEntry()\">Delete</button></td>";
-            		 
-            		$html .= "<script>function deleteEntry() {
-    						var confirmMessage;
-    						if (confirm(\"Are you sure you want to delete this entry?\") == true) {
-        						confirmMessage = \"Please wait...\";
-            					window.location='index.php?rt=".$this->registry->router->controller."/delete&id=".$list[$i]["ID"]."';
-    							document.getElementById(\"delete\").innerHTML = confirmMessage;
-        					}
-						 }</script>";
-            		  
-            		$html .= "</tr>";
+            	foreach($list[$i] as $key => $val){
+            		if ($key == "name")
+            			$html .= "<td class='title' >$val</td>";
+            		else
+            			$html .= "<td>$val</td>";
             	}
+            	//Add the Edit button column
+            	$editButton = $this->buttonTo($this->registry->router->controller,"edit","Edit",$list[$i]["ID"]);
+            	//Add the Delete Button Column
+            	$deleteButton = $this->buttonTo($this->registry->router->controller,"delete","Delete",$list[$i]["ID"]);
+            	 
+            	$html .= "<td>".$editButton."</td>";
+            	//Custom delete button that utilizes a pop-up confirmation message
+            	$html .= "<td><button onclick=\"deleteEntry()\">Delete</button></td>";
+            	 
+            	$html .= "<script>function deleteEntry() {
+    					var confirmMessage;
+    					if (confirm(\"Are you sure you want to delete this entry?\") == true) {
+        					confirmMessage = \"Please wait...\";
+            				window.location='index.php?rt=".$this->registry->router->controller."/delete&id=".$list[$i]["ID"]."';
+    						document.getElementById(\"delete\").innerHTML = confirmMessage;
+        				}
+					 }</script>";
+            	 
+            	$html .= "</tr>";
+            }
         }
             
         $html .= "</table>";
@@ -510,13 +298,13 @@ class template
         return $html;
     }	
 
-    public function buildRampTable($list) {
+    public function buildRampTable($list, $listHeaders) {
     	$html = '<table class="list">';
     
-    	$listHeaders = $list[0];
-    	 
+    	//$listHeaders = $list[0];
+    
     	$html.= "<thead><tr>";
-    	
+    
     	//Iterate through the keys
     	foreach($listHeaders as $key => $val){
     		if($key != "ID") {
@@ -533,12 +321,13 @@ class template
     		$html .= "<tr class='list-item'>";
     		
     		foreach($list[$i] as $key => $val) {
-    		
+    			if (in_array($key, $listHeaders, true)) 
+    			{		 
 	    			if ($key == "name")
 	    			{
 	    				$html .= "<td class='title' >$val</td>";
 	    			}
-	    			else if ($key == "Ramp Access")
+	    			else if ($key == "private")
 	    			{
 	    				if($val == true)
 	    				{
@@ -548,11 +337,16 @@ class template
 	    				{
 	    					$html .= "<td class='public' >Public</td>";
 	    				}
+	    		
+	    			}
+	    			else if ($key == "waterbodyID") {
+	    				$html .= "<td class='$val'>$val</td>";
 	    			}
 	    			else if ($key != "ID")
 	    			{
 	    				$html .= "<td class='$val'>$val</td>";
 	    			}
+    			}
     		}
     
     		//Add the Edit button column
@@ -579,83 +373,6 @@ class template
     	return $html;
     }
 
-    //This is a copy of BuildRamp Table and is going to be adapted to the survey and invasive species
-    public function buildSurveyTable($list, $listHeaders) {
-    	$html = '<table class="list">';
-    
-    	//$listHeaders = $list[0];
-    
-    	$html.= "<thead><tr>";
-    
-    	//Iterate through the keys
-    	foreach($listHeaders as $key => $val){
-    		if($key != "ID") {
-    			$html .= "<th class=''>$key</th>";
-    		}
-    	}
-    	 
-    	//Add edit button column to the end
-    	$html .= "<th>Actions</th>";
-    	$html .= "</tr></thead>";
-    
-    	//loop through all
-    	for($i=0;$i<count($list);$i++){
-    		$html .= "<tr class='list-item'>";
-    
-    		foreach($list[$i] as $key => $val) {
-    			if (in_array($key, $listHeaders, true))
-    			{
-    				if ($key == "name")
-    				{
-    					$html .= "<td class='title' >$val</td>";
-    				}
-    				/*else if ($key == "private")
-    				{
-    					if($val == true)
-    					{
-    						$html .= "<td class='private' >Private</td>";
-    					}
-    					else
-    					{
-    						$html .= "<td class='public' >Public</td>";
-    					}
-    					 
-    				}
-    				else if ($key == "waterbodyID") {
-    					$html .= "<td class='$val'>$val</td>";
-    				}*/
-    				else if ($key != "ID")
-    				{
-    					$html .= "<td class='$val'>$val</td>";
-    				}
-    			}
-    		}
-    
-    		//Add the Edit button column
-    		$viewButton = $this->buttonTo($this->registry->router->controller,"view","View",$list[$i]["ID"]);
-    
-    
-    		$html .= "<td>".$viewButton;
-    		if (isset($_SESSION['roleID']) && ($_SESSION['roleID'] < 3)) {
-    			//Add the Edit button column
-    			$editButton = $this->buttonTo($this->registry->router->controller,"edit","Edit",$list[$i]["ID"]);
-    			//Add the Delete Button Column
-    			$deleteButton = $this->buttonTo($this->registry->router->controller,"delete","Delete",$list[$i]["ID"]);
-    
-    			$html .= "&nbsp;".$editButton;
-    			$html .= "&nbsp;".$deleteButton;
-    		}
-    		$html .= "</td>";
-    		$html .= "</tr>";
-    	}
-    
-    
-    	$html .= "</table>";
-    
-    	return $html;
-    }
-    
-    
     public function selectList($list, $properties, $selected ='', $ids = false)
     {
         $html = "<select ";

@@ -1,7 +1,7 @@
-<!-- This form will handle New/Edit User. -->
+<!-- This form will handle New/Edit User. 
+-->
 
 <?php
-// Set values to populate fields if editing a user
 if (isset($user)) {
 	$roleID = $user['roleID'];
 	$coordinatorID = $user ['coordinatorID'];
@@ -10,8 +10,8 @@ if (isset($user)) {
     $phoneNumber = $user['phoneNumber'];
     $email = $user['email'];
     $password = $user['password'];
-    //$over18 = $user['over18'];
-    //$verified = $user['verified'];
+    $over18 = $user['over18'];
+    $verified = $user['verified'];
 } else {
 	$roleID = '';
 	$coordinatorID = '';
@@ -20,18 +20,32 @@ if (isset($user)) {
     $phoneNumber = '';
     $email = '';
     $password = '';
-    //$over18 = '';
-    //$verified = '';
+    $over18 = '';
+    $verified = '';
 }
 ?>
 
+<!-- JavaScript inserted here to provide a check to confirm that only numerical values are added for the phone -->
+<script>
+function doCheck(field) {
+	 if (isNotANumber(document.getElementById(field).value)) {
+	    alert('Please make sure you entered a numerical format for the phone number.');
+	    document.getElementById(field).focus();
+	    document.getElementById(field).select(); 
+	    return false;
+	 }
+	 else {
+	    return true;
+	 }
+	}
+</script>
 
 <form id="userForm" <?php 
     if (!isset($user))
         echo "action='index.php?rt=user/create' ";
     else 
         echo "action='index.php?rt=user/update&id=".$user['ID']. "'"; ?>
-method="post">
+method="post" onsubmit="return doCheck('numberCheck');">
 
 
 	<!-- Role -->
@@ -44,7 +58,8 @@ method="post">
     
     <!-- Coordinator ID -->
     <label for="coordinatorID">Coordinator ID</label><br/>
-    <input type="text" name="user[coordinatorID]" class="medium" maxlength='1'><br/><br/>
+    <input type="number" name="user[coordinatorID]" class="medium" min="0" required
+	<?php if(isset($user)) echo "value='$coordinatorID'"; ?>><br/><br/>
     
     <!-- Fist Name -->
     <label for="firstName">First Name</label><br/>
@@ -58,11 +73,11 @@ method="post">
     
     <!-- Phone Number -->
     <label for="phoneNumber">Phone Number</label><br/>
-	<input type="text" size="3" maxlength="3" name="user[areaCode]" required
+	<input type="text" size="3" maxlength="3" name="user[areaCode]" required id="numberCheck"
 	<?php if(isset($user)) echo "value='".substr($phoneNumber,0,3)."'"; ?>><?php echo ' - '?>
-	<input type="text" size="3" maxlength="3" name="user[phoneBegin]" required
+	<input type="text" size="3" maxlength="3" name="user[phoneBegin]" required id="numberCheck"
 	<?php if(isset($user)) echo "value='".substr($phoneNumber,4,3)."'"; ?>><?php echo ' - '?>
-	<input type="text" size="4" maxlength="4" name="user[phoneEnd]" required
+	<input type="text" size="4" maxlength="4" name="user[phoneEnd]" required id="numberCheck"
 	<?php if(isset($user)) echo "value='".substr($phoneNumber,8,4)."'"; ?>><br/><br/>
 	
 	
@@ -73,25 +88,25 @@ method="post">
     
     <!--  Password -->
     <label for="password">Password</label><br/>
-    <input type="text" name="user[password]" class="medium" required><br/><br/>
-
-	<?php /*######### ######## DEPRICATED ######## ########
+    <input type="password" name="user[password]" class="medium" required
+	<?php if(isset($user)) echo "value='$password'"; ?>><br/><br/>
+	
 	<!-- Over 18 -->
     <label for="roleID">Over 18</label>
     <select name="user[over18]" required>
-    <option value="1" <?php //if(isset($user)) echo "value='$over18'"; ?>>Yes</option>
-    <option value="0" <?php //if(isset($user)) echo "value='$over18'"; ?>>No</option>
+    <option value="1" <?php if(isset($user)) echo "value='$over18'"; ?>>Yes</option>
+    <option value="0" <?php if(isset($user)) echo "value='$over18'"; ?>>No</option>
     </select><br/><br/> 
 	
-	<!-- Verified ->
+	<!-- Verified -->
     <label for="roleID">Verified</label>
     <select name="user[verified]" required>
-    <option value="1" <?php //if(isset($user)) echo "value='$verified'"; ?>>Yes</option>
-    <option value="0" <?php //if(isset($user)) echo "value='$verified'"; ?>>No</option>
+    <option value="1" <?php if(isset($user)) echo "value='$verified'"; ?>>Yes</option>
+    <option value="0" <?php if(isset($user)) echo "value='$verified'"; ?>>No</option>
     </select><br/><br/> 
-    */?>
+    
     <input type="submit" value="Submit">
     
     <a href='index.php?rt=user/index'><input type='button' value='Cancel'></a>
-	
+
 </form>

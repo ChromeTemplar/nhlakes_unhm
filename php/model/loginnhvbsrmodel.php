@@ -8,10 +8,22 @@
  */
         
 class loginNHVBSRmodel extends Model {
-               
+        
+        var $username; 
+        var $password;
+        
+        /*** Set Class Attribute Variables ***/
+        var $host = "localhost";
+        var $user = "root";
+        var $pass = '';
+        var $db = "NHVBSR";
+        
+        
         public function __construct() {
-	       /*** use parent model to connect to DB ***/
-	        parent::connectToDb();
+                
+                /*** Create Connection to DB ***/
+                $this->conn = mysqli_connect($this->host, $this->user, $this->pass, $this->db) or $this->error('Could not connect to database. Make sure settings are correct.');
+                
         }
         
         /***
@@ -20,7 +32,7 @@ class loginNHVBSRmodel extends Model {
          * passed by the user. 
          */
         public function getPersonDetails($username, $password) {
-                $selectFromPerson = "SELECT ID, roleID, coordinatorID, firstName, lastName, phoneNumber, userName, email, (SHA1(password)) AS password, activeUser FROM user WHERE userName = ? and password = SHA1(?)";
+                $selectFromPerson = "SELECT ID, roleID, coordinatorID, firstName, lastName, phoneNumber, userName, email, (SHA1(password)) AS password, over18, verified,  activeUser FROM user WHERE userName = ? and password = SHA1(?)";
                 
                 //the connection object created from the database 
                 // class is used to extract the user information from the table and
