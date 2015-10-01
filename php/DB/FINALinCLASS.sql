@@ -577,7 +577,7 @@ INSERT INTO `Town` (`ID`, `name`) VALUES
 (230, 'Winchester\r'),
 (231, 'Windham\r'),
 (232, 'Windsor\r'),
-(233, 'Wolfeboro\r')
+(233, 'Wolfeboro\r'),
 (234, 'Woodstock\r');
 
 
