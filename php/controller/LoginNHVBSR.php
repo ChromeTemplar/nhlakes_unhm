@@ -73,7 +73,7 @@ class LoginNHVBSRController extends Controller
 				$_SESSION['roleID'] = $roleId;
 				
 				//Before showing the user the main page, log the successful login event
-				appendLogEntry($timeStampKey . " > " . "User: " . $userId . " Logged in Successfully.");
+				//appendLogEntry($timeStampKey . " > " . "User: " . $userId . " Logged in Successfully.");
 				
 				/*** set a template variable ***/
 				$this->registry->template->welcome = 'Home';
@@ -90,7 +90,7 @@ class LoginNHVBSRController extends Controller
 			session_destroy();
 			
 			//Before showing the user the login page again, log the unsuccessful login event
-			appendLogEntry($timeStampKey . " > " . "User: " . $userId . " Login failed, Invalid Credentails");
+			////appendLogEntry($timeStampKey . " > " . "User: " . $userId . " Login failed, Invalid Credentails");
 			
 			$this->registry->template->showLogon('session', 'LoginNHVBSR');	
 		}
