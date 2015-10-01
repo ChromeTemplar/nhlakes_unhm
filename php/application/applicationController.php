@@ -4,7 +4,7 @@
 * 
 */
 
-include 'application/applicationLogging.php';
+//include 'application/applicationLogging.php';
 
 Abstract class Controller 
 {
