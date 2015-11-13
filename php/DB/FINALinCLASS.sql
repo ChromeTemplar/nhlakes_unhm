@@ -1,4 +1,4 @@
-/*
+﻿/*
 Last Edited 12/14/14
 */
 
@@ -607,7 +607,7 @@ INSERT INTO `Role` (roleDescription) values ('Lake Host');
 CREATE TABLE User (
   ID int NOT NULL AUTO_INCREMENT,
   roleID int NOT NULL,
-  coordinatorID varchar(100) NOT NULL,
+  coordinatorID INT NOT NULL DEFAULT 0,
   firstName varchar(50) NOT NULL,
   lastName varchar(50) NOT NULL,
   phoneNumber varbinary(50),
