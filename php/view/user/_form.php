@@ -41,7 +41,7 @@ else
         <option value="1" <?php if (isset($user)) echo "value='$roleID'"; ?>> Administrator</option>
         <option value="2" <?php if (isset($user)) echo "value='$roleID'"; ?>> Group Coordinator</option>
         <option value="3" <?php if (isset($user)) echo "value='$roleID'"; ?>> Lake Host</option>
-    </select><br/><br/>
+    </select><br/><br/> 
 
     <!-- Coordinator ID -->
     <label for="coordinatorID">Coordinator ID</label><br/>
