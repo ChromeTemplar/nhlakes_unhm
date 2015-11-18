@@ -34,7 +34,7 @@
 <table border=10>
 
 <tr>
-<td id="address" <span class="req"></span> 
+<td id="address" ><span class="req"></span> 
 Street Address: 
 </td>
 <td colspan=5>
@@ -42,7 +42,7 @@ Street Address:
 </td>
 </tr>
 <tr>
-<td id="city" <span class="req"></span>
+<td id="city" ><span class="req"></span>
 City: 
 </td>
 <td>
@@ -118,7 +118,7 @@ City:
 	</select>
 </td>
 <tr>
-<td id="zip code" <span class="req"></span>
+<td id="zip code" ><span class="req"></span>
 Zip Code: 
 </td>
 <td>
@@ -219,7 +219,7 @@ Zip Code:
 </td>
 </tr>
 <tr>
-<td id="phone" <span class="req"></span>
+<td id="phone" ><span class="req"></span>
 Phone Number: 
 </td>
 <td>
@@ -235,7 +235,7 @@ Alternate Phone Number:
 </td>
 </tr>
 <tr>
-<td id="email" <span class="req"></span>
+<td id="email" ><span class="req"></span>
 Email Address: 
 </td>
 <td>

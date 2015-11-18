@@ -16,7 +16,7 @@ class InvasiveSpeciesController extends Controller
     { 
         $model = new invasivespecies();
        
-        $invasivespecies = $model->all("invasivesurvey");
+        $invasivespecies = $model->all("InvasiveSurvey");
         
         /*** set a template variable ***/
         $this->registry->template->invasivespecies = $invasivespecies;

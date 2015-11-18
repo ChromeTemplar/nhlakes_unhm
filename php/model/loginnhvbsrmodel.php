@@ -20,14 +20,16 @@ class loginNHVBSRmodel extends Model {
          * passed by the user. 
          */
         public function getPersonDetails($username, $password) {
-                $selectFromPerson = "SELECT ID, roleID, coordinatorID, firstName, lastName, phoneNumber, userName, email, (SHA1(password)) AS password, activeUser FROM user WHERE userName = ? and password = SHA1(?)";
+                $selectFromPerson = "SELECT ID, roleID, coordinatorID, firstName, lastName, phoneNumber, userName, email, (SHA1(password)) AS password, activeUser FROM User WHERE userName = ? and password = SHA1(?)";
                 
                 //the connection object created from the database 
                 // class is used to extract the user information from the table and
                 // returns the result object to the user 
-                $statement = $this->conn->prepare($selectFromPerson);
-                $statement->bind_param('ss',$username,$password);
+               if($statement = $this->conn->prepare($selectFromPerson)) {
+                $statement->bind_param('ss',$username,$password);}
                 
+                else {$error = $this->conn->errno . ' ' . $this->conn->error;
+                echo $error;} 
                 return $this->process($statement);
         }
         

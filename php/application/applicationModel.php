@@ -16,7 +16,7 @@ class Model {
      * 
      * @param   integer   ID of row to update or delete 
      */ 
-    function __construct($host = '', $user = '', $pass = '', $db = '') { 
+    function __construct($host = '', $User = '', $pass = '', $db = '') { 
         return $this->connectToDb();
     }
     
@@ -92,7 +92,7 @@ class Model {
             $parameters[] = &$row[$field->name];
         }
 
-        call_user_func_array(array($stmt, 'bind_result'), $parameters);
+        call_User_func_array(array($stmt, 'bind_result'), $parameters);
 
         while ($stmt->fetch()) {
             foreach($row as $key => $val) {

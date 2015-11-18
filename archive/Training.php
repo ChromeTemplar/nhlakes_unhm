@@ -34,7 +34,7 @@
 <table border=10>
 
 <tr>
-<td id="D_Train" <span class="req"></span>
+<td id="D_Train" ><span class="req"></span>
 Date Trained: 
 </td>
 <td colspan=5>
@@ -42,14 +42,14 @@ Date Trained:
 </td>
 </tr>
 <tr>
-<td id="Trainer" <span class="req"></span>
+<td id="Trainer" ><span class="req"></span>
 Trained By: 
 </td>
 <td>
 <input type ="text" name="Trainer"/>
 </td>
 </tr>
-<td id="Received" <span class="req"></span>
+<td id="Received" ><span class="req"></span>
 Received/Retrained By: 
 </td>
 <td colspan=3>

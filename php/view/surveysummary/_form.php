@@ -81,17 +81,14 @@ echo "value='".$date->format('Y-m-d')."'";
 	Local Group Name: <?php echo $this->selectList($localGroups, 
 			array("name" => "summary[localGroup]", "id" => "localGroup", "class" => "medium selectmenu"),$localGroup); ?>
 	<!-- waterbody is not stored in the summary database table, it is intended to help filter the boat ramp selection -->
-	Waterbody: <?php echo $this->selectList($waterbodies,
-			array("name" => "summary[waterbody]", "id" => "waterbody", "class" => "medium selectmenu"),$waterbody); ?>
+	Waterbody: <?php //echo $this->selectList($waterbodies,//array("name" => "summary[waterbody]", "id" => "waterbody", "class" => "medium selectmenu"),$waterbody); ?>
 	</h5></div>
 	
-	<div style="white-space: nowrap;"><h5>
+	<div style="white-space: nowrap;"><h5>-->
 	<!-- town is not stored in the database summary table, it is intended to help filter the boat ramp selection -->
-	Town: <?php echo $this->selectList($towns, 
-			array("name" => "summary[town]", "id" => "town", "class" => "medium selectmenu"),$town); ?>
-	Ramp Name: <?php echo $this->selectList($rampNames, array("name" => "summary[boatRampName]",
-					 "id" => "ramp", "class" => "medium selectmenu"),$rampName); ?>
-	</h5></div>
+	Town: <?php //echo $this->selectList($towns, array("name" => "summary[town]", "id" => "town", "class" => "medium selectmenu"),$town); ?>
+	Ramp Name: <?php //echo $this->selectList($rampNames, array("name" => "summary[boatRampName]", "id" => "ramp", "class" => "medium selectmenu"),$rampName); ?>
+	</h5></div> 
 
 <!-- THIS IS THE START OF THE TABLE CONTAINING THE SURVEY SUMMARY TOTALS DATA-->
 	

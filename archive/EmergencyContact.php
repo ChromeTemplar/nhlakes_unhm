@@ -35,7 +35,7 @@
 <table border=10>
 
 <tr>
-<td id="E_First" <span class="req"></span>
+<td id="E_First" ><span class="req"></span>
 First Name:  
 </td>
 <td>
@@ -43,14 +43,14 @@ First Name:
 </td>
 </tr>
 <tr>
-<td id="E_Last" <span class="req"></span>
+<td id="E_Last" ><span class="req"></span>
 Last Name: 
 </td>
 <td>
 <input type ="text" name="E_Last"/> <br />
 </td>
 </tr>
-<td id="Relationship" <span class="req"></span>
+<td id="Relationship" ><span class="req"></span>
 Relationship: 
 </td>
 <td colspan=3>
@@ -63,7 +63,7 @@ Relationship:
 </select><br />
 </td>
 <tr>
-<td id="E_Street" <span class="req"></span> 
+<td id="E_Street" ><span class="req"></span> 
 Street Address: 
 </td>
 <td colspan=5>
@@ -71,7 +71,7 @@ Street Address:
 </td>
 </tr>
 <tr>
-<td id="E_city" <span class="req"></span>
+<td id="E_city"> <span class="req"></span>
 City: 
 </td>
 <td>
@@ -147,14 +147,14 @@ City:
 	</select>
 </td>
 <tr>
-<td id="E_zip" <span class="req"></span>
+<td id="E_zip" ><span class="req"></span>
 Zip Code: 
 </td>
 <td>
 <input type ="text" name="E_zip"/> <br />
 </td>
 <tr>
-<td id="E_phone" <span class="req"></span>
+<td id="E_phone" ><span class="req"></span>
 Phone Number: 
 </td>
 <td>
@@ -170,7 +170,7 @@ Alternate Phone Number:
 </td>
 </tr>
 <tr>
-<td id="E_email" <span class="req"></span>
+<td id="E_email" ><span class="req"></span>
 Email Address: 
 </td>
 <td>

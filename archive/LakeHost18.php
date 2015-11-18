@@ -80,7 +80,7 @@ Are You Under the Age of 18? <br />
 <table border=10>
 
 <tr>
-<td id="G_First" <span </span>
+<td id="G_First" ><span> </span>
 Guardian First Name:  
 </td>
 <td>
@@ -88,14 +88,14 @@ Guardian First Name:
 </td>
 </tr>
 <tr>
-<td id="G_Last" <span </span>
+<td id="G_Last" ><span ></span>
 Guardian Last Name: 
 </td>
 <td>
 <input type ="text" name="G_Last"/> <br />
 </td>
 </tr>
-<td id="Relationship" <span </span>
+<td id="Relationship" ><span ></span>
 Relationship: 
 </td>
 <td colspan=3>
@@ -107,7 +107,7 @@ Relationship:
 </select><br />
 </td>
 <tr>
-<td id="G_Street" <span </span> 
+<td id="G_Street" ><span ></span> 
 Street Address: 
 </td>
 <td colspan=5>
@@ -115,14 +115,14 @@ Street Address:
 </td>
 </tr>
 <tr>
-<td id="G_city" <span </span>
+<td id="G_city" ><span> </span>
 City: 
 </td>
 <td>
 <input type ="text" name="G_City"/>
 </td>
 </tr>
-<td id="State:" class="fld alignRight">State <span </span></td>
+<td id="State:" class="fld alignRight">State <span ></span></td>
 <td colspan=3>
 <select name="G_State" size="1" class="med">
 		<option value="??">Select a U.S. State</option>
@@ -191,14 +191,14 @@ City:
 	</select>
 </td>
 <tr>
-<td id="G_zip" <span </span>
+<td id="G_zip"> <span ></span>
 Zip Code: 
 </td>
 <td>
 <input type ="text" name="G_zip"/> <br />
 </td>
 <tr>
-<td id="G_phone" <span </span>
+<td id="G_phone" ><span ></span>
 Phone Number: 
 </td>
 <td>
@@ -214,7 +214,7 @@ Alternate Phone Number:
 </td>
 </tr>
 <tr>
-<td id="G_email" <span </span>
+<td id="G_email" ><span ></span>
 Email Address: 
 </td>
 <td>

@@ -35,7 +35,7 @@ class user extends Model
             $table = $this->table;
 
         /* Prepared statement, stage 1: prepare */
-        if (!($stmt = $mysqli->prepare("INSERT INTO user (
+        if (!($stmt = $mysqli->prepare("INSERT INTO User (
 		
 			roleID,
         	coordinatorID,	 
@@ -95,7 +95,7 @@ class user extends Model
         $mysqli = $this->conn;
 
         /* Prepared statement, stage 1: prepare */
-        if (!($stmt = $mysqli->prepare("SELECT * FROM user WHERE ID = ?"))) {
+        if (!($stmt = $mysqli->prepare("SELECT * FROM User WHERE ID = ?"))) {
             echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
         }
 
@@ -118,7 +118,7 @@ class user extends Model
         $mysqli = $this->conn;
         
         /* Prepared statement, stage 1: prepare */
-        if (!($stmt = $mysqli->prepare("UPDATE user SET 
+        if (!($stmt = $mysqli->prepare("UPDATE User SET 
 				
         		roleID = ?,
         		coordinatorID = CONCAT(coordinatorID, ',', ?), 
@@ -168,7 +168,7 @@ class user extends Model
      	$mysqli = $this->conn;
         
         /* Prepared statement, stage 1: prepare */
-        if (!($stmt = $mysqli->prepare("UPDATE user SET 
+        if (!($stmt = $mysqli->prepare("UPDATE User SET 
         		activeUser = ?
         			WHERE ID = ?"))) {
             echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
@@ -199,7 +199,7 @@ class user extends Model
     	$mysqli = $this->conn;
     
     	/* Prepared statement, stage 1: prepare */
-    	if (!($stmt = $mysqli->prepare("UPDATE user SET 
+    	if (!($stmt = $mysqli->prepare("UPDATE User SET 
     			activeUser = ?
     				WHERE ID = ?"))) {
     		echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
@@ -231,7 +231,7 @@ class user extends Model
         $mysqli = $this->conn;
         
         /* Prepared statement, stage 1: prepare */
-        if (!($stmt = $mysqli->prepare("DELETE FROM user WHERE ID = ?"))) {
+        if (!($stmt = $mysqli->prepare("DELETE FROM User WHERE ID = ?"))) {
             echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
         }
 
