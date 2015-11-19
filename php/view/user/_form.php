@@ -38,9 +38,14 @@ else
     <label for="roleID">Role</label>
     <select name="user[roleID]" required>
         <option selected disabled>-- Select Role --</option>
-        <option value="1" <?php if (isset($user)) echo "value='$roleID'"; ?>> Administrator</option>
-        <option value="2" <?php if (isset($user)) echo "value='$roleID'"; ?>> Group Coordinator</option>
-        <option value="3" <?php if (isset($user)) echo "value='$roleID'"; ?>> Lake Host</option>
+        <?php if($_SESSION['roleID'] == 1) : ?>        
+        	<option value="1" <?php if (isset($user)) echo "value='$roleID'"; ?>> Administrator</option>
+       		<option value="2" <?php if (isset($user)) echo "value='$roleID'"; ?>> Group Coordinator</option>
+        	<option value="3" <?php if (isset($user)) echo "value='$roleID'"; ?>> Lake Host</option>        
+        <?php else : ?>        
+       		<option value="2" <?php if (isset($user)) echo "value='$roleID'"; ?>> Group Coordinator</option>
+        	<option value="3" <?php if (isset($user)) echo "value='$roleID'"; ?>> Lake Host</option>
+        <?php endif; ?>       
     </select><br/><br/> 
 
     <!-- Coordinator ID -->
