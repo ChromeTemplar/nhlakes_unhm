@@ -9,28 +9,28 @@ class LakeGroupStats extends Model
     {   
         /*** Set table name ***/
         if (empty($this->table)) {  
-            $this->table = 'summary';
+            $this->table = 'Summary';
         }         
 
        /*** use parent model to connect to DB ***/
         parent::connectToDb();
     }
     
-    function getSurveyTotalByGroup($username) 
+    function getSurveyTotalByGroup($Username) 
     {
         $mysqli = $this->conn;
         
         /* Prepared statement, stage 1: prepare */
-        if (!($stmt = $mysqli->prepare("SELECT COUNT(*) as surveyTotal  FROM lakehostgroup
-            JOIN summary ON summary.lakeHostGroupID = lakehostgroup.ID
-            JOIN lakehostmember ON lakehostmember.lakeHostGroupID = lakehostgroup.ID
-            JOIN user ON user.ID = lakehostmember.userID
-            WHERE user.userName = ? AND (SummaryDate BETWEEN '2014-12-31' AND '2016-01-01');"))) {
+        if (!($stmt = $mysqli->prepare("SELECT COUNT(*) as surveyTotal  FROM LakeHostGroup
+            JOIN Summary ON Summary.lakeHostGroupID = LakeHostGroup.ID
+            JOIN LakeHostMember ON LakeHostMember.lakeHostGroupID = LakeHostGroup.ID
+            JOIN User ON User.ID = LakeHostMember.UserID
+            WHERE User.UserName = ? AND (SummaryDate BETWEEN '2014-12-31' AND '2016-01-01');"))) {
             echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
         }
 
         /* Prepared statement, stage 2: bind and execute */
-        if (!($stmt->bind_param("s", $username))) {
+        if (!($stmt->bind_param("s", $Username))) {
             echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
         }
 
@@ -48,7 +48,7 @@ class LakeGroupStats extends Model
         $mysqli = $this->conn;
 		
         /* Prepared statement, stage 1: prepare */
-        if (!($stmt = $mysqli->prepare("SELECT COUNT(*) as surveyTotal FROM summary INNER JOIN User ON summary.userID = user.ID WHERE (user.userName = ?) AND (summaryDate BETWEEN '2014-12-31' AND '2016-01-01');"))) {
+        if (!($stmt = $mysqli->prepare("SELECT COUNT(*) as surveyTotal FROM Summary INNER JOIN User ON Summary.UserID = User.ID WHERE (User.UserName = ?) AND (SummaryDate BETWEEN '2014-12-31' AND '2016-01-01');"))) {
             echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
         }
 
@@ -71,7 +71,7 @@ class LakeGroupStats extends Model
     	$mysqli = $this->conn;
     
     	/* Prepared statement, stage 1: prepare */
-    	if (!($stmt = $mysqli->prepare("SELECT ID as surveyTotal from user  WHERE (user.userName = ?);"))) {
+    	if (!($stmt = $mysqli->prepare("SELECT ID as surveyTotal from User  WHERE (User.UserName = ?);"))) {
     		
     		echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
     	}
@@ -94,7 +94,7 @@ class LakeGroupStats extends Model
         $mysqli = $this->conn;
         
         /* Prepared statement, stage 1: prepare */
-        if (!($stmt = $mysqli->prepare("SELECT COUNT(*) as surveyTotal FROM summary WHERE summaryDate BETWEEN '2014-12-31' AND '2016-01-01'"))) {
+        if (!($stmt = $mysqli->prepare("SELECT COUNT(*) as surveyTotal FROM Summary WHERE SummaryDate BETWEEN '2014-12-31' AND '2016-01-01'"))) {
             echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
         }
 
@@ -106,17 +106,17 @@ class LakeGroupStats extends Model
         return $total['surveyTotal'];
     }
     
-    function getlakeHostGroupName($username)
+    function getlakeHostGroupName($Username)
     {
     	$mysqli = $this->conn;
     	
-    	if (!($stmt = $mysqli->prepare("SELECT lakehostgroup.lakeHostGroupName FROM lakehostgroup
-        JOIN lakehostmember ON lakehostmember.lakeHostGroupID = lakehostgroup.ID
-        JOIN user ON user.ID = lakehostmember.userID
-        WHERE user.userName = ?"))) {
+    	if (!($stmt = $mysqli->prepare("SELECT LakeHostGroup.lakeHostGroupName FROM LakeHostGroup
+        JOIN LakeHostMember ON LakeHostMember.lakeHostGroupID = LakeHostGroup.ID
+        JOIN User ON User.ID = LakeHostMember.UserID
+        WHERE User.UserName = ?"))) {
             echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
         }
-        if (!($stmt->bind_param("s", $username))) {
+        if (!($stmt->bind_param("s", $Username))) {
         	echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
         }
         
