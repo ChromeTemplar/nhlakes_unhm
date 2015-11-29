@@ -268,6 +268,6 @@ class SurveySummaryController extends Controller
     
     
     	/*** Redirect User to survey summary/Index ***/
-    	header("location: index.php?rt=surveysummary/index");
+    	header("location: index.php?rt=surveySummary/index");
     }
 }
