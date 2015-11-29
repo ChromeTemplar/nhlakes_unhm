@@ -76,13 +76,26 @@ class surveySummary extends Model
 			echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
 		}
 		
-		
 		//stick the summary date in front of the times to complete
-		//the datatime type used in the DB table
-		$data['summaryDate'] = date($data['summaryDate']);
-		$data['startShiftTime'] = date($data['summaryDate'] . ' ' . $data['startShiftTime']);
-		$data['endShiftTime'] = date($data['summaryDate'] . ' ' . $data['endShiftTime']);
-		
+		//the datatime type used in the DB table for shift option
+		//TODO: add conditional for either date or datetime (whole day or specific shift)
+		//if full day selected
+		//grey out time boxes
+		if (empty($data['startShiftTime']) & empty($data['endShiftTime']))//shift times not filled out 
+		{
+			$data['summaryDate'] = date($data['summaryDate']);
+		}	
+		//else pick date and time
+		elseif ((!empty($data['startShiftTime']) & empty($data['endShiftTime'])) || (empty($data['startShiftTime']) & !empty($data['endShiftTime']))) 
+		{
+			throw new exception('Start and end shift times must both be filled out or empty.');
+		}			
+		else 
+		{
+			$data['summaryDate'] = date($data['summaryDate']);
+			$data['startShiftTime'] = date($data['summaryDate'] . ' ' . $data['startShiftTime']);
+			$data['endShiftTime'] = date($data['summaryDate'] . ' ' . $data['endShiftTime']);
+		}
 		//get the boat ramp ID from the users selection
 		$startExclusive = strpos($data['boatRampName'], '(');
 		$data['boatRampID'] = (int) substr($data['boatRampName'], $startExclusive + 1, -1);
@@ -140,6 +153,11 @@ class surveySummary extends Model
 		
 		//stick the summary date in front of the times to complete
 		//the datatime type used in the DB table
+		//TODO: add conditional for either date or datetime (whole day or specific shift)
+		//if full day selected
+		//grey out time boxes
+		
+		//else pick date and time	
 		$data['summaryDate'] = date($data['summaryDate']);
 		$data['startShiftTime'] = date($data['summaryDate'] . ' ' . $data['startShiftTime']);
 		$data['endShiftTime'] = date($data['summaryDate'] . ' ' . $data['endShiftTime']);
