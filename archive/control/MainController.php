@@ -10,30 +10,34 @@ require_once 'C:\\devel\\web\\php\\view\\pageTemplate.php';
 require_once 'C:\\devel\\web\\php\\view\\LoggedInView.php';
 require_once 'C:\\devel\\web\\php\\model\\loginModel.php';
 require_once 'C:\\devel\\web\\php\\control\\boaterSurveyController.php';
-class MainController{
-	public function startLogin(){
-            $login = new loginModel();
-            $login->email = $_POST['email'];
-            $login->password = $_POST['password'];
 
-            #this follows our system sequence diagram
-            # call processLogin which returns a bool val
-            $validLogin = $login->processLogin();
+class MainController
+{
+    public function startLogin()
+    {
+        $login = new loginModel();
+        $login->email = $_POST['email'];
+        $login->password = $_POST['password'];
 
-            if($validLogin == true){
-                //self::showHomePage();
-				header('Location:survey.php');
-            }
-            else{
-                return;
-            }
-	}
-        public function showHomePage(){
-            $newLayout = new pageTemplate();
-            $newLayout->header("Boater Survey");
-            $newLayout->siteBody("Boater Survey");
-            $loadHome = new surveyView();
-            $loadHome->newSurvey();
-            $newLayout->footer();
+        #this follows our system sequence diagram
+        # call processLogin which returns a bool val
+        $validLogin = $login->processLogin();
+
+        if ($validLogin == true) {
+            //self::showHomePage();
+            header('Location:survey.php');
+        } else {
+            return;
         }
+    }
+
+    public function showHomePage()
+    {
+        $newLayout = new pageTemplate();
+        $newLayout->header("Boater Survey");
+        $newLayout->siteBody("Boater Survey");
+        $loadHome = new surveyView();
+        $loadHome->newSurvey();
+        $newLayout->footer();
+    }
 }
