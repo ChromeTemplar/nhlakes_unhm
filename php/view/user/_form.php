@@ -84,7 +84,7 @@ else
 
     <!--  Password -->
     <label for="password">Password</label><br/>
-    <input type="text" name="user[password]" class="medium" required><br/><br/>
+    <input type="password" name="user[password]" class="medium" required><br/><br/>
 
     <?php /*######### ######## DEPRICATED ######## ########
 	<!-- Over 18 -->
