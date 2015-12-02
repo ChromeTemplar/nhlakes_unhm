@@ -1,7 +1,24 @@
 <h1><?php echo $welcome; ?></h1>
 
 <h2><?php $usersName = $_SESSION['firstName'];
-		  echo  "Welcome $usersName"; ?></h2>
+		  $usersRoleID = $_SESSION['roleID'];
+		  
+		  //Probably best to do this dynamically, but given that we only have the 3 forseeable roles this may be better 
+		  //than querying the DB for (negligable) performance gains.
+		  
+		  switch ($usersRoleID) {
+		  	case 1:
+		  		$usersRole = 'Administrator';
+		  		break;
+		  	case 2:
+		  		$usersRole = 'Group Coordinator';
+		  		break;
+		  	case 3:
+		  		$usersRole = 'Lake Host';
+		  		break;
+		  }
+		  
+		  echo  "Welcome $usersName ($usersRole)"; ?></h2>
 <!-- The below validation is to expose the below links only for people with role of admin or Coordinators -->
 <h2>Boat Ramp</h2>
 <?php
