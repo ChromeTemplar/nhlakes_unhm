@@ -86,4 +86,26 @@ class group extends Model
     	}
     	return $html;
     }
+
+	function fillSelectMultiple() {
+		$queryArray = array();
+		$html ="";
+
+		$mysqli = $this->conn;
+		$query = "SELECT ID,lakeHostGroupName FROM lakehostgroup ORDER BY lakeHostGroupName ASC";
+		$stmt = $mysqli->query($query);
+
+		if ($stmt->num_rows > 0) {
+			while($row = $stmt->fetch_assoc()) {
+				$queryArrayID = $row['ID'];
+				$queryArrayField = $row['lakeHostGroupName'];
+				$queryArray[$queryArrayID] = $queryArrayField;
+			}
+		}
+
+		foreach($queryArray as $key => $value) {
+			$html .= "<option value=$key>$value</option>\n";
+		}
+		return $html;
+	}
 }

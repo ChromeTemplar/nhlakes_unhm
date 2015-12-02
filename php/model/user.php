@@ -70,7 +70,7 @@ class user extends Model
         if (!($stmt->bind_param("isssssssi",
 		
 			$data['roleID'],
-        	$data['coordinatorID'],	
+        	implode(',', $data['coordinatorID']),
 			$data['firstName'],
 			$data['lastName'],
 			$phoneNumber,
@@ -141,7 +141,7 @@ class user extends Model
         if (!($stmt->bind_param("issssssi",
 		
 				$data['roleID'],
-        		$data['coordinatorID'],
+                implode(',', $data['coordinatorID']),
 				$data['firstName'],
 				$data['lastName'],
 				$phoneNumber,
