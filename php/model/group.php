@@ -90,9 +90,10 @@ class group extends Model
         return $html;
     }
 
-    function fillSelectMultiple()
+    function fillSelectMultiple($user)
     {
         $queryArray = array();
+        $groupIds = explode(',', $user['coordinatorID']);
         $html = "";
 
         $mysqli = $this->conn;
@@ -108,7 +109,11 @@ class group extends Model
         }
 
         foreach ($queryArray as $key => $value) {
-            $html .= "<option value=$key>$value</option>\n";
+            if (in_array($key, $groupIds)) {
+                $html .= "<option value=$key selected>$value</option>\n";
+            } else {
+                $html .= "<option value=$key>$value</option>\n";
+            }
         }
         return $html;
     }

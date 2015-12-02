@@ -48,12 +48,12 @@ else
         <?php endif; ?>
     </select><br/><br/>
 
-    <!-- Coordinator ID -->
+    <!-- Groups -->
     <label for="coordinatorID">Group(s)</label><br/>
     <select name="user[coordinatorID][]" multiple width="50" required>
         <?php
         $model = new group();
-        echo $model->fillSelectMultiple();
+        echo $model->fillSelectMultiple($user);
         ?>
     </select><br/><br/>
 

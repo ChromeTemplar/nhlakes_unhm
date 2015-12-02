@@ -123,7 +123,7 @@ class user extends Model
         if (!($stmt = $mysqli->prepare("UPDATE User SET 
 				
         		roleID = ?,
-        		coordinatorID = CONCAT(coordinatorID, ',', ?), 
+        		coordinatorID = ?,
 				firstName = ?,
 				lastName = ?, 
 				phoneNumber = ?,
