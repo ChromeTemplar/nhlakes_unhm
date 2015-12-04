@@ -773,8 +773,8 @@ FOREIGN KEY (summaryID) REFERENCES Summary(ID)
 
 
 CREATE table sessionDetail (
-sessionId VARCHAR(30) NOT NULL,
-sessionKeyVal VARCHAR(30) NOT NULL,
+sessionId VARCHAR(255) NOT NULL,
+sessionKeyVal VARCHAR(255) NOT NULL,
 sessionStatus CHAR(1) NOT NULL);
 
 /*

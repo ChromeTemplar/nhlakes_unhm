@@ -113,7 +113,7 @@ class LoginNHVBSRController extends Controller
             return true;
         } else {
 
-            $_SESSION['Login.Error'] = "Please Login with valid Credentails first";
+            $_SESSION['Login.Error'] = "Please Login with valid Credentials first";
             session_destroy();
             $this->registry->template->showlogon('session', 'LoginNHVBSR');
         }
