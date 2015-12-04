@@ -56,7 +56,7 @@
 				<div id="custom1">
 
 				<?PHP
-				$registry->template = new template($registry);
+
 				?>
 			<!-- TEMPLATE>Include $Path  MUST GO HERE!!!!!!! 
 				<h1> Do Not Revert</h1>

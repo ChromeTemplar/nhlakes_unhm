@@ -110,7 +110,7 @@ class template
          * Once you've completed that - remove the echo from above, and everything should be peachy.
          */
         include 'view/layout/applicationView.php';
-       // include $path; // <<<<<<<<<< THAT GUY RIGHT THERE
+       include $path; // <<<<<<<<<< THAT GUY RIGHT THERE
         //include 'view/partials/_footer.php';
    }
    
