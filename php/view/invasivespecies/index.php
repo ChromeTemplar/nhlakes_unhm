@@ -1,53 +1,51 @@
 <h1><?php echo $welcome; ?></h1>
 
 
+<?php
 
-<?php 
+if ($invasivespecies != "") {
 
-if ($invasivespecies != "") 
-{ 
+    $displayList = array(
 
-$displayList = array(
-				
-		"UserID" => "userID",
-		"Survey Date" => "surveyDate"
-		//"Date" => "dateCreated",
-		//"Notes" => "notes",
-);
+        "UserID" => "userID",
+        "Survey Date" => "surveyDate"
+        //"Date" => "dateCreated",
+        //"Notes" => "notes",
+    );
 
-	?>
+    ?>
 
     <!-- demo -->
     <div id="data">
 
         <!-- panel -->
-        <?php 
-        
-        require_once "view/partials/_controlsTop.php";				 
-        echo "<div id='invasive-table' >".$this->buildSurveyTable($invasivespecies, $displayList). "</div>";
+        <?php
+
+        require_once "view/partials/_controlsTop.php";
+        echo "<div id='invasive-table' >" . $this->buildSurveyTable($invasivespecies, $displayList) . "</div>";
         require_once "view/partials/_controlsBottom.php";
-        
+
         ?>
         <!-- no results found -->
         <div class="jplist-no-results">
-          <p>No results found</p>
+            <p>No results found</p>
         </div>
 
     </div>
     <?php
-    
-}else
+
+} else
     echo "<h2>No Invasive Species Found</h2>";
 
 ?>
-<div id="content-bottom"> 
-<?php echo $this->buttonTo("invasivespecies","newInvasiveSurvey", "New"); ?>
+<div id="content-bottom">
+    <?php echo $this->buttonTo("invasivespecies", "newInvasiveSurvey", "New"); ?>
 
-<br/>
-Return <?php echo $this->linkTo("home","index","Home"); ?>
+    <br/>
+    Return <?php echo $this->linkTo("home", "index", "Home"); ?>
 </div>
 
-<?php echo $_SESSION['userName']  ?>
+<?php echo $_SESSION['userName'] ?>
 
 
 
