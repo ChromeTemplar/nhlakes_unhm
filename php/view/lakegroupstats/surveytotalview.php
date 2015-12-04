@@ -8,7 +8,7 @@
         <td><?php echo $surveyTotalGroup ?> surveys</td>
     </tr>
     <tr>
-        <td id="surveytotalblue"><?php echo $_SESSION['firstName'] . ' ' . $_SESSION['lastName']; ?> has completed:</td>
+        <td id="surveytotalblue"><?php echo $_SESSION['firstName'].' '.$_SESSION['lastName']; ?> has completed:</td>
         <td><?php echo $surveyTotalUser ?> surveys</td>
     </tr>
     <tr>
@@ -16,4 +16,4 @@
         <td><?php echo $surveyTotal ?> surveys</td>
     </tr>
 </table>
-<br/>
+<br />

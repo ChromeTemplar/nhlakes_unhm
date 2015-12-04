@@ -5,14 +5,14 @@
 //Build the user table and populate it with users. See the 
 // buildTable() in template.php for more info. 
 
-if ($user != "")
-    echo $this->buildTable($user, "user");
+if ($user !="")
+	echo $this->buildTable($user, "user");
 else
-    echo "<h2> There are no Lake Hosts in the system. </h2>";
+	echo "<h2> There are no Lake Hosts in the system. </h2>";
 
-echo $this->buttonTo("user", "newuser", "New");
+echo $this->buttonTo("user","newuser", "New");
 
 ?><br>
-Return <?php echo $this->linkTo("home", "index", "Home"); ?>
+Return <?php echo $this->linkTo("home","index","Home"); ?>
 
 

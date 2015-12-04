@@ -20,7 +20,7 @@ if (isset($ramp)) {
     $owner = $ramp['owner'];
     $private = $ramp['private'];
     $waterbody = $ramp['waterbodyID'];
-    $owner = $ramp['owner'];
+    $owner = $ramp['owner'];    
 } else {
     $name = '';
     $state = '';
@@ -37,119 +37,108 @@ if (isset($ramp)) {
 
 <div id="form">
 
-    <form id="boatRampForm" <?php
+<form id="boatRampForm" <?php 
     if (!isset($ramp))
         echo "action='index.php?rt=boatramp/index' ";
-    else
-        echo "action='index.php?rt=boatramp/deleteRamp&id=" . $ramp['ID'] . "'"; ?>
-          method="post">
-
-        <?php if (isset($errorOccured) && $errorOccured) { ?>
-            <!-- Error Message -->
-            <label id="errorMessage" class="generalError">
-                <?php echo $errorMessage; ?>
-            </label>
-            <br/><br/>
-        <?php } ?>
-
-        <div class="warning">Are you sure you want to delete this Boat Ramp?</div>
-        <br/>
-        <input type="submit" value="Delete" name="delete">
-        <?php echo $this->buttonTo("home", "index", "Cancel"); ?>
-        <br/><br/>
-        <!-- Ramp Name -->
-        <label for="rampName">Ramp Name</label><br/>
-
-        <div><?php if (isset($ramp)) echo "$name"; ?></div>
-        <br/><br/>
-
-        <!-- Ramp Name -->
-        <label>Ramp Name</label><br/>
-
-        <div><?php if (isset($ramp)) echo "$name"; ?>
-        </div>
-        <br/>
-
-        <!-- Ramp Owner -->
-        <label for="rampOwner">Owner</label><br/>
-
-        <div><?php if (isset($ramp)) echo $owner; ?>
-        </div>
-        <br/>
-
-        <!-- Ramp Private -->
-        <label for="private">Ramp Access</label><br/>
-
-        <div>
-            <?php
-            if ($private == true) {
+    else 
+        echo "action='index.php?rt=boatramp/deleteRamp&id=".$ramp['ID']. "'"; ?>
+method="post">
+    
+   	<?php if(isset($errorOccured) && $errorOccured) { ?>
+   	<!-- Error Message -->
+	<label id="errorMessage" class="generalError">
+	<?php echo $errorMessage; ?>	
+	</label>
+	<br /><br />
+	<?php } ?>
+	
+    <div class="warning">Are you sure you want to delete this Boat Ramp?</div>
+    <br />
+    <input type="submit" value="Delete" name="delete">
+    <?php echo $this->buttonTo("home","index","Cancel"); ?>
+    <br/><br/> 
+    <!-- Ramp Name -->
+    <label for="rampName">Ramp Name</label><br/>
+    <div><?php if(isset($ramp)) echo "$name"; ?></div><br/><br/>
+   
+       <!-- Ramp Name -->
+    <label>Ramp Name</label><br/>
+    <div><?php if(isset($ramp)) echo "$name"; ?>
+    </div><br/>
+       
+    <!-- Ramp Owner -->
+    <label for="rampOwner">Owner</label><br/>
+    <div><?php if(isset($ramp)) echo $owner; ?>
+    </div><br/>
+    
+    <!-- Ramp Private -->
+    <label for="private">Ramp Access</label><br/>
+    <div>
+            <?php 
+        	if ($private == true) {
                 echo "Private - This boat ramp is in private domain. TRESPASSERS WILL BE SHOT. SURVIVORS WILL BE SHOT AGAIN.";
-            } else {
-                echo "Public - This boat ramp is in public domain.";
             }
-            ?>
-        </div>
-        <br/>
+            else {
+            	echo "Public - This boat ramp is in public domain.";
+            }
+        ?> 
+    </div><br/>
 
-        <!-- Ramp State -->
-        <label for="state">State</label><br/>
-
-        <div>
-            <?php echo $state; ?>
-        </div>
-        <br/>
-
-        <!-- Ramp Town -->
-        <label for="town">Town</label><br/>
-
-        <div>
-            <?php foreach ($towns as $val) {
-                if ($val[0] == $town) {
-                    echo $val[1];
-                }
-            } ?>
-        </div>
-        <br/>
-
-        <!-- Ramp Waterbody -->
-        <label for="waterbody">Waterbody</label><br/>
-
-        <div>
-            <?php foreach ($waterbodies as $val) {
-                if ($val[0] == $waterbody) {
-                    echo $val[1];
-                }
-            } ?>
-        </div>
-        <br/>
-
-        <div>
-            <label>Location</label><br/>
-
-            <div><?php echo $latitude ?>, <?php echo $longitude ?></div>
-            <div id="map-canvas">
-                <script>
-                    // setup google map.
-                    nhvbsrMap.edit = false; // give the map the id
-                    nhvbsrMap.latitudeID = 'latitude'; // give the map the id
-                    nhvbsrMap.longitudeID = 'longitude';
-                    nhvbsrMap.latitude = <?php echo $latitude ?>;
-                    nhvbsrMap.longitude = <?php echo $longitude ?>;
-                    nhvbsrMap.mapID = 'map-canvas',
-                        google.maps.event.addDomListener(window, 'load', nhvbsrMap.initialize);
-                </script>
-            </div>
-        </div>
-        <br/>
-
-        <!-- Ramp Notes-->
-        <label for="notes">Notes</label><br/>
-
-        <div><?php if (isset($ramp)) echo $ramp['notes'] ?></div>
-    </form>
+    <!-- Ramp State -->
+    <label for="state">State</label><br/>
+    <div>
+    <?php echo $state; ?>
+    </div><br/>
+    
+    <!-- Ramp Town -->
+    <label for="town">Town</label><br/>
+    <div>
+    <?php foreach ($towns as $val) {
+    	if($val[0] == $town)
+    	{
+    		echo $val[1];
+    	}
+    }?>
+    </div>
+   <br/>
+    
+    <!-- Ramp Waterbody -->
+    <label for="waterbody">Waterbody</label><br/>
+    <div>
+        <?php foreach ($waterbodies as $val) {
+    	if($val[0] == $waterbody)
+    	{
+    		echo $val[1];
+    	}
+    }?>
+    </div>
+    <br />
+    
+    <div>
+ 	    <label>Location</label><br/>
+ 	    <div><?php echo $latitude ?>, <?php echo $longitude ?></div> 	    
+		<div id="map-canvas">
+			<script>
+				// setup google map.
+				nhvbsrMap.edit = false; // give the map the id
+				nhvbsrMap.latitudeID = 'latitude'; // give the map the id
+				nhvbsrMap.longitudeID = 'longitude';
+				nhvbsrMap.latitude = <?php echo $latitude ?>;
+				nhvbsrMap.longitude = <?php echo $longitude ?>;
+				nhvbsrMap.mapID = 'map-canvas',
+				google.maps.event.addDomListener(window, 'load', nhvbsrMap.initialize);
+			</script>  	
+	   	</div>
+    </div>
+    <br />
+    
+    <!-- Ramp Notes-->
+    <label for="notes">Notes</label><br/>
+    <div><?php if(isset($ramp)) echo $ramp['notes'] ?></div>
+</form>
 </div>
 <div id="content-bottom">
-    List <?php echo $this->linkTo("boatramp", "index", "Boat Ramps"); ?><br>
-    Return <?php echo $this->linkTo("home", "index", "Home"); ?>
+List <?php echo $this->linkTo("boatramp", "index", "Boat Ramps"); ?><br>
+Return <?php echo $this->linkTo("home","index","Home"); ?>
 </div>
-<br/>
+<br />
