@@ -13,7 +13,7 @@
 
     <!-- The below validation is to expose the below links only for people with role of admin or Coordinators -->
     <?php if (isset($_SESSION['roleID']) && ($_SESSION['roleID'] < 3)) { ?>
-        <?php echo $this->linkTo("user", "index", "Users"); ?>
+        <?php echo $this->linkTo("user", "index", "Lake Host"); ?>
         <?php echo $this->linkTo("group", "index", "Groups"); ?>
     <?php } ?>
 
