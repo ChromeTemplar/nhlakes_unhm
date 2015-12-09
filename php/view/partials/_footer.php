@@ -5,7 +5,7 @@
 <!-- Close Wrapper Div -->
 
 
-<!-- Any Footer content goes here -->
+Any Footer content goes here
 
 
 </body>

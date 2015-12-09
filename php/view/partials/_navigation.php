@@ -1,9 +1,9 @@
 <!--  Remove CSS Segregation -->
 <!-- <div id="navigation-title">Menu1</div>  -->
 
-<h1>Menu</h1>
+<!--<h1>Menu</h1>-->
 
-<div class=row>
+<div id="nav">
     <?php echo $this->linkTo("home", "index", "Home"); ?>
     <!-- <li><?php // echo $this->linkTo("survey", "index", "Survey"); ?></li> -->
 

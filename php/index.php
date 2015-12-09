@@ -1,4 +1,9 @@
-<link rel="shortcut icon" href="favicon.ico">
+
+<!--link rel="stylesheet" href="assets/css/PrimaryStyle.css" type="text/css"/-->
+<!--<link rel="shortcut icon" href="favicon.ico"> -->
+
+
+<!--div id="body"-->
 <?php
 //$view = new View;
 
@@ -24,3 +29,7 @@ $registry->template = new template($registry);
 
 /*** load the controller ***/
 $registry->router->loader();
+
+?>
+
+<!--/div-->
