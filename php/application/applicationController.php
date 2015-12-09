@@ -1,26 +1,26 @@
 <?php
 /**
- * Main Controller. All other controllers Extend this
- *
- */
+* Main Controller. All other controllers Extend this
+* 
+*/
+
 //include 'application/applicationLogging.php';
 
-Abstract class Controller
+Abstract class Controller 
 {
-
+    
     /*
     * @registry object
     */
     protected $registry;
 
-    function __construct($registry)
-    {
+    function __construct($registry) {
         $this->registry = $registry;
     }
 
     /**
-     * @all controllers must contain an index method
-     */
+    * @all controllers must contain an index method
+    */
     abstract function index();
-
+    
 }

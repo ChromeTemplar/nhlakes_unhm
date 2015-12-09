@@ -1,36 +1,35 @@
 <?php
-
-class Waterbody extends Model
+class Waterbody extends Model 
 {
     /**
-     * Constructor
-     **/
-    function __construct($id = "")
-    {
-        if (empty($this->table)) {
-            $this->table = get_class($this);
-        }
-
-        if (!empty($id)) {
-            $this->id = $id;
-        }
-
+    * Constructor
+    **/
+    function __construct($id ="")
+    {   
+        if (empty($this->table)) {  
+            $this->table = get_class($this); 
+        }         
+         
+        if (!empty($id)) { 
+            $this->id = $id; 
+        } 
+        
         /*** use parent model to connect to DB ***/
         parent::connectToDb();
     }
 
 
     /**
-     * Adds a new Waterbody to the DB with the given $data
-     *
-     * @param Array $data : Array containing all of the $_POST data passed in by form
-     *
-     **/
+    * Adds a new Waterbody to the DB with the given $data
+    *
+    * @param Array $data : Array containing all of the $_POST data passed in by form
+    *
+    **/
     function addWaterbody($data)
     {
         $mysqli = $this->conn;
 
-        if (empty($table))
+        if (empty($table)) 
             $table = $this->table;
 
         /* Prepared statement, stage 1: prepare */
@@ -50,9 +49,9 @@ class Waterbody extends Model
 
 
     /**
-     * Selects a single item if ID is set
-     **/
-    function at_id()
+    * Selects a single item if ID is set 
+    **/
+    function at_id() 
     {
         $mysqli = $this->conn;
 
@@ -71,11 +70,11 @@ class Waterbody extends Model
 
 
     /**
-     * Updates a Waterbody row in the DB
-     *
-     * @param Array $data : Array containing $_POST data passed in by the form
-     **/
-    function updateWaterbody($data)
+    * Updates a Waterbody row in the DB
+    *
+    * @param Array $data : Array containing $_POST data passed in by the form
+    **/
+    function updateWaterbody($data) 
     {
         $mysqli = $this->conn;
 
@@ -96,12 +95,12 @@ class Waterbody extends Model
 
 
     /**
-     * Deletes a Boat Ramp from the DB
-     **/
-    function deleteWaterbody()
+    * Deletes a Boat Ramp from the DB
+    **/
+    function deleteWaterbody() 
     {
         $mysqli = $this->conn;
-
+        
         /* Prepared statement, stage 1: prepare */
         if (!($stmt = $mysqli->prepare("DELETE FROM Waterbody WHERE ID = ?"))) {
             echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
@@ -114,6 +113,6 @@ class Waterbody extends Model
 
         if (!$stmt->execute()) {
             echo "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
-        }
+        }  
     }
 }

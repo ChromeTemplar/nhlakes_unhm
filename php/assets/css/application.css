@@ -1,157 +1,126 @@
 body {
     font-family: arial;
-    margin: 0;
-
-}
-
+    margin:0;
+    
+} 
 h1 {
-    border-bottom: 1px solid #ccc;
-    width: 60%;
-    margin-top: 0;
-    font-size: 2.0em;
+    border-bottom:1px solid #ccc;
+    width:60%;
+    margin-top:0;
+    font-size:2.0em;
 }
-
-h1, h2, h3 {
-    font-weight: normal;
+h1,h2,h3 {
+    font-weight:normal;
 }
-
-h2 {
-    margin-bottom: 5px;
+h2{
+    margin-bottom:5px;
 }
-
 textarea {
     resize: none;
 }
-
 #header {
-    background-color: #CCC;
-    color: black;
-    border-bottom: 3px solid #058;
-    text-align: center;
+    background-color:#CCC;
+    color:black;
+    border-bottom:3px solid #058;
+    text-align:center;
     position: fixed;
     width: 100%;
-    z-index: 1001;
+    z-index:1001;
 }
-
 #header-title {
-    padding: 10px;
+    padding:10px;
     font-size: 1.8em;
     display: inline-block;
 }
-
 #header-title:hover {
-    color: white;
+    color:white;
 }
-
 #navigation, #content {
     display: inline-block;
-    padding: 10px 0 0 10px;
+    padding:10px 0 0 10px;
 }
-
 #navigation {
-    width: 150px;
-    float: left;
+    width:150px;
+    float:left;
 }
-
 #content {
-    border-left: 1px solid #DDD;
+    border-left:1px solid #DDD;
     vertical-align: top;
-    width: 80%;
+    width:80%;
 }
-
 #content table {
     overflow-x: auto;
 }
-
 #content-bottom {
     margin-top: 50px;
 }
-
 #navigation-title {
     font-size: 1.5em;
     border-bottom: 1px solid #DDD;
 }
-
 #wrapper {
     position: relative;
     top: 60px;
     min-width: 1250px;
 }
-
 ul {
-    padding-left: 0;
+    padding-left:0;
 }
-
 #navigation li {
-    list-style: none;
+    list-style:none;
 }
-
 #navigation a {
-    text-decoration: none;
-    color: black;
+    text-decoration:none;
+    color:black;
 }
-
 #navigation a:hover {
-
-/ / font-weight : bold;
-/ / color : #058;
+    
+    //font-weight:bold;
+    //color:#058;
 }
-
 .list {
-    overflow-y: scroll;
-    display: block;
+	overflow-y:scroll;
+   	display:block;
 }
-
-table, tr, td, th {
-    border-collapse: collapse;
-    text-align: center;
+table,tr,td,th{
+    border-collapse:collapse;
+    text-align:center;
 }
-
-table th {
-    padding: 5px 10px 0 10px;
+table th{
+    padding:5px 10px 0 10px;
     border-bottom: 1px solid #CCC;
 }
-
-th {
+th { 
     min-width: 125px;
 }
-
 a {
     text-decoration-color: black;
 }
-
-a:hover, a:visited:hover {
-/ / color : #058;
+a:hover,a:visited:hover {
+    //color:#058;
 }
-
 a:visited {
-    color: black;
+    color:black;
 }
-
 input[type="text"] {
     border-radius: 3px;
-    border: 1px solid black;
-    height: 30px;
-    font-size: 1.2em;
+    border:1px solid black;
+    height:30px;
+    font-size:1.2em;
 }
-
 label {
-    font-size: 1.8em;
-    margin: 10px 0;
+    font-size:1.8em;
+    margin:10px 0;
 }
-
-.large {
-    width: 200px;
+.large{
+    width:200px;
 }
-
 .medium {
-    width: 150px;
+    width:150px;
 }
-
 .small {
-    width: 100px;
+    width:100px;
 }
-
 .overflow {
     height: 200px;
 }
@@ -160,10 +129,10 @@ table.surveytotal {
     border: 1px solid #005588;
 }
 
-.surveytotal th {
+.surveytotal th{
     background-color: #5f88bb;
     border: 1px solid #005588;
-    color: white;
+    color:white;
 }
 
 .surveytotal td {
@@ -174,102 +143,96 @@ table.surveytotal {
 
 td#surveytotalblue {
     background-color: #5f88bb;
-    color: white;
+    color:white;
 }
 
 /* Error classes for client validation */
 form label.error {
-    color: red;
-    font-size: 14px;
-    margin: 10px;
+color:red;
+font-size: 14px;
+margin: 10px;
 }
-
 form input.error {
-    border: 1px solid red;
+border:1px solid red;
 }
 
-.generalError {
-    font-size: 1.2em;
-    color: red;
+.generalError
+{
+	font-size:1.2em;
+	color:red;
 }
 
-.pager {
-    min-height: 45px;
-    margin-bottom: 10px;
+.pager
+{
+	min-height:45px;
+	margin-bottom:10px;
 }
-
 tr.list-item {
-    height: 46px;
+	height:46px;
 }
-
 td.private {
     color: red;
     font-weight: bold;
 }
-
 td.public {
     color: blue;
     font-weight: bold;
 }
-
 .warning {
-    color: red;
-    font-wieght: bold;
+	color:red;
+	font-wieght:bold;
 }
-
 select.selectmenu {
-    border: 1px solid #aaa;
-    background: #5f88bb url("images/ui-bg_flat_75_5f88bb_40x100.png") 50% 50% repeat-x;
-    font-weight: normal;
-    color: #fff;
-    font-family: Verdana, Arial, sans-serif;
-    font-size: 1.1em;
-    padding: .4em 1em;
-
+	border: 1px solid #aaa;
+	background: #5f88bb url("images/ui-bg_flat_75_5f88bb_40x100.png") 50% 50% repeat-x;
+	font-weight: normal;
+	color: #fff;
+	font-family: Verdana,Arial,sans-serif;
+	font-size: 1.1em;
+	padding:.4em 1em;
+	
 }
-
 .selectmenu option {
-    background-color: white;
-    color: black;
+	background-color: white;
+	color: black;
 }
 
 .latitude {
-    display: inline-block;
-    vertical-align: top;
-    width: 182px;
-    height: 75px;
+	display:inline-block;
+	vertical-align:top;
+	width:182px;
+	height:75px;
 }
-
 .longitude {
-    display: inline-block;
-    vertical-align: top;
-    width: 182px;
-    height: 75px;
+	display:inline-block;
+	vertical-align:top;
+	width:182px;
+	height:75px;
 }
 
-.nhvbsrMapBtn {
-    display: inline-block;
-    vertical-align: bottom;
-    margin-bottom: 12px;
-}
+ .nhvbsrMapBtn {
+ 	display:inline-block;
+ 	vertical-align:bottom;
+	margin-bottom: 12px;
+ }
 
-.latitude label.error, .longitude label.error {
-    margin: 0;
-    display: block;
+.latitude label.error, .longitude label.error  {
+	margin: 0;
+	display: block;
 }
 
 #map-canvas {
     height: 400px;
-    width: 600px;
+    width:600px;
     margin-top: 10px;
     padding: 0px
-}
-
-#userForm {
-    color: black;
-    background: #C0C0C0;
-    align: center;
-    border: 10px black;
+ }
+ 
+ #userForm{
+	color: black;
+	background: #C0C0C0;
+	align: center;
+	border: 10px black;
     position: absolute;
     left: 175px;
     top: 150px;

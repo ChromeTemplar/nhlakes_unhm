@@ -1,13 +1,10 @@
 <?php
-
-class pageTemplate
-{
-    //public $pageTitle;
-    //public $bodyView;
-    public function header($pageTitle)
-    {
-        echo
-        <<<EOT
+class pageTemplate{
+	//public $pageTitle;
+	//public $bodyView;
+	public function header($pageTitle) { 
+		echo
+		<<<EOT
 		<html>
 		  <head>
 		    <title>{$pageTitle}</title>
@@ -30,24 +27,22 @@ class pageTemplate
 			<br><br><br>
 EOT;
 
-    }
-
-    public function siteBody($pageTitle = null)
-    {
-        echo <<<EOT
+	}
+	
+	public function siteBody($pageTitle = null){
+		echo <<<EOT
 		 <div id="info">
 			<h2>{$pageTitle}</h2>
 			<hr>
 EOT;
-
-    }
-
-    public function footer()
-    {
-        echo <<<EOT
+		
+	}
+	
+	public function footer(){
+		echo <<<EOT
 		    </div>
 		  </body>
 		</html>
 EOT;
-    }
+	}
 }

@@ -1,4 +1,4 @@
-﻿/*
+/*
 Last Edited 12/14/14
 */
 
@@ -607,7 +607,7 @@ INSERT INTO `Role` (roleDescription) values ('Lake Host');
 CREATE TABLE User (
   ID int NOT NULL AUTO_INCREMENT,
   roleID int NOT NULL,
-  coordinatorID varchar(50) NOT NULL,
+  coordinatorID varchar(100) NOT NULL,
   firstName varchar(50) NOT NULL,
   lastName varchar(50) NOT NULL,
   phoneNumber varbinary(50),
@@ -773,8 +773,8 @@ FOREIGN KEY (summaryID) REFERENCES Summary(ID)
 
 
 CREATE table sessionDetail (
-sessionId VARCHAR(255) NOT NULL,
-sessionKeyVal VARCHAR(255) NOT NULL,
+sessionId VARCHAR(30) NOT NULL,
+sessionKeyVal VARCHAR(30) NOT NULL,
 sessionStatus CHAR(1) NOT NULL);
 
 /*

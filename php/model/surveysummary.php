@@ -1,5 +1,4 @@
 <?php
-
 class surveySummary extends Model
 {	
 	//Initially these were going to be used to
@@ -13,24 +12,6 @@ class surveySummary extends Model
 	public $waterbodies;
 	public $towns;
 	public $lakeHostGroups;
-	private $lakeHostGroupID;
-	private $NH;private $ME;private $MA;private $VT;private $NY;private $CT;private $RI;private $other;
-	private $inboardOutboard;private $pwc;private $canoeKayak;private $sail;private $otherBoatType;
-	private $previous;private $notPrevious;
-	private $drained;private $notDrained;
-	private $rinsed;private $notRinsed;
-	private $dry5;private $notDry5;
-	private $awarenessHigh;private $awarenessLow;private $awarenessMedium;
-	private $speciesFoundYes;private $speciesFoundNo;
-	private $sentDesYes;private $sentDesNo;
-	private $boatRampID;private $userID;
-	private $totalInspections;
-	private $summaryDate;private $startShiftTime;private $endShiftTime;
-// 	private $summaryVars = array( $lakeHostGroupID,$NH,$ME,$MA,$VT,$NY,$CT,$RI,$other,
-// 				$inboardOutboard,$pwc,$canoeKayak,$previous,$notPrevious,$sail,$otherBoatType,$drained,$notDrained,$rinsed,
-// 				$notRinsed,$dry5,$notDry5,$awarenessHigh,$awarenessLow,$awarenessMedium,$speciesFoundYes,$speciesFoundNo,
-// 				$sentDesYes,$sentDesNo,$summaryDate,$boatRampID,$userID,$totalInspections,$startShiftTime,$endShiftTime );
-	
 	
 	public function __construct($id ="")
 	{
@@ -84,37 +65,28 @@ class surveySummary extends Model
 		{
 			$table = $this->table;
 		}
-		
+	
 		/* Prepared statement, stage 1: prepare */
 		if (!($stmt = $mysqli->prepare("INSERT INTO Summary (lakeHostGroupID, NH, ME, MA, VT, NY, CT, RI, other, 
 				inboardOutboard, pwc, canoeKayak, previous, notPrevious, sail, otherBoatType, drained, notDrained, rinsed,
 				notRinsed, dry5, notDry5, awarenessHigh, awarenessLow, awarenessMedium, speciesFoundYes, speciesFoundNo,
 				sentDesYes, sentDesNo, summaryDate, boatRampID, userID, totalInspections, startShiftTime, endShiftTime)
-				 VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"))
-        ) {
-            echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
-        }
-
-        //stick the summary date in front of the times to complete
-        //the datatime type used in the DB table for shift option
-        //TODO: add conditional for either date or datetime (whole day or specific shift)
-        //if full day selected
-        //grey out time boxes
-        if (empty($data['startShiftTime']) & empty($data['endShiftTime']))//shift times not filled out
-        {
-            $data['summaryDate'] = date($data['summaryDate']);
-        } //else pick date and time
-        elseif ((!empty($data['startShiftTime']) & empty($data['endShiftTime'])) || (empty($data['startShiftTime']) & !empty($data['endShiftTime']))) {
-            throw new exception('Start and end shift times must both be filled out or empty.');
-        } else {
-            $data['summaryDate'] = date($data['summaryDate']);
-            $data['startShiftTime'] = date($data['summaryDate'] . ' ' . $data['startShiftTime']);
-            $data['endShiftTime'] = date($data['summaryDate'] . ' ' . $data['endShiftTime']);
-        }
-        //get the boat ramp ID from the users selection
-        $startExclusive = strpos($data['boatRampName'], '(');
-        $data['boatRampID'] = (int)substr($data['boatRampName'], $startExclusive + 1, -1);
-
+				 VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)")))
+		{
+			echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+		}
+		
+		
+		//stick the summary date in front of the times to complete
+		//the datatime type used in the DB table
+		$data['summaryDate'] = date($data['summaryDate']);
+		$data['startShiftTime'] = date($data['summaryDate'] . ' ' . $data['startShiftTime']);
+		$data['endShiftTime'] = date($data['summaryDate'] . ' ' . $data['endShiftTime']);
+		
+		//get the boat ramp ID from the users selection
+		$startExclusive = strpos($data['boatRampName'], '(');
+		$data['boatRampID'] = (int) substr($data['boatRampName'], $startExclusive + 1, -1);
+        
         //get the lakeHostGroupID from the users selection
         $startExclusive = strpos($data['localGroup'], '(');
 		$data['lakeHostGroupID'] = (int) substr($data['localGroup'], $startExclusive + 1, -1);
@@ -126,28 +98,21 @@ class surveySummary extends Model
 		//$data['waterbody'] is not sent to the DB only used for boat ramp filtering/selection
 		//$data['town'] is not sent to the DB only used for boat ramp filtering/selection
 		
-		//validate data!
-		if ($this->validateFieldSetCounts($data))
+		/* Prepared statement, stage 2: bind and execute */
+		if (!($stmt->bind_param("iiiiiiiiiiiiiiiiiiiiiiiiiiiiisiiiss", 
+                $data['lakeHostGroupID'], 
+				$data['NH'], $data['ME'], $data['MA'], $data['VT'], $data['NY'], $data['CT'], 
+				$data['RI'], $data['other'], $data['inboardOutboard'], $data['pwc'], $data['canoeKayak'], 
+				$data['previous'], $data['notPrevious'], $data['sail'], $data['otherBoatType'], $data['drained'], 
+				$data['notDrained'], $data['rinsed'], $data['notRinsed'], $data['dry5'], $data['notDry5'],
+				$data['awarenessHigh'], $data['awarenessLow'], $data['awarenessMedium'],
+				$data['speciesFoundYes'], $data['speciesFoundNo'], $data['sentDesYes'], $data['sentDesNo'], 
+				$data['summaryDate'], $data['boatRampID'], $data['userID'], $data['totalInspections'],
+				$data['startShiftTime'], $data['endShiftTime'])))
 		{
-			/* Prepared statement, stage 2: bind and execute */
-			if (!($stmt->bind_param("iiiiiiiiiiiiiiiiiiiiiiiiiiiiisiiiss", 
-	                $data['lakeHostGroupID'], 
-					$data['NH'], $data['ME'], $data['MA'], $data['VT'], $data['NY'], $data['CT'], 
-					$data['RI'], $data['other'], $data['inboardOutboard'], $data['pwc'], $data['canoeKayak'], 
-					$data['previous'], $data['notPrevious'], $data['sail'], $data['otherBoatType'], $data['drained'], 
-					$data['notDrained'], $data['rinsed'], $data['notRinsed'], $data['dry5'], $data['notDry5'],
-					$data['awarenessHigh'], $data['awarenessLow'], $data['awarenessMedium'],
-					$data['speciesFoundYes'], $data['speciesFoundNo'], $data['sentDesYes'], $data['sentDesNo'], 
-					$data['summaryDate'], $data['boatRampID'], $data['userID'], $data['totalInspections'],
-					$data['startShiftTime'], $data['endShiftTime'])))
-			{
-				echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
-			}
+			echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
 		}
-		else 
-		{
-			echo "validation failed";
-		}
+		
 		if (!$stmt->execute())
 		{
 			echo "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
@@ -168,259 +133,284 @@ class surveySummary extends Model
 				inboardOutboard = ?, pwc = ?, canoeKayak = ?, previous = ?, notPrevious = ?, sail = ?, otherBoatType = ?, 
 				drained = ?, notDrained = ?, rinsed = ?, notRinsed = ?, dry5 = ?, notDry5 = ?, awarenessHigh = ?, awarenessLow = ?, 
 				awarenessMedium = ?, speciesFoundYes = ?, speciesFoundNo = ?, sentDesYes = ?, sentDesNo = ?, summaryDate = ?, 
-				boatRampID = ?, userID = ?, totalInspections = ?, startShiftTime = ?, endShiftTime = ? WHERE ID = ?"))
-        ) {
-            echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
-        }
-
-        //stick the summary date in front of the times to complete
-        //the datatime type used in the DB table
-        //TODO: add conditional for either date or datetime (whole day or specific shift)
-        //if full day selected
-        //grey out time boxes
-
-        //else pick date and time
-        $data['summaryDate'] = date($data['summaryDate']);
-        $data['startShiftTime'] = date($data['summaryDate'] . ' ' . $data['startShiftTime']);
-        $data['endShiftTime'] = date($data['summaryDate'] . ' ' . $data['endShiftTime']);
-
-        //get the boat ramp ID from the users selection
-        $startExclusive = strpos($data['boatRampName'], '(');
-        $data['boatRampID'] = (int)substr($data['boatRampName'], $startExclusive + 1, -1);
-
-        //get the user ID from the users selection
-        $startExclusive = strpos($data['lakeHostName'], '(');
-        $data['userID'] = (int)substr($data['lakeHostName'], $startExclusive + 1, -1);
-
+				boatRampID = ?, userID = ?, totalInspections = ?, startShiftTime = ?, endShiftTime = ? WHERE ID = ?")))
+		{
+			echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+		}
+		
+		//stick the summary date in front of the times to complete
+		//the datatime type used in the DB table
+		$data['summaryDate'] = date($data['summaryDate']);
+		$data['startShiftTime'] = date($data['summaryDate'] . ' ' . $data['startShiftTime']);
+		$data['endShiftTime'] = date($data['summaryDate'] . ' ' . $data['endShiftTime']);
+		
+		//get the boat ramp ID from the users selection
+		$startExclusive = strpos($data['boatRampName'], '(');
+		$data['boatRampID'] = (int) substr($data['boatRampName'], $startExclusive + 1, -1);
+		
+		//get the user ID from the users selection
+		$startExclusive = strpos($data['lakeHostName'], '(');
+		$data['userID'] = (int) substr($data['lakeHostName'], $startExclusive + 1, -1);
+        
         //get the lakeHostGroupID from the users selection
         $startExclusive = strpos($data['localGroup'], '(');
-        $data['lakeHostGroupID'] = (int)substr($data['localGroup'], $startExclusive + 1, -1);
+		$data['lakeHostGroupID'] = (int) substr($data['localGroup'], $startExclusive + 1, -1);
+		
+		//$data['waterbody'] is not sent to the DB only used for boat ramp filtering/selection
+		//$data['town'] is not sent to the DB only used for boat ramp filtering/selection
+	
+		/* Prepared statement, stage 2: bind and execute */
+		if (!($stmt->bind_param("iiiiiiiiiiiiiiiiiiiiiiiiiiiiisiiissi", 
+                $data['lakeHostGroupID'],
+				$data['NH'], $data['ME'], $data['MA'], $data['VT'], $data['NY'], $data['CT'], 
+				$data['RI'], $data['other'], $data['inboardOutboard'], $data['pwc'], $data['canoeKayak'], 
+				$data['previous'], $data['notPrevious'], $data['sail'], $data['otherBoatType'], $data['drained'], 
+				$data['notDrained'], $data['rinsed'], $data['notRinsed'], $data['dry5'], $data['notDry5'],
+				$data['awarenessHigh'], $data['awarenessLow'], $data['awarenessMedium'],
+				$data['speciesFoundYes'], $data['speciesFoundNo'], $data['sentDesYes'], $data['sentDesNo'], 
+				$data['summaryDate'], $data['boatRampID'], $data['userID'], $data['totalInspections'],
+				$data['startShiftTime'], $data['endShiftTime'], $this->id)))
+		{
+			echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
+		}
+	
+		if (!$stmt->execute())
+		{
+			echo "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
+		}
+	}
+	
+	/**
+	 * Selects a single item if ID is set
+	 **/
+	function at_id()
+	{
+		$mysqli = $this->conn;
+	
+		/* Prepared statement, stage 1: prepare */
+		if (!($stmt = $mysqli->prepare("SELECT * FROM Summary WHERE ID = ?")))
+		{
+			echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+		}
+	
+		/* Prepared statement, stage 2: bind and execute */
+		if (!($stmt->bind_param("i", $this->id)))
+		{
+			echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
+		}
+		
+		$buff = $this->process($stmt);
+		
+		return $buff[0];
+	}
 
-        //$data['waterbody'] is not sent to the DB only used for boat ramp filtering/selection
-        //$data['town'] is not sent to the DB only used for boat ramp filtering/selection
-
-        /* Prepared statement, stage 2: bind and execute */
-        if (!($stmt->bind_param("iiiiiiiiiiiiiiiiiiiiiiiiiiiiisiiissi",
-            $data['lakeHostGroupID'],
-            $data['NH'], $data['ME'], $data['MA'], $data['VT'], $data['NY'], $data['CT'],
-            $data['RI'], $data['other'], $data['inboardOutboard'], $data['pwc'], $data['canoeKayak'],
-            $data['previous'], $data['notPrevious'], $data['sail'], $data['otherBoatType'], $data['drained'],
-            $data['notDrained'], $data['rinsed'], $data['notRinsed'], $data['dry5'], $data['notDry5'],
-            $data['awarenessHigh'], $data['awarenessLow'], $data['awarenessMedium'],
-            $data['speciesFoundYes'], $data['speciesFoundNo'], $data['sentDesYes'], $data['sentDesNo'],
-            $data['summaryDate'], $data['boatRampID'], $data['userID'], $data['totalInspections'],
-            $data['startShiftTime'], $data['endShiftTime'], $this->id))
-        ) {
-            echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
-        }
-
-        if (!$stmt->execute()) {
-            echo "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
-        }
-    }
-
-    /**
-     * Selects a single item if ID is set
-     **/
-    function at_id()
-    {
-        $mysqli = $this->conn;
-
-        /* Prepared statement, stage 1: prepare */
-        if (!($stmt = $mysqli->prepare("SELECT * FROM Summary WHERE ID = ?"))) {
-            echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
-        }
-
-        /* Prepared statement, stage 2: bind and execute */
-        if (!($stmt->bind_param("i", $this->id))) {
-            echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
-        }
-
-        $buff = $this->process($stmt);
-
-        return $buff[0];
-    }
-
-    /**
-     * Deletes a Boat Ramp from the DB
-     **/
-    function deleteSummary()
-    {
-        $mysqli = $this->conn;
-
-        /* Prepared statement, stage 1: prepare */
-        if (!($stmt = $mysqli->prepare("DELETE FROM Summary WHERE ID = ?"))) {
-            echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
-        }
-
-        /* Prepared statement, stage 2: bind and execute */
-        if (!($stmt->bind_param("i", $this->id))) {
-            echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
-        }
-
-        if (!$stmt->execute()) {
-            echo "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
-        }
-    }
-
-    public function getWaterbodyFromRampID($rampID)
-    {
-        $name = null;
-        $mysqli = $this->conn;
-
-        /* Prepared statement, stage 1: prepare */
-        if (!($stmt = $mysqli->prepare("SELECT * FROM BoatRamp WHERE ID = ?"))) {
-            echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
-        }
-
-        /* Prepared statement, stage 2: bind and execute */
-        if (!($stmt->bind_param("i", $rampID))) {
-            echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
-        }
-
-        $buff = $this->process($stmt);
-        $ramp = null;
-        if (!empty($buff)) {
-            $ramp = $buff[0];
-        }
-
-        if ($ramp != null) {
-            /* Prepared statement, stage 1: prepare */
-            if (!($stmt = $mysqli->prepare("SELECT * FROM Waterbody WHERE ID = ?"))) {
-                echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
-            }
-
-            /* Prepared statement, stage 2: bind and execute */
-            if (!($stmt->bind_param("i", $ramp['waterbodyID']))) {
-                echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
-            }
-
-            $buff = $this->process($stmt);
-
-            $waterbody = null;
-            if (!empty($buff)) {
-                $waterbody = $buff[0];
-            }
-
-            if (!empty($waterbody)) {
-                $name = ($waterbody['name'] . ' ' . '(' . $waterbody['ID'] . ')');
-            }
-        }
-
-        return $name;
-    }
-
-    public function getTownFromRampID($rampID)
-    {
-        $name = null;
-        $mysqli = $this->conn;
-
-        /* Prepared statement, stage 1: prepare */
-        if (!($stmt = $mysqli->prepare("SELECT * FROM BoatRamp WHERE ID = ?"))) {
-            echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
-        }
-
-        /* Prepared statement, stage 2: bind and execute */
-        if (!($stmt->bind_param("i", $rampID))) {
-            echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
-        }
-
-        $buff = $this->process($stmt);
-        $ramp = null;
-        if (!empty($buff)) {
-            $ramp = $buff[0];
-        }
-
-        if ($ramp != null) {
-            /* Prepared statement, stage 1: prepare */
-            if (!($stmt = $mysqli->prepare("SELECT * FROM Town WHERE ID = ?"))) {
-                echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
-            }
-
-            /* Prepared statement, stage 2: bind and execute */
-            if (!($stmt->bind_param("i", $ramp['townID']))) {
-                echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
-            }
-
-            $buff = $this->process($stmt);
-
-            $town = null;
-            if (!empty($buff)) {
-                $town = $buff[0];
-            }
-
-            if (!empty($town)) {
-                $name = ($town['name'] . ' ' . '(' . $town['ID'] . ')');
-            }
-        }
-
-        return $name;
-    }
-
-    public function getRampNameFromID($rampID)
-    {
-        $mysqli = $this->conn;
-
-        /* Prepared statement, stage 1: prepare */
-        if (!($stmt = $mysqli->prepare("SELECT * FROM BoatRamp WHERE ID = ?"))) {
-            echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
-        }
-
-        /* Prepared statement, stage 2: bind and execute */
-        if (!($stmt->bind_param("i", $rampID))) {
-            echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
-        }
-
-        $buff = $this->process($stmt);
-
-        $ramp = null;
-        if (!empty($buff)) {
-            $ramp = $buff[0];
-        }
-
-        $name = null;
-        if (!empty($ramp)) {
-            $name = ($ramp['name'] . ' ' . '(' . $ramp['ID'] . ')');
-        }
-
-        return $name;
-    }
-
-    public function getLakeHostNameFromUserID($userID)
-    {
-        $mysqli = $this->conn;
-
-        /* Prepared statement, stage 1: prepare */
-        if (!($stmt = $mysqli->prepare("SELECT * FROM User WHERE ID = ?"))) {
-            echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
-        }
-
-        /* Prepared statement, stage 2: bind and execute */
-        if (!($stmt->bind_param("i", $userID))) {
-            echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
-        }
-
-        $buff = $this->process($stmt);
-
-        $user = null;
-        if (!empty($buff)) {
-            $user = $buff[0];
-        }
-
-        $name = null;
-        if (!empty($user)) {
-            $name = ($user['firstName'] . ' ' . $user['lastName'] . ' ' . '(' . $user['ID'] . ')');
-        }
-
-        return $name;
-    }
-
+	/**
+	 * Deletes a Boat Ramp from the DB
+	 **/
+	function deleteSummary()
+	{
+		$mysqli = $this->conn;
+	
+		/* Prepared statement, stage 1: prepare */
+		if (!($stmt = $mysqli->prepare("DELETE FROM Summary WHERE ID = ?")))
+		{
+			echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+		}
+	
+		/* Prepared statement, stage 2: bind and execute */
+		if (!($stmt->bind_param("i", $this->id)))
+		{
+			echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
+		}
+	
+		if (!$stmt->execute())
+		{
+			echo "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
+		}
+	}
+	
+	public function getWaterbodyFromRampID($rampID)
+	{
+		$name = null;
+		$mysqli = $this->conn;
+		 
+		/* Prepared statement, stage 1: prepare */
+		if (!($stmt = $mysqli->prepare("SELECT * FROM BoatRamp WHERE ID = ?")))
+		{
+			echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+		}
+		 
+		/* Prepared statement, stage 2: bind and execute */
+		if (!($stmt->bind_param("i", $rampID)))
+		{
+			echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
+		}
+		
+		$buff = $this->process($stmt);
+		$ramp = null;
+		if(!empty($buff))
+		{
+			$ramp = $buff[0];
+		}
+		
+		if($ramp != null)
+		{
+			/* Prepared statement, stage 1: prepare */
+			if (!($stmt = $mysqli->prepare("SELECT * FROM Waterbody WHERE ID = ?")))
+			{
+				echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+			}
+				
+			/* Prepared statement, stage 2: bind and execute */
+			if (!($stmt->bind_param("i", $ramp['waterbodyID'])))
+			{
+				echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
+			}
+			
+			$buff = $this->process($stmt);
+			
+			$waterbody = null;
+			if(!empty($buff))
+			{
+				$waterbody = $buff[0];
+			}
+			
+			if(!empty($waterbody))
+			{
+				$name = ($waterbody['name']. ' ' . '(' . $waterbody['ID'] . ')');
+			}
+		}
+		
+		return $name;
+	}
+	
+	public function getTownFromRampID($rampID)
+	{
+		$name = null;
+		$mysqli = $this->conn;
+			
+		/* Prepared statement, stage 1: prepare */
+		if (!($stmt = $mysqli->prepare("SELECT * FROM BoatRamp WHERE ID = ?")))
+		{
+			echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+		}
+			
+		/* Prepared statement, stage 2: bind and execute */
+		if (!($stmt->bind_param("i", $rampID)))
+		{
+			echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
+		}
+		
+		$buff = $this->process($stmt);
+		$ramp = null;
+		if(!empty($buff))
+		{
+			$ramp = $buff[0];
+		}
+		
+		if($ramp != null)
+		{
+			/* Prepared statement, stage 1: prepare */
+			if (!($stmt = $mysqli->prepare("SELECT * FROM Town WHERE ID = ?")))
+			{
+				echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+			}
+				
+			/* Prepared statement, stage 2: bind and execute */
+			if (!($stmt->bind_param("i", $ramp['townID'])))
+			{
+				echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
+			}
+			
+			$buff = $this->process($stmt);
+			
+			$town = null;
+			if(!empty($buff))
+			{
+				$town = $buff[0];
+			}
+			
+			if(!empty($town))
+			{
+				$name = ($town['name']. ' ' . '(' . $town['ID'] . ')');
+			}
+		}
+		
+		return $name;
+	}
+	
+	public function getRampNameFromID($rampID)
+	{
+		$mysqli = $this->conn;
+			
+		/* Prepared statement, stage 1: prepare */
+		if (!($stmt = $mysqli->prepare("SELECT * FROM BoatRamp WHERE ID = ?")))
+		{
+			echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+		}
+			
+		/* Prepared statement, stage 2: bind and execute */
+		if (!($stmt->bind_param("i", $rampID)))
+		{
+			echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
+		}
+		
+		$buff = $this->process($stmt);
+		
+		$ramp = null;
+		if(!empty($buff))
+		{
+			$ramp = $buff[0];
+		}
+		
+		$name = null;
+		if(!empty($ramp))
+		{
+			$name = ($ramp['name']. ' ' . '(' . $ramp['ID'] . ')');
+		}
+		
+		return $name;
+	}
+	
+	public function getLakeHostNameFromUserID($userID)
+	{
+		$mysqli = $this->conn;
+			
+		/* Prepared statement, stage 1: prepare */
+		if (!($stmt = $mysqli->prepare("SELECT * FROM User WHERE ID = ?")))
+		{
+			echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+		}
+			
+		/* Prepared statement, stage 2: bind and execute */
+		if (!($stmt->bind_param("i", $userID)))
+		{
+			echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
+		}
+		
+		$buff = $this->process($stmt);
+		
+		$user = null;
+		if(!empty($buff))
+		{
+			$user = $buff[0];
+		}
+		
+		$name = null;
+		if(!empty($user))
+		{
+			$name = ($user['firstName'] . ' ' . $user['lastName'] . ' ' . '(' . $user['ID'] . ')');
+		}
+		
+		return $name;
+	}
+    
     function getLakeHostGroupName($lakeHostGroupID)
     {
         $mysqli = $this->conn;
 			
 		/* Prepared statement, stage 1: prepare */
-		if (!($stmt = $mysqli->prepare("SELECT * FROM LakeHostGroup WHERE ID = ?")))
+		if (!($stmt = $mysqli->prepare("SELECT * FROM lakehostgroup WHERE ID = ?")))
 		{
 			echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
 		}
@@ -447,7 +437,7 @@ class surveySummary extends Model
 		
 		return $name;
     }
-
+	
     //depricated since lakeHostGroupID is included in summary table, use getLakeHostGroupName() instead
 	public function getLocalGroupFromUserID($userID)
 	{
@@ -502,45 +492,5 @@ class surveySummary extends Model
 		
 		return $name;
 	}
-	
-	private function getFieldSetCount($fieldArray)
-	{
-		return array_sum($fieldArray);
-	}
-	
-	private function validateFieldSetCounts($data)
-	{
-		$boatRegArray = array($data['NH'], $data['ME'], $data['MA'], $data['VT'], $data['NY'], $data['CT'],
-						$data['RI'], $data['other']);	
-		$boatTypeArray = array($data['inboardOutboard'], $data['pwc'], $data['canoeKayak'],$data['sail'],
-								$data['otherBoatType']);
-		$lhContactArray = array($data['previous'], $data['notPrevious']);
-		$drainArray = array($data['drained'],$data['notDrained']);
-		$rinseArray = array($data['rinsed'], $data['notRinsed']);
-		$dry5Array = array($data['dry5'], $data['notDry5']);
-		$awarenessArray = array($data['awarenessHigh'], $data['awarenessLow'], $data['awarenessMedium']);
-		$speciesArray = array($data['speciesFoundYes'], $data['speciesFoundNo']);
-		$desArray = array($data['sentDesYes'], $data['sentDesNo']);
-		
-		$fieldSetArray = array($boatRegArray, $boatTypeArray, $lhContactArray, $drainArray, $rinseArray,
-							$dry5Array, $awarenessArray, $speciesArray, $desArray);
-	
-		//may get rid of totalcount field, until then use it to make sure other array counts match
-		//IE total count of different boat regs doesn't add up to 11 while total inspected was 9
-		$totalinsp = $data['totalInspections'];
-		
-		//loop through different groups of fields to check totals add up to master total
-		foreach ($fieldSetArray as $arraycount)
-		{
-			$currentcount = $this->getFieldSetCount($arraycount);
-			if ($currentcount != $totalinsp)
-			{
-				$arrayname = (string) current($arraycount);
-				throw new exception('Count of ' . $currentcount . ' in ' . $arrayname . ' does not equal count of total inspections: ' . $totalinsp);
-				return false;
-			}
-		}		
-		
-		return true;
-	}
+    
 }

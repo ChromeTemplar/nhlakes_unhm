@@ -9,18 +9,15 @@
 # else so the regular login.
 # So the view shouldn't do anything except display static crap
 # let the model do all the work.
-class view
-{
-    public function loginViewErr($errors)
-    {
-        if (isset($errors) && !empty($errors)) {
-
-        }
-    }
-
-    public function loginView($errors = null)
-    {
-        $loginBox =
+class view {
+	public function loginViewErr($errors) {
+		if(isset($errors) && !empty($errors)) {
+				
+			}
+		}
+	
+	public function loginView($errors = null){
+            $loginBox =
             <<<EOT
             <link rel="stylesheet" type="text/css" href="../css/mainLayout.css" />
 
@@ -30,21 +27,21 @@ class view
             <p><input type="submit" name="submit" value="Login" /></p>
             </form>
 EOT;
-        $welcome = new pageTemplate();
-        $welcome->header("Welcome");
-        $welcome->siteBody("Login");
-        if (isset($errors) && !empty($errors)) {
-            $err = '<h1>Error!</h1>
+            $welcome = new pageTemplate();
+            $welcome->header("Welcome");
+            $welcome->siteBody("Login");
+            if(isset($errors) && !empty($errors)) {
+                $err = '<h1>Error!</h1>
                 <p class="error">The following error(s) occurred:<br />';
 
-            echo $err;
-            foreach ($errors as $msg) {
-                echo " - $msg<br />\n";
-            }
+                echo $err;
+                foreach ($errors as $msg) { 
+                                echo " - $msg<br />\n";
+                        }
 
-            echo '</p>Please try again.</p>';
-        }
-        echo $loginBox;
-        $welcome->footer();
+                echo '</p>Please try again.</p>';
+            }
+            echo $loginBox;
+            $welcome->footer();
     }
 }
