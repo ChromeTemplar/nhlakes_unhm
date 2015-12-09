@@ -22,7 +22,7 @@
 
 
    <!-- <meta http-equiv="Content-Type" content="text/html; charset=Cp1252"> -->
-
+<!-- bgcolor="#285685" -->
 <html  bgcolor="#285685">
 <head>
  
@@ -35,8 +35,8 @@
 <!--
 *  CSS Author: Camden C. Marble
 -->
-
-<body bgcolor="#285685">
+<!-- bgcolor="#285685" -->
+<body  bgcolor="#285685">
 
 <div id="container"> 
     <div id="header">
@@ -44,7 +44,7 @@
 			<a href="http://nhlakes.org/"><img src="assets/images/nh_lakes_logo.png" height="70%" width="25%" style="float:right;" > </a>
 			<img src="assets/images/UNHLogo.png" height="75%" width="25%" style="float:left;">	
 
-			<h2>New HampshireLakes</h2>
+			<h2>New Hampshire Lakes</h2>
 			<h1>Survey System</h1>
     </div>
 

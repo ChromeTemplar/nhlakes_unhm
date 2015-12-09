@@ -4,6 +4,9 @@
 <!--<h1>Menu</h1>-->
 
 <div id="nav">
+
+	<?php echo "EOA ON" ?> <!-- SHOULD POINT HERE --> <!--a href="view/layout/applicationViewEOA.php"-->
+
     <?php echo $this->linkTo("home", "index", "Home"); ?>
     <!-- <li><?php // echo $this->linkTo("survey", "index", "Survey"); ?></li> -->
 
@@ -28,5 +31,9 @@
         <?php echo $this->linkTo("logging", "index", "Logging") ?>
     <?php } ?>
     <?php echo $this->linkTo("sessionend", "end", "Logout"); ?>
-
+	
+	<?php echo "EOA OFF" ?> <!-- SHOULD POINT HERE --> <!--a href="view/layout/applicationView.php"-->
+	
+	
+	
 </div>
