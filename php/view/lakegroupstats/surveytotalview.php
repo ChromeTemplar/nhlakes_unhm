@@ -17,3 +17,4 @@
     </tr>
 </table>
 <br/>
+<input type="button" onclick="location.href='/nhvbsr/model/export.php';" value="Export Survey Summary Data" />

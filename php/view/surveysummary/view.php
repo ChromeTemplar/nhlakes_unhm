@@ -14,7 +14,6 @@ if (isset($summary)) {
 }
 ?>
 
-
 <!-- THIS IS THE START OF THE HEADER FOR THE SURVEY SUMMARY -->
 <div style="white-space: nowrap;"><h3>
         <?php echo "NH LAKES 2014 Lake Host Program Ramp Daily Summary Sheet"; ?>

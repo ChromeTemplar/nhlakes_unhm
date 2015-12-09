@@ -31,6 +31,7 @@ class surveySummary extends Model
 // 				$notRinsed,$dry5,$notDry5,$awarenessHigh,$awarenessLow,$awarenessMedium,$speciesFoundYes,$speciesFoundNo,
 // 				$sentDesYes,$sentDesNo,$summaryDate,$boatRampID,$userID,$totalInspections,$startShiftTime,$endShiftTime );
 	
+	
 	public function __construct($id ="")
 	{
 		//initialize inherited attributes:
