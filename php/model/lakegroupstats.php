@@ -21,11 +21,11 @@ class LakeGroupStats extends Model
         $mysqli = $this->conn;
 
         /* Prepared statement, stage 1: prepare */
-        if (!($stmt = $mysqli->prepare("SELECT COUNT(*) as surveyTotal  FROM LakeHostGroup
+        if (!($stmt = $mysqli->prepare("SELECT sum(totalinspections) as surveyTotal  FROM LakeHostGroup
             JOIN Summary ON Summary.lakeHostGroupID = LakeHostGroup.ID
             JOIN LakeHostMember ON LakeHostMember.lakeHostGroupID = LakeHostGroup.ID
             JOIN User ON User.ID = LakeHostMember.UserID
-            WHERE User.UserName = ? AND (SummaryDate BETWEEN '2014-12-31' AND '2016-01-01');"))
+            WHERE User.UserName = ?;"))
         ) {
             echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
         }
@@ -49,7 +49,7 @@ class LakeGroupStats extends Model
         $mysqli = $this->conn;
 
         /* Prepared statement, stage 1: prepare */
-        if (!($stmt = $mysqli->prepare("SELECT COUNT(*) as surveyTotal FROM Summary INNER JOIN User ON Summary.UserID = User.ID WHERE (User.UserName = ?) AND (SummaryDate BETWEEN '2014-12-31' AND '2016-01-01');"))) {
+        if (!($stmt = $mysqli->prepare("SELECT sum(totalinspections) as surveyTotal FROM Summary INNER JOIN User ON Summary.UserID = User.ID WHERE (User.UserName = ?);"))) {
             echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
         }
 
@@ -95,7 +95,7 @@ class LakeGroupStats extends Model
         $mysqli = $this->conn;
 
         /* Prepared statement, stage 1: prepare */
-        if (!($stmt = $mysqli->prepare("SELECT COUNT(*) as surveyTotal FROM Summary WHERE SummaryDate BETWEEN '2014-12-31' AND '2016-01-01'"))) {
+        if (!($stmt = $mysqli->prepare("SELECT sum(totalinspections) as surveyTotal FROM Summary"))) {
             echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
         }
 
