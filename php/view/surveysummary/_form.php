@@ -303,7 +303,7 @@ if (isset($summary)) {
         </tr>
     </table>
 
-    <strong>Sent to DES?</strong>
+    <!--  <strong>Sent to DES?</strong> 
     <table border="0" cellpadding="1" cellspacing="1">
         <tr>
             <td>Yes</td>
@@ -312,14 +312,14 @@ if (isset($summary)) {
         <tr>
             <td>
                 <input type='number' name='summary[sentDesYes]' min='0'
-                    <?php if (isset($summary)) echo "value='" . $summary['sentDesYes'] . "'"; ?> />
+                    <//?php if (isset($summary)) echo "value='" . $summary['sentDesYes'] . "'"; ?> />
             </td>
             <td>
                 <input type='number' name='summary[sentDesNo]' min='0'
-                    <?php if (isset($summary)) echo "value='" . $summary['sentDesNo'] . "'"; ?> />
+                    <//?php if (isset($summary)) echo "value='" . $summary['sentDesNo'] . "'"; ?> />
             </td>
         </tr>
-    </table>
+    </table> --> 
 
 
     </br>
