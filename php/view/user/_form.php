@@ -84,7 +84,8 @@ else
 
     <!--  Password -->
     <label for="password">Password</label><br/>
-    <input type="password" name="user[password]" class="medium" pattern=".{8,}" required title="Password must be at least 8 characters"><br/><br/>
+    <input type="password" name="user[password]" class="medium" pattern=".{8,}" required
+           title="Password must be at least 8 characters"><br/><br/>
 
     <?php /*######### ######## DEPRICATED ######## ########
 	<!-- Over 18 -->
@@ -103,6 +104,6 @@ else
     */ ?>
     <input type="submit" value="Submit">
 
-    <a href='index.php?rt=user/index'><input type='button' value='Cancel'></a>
+    <input type="button" value="Cancel" onClick="history.go(-1);return true;">
 
 </form>

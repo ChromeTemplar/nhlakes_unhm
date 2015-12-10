@@ -44,9 +44,20 @@ if (isset($summary)) {
             they can select the users in their group, if admin is logged in they can select any lake host.
             so need to implement the fixed if(permission == lakehost) and if (permission == admin) etc... -->
 
+            <!-- Update 8 DEC 2015, the above FIXME should now be functioning properly. Leaving these comments in the code to
+            help future developers -->
 
-            Lake Host Name:<?php echo $this->selectList($lakeHostNames,
-                array("name" => "summary[lakeHostName]", "id" => "lakeHostName", "class" => "medium selectmenu"), $lakeHostName); ?>
+            Lake Host Name:
+
+            <?php
+
+            if ($_SESSION['roleID'] == 1 || $_SESSION['roleID'] == 2) {
+                echo $this->selectList($lakeHostNames,
+                    array("name" => "summary[lakeHostName]", "id" => "lakeHostName", "class" => "medium selectmenu"),
+                    $lakeHostName);
+            } else {
+                echo($_SESSION['userName']);
+            } ?>
         </h5></div>
 
     <div style="white-space: nowrap;"><h5>
@@ -57,8 +68,7 @@ if (isset($summary)) {
             <input
                 onclick="document.getElementById('startTime').disabled = false; document.getElementById('endTime').disabled = false;"
                 type='radio' name='fullDay' id='fullDayNo' value='no'>Single shift
-    </div>
-    </h5>
+        </h5></div>
 
     <div style="white-space: nowrap;"><h5>
             1<sup>st</sup>Shift Start Time (H:MM):<input type='time' name='summary[startShiftTime]' id='startTime'
@@ -303,23 +313,25 @@ if (isset($summary)) {
         </tr>
     </table>
 
-    <!--  <strong>Sent to DES?</strong> 
-    <table border="0" cellpadding="1" cellspacing="1">
-        <tr>
-            <td>Yes</td>
-            <td>No</td>
-        </tr>
-        <tr>
-            <td>
-                <input type='number' name='summary[sentDesYes]' min='0'
-                    <//?php if (isset($summary)) echo "value='" . $summary['sentDesYes'] . "'"; ?> />
-            </td>
-            <td>
-                <input type='number' name='summary[sentDesNo]' min='0'
-                    <//?php if (isset($summary)) echo "value='" . $summary['sentDesNo'] . "'"; ?> />
-            </td>
-        </tr>
-    </table> --> 
+    <!-- <strong>Sent to DES?</strong> -->
+    <!-- <table  border="0" cellpadding="1" cellspacing="1"> -->
+    <!-- 	<tr> -->
+    <!-- 		<td>Yes</td> -->
+    <!-- 		<td>No</td> -->
+    <!-- 	</tr> -->
+    <!-- 	<tr> -->
+    <!-- 		<td> -->
+    <!-- 			<input type='number' name='summary[sentDesYes]' min='0' -->
+    <?php // if (isset($summary)) echo "value='".$summary['sentDesYes']."'"; ?>
+    <!-- /> -->
+    <!-- 		</td> -->
+    <!-- 		<td> -->
+    <!-- 			<input type='number' name='summary[sentDesNo]' min='0' -->
+    <?php // if (isset($summary)) echo "value='".$summary['sentDesNo']."'"; ?>
+    <!-- /> -->
+    <!-- 		</td> -->
+    <!-- 	</tr> -->
+    <!-- </table> -->
 
 
     </br>

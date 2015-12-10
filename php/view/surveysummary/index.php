@@ -23,7 +23,7 @@ if ($summary != "") {
         <!-- panel -->
         <?php
 
-        require_once "view/partials/_controlsTop.php";
+        require_once "view/partials/_controlsTop1.php";
         echo "<div id='summary-table' >" . $this->buildSurveyTable($summary, $displayList) . "</div>";
         require_once "view/partials/_controlsBottom.php";
 
