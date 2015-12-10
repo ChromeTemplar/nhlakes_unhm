@@ -1,92 +1,111 @@
 <?php
 
 class surveySummary extends Model
-{	
-	//Initially these were going to be used to
-	//store DB querys when building the summary to display to the user
-	//but upon submitting a new Model object is created and these 
-	//values are empty, so while these are still used, the
-	//intended functionallity is not possible. So we must query the
-	//database again for them before commiting a summary to the DB.
-	public $boatRamps;
-	public $users;
-	public $waterbodies;
-	public $towns;
-	public $lakeHostGroups;
-	private $lakeHostGroupID;
-	private $NH;private $ME;private $MA;private $VT;private $NY;private $CT;private $RI;private $other;
-	private $inboardOutboard;private $pwc;private $canoeKayak;private $sail;private $otherBoatType;
-	private $previous;private $notPrevious;
-	private $drained;private $notDrained;
-	private $rinsed;private $notRinsed;
-	private $dry5;private $notDry5;
-	private $awarenessHigh;private $awarenessLow;private $awarenessMedium;
-	private $speciesFoundYes;private $speciesFoundNo;
-	private $sentDesYes;private $sentDesNo;
-	private $boatRampID;private $userID;
-	private $totalInspections;
-	private $summaryDate;private $startShiftTime;private $endShiftTime;
+{
+    //Initially these were going to be used to
+    //store DB querys when building the summary to display to the user
+    //but upon submitting a new Model object is created and these
+    //values are empty, so while these are still used, the
+    //intended functionallity is not possible. So we must query the
+    //database again for them before commiting a summary to the DB.
+    public $boatRamps;
+    public $users;
+    public $waterbodies;
+    public $towns;
+    public $lakeHostGroups;
+    private $lakeHostGroupID;
+    private $NH;
+    private $ME;
+    private $MA;
+    private $VT;
+    private $NY;
+    private $CT;
+    private $RI;
+    private $other;
+    private $inboardOutboard;
+    private $pwc;
+    private $canoeKayak;
+    private $sail;
+    private $otherBoatType;
+    private $previous;
+    private $notPrevious;
+    private $drained;
+    private $notDrained;
+    private $rinsed;
+    private $notRinsed;
+    private $dry5;
+    private $notDry5;
+    private $awarenessHigh;
+    private $awarenessLow;
+    private $awarenessMedium;
+    private $speciesFoundYes;
+    private $speciesFoundNo;
+    private $sentDesYes;
+    private $sentDesNo;
+    private $boatRampID;
+    private $userID;
+    private $totalInspections;
+    private $summaryDate;
+    private $startShiftTime;
+    private $endShiftTime;
 // 	private $summaryVars = array( $lakeHostGroupID,$NH,$ME,$MA,$VT,$NY,$CT,$RI,$other,
 // 				$inboardOutboard,$pwc,$canoeKayak,$previous,$notPrevious,$sail,$otherBoatType,$drained,$notDrained,$rinsed,
 // 				$notRinsed,$dry5,$notDry5,$awarenessHigh,$awarenessLow,$awarenessMedium,$speciesFoundYes,$speciesFoundNo,
 // 				$sentDesYes,$sentDesNo,$summaryDate,$boatRampID,$userID,$totalInspections,$startShiftTime,$endShiftTime );
-	
-	
-	public function __construct($id ="")
-	{
-		//initialize inherited attributes:
-		if (empty($this->table))
-		{
-			$this->table = 'Summary';
-		}
-		 
-		if (!empty($id))
-		{
-			$this->id = $id;
-		}
-		
-		/*** use parent model to connect to DB ***/
-		parent::connectToDb();
-		
-		//init attributes:
-		$this->boatRamps = null;
-		$this->users = null;
-		$this->waterbodies = null;
-		$this->towns = null;
-		$this->lakeHostGroups = null;
-	}
-	
-	//not in use
-	public function allToday()
-	{
-		//FIXME should make a function that
-		//returns only todays summaries
-		//but for now just return all of them
-		//or some way of selecting dates of summaries
-		//to filter what is displayed.
- 		$results = $this->all();
 
-		return $results;
-	}
-	
-	/**
-	 * Adds a new summary to the DB with the given $data
-	 *
-	 * @param Array $data : Array containing all of the $_POST data passed in by form
-	 *
-	 **/
-	public function addSummary($data)
-	{
-		//print_r($data);
-		$mysqli = $this->conn;
-	
-		if (empty($table))
-		{
-			$table = $this->table;
-		}
-		
-		/* Prepared statement, stage 1: prepare */
-		if (!($stmt = $mysqli->prepare("INSERT INTO Summary (lakeHostGroupID, NH, ME, MA, VT, NY, CT, RI, other, 
+
+    public function __construct($id = "")
+    {
+        //initialize inherited attributes:
+        if (empty($this->table)) {
+            $this->table = 'Summary';
+        }
+
+        if (!empty($id)) {
+            $this->id = $id;
+        }
+
+        /*** use parent model to connect to DB ***/
+        parent::connectToDb();
+
+        //init attributes:
+        $this->boatRamps = null;
+        $this->users = null;
+        $this->waterbodies = null;
+        $this->towns = null;
+        $this->lakeHostGroups = null;
+    }
+
+    //not in use
+    public function allToday()
+    {
+        //FIXME should make a function that
+        //returns only todays summaries
+        //but for now just return all of them
+        //or some way of selecting dates of summaries
+        //to filter what is displayed.
+        $results = $this->all();
+
+        return $results;
+    }
+
+    /**
+     * Adds a new summary to the DB with the given $data
+     *
+     * @param Array $data : Array containing all of the $_POST data passed in by form
+     *
+     **/
+    public function addSummary($data)
+    {
+        //print_r($data);
+        $mysqli = $this->conn;
+
+        if (empty($table)) {
+            $table = $this->table;
+        }
+
+        /* Prepared statement, stage 1: prepare */
+        if (!($stmt = $mysqli->prepare("INSERT INTO Summary (lakeHostGroupID, NH, ME, MA, VT, NY, CT, RI, other,
 				inboardOutboard, pwc, canoeKayak, previous, notPrevious, sail, otherBoatType, drained, notDrained, rinsed,
 				notRinsed, dry5, notDry5, awarenessHigh, awarenessLow, awarenessMedium, speciesFoundYes, speciesFoundNo,
 				sentDesYes, sentDesNo, summaryDate, boatRampID, userID, totalInspections, startShiftTime, endShiftTime)
@@ -117,54 +136,50 @@ class surveySummary extends Model
 
         //get the lakeHostGroupID from the users selection
         $startExclusive = strpos($data['localGroup'], '(');
-		$data['lakeHostGroupID'] = (int) substr($data['localGroup'], $startExclusive + 1, -1);
-		
-		//get the user ID from the users selection
-		$startExclusive = strpos($data['lakeHostName'], '(');
-		$data['userID'] = (int) substr($data['lakeHostName'], $startExclusive + 1, -1);
-		
-		//$data['waterbody'] is not sent to the DB only used for boat ramp filtering/selection
-		//$data['town'] is not sent to the DB only used for boat ramp filtering/selection
-		
-		//validate data!
-		if ($this->validateFieldSetCounts($data))
-		{
-			/* Prepared statement, stage 2: bind and execute */
-			if (!($stmt->bind_param("iiiiiiiiiiiiiiiiiiiiiiiiiiiiisiiiss", 
-	                $data['lakeHostGroupID'], 
-					$data['NH'], $data['ME'], $data['MA'], $data['VT'], $data['NY'], $data['CT'], 
-					$data['RI'], $data['other'], $data['inboardOutboard'], $data['pwc'], $data['canoeKayak'], 
-					$data['previous'], $data['notPrevious'], $data['sail'], $data['otherBoatType'], $data['drained'], 
-					$data['notDrained'], $data['rinsed'], $data['notRinsed'], $data['dry5'], $data['notDry5'],
-					$data['awarenessHigh'], $data['awarenessLow'], $data['awarenessMedium'],
-					$data['speciesFoundYes'], $data['speciesFoundNo'], $data['sentDesYes'], $data['sentDesNo'], 
-					$data['summaryDate'], $data['boatRampID'], $data['userID'], $data['totalInspections'],
-					$data['startShiftTime'], $data['endShiftTime'])))
-			{
-				echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
-			}
-		}
-		else 
-		{
-			echo "validation failed";
-		}
-		if (!$stmt->execute())
-		{
-			echo "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
-		}
-	}
-	
-	/**
-	 * Updates a Boatramp row in the DB
-	 *
-	 * @param Array $data : Array containing $_POST data passed in by the form
-	 **/
-	function updateSummary($data)
-	{
-		$mysqli = $this->conn;
-	
-		/* Prepared statement, stage 1: prepare */
-		if (!($stmt = $mysqli->prepare("UPDATE Summary SET lakeHostGroupID = ?, NH = ?, ME = ?, MA = ?, VT = ?, NY = ?, CT = ?, RI = ?, other = ?, 
+        $data['lakeHostGroupID'] = (int)substr($data['localGroup'], $startExclusive + 1, -1);
+
+        //get the user ID from the users selection
+        $startExclusive = strpos($data['lakeHostName'], '(');
+        $data['userID'] = (int)substr($data['lakeHostName'], $startExclusive + 1, -1);
+
+        //$data['waterbody'] is not sent to the DB only used for boat ramp filtering/selection
+        //$data['town'] is not sent to the DB only used for boat ramp filtering/selection
+
+        //validate data!
+        if ($this->validateFieldSetCounts($data)) {
+            /* Prepared statement, stage 2: bind and execute */
+            if (!($stmt->bind_param("iiiiiiiiiiiiiiiiiiiiiiiiiiiiisiiiss",
+                $data['lakeHostGroupID'],
+                $data['NH'], $data['ME'], $data['MA'], $data['VT'], $data['NY'], $data['CT'],
+                $data['RI'], $data['other'], $data['inboardOutboard'], $data['pwc'], $data['canoeKayak'],
+                $data['previous'], $data['notPrevious'], $data['sail'], $data['otherBoatType'], $data['drained'],
+                $data['notDrained'], $data['rinsed'], $data['notRinsed'], $data['dry5'], $data['notDry5'],
+                $data['awarenessHigh'], $data['awarenessLow'], $data['awarenessMedium'],
+                $data['speciesFoundYes'], $data['speciesFoundNo'], $data['sentDesYes'], $data['sentDesNo'],
+                $data['summaryDate'], $data['boatRampID'], $data['userID'], $data['totalInspections'],
+                $data['startShiftTime'], $data['endShiftTime']))
+            ) {
+                echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
+            }
+        } else {
+            echo "validation failed";
+        }
+        if (!$stmt->execute()) {
+            echo "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
+        }
+    }
+
+    /**
+     * Updates a Boatramp row in the DB
+     *
+     * @param Array $data : Array containing $_POST data passed in by the form
+     **/
+    function updateSummary($data)
+    {
+        $mysqli = $this->conn;
+
+        /* Prepared statement, stage 1: prepare */
+        if (!($stmt = $mysqli->prepare("UPDATE Summary SET lakeHostGroupID = ?, NH = ?, ME = ?, MA = ?, VT = ?, NY = ?, CT = ?, RI = ?, other = ?,
 				inboardOutboard = ?, pwc = ?, canoeKayak = ?, previous = ?, notPrevious = ?, sail = ?, otherBoatType = ?, 
 				drained = ?, notDrained = ?, rinsed = ?, notRinsed = ?, dry5 = ?, notDry5 = ?, awarenessHigh = ?, awarenessLow = ?, 
 				awarenessMedium = ?, speciesFoundYes = ?, speciesFoundNo = ?, sentDesYes = ?, sentDesNo = ?, summaryDate = ?, 
@@ -418,129 +433,115 @@ class surveySummary extends Model
     function getLakeHostGroupName($lakeHostGroupID)
     {
         $mysqli = $this->conn;
-			
-		/* Prepared statement, stage 1: prepare */
-		if (!($stmt = $mysqli->prepare("SELECT * FROM LakeHostGroup WHERE ID = ?")))
-		{
-			echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
-		}
-			
-		/* Prepared statement, stage 2: bind and execute */
-		if (!($stmt->bind_param("i", $lakeHostGroupID)))
-		{
-			echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
-		}
-		
-		$buff = $this->process($stmt);
-		
-		$groupname = null;
-		if(!empty($buff))
-		{
-			$groupname = $buff[0];
-		}
-		
-		$name = null;
-		if(!empty($groupname))
-		{
-			$name = $groupname['lakeHostGroupName']. ' ' . '(' . $lakeHostGroupID . ')';
-		}
-		
-		return $name;
+
+        /* Prepared statement, stage 1: prepare */
+        if (!($stmt = $mysqli->prepare("SELECT * FROM LakeHostGroup WHERE ID = ?"))) {
+            echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+        }
+
+        /* Prepared statement, stage 2: bind and execute */
+        if (!($stmt->bind_param("i", $lakeHostGroupID))) {
+            echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
+        }
+
+        $buff = $this->process($stmt);
+
+        $groupname = null;
+        if (!empty($buff)) {
+            $groupname = $buff[0];
+        }
+
+        $name = null;
+        if (!empty($groupname)) {
+            $name = $groupname['lakeHostGroupName'] . ' ' . '(' . $lakeHostGroupID . ')';
+        }
+
+        return $name;
     }
 
     //depricated since lakeHostGroupID is included in summary table, use getLakeHostGroupName() instead
-	public function getLocalGroupFromUserID($userID)
-	{
-		$name = null;
-		$mysqli = $this->conn;
-			
-		/* Prepared statement, stage 1: prepare */
-		if (!($stmt = $mysqli->prepare("SELECT * FROM LakeHostMember WHERE userID = ?")))
-		{
-			echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
-		}
-			
-		/* Prepared statement, stage 2: bind and execute */
-		if (!($stmt->bind_param("i", $userID)))
-		{
-			echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
-		}
-		
-		$buff = $this->process($stmt);
-		$lakeHostMem = null;
-		if(!empty($buff))
-		{
-			$lakeHostMem = $buff[0];
-		}
-		
-		if($lakeHostMem != null)
-		{
-			/* Prepared statement, stage 1: prepare */
-			if (!($stmt = $mysqli->prepare("SELECT * FROM LakeHostGroup WHERE userID = ?")))
-			{
-				echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
-			}
-				
-			/* Prepared statement, stage 2: bind and execute */
-			if (!($stmt->bind_param("i", $lakeHostMem['lakeHostGroupID'])))
-			{
-				echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
-			}
-			
-			$buff = $this->process($stmt);
-			$group = null;
-			if(!empty($buff))
-			{
-				$group = $buff[0];
-			}
-			
-			if(!empty($group))
-			{
-				$name = ($group['lakeHostGroupName'] . ' ' . '(' . $user['ID'] . ')');
-			}
-		}
-		
-		return $name;
-	}
-	
-	private function getFieldSetCount($fieldArray)
-	{
-		return array_sum($fieldArray);
-	}
-	
-	private function validateFieldSetCounts($data)
-	{
-		$boatRegArray = array($data['NH'], $data['ME'], $data['MA'], $data['VT'], $data['NY'], $data['CT'],
-						$data['RI'], $data['other']);	
-		$boatTypeArray = array($data['inboardOutboard'], $data['pwc'], $data['canoeKayak'],$data['sail'],
-								$data['otherBoatType']);
-		$lhContactArray = array($data['previous'], $data['notPrevious']);
-		$drainArray = array($data['drained'],$data['notDrained']);
-		$rinseArray = array($data['rinsed'], $data['notRinsed']);
-		$dry5Array = array($data['dry5'], $data['notDry5']);
-		$awarenessArray = array($data['awarenessHigh'], $data['awarenessLow'], $data['awarenessMedium']);
-		$speciesArray = array($data['speciesFoundYes'], $data['speciesFoundNo']);
-		$desArray = array($data['sentDesYes'], $data['sentDesNo']);
-		
-		$fieldSetArray = array($boatRegArray, $boatTypeArray, $lhContactArray, $drainArray, $rinseArray,
-							$dry5Array, $awarenessArray, $speciesArray, $desArray);
-	
-		//may get rid of totalcount field, until then use it to make sure other array counts match
-		//IE total count of different boat regs doesn't add up to 11 while total inspected was 9
-		$totalinsp = $data['totalInspections'];
-		
-		//loop through different groups of fields to check totals add up to master total
-		foreach ($fieldSetArray as $arraycount)
-		{
-			$currentcount = $this->getFieldSetCount($arraycount);
-			if ($currentcount != $totalinsp)
-			{
-				$arrayname = (string) current($arraycount);
-				throw new exception('Count of ' . $currentcount . ' in ' . $arrayname . ' does not equal count of total inspections: ' . $totalinsp);
-				return false;
-			}
-		}		
-		
-		return true;
-	}
+    public function getLocalGroupFromUserID($userID)
+    {
+        $name = null;
+        $mysqli = $this->conn;
+
+        /* Prepared statement, stage 1: prepare */
+        if (!($stmt = $mysqli->prepare("SELECT * FROM LakeHostMember WHERE userID = ?"))) {
+            echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+        }
+
+        /* Prepared statement, stage 2: bind and execute */
+        if (!($stmt->bind_param("i", $userID))) {
+            echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
+        }
+
+        $buff = $this->process($stmt);
+        $lakeHostMem = null;
+        if (!empty($buff)) {
+            $lakeHostMem = $buff[0];
+        }
+
+        if ($lakeHostMem != null) {
+            /* Prepared statement, stage 1: prepare */
+            if (!($stmt = $mysqli->prepare("SELECT * FROM LakeHostGroup WHERE userID = ?"))) {
+                echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+            }
+
+            /* Prepared statement, stage 2: bind and execute */
+            if (!($stmt->bind_param("i", $lakeHostMem['lakeHostGroupID']))) {
+                echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
+            }
+
+            $buff = $this->process($stmt);
+            $group = null;
+            if (!empty($buff)) {
+                $group = $buff[0];
+            }
+
+            if (!empty($group)) {
+                $name = ($group['lakeHostGroupName'] . ' ' . '(' . $user['ID'] . ')');
+            }
+        }
+
+        return $name;
+    }
+
+    private function getFieldSetCount($fieldArray)
+    {
+        return array_sum($fieldArray);
+    }
+
+    private function validateFieldSetCounts($data)
+    {
+        $boatRegArray = array($data['NH'], $data['ME'], $data['MA'], $data['VT'], $data['NY'], $data['CT'],
+            $data['RI'], $data['other']);
+        $boatTypeArray = array($data['inboardOutboard'], $data['pwc'], $data['canoeKayak'], $data['sail'],
+            $data['otherBoatType']);
+        $lhContactArray = array($data['previous'], $data['notPrevious']);
+        $drainArray = array($data['drained'], $data['notDrained']);
+        $rinseArray = array($data['rinsed'], $data['notRinsed']);
+        $dry5Array = array($data['dry5'], $data['notDry5']);
+        $awarenessArray = array($data['awarenessHigh'], $data['awarenessLow'], $data['awarenessMedium']);
+        $speciesArray = array($data['speciesFoundYes'], $data['speciesFoundNo']);
+        $desArray = array($data['sentDesYes'], $data['sentDesNo']);
+
+        $fieldSetArray = array($boatRegArray, $boatTypeArray, $lhContactArray, $drainArray, $rinseArray,
+            $dry5Array, $awarenessArray, $speciesArray, $desArray);
+
+        //may get rid of totalcount field, until then use it to make sure other array counts match
+        //IE total count of different boat regs doesn't add up to 11 while total inspected was 9
+        $totalinsp = $data['totalInspections'];
+
+        //loop through different groups of fields to check totals add up to master total
+        foreach ($fieldSetArray as $arraycount) {
+            $currentcount = $this->getFieldSetCount($arraycount);
+            if ($currentcount != $totalinsp) {
+                $arrayname = (string)current($arraycount);
+                throw new exception('Count of ' . $currentcount . ' in ' . $arrayname . ' does not equal count of total inspections: ' . $totalinsp);
+                return false;
+            }
+        }
+
+        return true;
+    }
 }
