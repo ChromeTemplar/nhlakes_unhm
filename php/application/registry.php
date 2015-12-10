@@ -9,37 +9,38 @@
  *
  * @author colby
  */
-class registry {
+class registry
+{
     /*
      * @the vars array
      * @access private
      */
-     private $vars = array();
-     
+    private $vars = array();
+
     /**
-    *
-    * @set undefined vars
-    *
-    * @param string $index
-    * @param mixed $value
-    * @return void
-    *
-    */
+     *
+     * @set undefined vars
+     *
+     * @param string $index
+     * @param mixed $value
+     * @return void
+     *
+     */
     public function __set($index, $value)
     {
-           $this->vars[$index] = $value;
+        $this->vars[$index] = $value;
     }
 
     /**
-    *
-    * @get variables
-    *
-    * @param mixed $index
-    * @return mixed
-    *
-    */
+     *
+     * @get variables
+     *
+     * @param mixed $index
+     * @return mixed
+     *
+     */
     public function __get($index)
     {
-           return $this->vars[$index];
+        return $this->vars[$index];
     }
 }

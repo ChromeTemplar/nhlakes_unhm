@@ -4,5 +4,5 @@
 
 
 List <?php echo $this->linkTo("waterbody", "index", "Waterbodies"); ?><br>
-Return <?php echo $this->linkTo("home","index","Home"); ?>
+Return <?php echo $this->linkTo("home", "index", "Home"); ?>
 
