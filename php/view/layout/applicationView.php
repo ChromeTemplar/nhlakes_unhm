@@ -39,7 +39,7 @@
 
 <div id="container">
     <div id="header">
-        </br>
+        <br/>
         <a href="http://nhlakes.org/"><img src="assets/images/nh_lakes_logo.png" height="70%" width="25%"
                                            style="float:right;"> </a>
         <img src="assets/images/UNHLogo.png" height="75%" width="25%" style="float:left;">
@@ -61,10 +61,11 @@
 
     <div id="aside">
         <div id="custom1">
-            </br>
+            <br/>
             <p> Scroll down for data -- working on fixing that </P>
             <?PHP
-            //include 'index.php';
+            global $path;
+            require_once $path;
             ?>
             <!-- TEMPLATE>Include $Path  MUST GO HERE!!!!!!!
                 <h1> Do Not Revert</h1>
@@ -81,7 +82,7 @@
     <!-- </div> -->
 
     <div id="footer">
-        </br>
+        <br/>
         <p> New Hampshire Lakes Survey System </p>
 
     </div>
