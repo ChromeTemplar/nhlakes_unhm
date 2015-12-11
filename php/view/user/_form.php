@@ -104,6 +104,6 @@ else
     */ ?>
     <input type="submit" value="Submit">
 
-    <input type="button" value="Cancel" onClick="history.go(-1);return true;">
+    <input type="button" value="Cancel" onClick="location.href='index.php?rt=user/index';">
 
 </form>
