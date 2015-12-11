@@ -62,20 +62,12 @@
     <div id="aside">
         <div id="custom1">
             <br/>
-            <p> Scroll down for data -- working on fixing that </P>
-            <?PHP
+           
+			<?PHP
             global $path;
-            require_once $path;
+            require_once $path;	
             ?>
-            <!-- TEMPLATE>Include $Path  MUST GO HERE!!!!!!!
-                <h1> Do Not Revert</h1>
-                <h2> Only 1 thing to change and all the views should be fixed!</h2>
-                <p>If you look under View>Layout>ApplicationView.PHP you'll see this text. <br>
-                The code from PHP>Application>Template.php needs to somehow be called in this area. <br>
-                Please ask me any questions </p>
 
-                <h1>I NEED A PROGRAMER TO LOOK AT THIS PLEASE</h1>
-            -->
 
         </div>
     </div>

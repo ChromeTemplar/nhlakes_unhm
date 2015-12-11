@@ -78,7 +78,7 @@
 			color:#003593;
 			background-color:#285685;
 			Height:0%;
-			 width:*%;
+			 width:50%;
 		     float:center;    
 		     margin-top: 0px;
 		     margin-left: *%;
@@ -114,6 +114,7 @@
 			 margin-bottom: 5px;
 			 padding: 0;
 			 font-size:100%;
+			 overflow: scroll;
 		}
 
 #footer {
