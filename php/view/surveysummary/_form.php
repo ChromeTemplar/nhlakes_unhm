@@ -51,11 +51,16 @@ if (isset($summary)) {
 
             <?php
 
-            if ($_SESSION['roleID'] == 1 || $_SESSION['roleID'] == 2) {
+            if ($_SESSION['roleID'] == 1) {
                 echo $this->selectList($lakeHostNames,
                     array("name" => "summary[lakeHostName]", "id" => "lakeHostName", "class" => "medium selectmenu"),
-                    $lakeHostName);
-            } else {
+                    $lakeHostName);                
+			} 
+			else if  ($_SESSION['roleID'] == 2)
+            {
+            	echo $this->getLocalGroupUserListFromGroupID($_SESSION['groupID']);
+            }
+            else {
                 echo($_SESSION['userName']);
             } ?>
         </h5></div>
@@ -313,25 +318,25 @@ if (isset($summary)) {
         </tr>
     </table>
 
-    <!-- <strong>Sent to DES?</strong> -->
-    <!-- <table  border="0" cellpadding="1" cellspacing="1"> -->
-    <!-- 	<tr> -->
-    <!-- 		<td>Yes</td> -->
-    <!-- 		<td>No</td> -->
-    <!-- 	</tr> -->
-    <!-- 	<tr> -->
-    <!-- 		<td> -->
-    <!-- 			<input type='number' name='summary[sentDesYes]' min='0' -->
-    <?php // if (isset($summary)) echo "value='".$summary['sentDesYes']."'"; ?>
-    <!-- /> -->
-    <!-- 		</td> -->
-    <!-- 		<td> -->
-    <!-- 			<input type='number' name='summary[sentDesNo]' min='0' -->
+    <strong>Sent to DES?</strong> 
+     <table  border="0" cellpadding="1" cellspacing="1"> 
+     	<tr> 
+     		<td>Yes</td>
+     		<td>No</td>
+     	</tr> 
+     	<tr> 
+     		<td> 
+     			<input type='number' name='summary[sentDesYes]' min='0' 
+    <?php  if (isset($summary)) echo "value='".$summary['sentDesYes']."'"; ?>
+    />
+     		</td> 
+     		<td> 
+     			<input type='number' name='summary[sentDesNo]' min='0'
     <?php // if (isset($summary)) echo "value='".$summary['sentDesNo']."'"; ?>
-    <!-- /> -->
-    <!-- 		</td> -->
-    <!-- 	</tr> -->
-    <!-- </table> -->
+     /> 
+     		</td> 
+     	</tr> 
+     </table> 
 
 
     </br>

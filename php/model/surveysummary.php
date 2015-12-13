@@ -123,9 +123,16 @@ class surveySummary extends Model
         {
             $data['summaryDate'] = date($data['summaryDate']);
         } //else pick date and time
-        elseif ((!empty($data['startShiftTime']) & empty($data['endShiftTime'])) || (empty($data['startShiftTime']) & !empty($data['endShiftTime']))) {
+        elseif ((!empty($data['startShiftTime']) & empty($data['endShiftTime'])) || (empty($data['startShiftTime']) & !empty($data['endShiftTime']))) 
+        {
             throw new exception('Start and end shift times must both be filled out or empty.');
-        } else {
+        }
+        elseif ($data['startShiftTime'] > $data['endShiftTime']) 
+        {
+        	throw new exception('Start shift time is greater than end shift time.');
+        }   
+        else 
+        {
             $data['summaryDate'] = date($data['summaryDate']);
             $data['startShiftTime'] = date($data['summaryDate'] . ' ' . $data['startShiftTime']);
             $data['endShiftTime'] = date($data['summaryDate'] . ' ' . $data['endShiftTime']);
@@ -505,7 +512,53 @@ class surveySummary extends Model
 
         return $name;
     }
-
+	
+    public function getLocalGroupUserListFromGroupID($groupID)
+    {
+    	$name = null;
+    	$mysqli = $this->conn;
+    
+    	/* Prepared statement, stage 1: prepare */
+    	if (!($stmt = $mysqli->prepare("SELECT userID FROM LakeHostMember WHERE groupID = ?"))) {
+    		echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+    	}
+    
+    	/* Prepared statement, stage 2: bind and execute */
+    	if (!($stmt->bind_param("i", $groupID))) {
+    		echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
+    	}
+    
+    	$buff = $this->process($stmt);
+    	$lakeHostMem = null;
+    	if (!empty($buff)) {
+    		$lakeHostMem = $buff[0];
+    	}
+    
+    	if ($lakeHostMem != null) {
+    		/* Prepared statement, stage 1: prepare */
+    		if (!($stmt = $mysqli->prepare("SELECT userID FROM LakeHostMember WHERE groupID = ?"))) {
+    			echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+    		}
+    
+    		/* Prepared statement, stage 2: bind and execute */
+    		if (!($stmt->bind_param("i", $lakeHostMem['lakeHostGroupID']))) {
+    			echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
+    		}
+    
+    		$buff = $this->process($stmt);
+    		$group = null;
+    		if (!empty($buff)) {
+    			$group = $buff[0];
+    		}
+    
+    		if (!empty($group)) {
+    			$names = ($group['lakeHostGroupName'] . ' ' . '(' . $user['ID'] . ')');
+    		}
+    	}
+    
+    	return $names;
+    }
+    
     private function getFieldSetCount($fieldArray)
     {
         return array_sum($fieldArray);
