@@ -121,7 +121,7 @@ function exportGroupSurvey () {
 	//set up query
 	$output = "";
 	$table = "summary";
-	$sql = mysql_query("select * from $table where lakeHostGroupID = $id");
+	$sql = mysql_query("select * from $table where lakeHostGroupID = $id order by boatRampID desc ");
 	$columns_total = mysql_num_fields($sql);
 	
 	//get col names
