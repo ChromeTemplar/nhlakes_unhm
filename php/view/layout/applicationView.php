@@ -40,9 +40,8 @@
 <div id="container">
     <div id="header">
         <br/>
-        <a href="http://nhlakes.org/"><img src="assets/images/nh_lakes_logo.png" height="70%" width="25%"
-                                           style="float:right;"> </a>
-        <img src="assets/images/UNHLogo.png" height="75%" width="25%" style="float:left;">
+        <a href="http://nhlakes.org/"><img src="assets/images/nh_lakes_logo.png" height="70%" width="10%" style="float:right;"> </a>
+        <img src="assets/images/UNHLogo.png" height="75%" width="10%" style="float:left;">
 
         <h2>New Hampshire Lakes</h2>
 
