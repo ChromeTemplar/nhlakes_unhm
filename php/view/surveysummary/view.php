@@ -5,6 +5,7 @@ if (isset($summary)) {
     $rampName = $summary['boatRampName'];
     $lakeHostName = $summary['lakeHostName'];
     $localGroup = $summary['localGroup'];
+	$id = $summary['ID'];
 } else {
     $localGroup = '';
     $waterbody = '';
@@ -14,10 +15,22 @@ if (isset($summary)) {
 }
 ?>
 
+
+
+
 <!-- THIS IS THE START OF THE HEADER FOR THE SURVEY SUMMARY -->
 <div style="white-space: nowrap;"><h3>
         <?php echo "NH LAKES 2014 Lake Host Program Ramp Daily Summary Sheet"; ?>
     </h3></div>
+	
+	<input type="button" id="test"  value="Export Survey Summary Data"/>
+	
+	<script type="text/javascript">
+		var id = "<?php echo $id; ?>";
+		var url = "location.href='/nhvbsr/model/export.php?runFunction=exportSingleSurvey&summaryID="+id+"';"
+  
+        document.getElementById("test").setAttribute("onclick", url);
+	</script>
 
 <div style="white-space: nowrap;"><h5>
         Date (YYYY-M-D):<input type='date' name='summary[summaryDate]'
