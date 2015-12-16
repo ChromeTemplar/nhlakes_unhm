@@ -32,7 +32,7 @@ echo $model->dropDownto();
     }
 </script>
 
-<button class="button" title="Select" onClick="doThis()">Select Group</button>
+<button title="Select" onClick="doThis()">Select Group</button>
 <?php echo $this->buttonTo("group", "newgroup", "New Group"); ?><br/><br/>
 
 Return <?php echo $this->linkTo("home", "index", "Home"); ?>
