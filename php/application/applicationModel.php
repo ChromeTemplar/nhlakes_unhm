@@ -59,7 +59,9 @@ class Model
         if (empty($table))
             $table = $this->table;
 
-        if(!empty($where)) {
+        if(is_numeric($where)) {
+            $sql = "Select $cols FROM $table WHERE ID = $where";
+        } else if(!empty($where)) {
             //this is a hack, fixing this the right way would require a large redesign
             $sql = "Select $cols FROM $table WHERE coordinatorID = ";
 

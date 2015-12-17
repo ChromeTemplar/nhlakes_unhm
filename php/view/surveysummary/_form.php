@@ -51,17 +51,10 @@ if (isset($summary)) {
 
             <?php
 
-            if ($_SESSION['roleID'] == 1 || $_SESSION['roleID'] == 2) {
-                echo $this->selectList($lakeHostNames,
-                    array("name" => "summary[lakeHostName]", "id" => "lakeHostName", "class" => "medium selectmenu"),
-                    $lakeHostName);
-            } else {
-            	?>
-            	<input type='text' name='summary[lakeHostName]' id='lakeHostName' value='
-                <?php echo($_SESSION['userName']);?>
-                ' disabled>
-            	<?php if (isset($summary)) echo "value='" . $summary['lakeHostName'] . "'"; 
-            }?>
+            echo $this->selectList($lakeHostNames,
+                array("name" => "summary[lakeHostName]", "id" => "lakeHostName", "class" => "medium selectmenu"),
+                $lakeHostName);
+            ?>
         </h5></div>
 
     <div style="white-space: nowrap;"><h5>
@@ -318,23 +311,23 @@ if (isset($summary)) {
     </table>
 
     <strong>Sent to DES?</strong>
-    <table  border="0" cellpadding="1" cellspacing="1">
-    	<tr>
-    		<td>Yes</td>
-    		<td>No</td>
-    	</tr>
-    	<tr>
-    		<td>
-    			<input type='number' name='summary[sentDesYes]' min='0'
-    <?php if (isset($summary)) echo "value='".$summary['sentDesYes']."'"; ?>
-    />
-    		</td>
-    		<td>
-    			<input type='number' name='summary[sentDesNo]' min='0'
-    <?php if (isset($summary)) echo "value='".$summary['sentDesNo']."'"; ?>
-    />
-    		</td>
-    	</tr>
+    <table border="0" cellpadding="1" cellspacing="1">
+        <tr>
+            <td>Yes</td>
+            <td>No</td>
+        </tr>
+        <tr>
+            <td>
+                <input type='number' name='summary[sentDesYes]' min='0'
+                    <?php if (isset($summary)) echo "value='" . $summary['sentDesYes'] . "'"; ?>
+                    />
+            </td>
+            <td>
+                <input type='number' name='summary[sentDesNo]' min='0'
+                    <?php if (isset($summary)) echo "value='" . $summary['sentDesNo'] . "'"; ?>
+                    />
+            </td>
+        </tr>
     </table>
 
 

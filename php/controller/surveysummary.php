@@ -100,6 +100,8 @@ class SurveySummaryController extends Controller
         if($_SESSION['roleID'] == 2) {
             //We need to filter a group coordinator's list of users based on group
             $this->model->users = $this->model->all('User', '*', $_SESSION['coordinatorID']);
+        } else if($_SESSION['roleID'] == 3) {
+            $this->model->users = $this->model->all('User', '*', $_SESSION['ID']);
         } else {
             $this->model->users = $this->model->all('User');
         }

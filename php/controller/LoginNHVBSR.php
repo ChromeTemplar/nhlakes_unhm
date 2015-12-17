@@ -47,6 +47,7 @@ class LoginNHVBSRController extends Controller
 
             $row = $personResult[0];
 
+            $id = isset($row['ID']) ? ($row['ID']) : '';
             $firstName = isset($row['firstName']) ? ($row['firstName']) : '';
             $lastName = isset($row['lastName']) ? ($row['lastName']) : '';
             $roleId = isset($row['roleID']) ? ($row['roleID']) : '';
@@ -68,6 +69,7 @@ class LoginNHVBSRController extends Controller
                 $sessionKey = $userId . $timeStampKey;
                 $loginNHVBSRdb->setSessionDetail(session_id(), $sessionKey, "A");
                 $_SESSION ['IDKey'] = $sessionKey;
+                $_SESSION['ID'] = (int)$id;
                 $_SESSION['firstName'] = $firstName;
                 $_SESSION['lastName'] = $lastName;
                 $_SESSION['userName'] = $userId;
