@@ -31,7 +31,7 @@ if (isset($summary)) {
     <div style="white-space: nowrap;">
         <hr>
         <h5>
-            Date (YYYY-M-D):
+            Date:
             <input type='date' name='summary[summaryDate]'
                 <?php
                 $date = new DateTime();
@@ -75,7 +75,7 @@ if (isset($summary)) {
         </h5></div>
 
     <div style="white-space: nowrap;"><h5>
-            1<sup>st</sup>Shift Start Time (H:MM):<input type='time' name='summary[startShiftTime]' id='startTime'
+            1<sup>st</sup>Shift Start Time:<input type='time' name='summary[startShiftTime]' id='startTime'
                 <?php
                 if (isset($summary)) {
                     //remove the leading date from the string
@@ -83,7 +83,7 @@ if (isset($summary)) {
                     $time = substr($summary['startShiftTime'], $pos + 1);
                     echo "value='" . $time . "'";
                 } ?>>
-            Last Shift End Time (H:MM):<input type='time' name='summary[endShiftTime]' id='endTime'
+            Last Shift End Time:<input type='time' name='summary[endShiftTime]' id='endTime'
                 <?php
                 if (isset($summary)) {
                     //remove the leading date from the string
