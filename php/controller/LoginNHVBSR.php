@@ -72,6 +72,7 @@ class LoginNHVBSRController extends Controller
                 $_SESSION['lastName'] = $lastName;
                 $_SESSION['userName'] = $userId;
                 $_SESSION['roleID'] = $roleId;
+                $_SESSION['coordinatorID'] = $coordinatorID;
 
                 //Before showing the user the main page, log the successful login event
                 //appendLogEntry($timeStampKey . " > " . "User: " . $userId . " Logged in Successfully.");

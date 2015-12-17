@@ -50,16 +50,28 @@ class Model
      *
      * @param String $table : table name to select from, by default it grabs the name of the model
      * @param String $cols : Column names to select
+     * @param String $where : where filter on group coordinator ids
      **/
-    function all($table = '', $cols = '*')
+    function all($table = '', $cols = '*', $where = '')
     {
         $mysqli = $this->conn;
 
         if (empty($table))
             $table = $this->table;
 
+        if(!empty($where)) {
+            //this is a hack, fixing this the right way would require a large redesign
+            $sql = "Select $cols FROM $table WHERE coordinatorID = ";
+
+            $coordinatorIds = explode(',', $where);
+            $sql .= implode(' OR coordinatorID = ', $coordinatorIds);
+
+        } else {
+            $sql = "Select $cols FROM $table";
+        }
+
         /* Prepared statement, stage 1: prepare */
-        if (!($stmt = $mysqli->prepare("Select $cols FROM $table"))) {
+        if (!($stmt = $mysqli->prepare($sql))) {
             echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
         }
 

@@ -97,7 +97,12 @@ class SurveySummaryController extends Controller
 
     private function getUsers()
     {
-        $this->model->users = $this->model->all('User');
+        if($_SESSION['roleID'] == 2) {
+            //We need to filter a group coordinator's list of users based on group
+            $this->model->users = $this->model->all('User', '*', $_SESSION['coordinatorID']);
+        } else {
+            $this->model->users = $this->model->all('User');
+        }
         $userNames = array();
         for ($i = 0; $i < count($this->model->users); ++$i) {
             $user = $this->model->users[$i];
