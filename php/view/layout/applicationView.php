@@ -49,7 +49,7 @@
     </div>
 
     <div id="navigation">
-        <img src="assets/images/banner.png" height="90%" width="100%">
+        <img src="assets/images/banner.png" height="75%" width="100%">
         <?php require_once 'view/partials/_navigation.php'; ?>
     </div>
 
