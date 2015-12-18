@@ -27,11 +27,12 @@ if (isset($summary)) {
     <div style="white-space: nowrap;"><h2><b>
                 <?php echo "NH LAKES 2015 Lake Host Daily Summary Sheet"; ?>
         </h2></b></div>
+        * Denotes a required fielf
 
     <div style="white-space: nowrap;">
         <hr>
         <h5>
-            Date:
+            Date*:
             <input type='date' name='summary[summaryDate]'
                 <?php
                 $date = new DateTime();
@@ -47,7 +48,7 @@ if (isset($summary)) {
             <!-- Update 8 DEC 2015, the above FIXME should now be functioning properly. Leaving these comments in the code to
             help future developers -->
 
-            Lake Host Name:
+            Lake Host Name*:
 
             <?php
 
@@ -58,7 +59,7 @@ if (isset($summary)) {
         </h5></div>
 
     <div style="white-space: nowrap;"><h5>
-            Is this a summary for an entire work day or a single shift?
+            Is this a summary for an entire work day or a single shift?*
             <input
                 onclick="document.getElementById('startTime').disabled = true; document.getElementById('endTime').disabled = true;"
                 type='radio' name='fullDay' id='fullDayYes' value='yes'>Full day
@@ -68,7 +69,7 @@ if (isset($summary)) {
         </h5></div>
 
     <div style="white-space: nowrap;"><h5>
-            1<sup>st</sup>Shift Start Time:<input type='time' name='summary[startShiftTime]' id='startTime'
+            1<sup>st</sup>Shift Start Time*:<input type='time' name='summary[startShiftTime]' id='startTime'
                 <?php
                 if (isset($summary)) {
                     //remove the leading date from the string
@@ -76,7 +77,7 @@ if (isset($summary)) {
                     $time = substr($summary['startShiftTime'], $pos + 1);
                     echo "value='" . $time . "'";
                 } ?>>
-            Last Shift End Time:<input type='time' name='summary[endShiftTime]' id='endTime'
+            Last Shift End Time*:<input type='time' name='summary[endShiftTime]' id='endTime'
                 <?php
                 if (isset($summary)) {
                     //remove the leading date from the string
@@ -88,24 +89,24 @@ if (isset($summary)) {
         </h5></div>
 
     <div style="white-space: nowrap;"><h5>
-            Local Group Name: <?php echo $this->selectList($localGroups,
+            Local Group Name*: <?php echo $this->selectList($localGroups,
                 array("name" => "summary[localGroup]", "id" => "localGroup", "class" => "medium selectmenu"), $localGroup); ?>
             <!-- waterbody is not stored in the summary database table, it is intended to help filter the boat ramp selection -->
-            Waterbody: <?php echo $this->selectList($waterbodies,
+            Waterbody*: <?php echo $this->selectList($waterbodies,
                 array("name" => "summary[waterbody]", "id" => "waterbody", "class" => "medium selectmenu"), $waterbody); ?>
             <!-- town is not stored in the database summary table, it is intended to help filter the boat ramp selection -->
     </div>
     </h5>
     <div style="white-space: nowrap;"><h5>
-            Town: <?php echo $this->selectList($towns,
+            Town*: <?php echo $this->selectList($towns,
                 array("name" => "summary[town]", "id" => "town", "class" => "medium selectmenu"), $town); ?>
-            Ramp Name: <?php echo $this->selectList($rampNames, array("name" => "summary[boatRampName]",
+            Ramp Name*: <?php echo $this->selectList($rampNames, array("name" => "summary[boatRampName]",
                 "id" => "ramp", "class" => "medium selectmenu"), $rampName); ?>
         </h5></div>
 
     <!-- THIS IS THE START OF THE TABLE CONTAINING THE SURVEY SUMMARY TOTALS DATA-->
 
-    Number Inspected
+    Number Inspected*
     <input type='number' name='summary[totalInspections]'
         <?php if (isset($summary)) echo "value='" . $summary['totalInspections'] . "'"; ?> />
     <br></br>
