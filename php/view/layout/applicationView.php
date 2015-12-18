@@ -40,12 +40,12 @@
 <div id="container">
     <div id="header">
         <br/>
-        <a href="http://nhlakes.org/"><img src="assets/images/nh_lakes_logo.png" height="70%" width="10%" style="float:right;"> </a>
+        <a href="http://nhlakes.org/"><img src="assets/images/nh_lakes_logo.png" height="50%" width="15%" style="float:right;"> </a>
         <img src="assets/images/UNHLogo.png" height="75%" width="10%" style="float:left;">
 
-        <h2>New Hampshire Lakes</h2>
+        <h2 text-align="center">New Hampshire Lakes</h2>
 
-        <h1>Survey System</h1>
+        <h1 text-align="center">Survey System</h1>
     </div>
 
     <div id="navigation">
