@@ -40,17 +40,37 @@
 <div id="container">
     <div id="header">
         <br/>
-        <a href="http://nhlakes.org/"><img src="assets/images/nh_lakes_logo.png" height="50%" width="15%" style="float:right;"> </a>
-        <img src="assets/images/UNHLogo.png" height="75%" width="10%" style="float:left;">
+		<div align="center">
+        <table class="BannerTableCenter">
+		<tr>
+			<td Class="BannerTableLeft">
+				<img src="assets/images/UNHLogo.png" height="100px" width="150px">
 
-        <h2 text-align="center">New Hampshire Lakes</h2>
+			</td>
+			<td class="BannerTableCenter">
 
-        <h1 text-align="center">Survey System</h1>
+				<h2 align="center">New Hampshire Lakes</h2>
+				<h1 align="center">Survey System</h1>
+
+			</td>
+			<td class="BannerTableRight">
+				<a href="http://nhlakes.org/"><img src="assets/images/nh_lakes_logo.png" height="100px" width="150px"> </a>
+
+			</td>
+		</tr>
+		</table>
+		</div>
     </div>
 
     <div id="navigation">
-        <img src="assets/images/banner.png" height="75%" width="100%">
+	<table>
+	<tr>
+        <img src="assets/images/banner.png" height="90%" width="100%">
+	</tr>
+	<tr>
         <?php require_once 'view/partials/_navigation.php'; ?>
+	</tr>
+	</table?	
     </div>
 
     <!-- <div id="content-container"> -->
