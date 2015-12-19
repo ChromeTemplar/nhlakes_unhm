@@ -1,0 +1,6 @@
+EOA or Ease of Access Files
+
+Are intended to generate a high contrast and increased text mode.
+
+They can be found under Assets > Css > PrimaryStyleEOA
+and View>Layout>ApplicationViewEOA

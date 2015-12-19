@@ -72,28 +72,6 @@ class template
      */
 
 
-    /*
-     * STOP | STOP | STOP | STOP | STOP | STOP | STOP | STOP | STOP | STOP | STOP | STOP | STOP | STOP |
-     *
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * Please read the comment below, starting at Yay.
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * STOP | STOP | STOP | STOP | STOP | STOP | STOP | STOP | STOP | STOP | STOP | STOP | STOP | STOP |
-     * 
-     * 
-     * 
-     */
     public function show($dir, $name)
     {
         global $path;
@@ -109,14 +87,9 @@ class template
         foreach ($this->vars as $key => $value) {
             $$key = $value;
         }
-        //   echo "<br><br><br><br>This text is coming from PHP>Application>Template.php -- Find it for further instructions";
-        /* 
-         * YAY!!!!!!!!! You found it - Okay, you see below where it says Include $Path, that is the actual forms and tables and everything.
-         * That file needs to be called into View>Layout>ApplicationView.php
-         * Once you've completed that - remove the echo from above, and everything should be peachy.
-         */
+ 
         include 'view/layout/applicationView.php';
-        include_once $path; // <<<<<<<<<< THAT GUY RIGHT THERE
+        include_once $path; 
         //include 'view/partials/_footer.php';
     }
 

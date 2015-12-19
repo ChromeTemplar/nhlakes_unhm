@@ -1,7 +1,7 @@
 
 <html>
 <body>
-<div id="nav">
+<div>
 
 			<table align="center">
 				  <!--<td class="button"><?php /*echo "EOA ON" */?></td> <!-- SHOULD POINT HERE --> <!--a href="view/layout/applicationViewEOA.php"-->
